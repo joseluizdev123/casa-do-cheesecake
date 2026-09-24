@@ -213,3 +213,27 @@
     padding-inline: 12px;
   }
 }
+
+/* ==========================================================================
+   Motion (ver MOTION.md · coreografia em assets/js/sections/11-cta-final.js)
+   ========================================================================== */
+/* A fatia cai de cima da seção conforme a rolagem: a seção recorta o que
+   está acima da borda (overflow: clip não cria rolagem nem muda o layout). */
+.cta-final { overflow: clip; }
+
+@media (prefers-reduced-motion: no-preference) {
+  /* Selo: o anel de texto gira sem parar (horário); o ícone do centro fica parado */
+  .cta-final__selo { --reveal-rotate: -28deg; }
+  .cta-final__selo img {
+    animation: cdc-spin 22s linear infinite;
+    -webkit-mask: radial-gradient(circle closest-side, transparent 0 56%, #000 57%);
+            mask: radial-gradient(circle closest-side, transparent 0 56%, #000 57%);
+  }
+  .cta-final__selo::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: url("../../images/11-cta-final-selo-icone.svg") center / 100% 100% no-repeat;
+    pointer-events: none;
+  }
+}

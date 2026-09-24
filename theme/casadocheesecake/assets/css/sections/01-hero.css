@@ -162,13 +162,15 @@
   color: var(--color-white);
 }
 
-/* ---- Container 7057:157: pt 32 · pb 80 · px 112, space-between ---------- */
+/* ---- Container 7057:157: pt 32 · pb 80 · px 112, space-between ----------
+   pt 48 (Figma: 32) — pedido do cliente: mais respiro entre a foto e os
+   botões/texto. Tablet/mobile mantêm os próprios valores abaixo. */
 .hero__footer {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 24px;                           /* só atua abaixo de 1440 (no Figma sobram 67px) */
-  padding-top: 32px;
+  padding-top: 48px;
   padding-bottom: var(--section-py);
 }
 
@@ -199,6 +201,12 @@
    desktop; no tablet/mobile a foto inteira (caixa, frutas, fatia, calda)
    aparece com object-fit: cover, sem sobreposição.
    ========================================================================== */
+/* Título acompanha a largura útil na proporção do Figma (89px para 1216px):
+   "O autêntico New York Cheesecake," / "entregue em São Paulo" sempre em 2
+   linhas, sem "São Paulo" sozinho — 89px em 1440, menor em 1200–1439 */
+@media (max-width: 1439.98px) {
+  .hero__title { font-size: min(89px, calc((100vw - 2 * var(--section-px)) * 89 / 1216)); }
+}
 @media (max-width: 1199.98px) {
   .hero__title { font-size: clamp(var(--fs-t-h1), 6.1806vw, 89px); }  /* 89px em 1440 */
   .hero__text { font-size: clamp(var(--fs-t-lead), 1.389vw, 20px); }
@@ -311,4 +319,23 @@
     padding: 24px var(--section-px) 28px;
   }
   .hero__info-text { font-size: var(--fs-m-label); }
+}
+
+/* ==========================================================================
+   Motion (ver MOTION.md · coreografia em assets/js/sections/01-hero.js)
+   Só estados de ENTRADA e pontos de origem — nenhuma regra de layout acima
+   muda; sem animação (reduced motion / sem JS) nada disto tem efeito.
+   ========================================================================== */
+@media (prefers-reduced-motion: no-preference) {
+  /* Louros "abraçam" o selo: giram a partir do talo (base, lado de dentro) */
+  .js-motion .hero__laurel--left  { transform-origin: 85% 100%; }
+  .js-motion .hero__laurel--right { transform-origin: 15% 100%; }
+  .js-motion .hero__laurel[data-reveal]:not(.is-revealed) { scale: .8; }
+  .js-motion .hero__laurel--left[data-reveal]:not(.is-revealed)  { rotate: -28deg; }
+  .js-motion .hero__laurel--right[data-reveal]:not(.is-revealed) { rotate: 28deg; }
+}
+@media (prefers-reduced-motion: no-preference) and (min-width: 1024px) {
+  /* Zoom de entrada da foto "respira" a partir do ponto em que a fatia
+     recortada encontra a borda da moldura: a emenda foto × recorte não abre */
+  .js-motion .hero__bg-img { transform-origin: 52% 46.4%; }
 }

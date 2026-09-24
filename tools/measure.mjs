@@ -65,6 +65,8 @@ function figmaBoxes(xmlText) {
 const browser = await puppeteer.launch({ executablePath: CHROME, headless: true, args: ['--hide-scrollbars', '--force-device-scale-factor=1'] });
 try {
   const page = await browser.newPage();
+  // estado final do layout: sem animações de entrada (MOTION=1 para ver com animação)
+  if (!process.env.MOTION) await page.emulateMediaFeatures([{ name: 'prefers-reduced-motion', value: 'reduce' }]);
   await page.setViewport({ width, height, deviceScaleFactor: 1 });
   const errors = [];
   page.on('pageerror', e => errors.push(String(e)));

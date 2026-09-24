@@ -44,12 +44,21 @@ add_action( 'wp_enqueue_scripts', function () {
 	// Hover/toque unificados (desktop = tablet = mobile), sempre depois das seções.
 	wp_enqueue_style( 'cdc-interactions', CDC_URI . '/assets/css/interactions.css', array( 'cdc-components' ), cdc_asset_version( 'css/interactions.css' ) );
 
+	// Motion: entradas e movimento ambiente (MOTION.md). motion.js antes das seções.
+	wp_enqueue_style( 'cdc-motion', CDC_URI . '/assets/css/motion.css', array( 'cdc-interactions' ), cdc_asset_version( 'css/motion.css' ) );
+
 	wp_enqueue_script( 'cdc-main', CDC_URI . '/assets/js/main.js', array(), cdc_asset_version( 'js/main.js' ), array( 'strategy' => 'defer', 'in_footer' => true ) );
+	wp_enqueue_script( 'cdc-motion', CDC_URI . '/assets/js/motion.js', array( 'cdc-main' ), cdc_asset_version( 'js/motion.js' ), array( 'strategy' => 'defer', 'in_footer' => true ) );
 	foreach ( cdc_sorted_glob( CDC_DIR . '/assets/js/sections/*.js' ) as $file ) {
 		$slug = basename( $file, '.js' );
-		wp_enqueue_script( "cdc-section-$slug", CDC_URI . "/assets/js/sections/$slug.js", array(), cdc_asset_version( "js/sections/$slug.js" ), array( 'strategy' => 'defer', 'in_footer' => true ) );
+		wp_enqueue_script( "cdc-section-$slug", CDC_URI . "/assets/js/sections/$slug.js", array( 'cdc-motion' ), cdc_asset_version( "js/sections/$slug.js" ), array( 'strategy' => 'defer', 'in_footer' => true ) );
 	}
 } );
+
+// Motion: marca o <html> antes do 1º paint (ver assets/css/motion.css).
+add_action( 'wp_head', function () {
+	echo "<script>document.documentElement.classList.add('js-motion','motion-pending');window.__cdcMotionSafety=setTimeout(function(){document.documentElement.classList.remove('js-motion','motion-pending')},4000);</script>\n"; // phpcs:ignore WordPress.Security.EscapeOutput
+}, 0 );
 
 // Preload das fontes self-hosted (mesmo comportamento do index.html estático).
 add_action( 'wp_head', function () {

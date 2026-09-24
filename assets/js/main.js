@@ -16,6 +16,49 @@
     update();
   }
 
+  // Menu acompanha a rolagem: o link da seção que está no meio da tela fica
+  // ativo (mesmo estilo do hover do Figma), no header e no menu mobile.
+  (function () {
+    if (!('IntersectionObserver' in window)) return;
+    var links = Array.prototype.slice.call(document.querySelectorAll('.site-header a[href*="#"]'))
+      .filter(function (a) { return !a.classList.contains('site-logo'); });
+    var byId = {};
+    links.forEach(function (a) {
+      var id = a.getAttribute('href').split('#')[1];
+      if (!id || id === 'topo') return;
+      var target = document.getElementById(id);
+      if (!target) return;
+      (byId[id] = byId[id] || { el: target, links: [] }).links.push(a);
+    });
+    var ids = Object.keys(byId);
+    if (!ids.length) return;
+    var current = null;
+    var setActive = function (id) {
+      if (id === current) return;
+      current = id;
+      links.forEach(function (a) { a.classList.remove('is-active'); a.removeAttribute('aria-current'); });
+      if (id && byId[id]) byId[id].links.forEach(function (a) { a.classList.add('is-active'); a.setAttribute('aria-current', 'location'); });
+    };
+    var visible = {};
+    // seção mais abaixo na página entre as rastreadas (ex.: o footer "Contato")
+    var lastId = ids.slice().sort(function (a, b) {
+      return byId[a].el.getBoundingClientRect().top - byId[b].el.getBoundingClientRect().top;
+    }).pop();
+    var recompute = function () {
+      var atEnd = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2;
+      if (atEnd) { setActive(lastId); return; }
+      var hit = null;
+      ids.forEach(function (id) { if (visible[id]) hit = id; });
+      setActive(hit);
+    };
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) { visible[e.target.id] = e.isIntersecting; });
+      recompute();
+    }, { rootMargin: '-45% 0px -50% 0px' });
+    ids.forEach(function (id) { io.observe(byId[id].el); });
+    window.addEventListener('scroll', function () { if (current === lastId || window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2) recompute(); }, { passive: true });
+  })();
+
   // Viúvas (pedido do cliente): une as duas últimas palavras de cada texto
   // corrido com espaço não separável — a última linha nunca fica com 1 palavra,
   // em qualquer largura e navegador (o text-wrap: pretty do CSS sozinho não garante).

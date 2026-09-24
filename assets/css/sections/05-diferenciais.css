@@ -311,3 +311,29 @@
     object-position: 50% 58%;                /* mantém o assunto (tigela / fatia / calda) */
   }
 }
+
+
+/* ==========================================================================
+   Motion (ver MOTION.md · coreografia em assets/js/sections/05-diferenciais.js)
+   - Tag "na quantidade certa": entra com "pop" a partir do canto do ícone,
+     com um leve overshoot (só enquanto [data-reveal] existe).
+   - Hover (mouse): zoom suave na foto do card. Sem mudança de layout; em
+     telas de toque e com reduced-motion nada acontece.
+   ========================================================================== */
+@media (prefers-reduced-motion: no-preference) {
+  .js-motion .diferenciais__tag[data-reveal] {
+    --reveal-ease: cubic-bezier(.34, 1.4, .64, 1);
+    --reveal-rotate: -6deg;
+    transform-origin: 16px 50%;
+  }
+}
+
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .diferenciais__img {
+    transition: scale 600ms var(--motion-ease);
+  }
+
+  .diferenciais__card:hover .diferenciais__img {
+    scale: 1.05;
+  }
+}

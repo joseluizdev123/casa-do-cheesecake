@@ -313,3 +313,24 @@
 
   .primeira-fatia__content .btn { margin-top: var(--gap-m-md); } /* 8 + 16 = 24 */
 }
+
+
+/* ---------- Motion (ver MOTION.md e assets/js/sections/02-primeira-fatia.js) ----------
+   Ponto de partida das fatias na entrada "pop": cada uma sobe de um lado,
+   girando para lados opostos, e assenta pela base. Só vale enquanto
+   [data-reveal] existe — o estado final continua o layout acima. */
+@media (prefers-reduced-motion: no-preference) {
+  .js-motion .primeira-fatia__img[data-reveal] { transform-origin: 50% 80%; }
+
+  .js-motion .primeira-fatia__img--background[data-reveal="pop"]:not(.is-revealed) {
+    translate: calc(-1.25 * var(--motion-distance)) calc(2.25 * var(--motion-distance));   /* 40 × 72 · 25 × 45 mobile */
+    scale: .72;
+    rotate: -14deg;
+  }
+
+  .js-motion .primeira-fatia__img--foreground[data-reveal="pop"]:not(.is-revealed) {
+    translate: calc(1.25 * var(--motion-distance)) calc(2 * var(--motion-distance));       /* 40 × 64 · 25 × 40 mobile */
+    scale: .72;
+    rotate: 16deg;
+  }
+}

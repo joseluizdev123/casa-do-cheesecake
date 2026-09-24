@@ -8,6 +8,8 @@ const b = await puppeteer.launch({ executablePath: CHROME, headless: true });
 let total = 0;
 for (const w of widths) {
   const p = await b.newPage();
+  // estado final do layout: sem animações de entrada (MOTION=1 para ver com animação)
+  if (!process.env.MOTION) await p.emulateMediaFeatures([{ name: 'prefers-reduced-motion', value: 'reduce' }]);
   await p.setViewport({ width: w, height: 900, deviceScaleFactor: 1 });
   await p.goto(`http://localhost:${process.env.PORT || 5500}/`, { waitUntil: 'networkidle0' });
   const found = await p.evaluate(async () => {

@@ -340,3 +340,102 @@
 @media (max-width: 767.98px) and (prefers-reduced-motion: reduce) {
   .sabores__abas > .sabores__aba { transition: none; }
 }
+
+
+/* ==========================================================================
+   Motion (ver MOTION.md · coreografia em assets/js/sections/04-sabores.js)
+   Nada aqui muda layout: só cor, opacity, translate/scale/rotate e origens
+   de transformação; as classes .is-* só existem durante a troca de sabor.
+   ========================================================================== */
+@media (prefers-reduced-motion: no-preference) {
+  /* Troca de sabor: fundo e texto passam de uma cor à outra em 500ms */
+  .sabores {
+    transition:
+      background-color 500ms var(--motion-ease-inout),
+      color 500ms var(--motion-ease-inout);
+  }
+
+  /* Fatia: float sutil no wrapper (cdcMotion.ambient), proporcional ao tamanho */
+  .sabores__fatia { --float-amp: 6px; --float-dur: 6s; }
+
+  /* Louros abrem como coroa: giram a partir do cabo (entrada pop) */
+  .js-motion .sabores__decoracao--esq { transform-origin: 100% 100%; }
+  .js-motion .sabores__decoracao--dir { transform-origin: 0 100%; }
+
+  /* ---------- Troca de fatia: crossfade + escala + giro ----------
+     A anterior continua desenhada, fora do fluxo e por baixo, enquanto some;
+     a nova entra por cima girando no sentido da navegação (--sabores-dir). */
+  .js-motion .sabores__painel.is-leaving {
+    display: block;
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    animation: sabores-fatia-sai 420ms cubic-bezier(.5, 0, .75, 0) both;
+  }
+  .js-motion .sabores__painel.is-entering {
+    position: relative;
+    z-index: 1;
+    animation: sabores-fatia-entra 850ms var(--motion-ease) both;
+  }
+
+  /* Abas e louros acompanham a cor do fundo durante a troca */
+  .js-motion .sabores.is-trocando .sabores__aba {
+    transition:
+      color 500ms var(--motion-ease-inout),
+      background-color 500ms var(--motion-ease-inout),
+      border-color 500ms var(--motion-ease-inout);
+  }
+  .js-motion .sabores.is-trocando-tema .sabores__decoracao-img {
+    display: block;
+    animation: sabores-louro-entra 500ms var(--motion-ease-inout) both;
+  }
+  .js-motion .sabores.is-trocando-tema:not(.sabores--claro) .sabores__decoracao-img--claro,
+  .js-motion .sabores.is-trocando-tema.sabores--claro .sabores__decoracao-img--escuro {
+    animation-name: sabores-louro-sai;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) and (max-width: 1199.98px) {
+  .sabores__fatia { --float-amp: 5px; }
+}
+@media (prefers-reduced-motion: no-preference) and (max-width: 767.98px) {
+  .sabores__fatia { --float-amp: 3px; }
+}
+
+@keyframes sabores-fatia-sai {
+  to { opacity: 0; scale: .82; rotate: calc(var(--sabores-dir, 1) * 10deg); }
+}
+@keyframes sabores-fatia-entra {
+  from { opacity: 0; scale: .78; rotate: calc(var(--sabores-dir, 1) * -12deg); }
+}
+@keyframes sabores-louro-entra { from { opacity: 0; } }
+@keyframes sabores-louro-sai { to { opacity: 0; } }
+
+/* A fatia cai de cima da seção conforme a rolagem (04-sabores.js): a seção
+   recorta o que está acima da borda (overflow: clip não cria rolagem nem muda o layout). */
+.sabores { overflow: clip; }
+
+/* Mobile: grids em uma coluna ou carrossel (Willy) — as abas viram uma faixa
+   que rola na horizontal (arraste), em vez da grade 2 × 2 */
+@media (max-width: 767.98px) {
+  .sabores .sabores__abas {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 8px;
+    align-self: stretch;
+    width: auto;
+    margin-inline: calc(-1 * var(--section-px));
+    padding-inline: var(--section-px);
+    overflow-x: auto;
+    scroll-snap-type: x proximity;
+    scroll-padding-inline: var(--section-px);
+    scrollbar-width: none;
+  }
+  .sabores .sabores__abas::-webkit-scrollbar { display: none; }
+  .sabores .sabores__abas > .sabores__aba {
+    flex: 0 0 auto;
+    white-space: nowrap;
+    scroll-snap-align: start;
+    padding-inline: 18px;
+  }
+}

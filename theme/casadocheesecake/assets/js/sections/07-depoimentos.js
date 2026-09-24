@@ -167,3 +167,102 @@
     build();
   });
 })();
+
+/* 07 — Depoimentos: coreografia de entrada (ver MOTION.md).
+ * Estado final = layout atual; só opacity/translate/scale/rotate/clip-path.
+ *  Header (dispara pelo header):
+ *   título mask 950ms (0) → ★ do selo pop em cascata (180ms + 70ms/estrela)
+ *   → "+354" sobe e conta (240ms, 1100ms) → rótulo do selo sobe (340ms).
+ *  Carrossel (dispara pelo 1º card visível):
+ *   só os cards VISÍVEIS no trilho sobem em cascata (200ms + 100ms/card;
+ *   12px = a folga de hover do trilho, então nada é cortado pelo overflow
+ *   durante a subida); cards fora da tela do carrossel não são escondidos.
+ *   Setas/dots: fade. ≥1024 as setas ficam ao lado dos cards e entram com
+ *   eles; ≤1023 setas + dots formam a linha de controles abaixo do card e
+ *   entram quando ela aparece.
+ *  As ★ do selo são um texto só ("★★★★★"): durante a entrada cada ★ vira um
+ *  span (inline-block, mesmo avanço do glifo) e no fim o texto original volta. */
+(function () {
+  'use strict';
+  if (!window.cdcMotion || window.cdcMotion.reduced) return;
+  var M = window.cdcMotion;
+
+  Array.prototype.forEach.call(document.querySelectorAll('.depoimentos'), function (section) {
+    var header = section.querySelector('.depoimentos__header');
+    var track = section.querySelector('[data-carousel-track]');
+
+    // ---------- Header: título + selo de avaliação ----------
+    if (header) {
+      M.reveal(section.querySelector('.depoimentos__title'), { variant: 'mask', duration: 950, trigger: header });
+
+      var stars = section.querySelector('.depoimentos__rating-stars');
+      var text = stars && stars.childNodes.length === 1 && stars.firstChild.nodeType === 3 ? stars.firstChild : null;
+      var chars = text ? Array.from(text.nodeValue) : [];
+      if (chars.length > 1 && chars.length <= 6 && !/\s/.test(text.nodeValue)) {
+        var spans = chars.map(function (c) {
+          var s = document.createElement('span');
+          s.className = 'depoimentos__rating-star';
+          s.textContent = c;
+          s.style.setProperty('--reveal-rotate', '-24deg');
+          s.style.setProperty('--reveal-ease', 'cubic-bezier(.34, 1.56, .64, 1)');   // leve "estalo" no fim
+          return s;
+        });
+        stars.textContent = '';
+        spans.forEach(function (s) { stars.appendChild(s); });
+        var done = 0;
+        M.reveal(spans, {
+          variant: 'pop', scale: 0.3, duration: 520, delay: 180, stagger: 70, trigger: header,
+          onReveal: function () {
+            if (++done < spans.length) return;
+            stars.textContent = '';
+            stars.appendChild(text);                          // texto original de volta
+          },
+        });
+      } else if (stars) {
+        M.reveal(stars, { variant: 'pop', duration: 600, delay: 180, trigger: header });
+      }
+
+      var count = section.querySelector('.depoimentos__rating-count');
+      if (count) {
+        M.reveal(count, { variant: 'up', distance: 10, duration: 600, delay: 240, trigger: header });
+        // mede o número já na Anton (a largura reservada pelo contador tem de ser a final)
+        var startCounter = function () {
+          M.counter(count, { duration: 1100, delay: 260, trigger: header, threshold: 0.15 });
+          var n = count.querySelector('.motion-count');
+          if (n) n.style.width = n.style.minWidth;             // dígitos intermediários mais largos não empurram as ★
+        };
+        var font = window.getComputedStyle(count).fontFamily;
+        if (document.fonts && document.fonts.load) {
+          document.fonts.load('20px ' + font, count.textContent).then(startCounter, startCounter);
+        } else {
+          startCounter();
+        }
+      }
+
+      M.reveal(section.querySelector('.depoimentos__badge-label'), { variant: 'up', distance: 12, duration: 700, delay: 340, trigger: header });
+    }
+
+    // ---------- Carrossel: cards visíveis + controles ----------
+    if (!track) return;
+    var box = track.getBoundingClientRect();
+    var visible = Array.prototype.filter.call(track.children, function (card) {
+      var r = card.getBoundingClientRect();
+      return r.width > 0 && r.left < box.right - 1 && r.right > box.left + 1;
+    });
+    if (!visible.length) return;
+    var first = visible[0];
+
+    M.reveal(visible, { variant: 'up', distance: 12, duration: 800, delay: 200, stagger: 100, trigger: first });
+
+    var navs = section.querySelectorAll('.depoimentos__nav');
+    var dots = section.querySelector('.depoimentos__dots');
+    var stacked = window.matchMedia('(max-width: 1023.98px)').matches;   // setas na linha dos dots
+    if (stacked && dots) {
+      M.reveal(dots, { variant: 'fade', duration: 450, delay: 60, trigger: dots });
+      M.reveal(navs, { variant: 'fade', duration: 450, delay: 120, stagger: 60, trigger: dots });
+    } else {
+      M.reveal(navs, { variant: 'fade', duration: 450, delay: 520, trigger: first });
+      if (dots) M.reveal(dots, { variant: 'fade', duration: 450, delay: 600, trigger: first });
+    }
+  });
+})();

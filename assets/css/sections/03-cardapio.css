@@ -551,3 +551,44 @@
     transition: none;
   }
 }
+
+/* ==========================================================================
+   Motion (ver MOTION.md · coreografia em assets/js/sections/03-cardapio.js)
+   O bolo é um recorte que ocupa a moldura inteira (.cardapio__photo tem
+   overflow hidden no tamanho exato do bolo): a escala vai na MOLDURA, não na
+   <img>, para o bolo nunca ser cortado. Origem na base → ele "cresce" do
+   próprio apoio na entrada e no hover. Sem escala = layout idêntico.
+   ========================================================================== */
+@media (prefers-reduced-motion: no-preference) {
+  .cardapio__photo {
+    transform-origin: 50% 100%;
+  }
+}
+
+/* Hover (só com cursor): zoom suave no bolo ao passar sobre o card */
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .cardapio__photo {
+    transition: scale 600ms var(--motion-ease, cubic-bezier(.16, 1, .3, 1));
+  }
+
+  .cardapio__card:hover .cardapio__photo {
+    scale: 1.05;
+  }
+}
+
+/* Mobile: título e descrição em cima, foto embaixo, preços por último (Willy).
+   Só a ordem visual muda (display: contents + order); HTML/PHP iguais. */
+@media (max-width: 767.98px) {
+  .cardapio__content { display: contents; }
+  .cardapio__info {
+    order: -1;
+    align-self: stretch;
+    padding: 20px var(--pad-m-card) 16px;
+  }
+  .cardapio__media { order: 0; }
+  .cardapio .cardapio__prices {                     /* vence ul[role="list"] do base.css */
+    order: 1;
+    align-self: stretch;
+    padding: 16px var(--pad-m-card) var(--pad-m-card);
+  }
+}

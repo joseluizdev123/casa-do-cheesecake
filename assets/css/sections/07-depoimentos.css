@@ -547,3 +547,31 @@ button.depoimentos__dot::before {
     white-space: normal;
   }
 }
+
+
+/* ==========================================================================
+   Motion (ver MOTION.md) — coreografia em assets/js/sections/07-depoimentos.js
+   As ★ do selo são um texto só; durante a entrada o JS embrulha cada ★ num
+   span (removido no fim). inline-block para aceitar scale/rotate — mesma
+   largura do glifo e mesma linha de 28px, então nada se mexe no layout.
+   ========================================================================== */
+@media (prefers-reduced-motion: no-preference) {
+  .depoimentos__rating-star {
+    display: inline-block;
+  }
+
+  /* contador do "+354": dígitos colados no "+" enquanto contam (+3 → +38 →
+     +354), na largura reservada do número final (motion.css alinha à direita) */
+  .depoimentos__rating-count .motion-count {
+    text-align: left;
+  }
+
+  /* O carrossel (no mesmo JS, antes da coreografia) mede o layout: quando as
+     entradas são registradas os elementos já têm estilo calculado e o estado
+     escondido entraria COM a transição do reveal (visível → some durante o
+     delay → reaparece). Escondido = instantâneo; a entrada (.is-revealed)
+     continua com a transição do motor. */
+  .js-motion .depoimentos [data-reveal]:not(.is-revealed) {
+    transition: none !important;
+  }
+}

@@ -10,6 +10,8 @@ const browser = await puppeteer.launch({ executablePath: CHROME, headless: true,
 const kill = setTimeout(() => { try { browser.process()?.kill('SIGKILL'); } catch {} process.exit(2); }, 120000);
 try {
   const page = await browser.newPage();
+  // estado final do layout: sem animações de entrada (MOTION=1 para ver com animação)
+  if (!process.env.MOTION) await page.emulateMediaFeatures([{ name: 'prefers-reduced-motion', value: 'reduce' }]);
   await page.setViewport({ width: +w, height: +h, deviceScaleFactor: 1 });
   await page.goto(url, { waitUntil: 'networkidle0', timeout: 90000 });
   await page.evaluate(async () => {

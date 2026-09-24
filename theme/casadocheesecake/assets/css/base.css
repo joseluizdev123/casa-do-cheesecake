@@ -74,3 +74,8 @@ p, li, blockquote, figcaption { text-wrap: pretty; }
   line-height: var(--lh-display);
   text-transform: uppercase;
 }
+
+/* Mobile: textos balanceados (linhas de tamanho parecido, sem palavra viúva) */
+@media (max-width: 767.98px) {
+  h1, h2, h3, h4, h5, h6, p, li, blockquote, figcaption, dt, dd { text-wrap: balance !important; }
+}

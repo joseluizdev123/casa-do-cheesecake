@@ -44,7 +44,9 @@
   /* ---- Estruturais (Fase 0.5) — extraídos do Figma deste projeto ---- */
   --frame-w: 1440px;                          /* Desktop 7057:68 width */
   --content-w: 1216px;                        /* containers internos (ex. 7057:165, 7057:176) */
-  --section-px: clamp(24px, 7.78vw, 112px);   /* padding lateral 112px @ 1440 */
+  /* margem lateral: centraliza a largura útil (1216) e nunca fica abaixo de
+     32px de segurança — 112 em 1440 (Figma), 32 em 1280 e em telas menores */
+  --section-px: max(32px, calc((100vw - var(--content-w)) / 2));
   --section-py: 80px;                         /* padding vertical padrão das seções */
   --content-gap: 80px;                        /* hero container → grid (80px entre blocos) */
 
@@ -140,7 +142,6 @@
 }
 @media (max-width: 1023.98px) {
   :root {
-    --section-px: clamp(24px, 5.56vw, 48px);   /* ref: 24 @390 · 42.7 @768 */
     --section-py: 72px;
     --content-gap: 48px;
   }

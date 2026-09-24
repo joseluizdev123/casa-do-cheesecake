@@ -40,6 +40,9 @@ a, button, [role="tab"], summary { -webkit-tap-highlight-color: transparent; }
 .mobile-nav__cta:active { border-color: var(--color-red-600); color: var(--color-red-600); }
 .site-header__toggle:active { color: var(--color-red-600); }
 
+/* Seção atual (menu acompanha a rolagem — main.js): mesmo estilo do hover */
+.mobile-nav__link.is-active { color: var(--color-red-600); text-decoration-line: underline; }
+
 /* ---------- FAQ: pergunta (Tertiary) + círculo do + / − (Primary) ---------- */
 .faq .faq__trigger { cursor: pointer; }
 .faq .faq__question { text-underline-offset: 4px; text-decoration-thickness: from-font; transition: color var(--dur) var(--ease); }

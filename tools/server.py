@@ -52,6 +52,8 @@ class Handler(SimpleHTTPRequestHandler):
                 html = html.replace("</main>", "</main>\n" + (ROOT / "src/partials/footer.html").read_text(encoding="utf-8"))
                 css = '  <link rel="stylesheet" href="assets/css/sections/footer.css">\n</head>'
                 html = html.replace("</head>", css, 1)
+                if (ROOT / "assets/js/sections/footer.js").exists():
+                    html = html.replace("</body>", '  <script src="assets/js/sections/footer.js" defer></script>\n</body>', 1)
                 return self._html(html)
             if slug == "header":
                 html = assemble.assemble(only="__none__", base="/")

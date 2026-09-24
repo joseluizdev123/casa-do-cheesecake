@@ -316,3 +316,44 @@
     line-height: 1.45;
   }
 }
+
+/* ==========================================================================
+   Motion (ver MOTION.md · coreografia em assets/js/sections/06-sobre.js)
+   Só ajustes das entradas do motor e um hover sutil; nenhuma regra de layout.
+   ========================================================================== */
+@media (prefers-reduced-motion: no-preference) {
+  /* selo (imagem única: texto + ícone) — entra girando como um carimbo */
+  .sobre__selo { --reveal-rotate: -28deg; }
+  /* retrato redondo: pop quase sem giro (rosto não "tomba") */
+  .sobre__especialista-foto { --reveal-rotate: -4deg; }
+}
+
+/* Hover (só dispositivos com cursor): a foto aproxima de leve dentro da
+   moldura e o selo gira um pouco — mesmo zoom das fotos de cards. */
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .sobre__foto,
+  .sobre__selo {
+    transition: scale 600ms var(--motion-ease), rotate 900ms var(--motion-ease);
+  }
+  .sobre__media:hover .sobre__foto { scale: 1.04; }
+  .sobre__media:hover .sobre__selo { rotate: -12deg; }
+}
+
+/* Selo "5 milhões de fatias · Yes, we have it": o anel de texto gira sem parar
+   no sentido horário (pedido do cliente); o bolinho do centro fica parado.
+   O <img> gira com o centro mascarado e uma cópia só do ícone fica por cima
+   (06-sobre-selo-icone.svg, mesmo viewBox 142×142). Estado parado = SVG original. */
+@media (prefers-reduced-motion: no-preference) {
+  .sobre__selo img {
+    animation: cdc-spin 22s linear infinite;
+    -webkit-mask: radial-gradient(circle closest-side, transparent 0 56%, #000 57%);
+            mask: radial-gradient(circle closest-side, transparent 0 56%, #000 57%);
+  }
+  .sobre__selo::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: url("../../images/06-sobre-selo-icone.svg") center / 100% 100% no-repeat;
+    pointer-events: none;
+  }
+}

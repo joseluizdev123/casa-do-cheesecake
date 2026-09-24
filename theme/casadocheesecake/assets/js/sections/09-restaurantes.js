@@ -51,3 +51,57 @@
     enter.observe(banner);
   });
 })();
+
+/* 09 — Restaurantes: coreografia de entrada (ver MOTION.md)
+ *
+ *   banner amarelo  scale .96 + fade ........ 0ms   900ms
+ *   moto            entra dirigindo (bloco acima, CSS da seção) ...... 0ms  1400ms
+ *   título          mask .................... 120ms  950ms
+ *   texto · botão   up ...................... 380ms + 100ms  750ms  (< 768: 220ms + 90ms)
+ *   selo            pop quando a moto freia . 700ms  600ms   (fim ≈ 1.3s)
+ *
+ * ≥ 768 o banner é uma faixa só: ele dispara a seção inteira (a moto dispara
+ * junto, pelo próprio observador, a 45% do banner à vista). < 768 (uma coluna,
+ * mais alta que a tela): banner + título entram juntos; texto e botão quando
+ * chegam na tela.
+ * Selo: é UMA imagem (anel de texto + ícone no mesmo SVG) → só pop, sem giro.
+ * Na chegada normal ele acompanha a moto (CSS: .has-moto-anim → .is-inview, com
+ * atraso até a frenagem; repete a cada nova chegada, como a moto). Se a página
+ * já abre com a seção à vista a moto fica parada (não é armada) — aí o pop do
+ * selo vem do motor, no mesmo tempo da coreografia.
+ * Estado final = layout atual; só opacity/translate/scale/rotate/clip-path.
+ */
+(function () {
+  'use strict';
+
+  var M = window.cdcMotion;
+  if (!M || M.reduced) return;
+
+  var mobile = window.matchMedia && window.matchMedia('(max-width: 767.98px)').matches;
+
+  Array.prototype.forEach.call(document.querySelectorAll('.restaurantes'), function (section) {
+    var banner = section.querySelector('.restaurantes__banner');
+    if (!banner) return;
+    var title = section.querySelector('.restaurantes__title');
+    var content = section.querySelectorAll('.restaurantes__content > *');
+    var selo = section.querySelector('.restaurantes__selo');
+
+    M.reveal(banner, { variant: 'scale', scale: 0.96, duration: 900 });
+
+    // mask recorta o próprio título: quem dispara é o banner (ver 08-entrega.js)
+    M.reveal(title, { variant: 'mask', duration: 950, delay: 120, trigger: banner });
+
+    M.reveal(content, {
+      variant: 'up', duration: 750, delay: mobile ? 220 : 380, stagger: mobile ? 90 : 100,
+      trigger: mobile ? null : banner, threshold: mobile ? 0.2 : null
+    });
+
+    // Seção já à vista ao carregar → a moto não é armada (bloco acima): o selo
+    // entra pelo motor. Caso contrário quem cuida dele é o CSS da seção.
+    var r = section.getBoundingClientRect();
+    var visibleAtLoad = r.bottom > 0 && r.top < (window.innerHeight || document.documentElement.clientHeight);
+    if (selo && visibleAtLoad) {
+      M.reveal(selo, { variant: 'pop', duration: 600, delay: 700, trigger: banner });
+    }
+  });
+})();

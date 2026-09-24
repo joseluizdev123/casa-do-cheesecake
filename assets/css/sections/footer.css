@@ -341,3 +341,19 @@
 @media (max-width: 359.98px) {
   .site-footer__row { column-gap: 16px; }
 }
+
+/* Mobile: grids em uma coluna (Willy) — Comprar / A marca / Contato / Social
+   um embaixo do outro, centralizados como a marca e o copyright */
+@media (max-width: 767.98px) {
+  .site-footer__row {
+    grid-template-columns: minmax(0, 1fr);
+    justify-content: stretch;
+    justify-items: center;
+    text-align: center;
+  }
+  .site-footer .site-footer__col,
+  .site-footer .site-footer__group--end .site-footer__col,
+  .site-footer .site-footer__list { align-items: center; text-align: center; }
+  .site-footer .site-footer__heading { align-self: center; text-align: center; }
+  .site-footer .site-footer__link { justify-content: center; }
+}

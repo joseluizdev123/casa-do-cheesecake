@@ -12,6 +12,7 @@
   "type": "commonjs",
   "devDependencies": {
     "fast-xml-parser": "^4.5.7",
+    "pngjs": "^7.0.0",
     "puppeteer-core": "^23.11.1"
   }
 }

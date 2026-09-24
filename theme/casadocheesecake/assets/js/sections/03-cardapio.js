@@ -163,3 +163,173 @@
     render();
   });
 })();
+
+/* ---- Entrada (cdcMotion — ver MOTION.md) -----------------------------------
+ * Cabeçalho: título sobe de dentro da máscara → texto (up, +150ms).
+ * ≥768 (grade): cards em cascata (up, 100ms) POR LINHA da grade — 4 colunas
+ *   ≥1200, 2 abaixo: cada linha dispara quando aparece. O bolo de cada card
+ *   "cresce" da própria base (scale .86 → 1, a moldura inteira, para o recorte
+ *   não ser cortado) e o selo "Mais pedido" chega logo depois do seu card.
+ * ≤767 (carrossel de 1 por vez): entra só o que está na tela — o trilho sobe
+ *   inteiro (nenhum card fica escondido fora da tela, o swipe continua livre),
+ *   o bolo do card visível cresce e depois vêm os dots (fade) e as setas (up).
+ * Quando cabeçalho e cards aparecem juntos (link "#cardapio", preview), os
+ *   cards esperam o título: a cascata começa ~250ms depois dele.
+ * "Ver cardápio completo": up quando aparece.
+ * Estado final = layout atual (só opacity/translate/scale/clip-path).
+ */
+(function () {
+  'use strict';
+
+  var M = window.cdcMotion;
+  if (!M || M.reduced) return;
+
+  var MOBILE = '(max-width: 767.98px)';   // mesmo corte do CSS (carrossel)
+  var STEP = 100;                         // stagger entre cards
+  var AFTER_TITLE = 250;                  // cards só começam 250ms depois do título
+
+  function each(list, fn) { Array.prototype.forEach.call(list, fn); }
+
+  each(document.querySelectorAll('.cardapio'), function (section) {
+    var title = section.querySelector('.cardapio__title');
+    var lead = section.querySelector('.cardapio__lead');
+    var body = section.querySelector('.cardapio__body');
+    var track = section.querySelector('.cardapio__grid');
+    var controls = section.querySelector('.cardapio__controls');
+    var cta = body ? body.querySelector(':scope > .btn') : null;
+    var cards = track ? Array.prototype.slice.call(track.children) : [];
+    var mq = window.matchMedia ? window.matchMedia(MOBILE) : { matches: false };
+    var vh = window.innerHeight;
+    var titleAt = -Infinity;
+
+    function inView(el) {
+      var r = el.getBoundingClientRect();
+      return r.width > 0 && r.top < vh && r.bottom > 0;
+    }
+
+    // Se o gatilho dispara logo depois do título (mesmo quadro ou quase),
+    // empurra o atraso dos elementos para a cascata vir depois dele.
+    // Registrado ANTES dos reveal() do mesmo gatilho → roda antes deles.
+    function afterTitle(trigger, els) {
+      M.onEnter(trigger, function () {
+        var extra = Math.round(titleAt + AFTER_TITLE - performance.now());
+        if (extra <= 0) return;
+        els.forEach(function (el) {
+          if (!el.hasAttribute('data-reveal') || el.classList.contains('is-revealed')) return;
+          var d = parseFloat(el.style.getPropertyValue('--reveal-delay')) || 0;
+          el.style.setProperty('--reveal-delay', (d + extra) + 'ms');
+        });
+      });
+    }
+
+    // Bolo (moldura) + selo de um card, a partir do atraso do card
+    function cardExtras(card, delay, trigger, bucket) {
+      var photo = card.querySelector('.cardapio__photo');
+      var tag = card.querySelector('.cardapio__tag');
+      if (photo) {
+        M.reveal(photo, { variant: 'zoom', scale: 1.1, duration: 1100, delay: delay + 120, trigger: trigger });
+        bucket.push(photo);
+      }
+      if (tag) {
+        M.reveal(tag, { variant: 'pop', scale: 0.7, duration: 600, delay: delay + 460, trigger: trigger });
+        bucket.push(tag);
+      }
+    }
+
+    // ---- Cabeçalho ----
+    // Gatilho = o <header>: o IntersectionObserver do Chrome aplica o
+    // clip-path do próprio alvo, e a máscara fechada (inset 100%) nunca
+    // "entraria" sozinha.
+    var head = section.querySelector('.cardapio__head') || section;
+    M.onEnter(head, function () { titleAt = performance.now(); });
+    if (title) M.reveal(title, { variant: 'mask', duration: 950, trigger: head });
+    if (lead) M.reveal(lead, { variant: 'up', delay: title ? 150 : 0, trigger: head });
+
+    // ---- Cards ----
+    var gridEls = [];
+    if (cards.length && mq.matches) {
+      // Carrossel: o trilho entra inteiro; o bolo só do card que está na tela
+      var withTrack = [track];
+      afterTitle(track, withTrack);
+      M.reveal(track, { variant: 'up', duration: 850 });
+      var t = track.getBoundingClientRect();
+      cards.forEach(function (card) {
+        var r = card.getBoundingClientRect();
+        var seen = Math.min(r.right, t.right) - Math.max(r.left, t.left);
+        if (r.width && seen > r.width / 2) cardExtras(card, 0, track, withTrack);
+      });
+
+      // Controles: juntos com o trilho se já estão na tela no carregamento,
+      // senão quando aparecem
+      if (controls && !controls.hidden) {
+        var dots = controls.querySelector('.cardapio__dots');
+        var arrows = controls.querySelector('.cardapio__arrows');
+        var withCards = inView(controls);
+        var ctlTrigger = withCards ? track : controls;
+        var base = withCards ? 380 : 0;
+        if (dots) {
+          M.reveal(dots, { variant: 'fade', duration: 600, delay: base, trigger: ctlTrigger });
+          if (withCards) withTrack.push(dots);
+        }
+        if (arrows) {
+          M.reveal(arrows, { variant: 'up', duration: 600, delay: base + 80, distance: 12, trigger: ctlTrigger });
+          if (withCards) withTrack.push(arrows);
+        }
+      }
+    } else if (cards.length) {
+      // Grade: uma cascata por linha (cards com o mesmo topo)
+      var rows = [];
+      cards.forEach(function (card) {
+        var top = card.getBoundingClientRect().top;
+        var row = rows[rows.length - 1];
+        if (row && Math.abs(row.top - top) < 4) row.cards.push(card);
+        else rows.push({ top: top, cards: [card] });
+      });
+      rows.forEach(function (row) {
+        var first = row.cards[0];
+        var els = row.cards.slice();
+        afterTitle(first, els);
+        M.reveal(row.cards, { variant: 'up', stagger: STEP, trigger: first });
+        row.cards.forEach(function (card, i) {
+          cardExtras(card, Math.min(i, 5) * STEP, first, els);
+        });
+        gridEls = gridEls.concat(els);
+      });
+
+      // Se a tela encolher até o carrossel antes da entrada, nada pode ficar
+      // escondido fora da tela: solta os cards que ainda não entraram.
+      if (mq.addEventListener) {
+        mq.addEventListener('change', function (e) {
+          if (!e.matches) return;
+          gridEls.forEach(function (el) {
+            if (!el.hasAttribute('data-reveal') || el.classList.contains('is-revealed')) return;
+            el.removeAttribute('data-reveal');
+            ['--reveal-delay', '--reveal-dur', '--reveal-distance', '--reveal-scale'].forEach(function (p) {
+              el.style.removeProperty(p);
+            });
+          });
+        });
+      }
+    }
+
+    // ---- "Ver cardápio completo" ----
+    if (cta) {
+      var ctaWithCards = inView(cta) && track;
+      M.reveal(cta, { variant: 'up', duration: 750, delay: ctaWithCards ? 520 : 0, trigger: ctaWithCards ? track : null });
+    }
+
+    snapHidden(section);
+  });
+
+  // O carrossel (bloco acima) e a detecção de linhas leem o layout antes de os
+  // [data-reveal] entrarem → o navegador já tem o estilo "visível" desses
+  // elementos e faria uma transição visível → escondido (com o atraso de cada
+  // um), e quem já está na tela nunca chegaria a sumir/animar. Aqui o estado
+  // inicial é aplicado sem transição; a entrada (is-revealed) anima normal.
+  function snapHidden(scope) {
+    var els = scope.querySelectorAll('[data-reveal]:not(.is-revealed)');
+    each(els, function (el) { el.style.setProperty('transition', 'none', 'important'); });
+    each(els, function (el) { void window.getComputedStyle(el).opacity; });
+    each(els, function (el) { el.style.removeProperty('transition'); });
+  }
+})();

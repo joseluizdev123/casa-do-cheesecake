@@ -27,6 +27,8 @@ let failures = 0;
 try {
   for (const w of widths) {
     const page = await browser.newPage();
+    // estado final do layout: sem animações de entrada (MOTION=1 para ver com animação)
+    if (!process.env.MOTION) await page.emulateMediaFeatures([{ name: 'prefers-reduced-motion', value: 'reduce' }]);
     const mobile = w < 768;
     await page.setViewport({ width: w, height: mobile ? 844 : 900, deviceScaleFactor: 1, isMobile: mobile, hasTouch: mobile });
     const errors = [];

@@ -1,0 +1,129 @@
+/* ==========================================================================
+   Motion — animações de entrada e movimento ambiente (ver MOTION.md)
+
+   Princípios
+   - O estado FINAL de todo elemento é exatamente o layout atual (desktop
+     pixel-perfect com o Figma; tablet/mobile aprovados). As animações só
+     mexem em opacity e nas propriedades individuais translate / scale /
+     rotate e em clip-path — nunca em `transform`, que as seções usam para
+     layout (ex.: selos, logo, slides).
+   - Estados escondidos só existem com html.js-motion (colocada por um
+     script inline no <head>). Sem JS, com JS quebrado (timeout de segurança)
+     ou com prefers-reduced-motion, tudo aparece no lugar, sem animação.
+   - Depois que a entrada termina, motion.js remove o [data-reveal] do
+     elemento: ele volta às próprias transições (hover etc.).
+   ========================================================================== */
+
+:root {
+  --motion-ease: cubic-bezier(.16, 1, .3, 1);      /* ease-out-expo: entradas */
+  --motion-ease-inout: cubic-bezier(.65, 0, .35, 1);
+  --motion-dur-1: 450ms;    /* elementos pequenos: badges, tags, dots, botões */
+  --motion-dur-2: 800ms;    /* padrão: títulos, textos, cards */
+  --motion-dur-3: 1200ms;   /* imagens grandes / hero */
+  --motion-stagger: 90ms;
+  --motion-distance: 32px;
+}
+@media (max-width: 767.98px) {
+  :root { --motion-distance: 20px; --motion-stagger: 70ms; }
+}
+
+/* ---------- Carregamento: evita "piscada" do conteúdo acima da dobra ----------
+   Entre o 1º paint e a execução dos scripts (defer) o <main> fica invisível;
+   motion.js tira .motion-pending assim que as entradas estão registradas.
+   Timeout de segurança (4s) no <head> mostra tudo se algo falhar. */
+@media (prefers-reduced-motion: no-preference) {
+  .js-motion.motion-pending #conteudo,
+  .js-motion.motion-pending .site-footer { opacity: 0; }
+  .js-motion #conteudo,
+  .js-motion .site-footer { transition: opacity 250ms linear; }
+}
+
+/* ---------- Entradas (reveal) ---------- */
+@media (prefers-reduced-motion: no-preference) {
+  .js-motion [data-reveal] {
+    transition:
+      opacity var(--reveal-dur, var(--motion-dur-2)) var(--reveal-ease, var(--motion-ease)) var(--reveal-delay, 0ms),
+      translate var(--reveal-dur, var(--motion-dur-2)) var(--reveal-ease, var(--motion-ease)) var(--reveal-delay, 0ms),
+      scale var(--reveal-dur, var(--motion-dur-2)) var(--reveal-ease, var(--motion-ease)) var(--reveal-delay, 0ms),
+      rotate var(--reveal-dur, var(--motion-dur-2)) var(--reveal-ease, var(--motion-ease)) var(--reveal-delay, 0ms),
+      clip-path var(--reveal-dur, var(--motion-dur-2)) var(--reveal-ease, var(--motion-ease)) var(--reveal-delay, 0ms) !important;
+  }
+
+  .js-motion [data-reveal]:not(.is-revealed) { opacity: 0 !important; }
+
+  .js-motion [data-reveal="up"]:not(.is-revealed)    { translate: 0 var(--reveal-distance, var(--motion-distance)); }
+  .js-motion [data-reveal="down"]:not(.is-revealed)  { translate: 0 calc(-1 * var(--reveal-distance, var(--motion-distance))); }
+  .js-motion [data-reveal="left"]:not(.is-revealed)  { translate: calc(-1.5 * var(--reveal-distance, var(--motion-distance))) 0; }
+  .js-motion [data-reveal="right"]:not(.is-revealed) { translate: calc(1.5 * var(--reveal-distance, var(--motion-distance))) 0; }
+  .js-motion [data-reveal="scale"]:not(.is-revealed) { scale: var(--reveal-scale, .92); }
+  .js-motion [data-reveal="pop"]:not(.is-revealed)   { scale: var(--reveal-scale, .6); rotate: var(--reveal-rotate, -8deg); }
+  .js-motion [data-reveal="zoom"]:not(.is-revealed)  { scale: var(--reveal-scale, 1.12); }
+  /* títulos: sobem de dentro de uma "máscara" (recorte de baixo para cima) */
+  .js-motion [data-reveal="mask"]:not(.is-revealed)  {
+    clip-path: inset(0 0 100% 0);
+    translate: 0 calc(.6 * var(--reveal-distance, var(--motion-distance)));
+  }
+  .js-motion [data-reveal="mask"].is-revealed { clip-path: inset(-10% -10% -10% -10%); }
+  /* "fade" = só opacidade */
+}
+
+/* ---------- Movimento ambiente (decorativo, contínuo) ---------- */
+@media (prefers-reduced-motion: no-preference) {
+  /* flutuar: fatias e recortes */
+  .motion-float {
+    animation: cdc-float var(--float-dur, 6s) var(--motion-ease-inout) var(--float-delay, 0s) infinite alternate;
+  }
+  /* girar: selos circulares (texto em volta) */
+  .motion-spin {
+    animation: cdc-spin var(--spin-dur, 24s) linear infinite;
+  }
+  .motion-spin.motion-spin--reverse { animation-direction: reverse; }
+  /* balançar: ícones pequenos ao passar o cursor / entrar */
+  .motion-wiggle { animation: cdc-wiggle 900ms var(--motion-ease) 1; }
+}
+
+@keyframes cdc-float {
+  from { translate: 0 calc(-1 * var(--float-amp, 6px)); }
+  to   { translate: 0 var(--float-amp, 6px); }
+}
+@keyframes cdc-spin {
+  to { rotate: 360deg; }
+}
+@keyframes cdc-wiggle {
+  0%, 100% { rotate: 0deg; }
+  20% { rotate: -10deg; }
+  40% { rotate: 8deg; }
+  60% { rotate: -5deg; }
+  80% { rotate: 3deg; }
+}
+
+/* ---------- Números que contam (cdcMotion.counter) ----------
+   O span só existe durante a contagem (largura fixa = número final, sem
+   empurrar o texto ao lado); no fim o texto original volta intacto. */
+.motion-count {
+  display: inline-block;
+  text-align: right;
+}
+
+/* ---------- Header: entrada no carregamento ---------- */
+@media (prefers-reduced-motion: no-preference) {
+  .js-motion .site-header__bar {
+    animation: cdc-header-in 700ms var(--motion-ease) both;
+  }
+  .js-motion .site-logo {
+    animation: cdc-logo-drop 1100ms var(--motion-ease) 150ms both;
+  }
+}
+@keyframes cdc-header-in {
+  from { translate: 0 -100%; }
+}
+@keyframes cdc-logo-drop {
+  0%   { translate: 0 -110%; }
+  70%  { translate: 0 4%; }
+  100% { translate: 0 0; }
+}
+
+/* ---------- Reduced motion: tudo parado e visível ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .motion-float, .motion-spin, .motion-wiggle { animation: none !important; }
+}

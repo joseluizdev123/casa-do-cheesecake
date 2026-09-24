@@ -8,6 +8,8 @@ const onlyFail = process.argv.includes('--only-fail');
 const CHROME = ['C:/Program Files/Google/Chrome/Application/chrome.exe', 'C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe'].find(p => fs.existsSync(p));
 const b = await puppeteer.launch({ executablePath: CHROME, headless: true });
 const p = await b.newPage();
+// estado final do layout: sem animações de entrada (MOTION=1 para ver com animação)
+if (!process.env.MOTION) await p.emulateMediaFeatures([{ name: 'prefers-reduced-motion', value: 'reduce' }]);
 await p.setViewport({ width: W, height: 900, deviceScaleFactor: 1 });
 await p.goto(`http://localhost:${process.env.PORT || 5500}/`, { waitUntil: 'networkidle0' });
 await p.evaluate(() => document.fonts.ready);

@@ -263,3 +263,26 @@
     margin-top: var(--gap-m-md);                   /* botão → moto: 16 + 16 do row-gap */
   }
 }
+
+
+/* ==========================================================================
+   Motion — selo acompanha a chegada da moto (ver MOTION.md e
+   assets/js/sections/09-restaurantes.js). Só com a moto armada: quando ela
+   freia (~700ms dos 1.4s), o selo "pula" na caixa — pop do motor (scale .6,
+   rotate −8°, expo-out). No repouso (.is-inview) nenhuma propriedade fica
+   sobrescrita → estado final = layout do Figma. Rearme sem transição.
+   ========================================================================== */
+@media (prefers-reduced-motion: no-preference) {
+  .restaurantes.has-moto-anim .restaurantes__selo {
+    transition:
+      opacity 300ms linear 700ms,
+      scale 600ms var(--motion-ease, cubic-bezier(.16, 1, .3, 1)) 700ms,
+      rotate 600ms var(--motion-ease, cubic-bezier(.16, 1, .3, 1)) 700ms;
+  }
+  .restaurantes.has-moto-anim:not(.is-inview) .restaurantes__selo {
+    opacity: 0;
+    scale: .6;
+    rotate: -8deg;
+  }
+  .restaurantes.is-resetting .restaurantes__selo { transition: none; }
+}
