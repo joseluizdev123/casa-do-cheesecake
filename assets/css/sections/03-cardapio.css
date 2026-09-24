@@ -473,23 +473,25 @@
     align-self: stretch;
   }
 
+  /* Ajuste do cliente: bolinhas próximas (8px com 8px entre elas); a área
+     de toque continua com 44px de altura */
   .cardapio__dots {
     display: flex;
-    margin-left: -18px;                             /* 1º ponto alinhado à margem do conteúdo */
+    margin-left: -4px;                              /* 1º ponto alinhado à margem do conteúdo */
   }
 
   .cardapio__dot {
     position: relative;
     flex-shrink: 0;
-    width: 44px;
+    width: 16px;
     height: 44px;
-    border-radius: 50%;
+    border-radius: 8px;
   }
 
   .cardapio__dot::before {
     content: "";
     position: absolute;
-    inset: 18px;
+    inset: 18px 4px;
     border-radius: 50%;
     background: color-mix(in srgb, var(--color-red-700) 20%, transparent);
     transition: background-color var(--dur) var(--ease);

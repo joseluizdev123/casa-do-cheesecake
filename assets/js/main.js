@@ -16,6 +16,26 @@
     update();
   }
 
+  // Viúvas (pedido do cliente): une as duas últimas palavras de cada texto
+  // corrido com espaço não separável — a última linha nunca fica com 1 palavra,
+  // em qualquer largura e navegador (o text-wrap: pretty do CSS sozinho não garante).
+  // Títulos h2 ficam de fora: as quebras deles são as do Figma.
+  (function () {
+    document.querySelectorAll('main p, footer p, main li, main h1').forEach(function (el) {
+      if (el.children.length > 3) return;
+      var walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT);
+      var nodes = [];
+      while (walker.nextNode()) nodes.push(walker.currentNode);
+      if (el.textContent.trim().split(/\s+/).length < 4) return;
+      for (var i = nodes.length - 1; i >= 0; i--) {
+        var t = nodes[i].nodeValue.replace(/\s+$/, '');
+        var k = t.lastIndexOf(' ');
+        if (k > -1) { nodes[i].nodeValue = t.slice(0, k) + '\u00a0' + t.slice(k + 1) + nodes[i].nodeValue.slice(t.length); break; }
+        if (t.length && i < nodes.length - 1) break;
+      }
+    });
+  })();
+
   // Menu mobile (< 1024px): hambúrguer abre drawer em tela cheia
   var toggle = document.querySelector('[data-menu-toggle]');
   var drawer = document.querySelector('[data-menu-drawer]');

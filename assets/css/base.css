@@ -62,6 +62,11 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   padding-inline: var(--section-px);
 }
 
+/* Sem palavra viúva (uma palavra sozinha na última linha) em textos corridos.
+   Regras de seção com text-wrap: balance continuam valendo (são mais específicas).
+   Navegadores sem suporte recebem o fallback de assets/js/main.js. */
+p, li, blockquote, figcaption { text-wrap: pretty; }
+
 /* Tipografia utilitária de display (Anton, sempre uppercase no Figma) */
 .u-display {
   font-family: var(--font-display);

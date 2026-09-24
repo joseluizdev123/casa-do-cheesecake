@@ -138,6 +138,10 @@
   text-transform: uppercase;
 }
 
+/* Ajuste do cliente: 2 linhas, quebra depois de "padrão de"
+   ("…pelo padrão de" = 298px · com "forno" = 338px) */
+.sobre__especialista-desc { max-width: 310px; }
+
 .sobre__especialista-desc {
   width: 100%;
   font-family: var(--font-body);
