@@ -7,11 +7,6 @@
    aba sublinhada. Anotação Figma: "Ao clicar, mudar a fatia".
    ========================================================================== */
 
-:root {
-  --color-yellow-400: #ffb82e;  /* fundo variante Doce de leite (7057:566) */
-  --color-pink-200: #ffc0c5;    /* fundo variante Morangos (7057:613) */
-  --color-blue-200: #b5d9fb;    /* fundo variante Blue Berry (7057:660) */
-}
 
 /* Sabores 7057:329 — flex col, gap 80, px 112, py 80 */
 .sabores {
@@ -152,4 +147,196 @@
 
 @media (prefers-reduced-motion: reduce) {
   .sabores { transition: none; }
+}
+
+
+/* ==========================================================================
+   Responsivo — o Figma só tem o frame desktop 1440 (adaptação inferida,
+   padrão mobile do site de referência: uma coluna, lateral 24, tipografia
+   contida). >= 1200px: layout do Figma intacto (nada abaixo se aplica).
+
+   Título + fatia escalam juntos a partir de um único corpo, --sabores-fs:
+   a fatia mede 1.625 × corpo (273 / 168, como no Figma), então a sobreposição
+   "WE" / "CHEESECAKE" se mantém em qualquer largura. O palco é container e o
+   título nunca passa de 19.6cqi (168 / 849.5 com ~2% de folga), para não
+   quebrar em 3 linhas nas telas mais estreitas (320).
+   ========================================================================== */
+
+/* ---------- Laptop / tablet grande (<= 1199) ------------------------------
+   Mesma composição do desktop; título 168 → 140 (1199) → 119 (1024).      */
+@media (max-width: 1199.98px) {
+  .sabores { gap: 64px; }
+
+  .sabores__palco {
+    --sabores-fs: clamp(var(--fs-t-giant), 11.667vw, 168px);
+    container-type: inline-size;
+    width: 100%;
+    max-width: 849.5px;
+    height: auto;
+  }
+  .sabores__titulo {
+    width: 100%;
+    font-size: min(var(--sabores-fs), 19.6cqi);
+    text-wrap: balance;
+    hyphens: manual;
+  }
+  .sabores__fatia {
+    width: min(calc(var(--sabores-fs) * 1.625), 32.14cqi);   /* 273 / 168 · 273 / 849.5 */
+    height: auto;
+    aspect-ratio: 273 / 258;
+  }
+}
+
+/* ---------- Tablet (<= 1023) ----------------------------------------------
+   · Título 96px (--fs-t-giant), fatia 156px, selo a 85%.
+   · Abas (Tertiary, 18px) numa faixa própria — centrada quando cabe,
+     rolável (swipe + snap) quando não — e "Ver todas as opções" abaixo.   */
+@media (max-width: 1023.98px) {
+  .sabores { gap: var(--content-gap); }          /* 48 */
+
+  .sabores__palco { --sabores-fs: var(--fs-t-giant); }
+
+  /* Selo: de 3 camadas sobrepostas para uma linha flex (louro · texto · louro),
+     mantendo a geometria do Figma em escala --selo-s (texto invade 6px
+     de cada louro; louros descem 20px). Centraliza sozinho com qualquer ano. */
+  .sabores__selo {
+    --selo-s: .85;
+    display: inline-flex;
+    align-items: flex-start;
+  }
+  .sabores__decoracao { margin-top: calc(20px * var(--selo-s)); }
+  .sabores__decoracao--esq {
+    width: calc(41.243px * var(--selo-s));
+    height: calc(68.154px * var(--selo-s));
+  }
+  .sabores__decoracao--dir {
+    width: calc(41.102px * var(--selo-s));
+    height: calc(68.077px * var(--selo-s));
+    margin-left: 0;
+  }
+  .sabores__selo-texto { margin-inline: calc(-6px * var(--selo-s)); }
+  .sabores__selo-rotulo { font-size: 16px; }
+  .sabores__selo-ano { font-size: 22px; }
+
+  .sabores__nav {
+    flex-direction: column;
+    align-self: stretch;
+    gap: 4px;
+  }
+
+  /* Faixa de abas full-bleed: rola na horizontal quando não cabe; quando
+     cabe, as margens auto das pontas centralizam sem cortar o início.     */
+  .sabores__abas {
+    align-self: stretch;
+    justify-content: flex-start;
+    gap: 32px;
+    margin-inline: calc(-1 * var(--section-px));
+    padding: 6px var(--section-px);     /* 6px: espaço para o anel de foco */
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x proximity;
+    scroll-padding-inline: var(--section-px);
+    scrollbar-width: none;
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 var(--section-px), #000 calc(100% - var(--section-px)), transparent);
+            mask-image: linear-gradient(90deg, transparent, #000 var(--section-px), #000 calc(100% - var(--section-px)), transparent);
+  }
+  .sabores__abas::-webkit-scrollbar { display: none; }
+  .sabores__abas > :first-child { margin-left: auto; }
+  .sabores__abas > :last-child { margin-right: auto; }
+
+  .sabores__aba {
+    flex-shrink: 0;
+    align-items: center;
+    min-height: 44px;                   /* alvo de toque */
+    font-size: 18px;
+    scroll-snap-align: center;
+  }
+  .sabores__nav > .sabores__aba { align-self: center; }
+}
+
+/* ---------- Mobile (<= 767) -----------------------------------------------
+   Coluna única centrada: selo → título (56px, cai para 19.6cqi em 320) com
+   a fatia proporcional (~91px) → sabores → "Ver todas as opções".
+   · Selo a 75% (14 / 20px).
+   · Sabores: grade 2 × 2 de chips em pílula (como a grade de botões com
+     borda do site de referência) — todos visíveis, nada cortado na borda,
+     composição simétrica. Ativa preenchida na cor do texto (contraste
+     ≥ 6:1 nos 4 temas; o sublinhado de 1px não se lê num chip de 14px).
+     Quantidade ímpar (WP): o último chip fica centrado, na largura de um.
+   · "Ver todas as opções": link sublinhado de 16px, centrado, alvo 44px. */
+@media (max-width: 767.98px) {
+  .sabores { gap: var(--gap-m-lg); }             /* 32 */
+
+  .sabores__palco { --sabores-fs: var(--fs-m-giant); }
+
+  .sabores__selo { --selo-s: .75; }
+  .sabores__selo-rotulo { font-size: var(--fs-m-label); }
+  .sabores__selo-ano { font-size: 20px; }
+
+  .sabores__nav { gap: var(--gap-m-md); }        /* 16 */
+
+  .sabores__abas {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--gap-m-sm);               /* 12 — ref: grade 2 × 2 com ~16 */
+    align-self: center;
+    width: 100%;
+    max-width: 440px;
+    margin-inline: 0;
+    padding: 0;
+    overflow: visible;
+    scroll-snap-type: none;
+    -webkit-mask-image: none;
+            mask-image: none;
+  }
+  .sabores__abas > :first-child,
+  .sabores__abas > :last-child { margin-inline: 0; }
+  .sabores__abas > .sabores__aba:last-child:nth-child(odd) {
+    grid-column: 1 / -1;
+    justify-self: center;
+    width: calc(50% - var(--gap-m-sm) / 2);
+  }
+
+  .sabores__abas > .sabores__aba {
+    justify-content: center;
+    min-width: 0;
+    min-height: 44px;
+    padding: 10px 12px;
+    border: 1px solid currentColor;
+    border-color: color-mix(in srgb, currentColor 45%, transparent);
+    border-radius: var(--radius-pill);
+    font-size: var(--fs-m-label);
+    line-height: 1.2;
+    white-space: normal;                /* rótulo longo vindo do WP quebra dentro do chip */
+    text-align: center;
+    text-wrap: balance;
+    scroll-snap-align: none;
+    -webkit-tap-highlight-color: transparent;
+    transition: color var(--dur) var(--ease), background-color var(--dur) var(--ease), border-color var(--dur) var(--ease);
+  }
+  .sabores__abas > .sabores__aba:hover { text-decoration: none; }
+  .sabores__abas > .sabores__aba:focus-visible { outline-color: var(--sabores-fg); }
+
+  .sabores .sabores__abas > .sabores__aba[aria-selected="true"] {
+    border-color: var(--sabores-fg);
+    background-color: var(--sabores-fg);
+    color: var(--color-red-700);
+    text-decoration: none;
+  }
+  .sabores--claro .sabores__abas > .sabores__aba[aria-selected="true"] { color: var(--color-cream-50); }
+
+  .sabores__nav > .sabores__aba {
+    font-size: var(--fs-button);        /* 16px no mobile */
+    text-decoration: underline;
+    text-decoration-thickness: from-font;
+    text-underline-offset: 4px;
+  }
+}
+
+@media (max-width: 767.98px) and (hover: hover) {
+  .sabores__abas > .sabores__aba[aria-selected="false"]:hover { border-color: currentColor; }
+}
+
+@media (max-width: 767.98px) and (prefers-reduced-motion: reduce) {
+  .sabores__abas > .sabores__aba { transition: none; }
 }

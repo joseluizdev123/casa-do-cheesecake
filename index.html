@@ -23,6 +23,7 @@
   <link rel="stylesheet" href="assets/css/sections/10-perguntas.css">
   <link rel="stylesheet" href="assets/css/sections/11-cta-final.css">
   <link rel="stylesheet" href="assets/css/sections/footer.css">
+  <link rel="stylesheet" href="assets/css/interactions.css">
 </head>
 <body id="topo">
   <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
@@ -46,9 +47,39 @@
         <li><a class="btn-link" href="#contato" data-figma-node="7073:240">Contato</a></li>
       </ul>
     </nav>
+    <button class="site-header__toggle" type="button" aria-expanded="false" aria-controls="menu-mobile" data-menu-toggle>
+      <span class="site-header__toggle-bars" aria-hidden="true"></span>
+      <span class="sr-only">Abrir menu</span>
+    </button>
   </div>
+  </div>
+  <div class="site-header__drawer" id="menu-mobile" hidden data-menu-drawer>
+    <nav class="mobile-nav" aria-label="Menu principal">
+      <ul class="mobile-nav__list" role="list">
+        <li class="mobile-nav__item is-current"><a class="mobile-nav__link" href="#topo" aria-current="page">Página inicial</a></li>
+        <li class="mobile-nav__item"><a class="mobile-nav__link" href="#cardapio">Nosso cheesecake</a></li>
+        <li class="mobile-nav__item">
+          <a class="mobile-nav__link" href="#sabores">Sabores<span class="mobile-nav__caret" aria-hidden="true"></span></a>
+          <ul class="mobile-nav__sub" role="list">
+            <li><a href="#sabores">Frutas vermelhas</a></li>
+            <li><a href="#sabores">Doce de leite</a></li>
+            <li><a href="#sabores">Morangos</a></li>
+            <li><a href="#sabores">Blue berry</a></li>
+          </ul>
+        </li>
+        <li class="mobile-nav__item"><a class="mobile-nav__link" href="#pedir">Pedir agora</a></li>
+        <li class="mobile-nav__item"><a class="mobile-nav__link" href="#sobre">Sobre nós</a></li>
+        <li class="mobile-nav__item"><a class="mobile-nav__link" href="#blog">Blog</a></li>
+        <li class="mobile-nav__item"><a class="mobile-nav__link" href="#contato">Contato</a></li>
+      </ul>
+    </nav>
+    <a class="mobile-nav__cta" href="https://wa.me/5511956022366" target="_blank" rel="noopener">
+      <span class="mobile-nav__cta-icon" aria-hidden="true"></span>
+      <span>Fale conosco</span>
+    </a>
   </div>
 </header>
+<a class="whatsapp-fab" href="https://wa.me/5511956022366" target="_blank" rel="noopener" aria-label="Falar no WhatsApp"></a>
 
   <main id="conteudo">
     <section class="hero" id="inicio" data-figma-node="7057:81" aria-labelledby="hero-titulo">
@@ -108,14 +139,14 @@
 
           <div class="primeira-fatia__media">
             <div class="primeira-fatia__images" data-figma-node="7057:172">
-              <img class="primeira-fatia__img primeira-fatia__img--foreground" data-figma-node="7057:173" src="assets/images/02-primeira-fatia-foreground-image.webp" width="206" height="191" alt="Fatia de cheesecake tradicional, sem cobertura">
-              <img class="primeira-fatia__img primeira-fatia__img--background" data-figma-node="7057:174" src="assets/images/02-primeira-fatia-background-image.webp" width="305" height="305" alt="Fatia de cheesecake com calda de frutas vermelhas e um morango por cima">
+              <img class="primeira-fatia__img primeira-fatia__img--foreground" data-figma-node="7057:173" src="assets/images/02-primeira-fatia-foreground-image.webp" width="206" height="191" decoding="async" alt="Fatia de cheesecake tradicional, sem cobertura">
+              <img class="primeira-fatia__img primeira-fatia__img--background" data-figma-node="7057:174" src="assets/images/02-primeira-fatia-background-image.webp" width="305" height="305" decoding="async" alt="Fatia de cheesecake com calda de frutas vermelhas e um morango por cima">
             </div>
           </div>
 
           <div class="primeira-fatia__content" data-figma-node="7057:167">
             <p class="primeira-fatia__subtitle" data-figma-node="7057:168">Você paga só os R$15 da entrega.</p>
-            <p class="primeira-fatia__text" data-figma-node="7057:169">1 fatia por pessoa · de segunda a sexta, das 10h às 17h · enquanto durar o estoque do dia · dentro da área de entrega em São Paulo.</p>
+            <p class="primeira-fatia__text" data-figma-node="7057:169">1 fatia por pessoa&nbsp;· de segunda a sexta, das 10h às 17h&nbsp;· enquanto durar o estoque do dia&nbsp;· dentro da área de entrega em São Paulo.</p>
             <a class="btn btn--primary" href="https://wa.me/5511956022366" target="_blank" rel="noopener" data-figma-node="7073:338">Quero minha fatia</a>
           </div>
         </div>
@@ -129,12 +160,12 @@
           <p class="cardapio__lead" data-figma-node="7057:178">Todos assados na nossa cozinha em São Paulo e entregues gelados, prontos para servir. Escolha o tamanho pela quantidade de pessoas.</p>
         </header>
 
-        <div class="cardapio__body" data-figma-node="7057:179">
-          <ul class="cardapio__grid" role="list" data-figma-node="7057:180">
+        <div class="cardapio__body" data-figma-node="7057:179" data-cardapio-carousel>
+          <ul class="cardapio__grid" id="cardapio-lista" role="list" data-figma-node="7057:180" data-cardapio-track>
             <li class="cardapio__card" data-figma-node="7057:181">
               <div class="cardapio__media" style="--cardapio-bg: var(--color-red-700)" data-figma-node="7057:182">
                 <div class="cardapio__photo" data-figma-node="7057:183">
-                  <img class="cardapio__img" src="assets/images/03-cardapio-cheesecake.png" alt="Cheesecake inteiro sabor Frutas Vermelhas" width="801" height="801" loading="lazy" decoding="async">
+                  <img class="cardapio__img" src="assets/images/03-cardapio-cheesecake.png" alt="Cheesecake inteiro com calda de frutas vermelhas (foto ilustrativa)" width="801" height="801" loading="lazy" decoding="async">
                 </div>
                 <p class="cardapio__tag" data-figma-node="7057:186">
                   <img class="cardapio__tag-icon" src="assets/images/03-cardapio-icon-mais-pedido.svg" alt="" width="16" height="16" data-figma-node="7057:191">
@@ -157,21 +188,21 @@
                   <li class="cardapio__row" data-figma-node="7057:207">
                     <p class="cardapio__option" data-figma-node="7057:208">
                       <span class="cardapio__price" data-figma-node="7057:209">R$ 99</span>
-                      <span class="cardapio__size" data-figma-node="7057:210">600 g · 6 mini fatias</span>
+                      <span class="cardapio__size" data-figma-node="7057:210">600 g&nbsp;· 6 mini fatias</span>
                     </p>
                     <a class="btn btn--secondary cardapio__btn" href="#cardapio" aria-label="Pedir Frutas Vermelhas — 600 g · 6 mini fatias" data-figma-node="7073:347">Pedir</a>
                   </li>
                   <li class="cardapio__row" data-figma-node="7057:213">
                     <p class="cardapio__option" data-figma-node="7057:214">
                       <span class="cardapio__price" data-figma-node="7057:215">R$ 185</span>
-                      <span class="cardapio__size" data-figma-node="7057:216">1,2 kg · serve 8</span>
+                      <span class="cardapio__size" data-figma-node="7057:216">1,2 kg&nbsp;· serve 8</span>
                     </p>
                     <a class="btn btn--secondary cardapio__btn" href="#cardapio" aria-label="Pedir Frutas Vermelhas — 1,2 kg · serve 8" data-figma-node="7073:352">Pedir</a>
                   </li>
                   <li class="cardapio__row" data-figma-node="7057:219">
                     <p class="cardapio__option" data-figma-node="7057:220">
                       <span class="cardapio__price" data-figma-node="7057:221">R$ 252</span>
-                      <span class="cardapio__size" data-figma-node="7057:222">1,8 kg · serve 10 a 12</span>
+                      <span class="cardapio__size" data-figma-node="7057:222">1,8 kg&nbsp;· serve 10 a 12</span>
                     </p>
                     <a class="btn btn--secondary cardapio__btn" href="#cardapio" aria-label="Pedir Frutas Vermelhas — 1,8 kg · serve 10 a 12" data-figma-node="7073:351">Pedir</a>
                   </li>
@@ -182,7 +213,7 @@
             <li class="cardapio__card" data-figma-node="7057:225">
               <div class="cardapio__media" style="--cardapio-bg: var(--color-yellow-400)" data-figma-node="7057:226">
                 <div class="cardapio__photo" data-figma-node="7057:227">
-                  <img class="cardapio__img" src="assets/images/03-cardapio-cheesecake.png" alt="Cheesecake inteiro sabor Doce de Leite" width="801" height="801" loading="lazy" decoding="async">
+                  <img class="cardapio__img" src="assets/images/03-cardapio-cheesecake.png" alt="Cheesecake inteiro com calda de frutas vermelhas (foto ilustrativa)" width="801" height="801" loading="lazy" decoding="async">
                 </div>
               </div>
               <div class="cardapio__content" data-figma-node="7057:230">
@@ -201,21 +232,21 @@
                   <li class="cardapio__row" data-figma-node="7057:241">
                     <p class="cardapio__option" data-figma-node="7057:242">
                       <span class="cardapio__price" data-figma-node="7057:243">R$ 99</span>
-                      <span class="cardapio__size" data-figma-node="7057:244">600 g · 6 mini fatias</span>
+                      <span class="cardapio__size" data-figma-node="7057:244">600 g&nbsp;· 6 mini fatias</span>
                     </p>
                     <a class="btn btn--secondary cardapio__btn" href="#cardapio" aria-label="Pedir Doce de Leite — 600 g · 6 mini fatias" data-figma-node="7073:357">Pedir</a>
                   </li>
                   <li class="cardapio__row" data-figma-node="7057:247">
                     <p class="cardapio__option" data-figma-node="7057:248">
                       <span class="cardapio__price" data-figma-node="7057:249">R$ 185</span>
-                      <span class="cardapio__size" data-figma-node="7057:250">1,2 kg · serve 8</span>
+                      <span class="cardapio__size" data-figma-node="7057:250">1,2 kg&nbsp;· serve 8</span>
                     </p>
                     <a class="btn btn--secondary cardapio__btn" href="#cardapio" aria-label="Pedir Doce de Leite — 1,2 kg · serve 8" data-figma-node="7073:360">Pedir</a>
                   </li>
                   <li class="cardapio__row" data-figma-node="7057:253">
                     <p class="cardapio__option" data-figma-node="7057:254">
                       <span class="cardapio__price" data-figma-node="7057:255">R$ 252</span>
-                      <span class="cardapio__size" data-figma-node="7057:256">1,8 kg · serve 10 a 12</span>
+                      <span class="cardapio__size" data-figma-node="7057:256">1,8 kg&nbsp;· serve 10 a 12</span>
                     </p>
                     <a class="btn btn--secondary cardapio__btn" href="#cardapio" aria-label="Pedir Doce de Leite — 1,8 kg · serve 10 a 12" data-figma-node="7073:363">Pedir</a>
                   </li>
@@ -226,7 +257,7 @@
             <li class="cardapio__card" data-figma-node="7057:259">
               <div class="cardapio__media" style="--cardapio-bg: var(--color-pink-200)" data-figma-node="7057:260">
                 <div class="cardapio__photo" data-figma-node="7057:261">
-                  <img class="cardapio__img" src="assets/images/03-cardapio-cheesecake.png" alt="Cheesecake inteiro sabor Morangos" width="801" height="801" loading="lazy" decoding="async">
+                  <img class="cardapio__img" src="assets/images/03-cardapio-cheesecake.png" alt="Cheesecake inteiro com calda de frutas vermelhas (foto ilustrativa)" width="801" height="801" loading="lazy" decoding="async">
                 </div>
               </div>
               <div class="cardapio__content" data-figma-node="7057:264">
@@ -245,21 +276,21 @@
                   <li class="cardapio__row" data-figma-node="7057:275">
                     <p class="cardapio__option" data-figma-node="7057:276">
                       <span class="cardapio__price" data-figma-node="7057:277">R$ 99</span>
-                      <span class="cardapio__size" data-figma-node="7057:278">600 g · 6 mini fatias</span>
+                      <span class="cardapio__size" data-figma-node="7057:278">600 g&nbsp;· 6 mini fatias</span>
                     </p>
                     <a class="btn btn--secondary cardapio__btn" href="#cardapio" aria-label="Pedir Morangos — 600 g · 6 mini fatias" data-figma-node="7073:358">Pedir</a>
                   </li>
                   <li class="cardapio__row" data-figma-node="7057:281">
                     <p class="cardapio__option" data-figma-node="7057:282">
                       <span class="cardapio__price" data-figma-node="7057:283">R$ 185</span>
-                      <span class="cardapio__size" data-figma-node="7057:284">1,2 kg · serve 8</span>
+                      <span class="cardapio__size" data-figma-node="7057:284">1,2 kg&nbsp;· serve 8</span>
                     </p>
                     <a class="btn btn--secondary cardapio__btn" href="#cardapio" aria-label="Pedir Morangos — 1,2 kg · serve 8" data-figma-node="7073:361">Pedir</a>
                   </li>
                   <li class="cardapio__row" data-figma-node="7057:287">
                     <p class="cardapio__option" data-figma-node="7057:288">
                       <span class="cardapio__price" data-figma-node="7057:289">R$ 252</span>
-                      <span class="cardapio__size" data-figma-node="7057:290">1,8 kg · serve 10 a 12</span>
+                      <span class="cardapio__size" data-figma-node="7057:290">1,8 kg&nbsp;· serve 10 a 12</span>
                     </p>
                     <a class="btn btn--secondary cardapio__btn" href="#cardapio" aria-label="Pedir Morangos — 1,8 kg · serve 10 a 12" data-figma-node="7073:364">Pedir</a>
                   </li>
@@ -270,7 +301,7 @@
             <li class="cardapio__card" data-figma-node="7057:293">
               <div class="cardapio__media" style="--cardapio-bg: var(--color-blue-200)" data-figma-node="7057:294">
                 <div class="cardapio__photo" data-figma-node="7057:295">
-                  <img class="cardapio__img" src="assets/images/03-cardapio-cheesecake.png" alt="Cheesecake inteiro sabor Blue Berry" width="801" height="801" loading="lazy" decoding="async">
+                  <img class="cardapio__img" src="assets/images/03-cardapio-cheesecake.png" alt="Cheesecake inteiro com calda de frutas vermelhas (foto ilustrativa)" width="801" height="801" loading="lazy" decoding="async">
                 </div>
               </div>
               <div class="cardapio__content" data-figma-node="7057:298">
@@ -289,21 +320,21 @@
                   <li class="cardapio__row" data-figma-node="7057:309">
                     <p class="cardapio__option" data-figma-node="7057:310">
                       <span class="cardapio__price" data-figma-node="7057:311">R$ 99</span>
-                      <span class="cardapio__size" data-figma-node="7057:312">600 g · 6 mini fatias</span>
+                      <span class="cardapio__size" data-figma-node="7057:312">600 g&nbsp;· 6 mini fatias</span>
                     </p>
                     <a class="btn btn--secondary cardapio__btn" href="#cardapio" aria-label="Pedir Blue Berry — 600 g · 6 mini fatias" data-figma-node="7073:359">Pedir</a>
                   </li>
                   <li class="cardapio__row" data-figma-node="7057:315">
                     <p class="cardapio__option" data-figma-node="7057:316">
                       <span class="cardapio__price" data-figma-node="7057:317">R$ 185</span>
-                      <span class="cardapio__size" data-figma-node="7057:318">1,2 kg · serve 8</span>
+                      <span class="cardapio__size" data-figma-node="7057:318">1,2 kg&nbsp;· serve 8</span>
                     </p>
                     <a class="btn btn--secondary cardapio__btn" href="#cardapio" aria-label="Pedir Blue Berry — 1,2 kg · serve 8" data-figma-node="7073:362">Pedir</a>
                   </li>
                   <li class="cardapio__row" data-figma-node="7057:321">
                     <p class="cardapio__option" data-figma-node="7057:322">
                       <span class="cardapio__price" data-figma-node="7057:323">R$ 252</span>
-                      <span class="cardapio__size" data-figma-node="7057:324">1,8 kg · serve 10 a 12</span>
+                      <span class="cardapio__size" data-figma-node="7057:324">1,8 kg&nbsp;· serve 10 a 12</span>
                     </p>
                     <a class="btn btn--secondary cardapio__btn" href="#cardapio" aria-label="Pedir Blue Berry — 1,8 kg · serve 10 a 12" data-figma-node="7073:365">Pedir</a>
                   </li>
@@ -311,6 +342,26 @@
               </div>
             </li>
           </ul>
+
+          <!-- Carrossel de 1 sabor por vez (≤767px). Sem JS fica [hidden] e o trilho
+               continua rolável (swipe + scroll-snap); o CSS esconde tudo em ≥768px. -->
+          <div class="cardapio__controls" role="group" aria-label="Navegar pelos sabores" data-cardapio-controls hidden>
+            <div class="cardapio__dots" data-cardapio-dots>
+              <button class="cardapio__dot" type="button" aria-controls="cardapio-lista" aria-label="Frutas Vermelhas, 1 de 4" aria-current="true" data-cardapio-dot></button>
+              <button class="cardapio__dot" type="button" aria-controls="cardapio-lista" aria-label="Doce de Leite, 2 de 4" data-cardapio-dot></button>
+              <button class="cardapio__dot" type="button" aria-controls="cardapio-lista" aria-label="Morangos, 3 de 4" data-cardapio-dot></button>
+              <button class="cardapio__dot" type="button" aria-controls="cardapio-lista" aria-label="Blue Berry, 4 de 4" data-cardapio-dot></button>
+            </div>
+            <div class="cardapio__arrows">
+              <button class="cardapio__nav cardapio__nav--prev" type="button" aria-controls="cardapio-lista" aria-label="Sabor anterior" aria-disabled="true" data-cardapio-prev>
+                <svg viewBox="0 0 20 20" width="20" height="20" fill="none" aria-hidden="true" focusable="false"><path d="M12.5 15 7.5 10l5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </button>
+              <button class="cardapio__nav cardapio__nav--next" type="button" aria-controls="cardapio-lista" aria-label="Próximo sabor" aria-disabled="false" data-cardapio-next>
+                <svg viewBox="0 0 20 20" width="20" height="20" fill="none" aria-hidden="true" focusable="false"><path d="m7.5 15 5-5-5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </button>
+            </div>
+            <p class="sr-only" aria-live="polite" aria-atomic="true" data-cardapio-status></p>
+          </div>
 
           <a class="btn btn--primary" href="#cardapio" data-figma-node="7073:393">Ver cardápio completo</a>
         </div>
@@ -336,16 +387,16 @@
   <div class="sabores__palco" data-figma-node="I7057:329;7057:556">
     <h2 class="sabores__titulo" id="sabores-titulo" data-figma-node="I7057:329;7057:557">Yes, we have cheesecake.</h2>
     <div class="sabores__fatia" data-figma-node="I7057:329;7086:582">
-      <div class="sabores__painel" role="tabpanel" id="sabores-painel-frutas-vermelhas" aria-labelledby="sabores-aba-frutas-vermelhas" tabindex="0">
+      <div class="sabores__painel" role="tabpanel" id="sabores-painel-frutas-vermelhas" aria-labelledby="sabores-aba-frutas-vermelhas">
         <img src="assets/images/sabor-frutas-vermelhas.png" alt="Fatia de cheesecake de frutas vermelhas" width="546" height="516">
       </div>
-      <div class="sabores__painel" role="tabpanel" id="sabores-painel-doce-de-leite" aria-labelledby="sabores-aba-doce-de-leite" tabindex="0" hidden>
+      <div class="sabores__painel" role="tabpanel" id="sabores-painel-doce-de-leite" aria-labelledby="sabores-aba-doce-de-leite" hidden>
         <img src="assets/images/sabor-doce-de-leite.png" alt="Fatia de cheesecake de doce de leite" width="546" height="516" loading="lazy">
       </div>
-      <div class="sabores__painel" role="tabpanel" id="sabores-painel-morangos" aria-labelledby="sabores-aba-morangos" tabindex="0" hidden>
+      <div class="sabores__painel" role="tabpanel" id="sabores-painel-morangos" aria-labelledby="sabores-aba-morangos" hidden>
         <img src="assets/images/sabor-morangos.png" alt="Fatia de cheesecake de morangos" width="546" height="516" loading="lazy">
       </div>
-      <div class="sabores__painel" role="tabpanel" id="sabores-painel-blue-berry" aria-labelledby="sabores-aba-blue-berry" tabindex="0" hidden>
+      <div class="sabores__painel" role="tabpanel" id="sabores-painel-blue-berry" aria-labelledby="sabores-aba-blue-berry" hidden>
         <img src="assets/images/sabor-blue-berry.png" alt="Fatia de cheesecake de blue berry" width="546" height="516" loading="lazy">
       </div>
     </div>
@@ -376,7 +427,7 @@
               <p class="diferenciais__card-text" data-figma-node="7057:338">É o item mais caro da receita — e exatamente o que não se pode reduzir. Diminuir seria entregar outra coisa no lugar do que a pessoa pediu.</p>
             </div>
             <figure class="diferenciais__media" data-figma-node="7057:1414">
-              <img class="diferenciais__img" src="assets/images/05-diferenciais-cream-cheese.png" alt="Tigela de cream cheese batido ao lado da embalagem de Philadelphia" width="500" height="500" loading="lazy" decoding="async">
+              <img class="diferenciais__img" src="assets/images/05-diferenciais-cream-cheese.webp" alt="Tigela de cream cheese batido ao lado da embalagem de Philadelphia" width="500" height="500" loading="lazy" decoding="async">
               <p class="diferenciais__tag" data-figma-node="7057:1494">
                 <img class="diferenciais__tag-icon" src="assets/images/05-diferenciais-icon-sorriso.svg" alt="" width="16" height="16" data-figma-node="7057:1495">
                 <span class="diferenciais__tag-text" data-figma-node="7057:1499">na quantidade certa</span>
@@ -538,10 +589,10 @@
             </footer>
           </li>
         </ul>
-        <button class="depoimentos__nav depoimentos__nav--prev" type="button" aria-controls="depoimentos-lista" aria-label="Depoimentos anteriores" data-carousel-prev data-figma-node="7057:482">
+        <button class="depoimentos__nav depoimentos__nav--prev" type="button" aria-controls="depoimentos-lista" aria-label="Depoimentos anteriores" disabled data-carousel-prev data-figma-node="7057:482">
           <img src="assets/images/07-depoimentos-chevron-left.svg" alt="" width="20" height="20" data-figma-node="7057:483">
         </button>
-        <button class="depoimentos__nav depoimentos__nav--next" type="button" aria-controls="depoimentos-lista" aria-label="Próximos depoimentos" data-carousel-next data-figma-node="7057:479">
+        <button class="depoimentos__nav depoimentos__nav--next" type="button" aria-controls="depoimentos-lista" aria-label="Próximos depoimentos" disabled data-carousel-next data-figma-node="7057:479">
           <img src="assets/images/07-depoimentos-chevron-right.svg" alt="" width="20" height="20" data-figma-node="7057:480">
         </button>
       </div>
@@ -582,7 +633,7 @@
           </span>
           <div class="entrega__text" data-figma-node="7057:1316">
             <h3 class="entrega__item-title" data-figma-node="7057:498">Hoje ou agendado</h3>
-            <p class="entrega__item-text" data-figma-node="7057:499">Receba no mesmo dia ou escolha a data — festa, presente ou data comemorativa.</p>
+            <p class="entrega__item-text" data-figma-node="7057:499">Receba no mesmo dia ou escolha a data&nbsp;— festa, presente ou data comemorativa.</p>
           </div>
         </li>
         <li class="entrega__item" data-figma-node="7057:500">
@@ -618,8 +669,8 @@
     <div class="restaurantes__banner" data-figma-node="7057:509">
       <h2 class="restaurantes__title" id="restaurantes-titulo" data-figma-node="7057:510">Tem restaurante, pizzaria ou delivery?</h2>
       <div class="restaurantes__media" data-figma-node="7099:227">
-        <img class="restaurantes__image" data-figma-node="7057:515" src="assets/images/09-restaurantes-moto.webp" width="357" height="305" alt="Scooter vermelha de entrega com uma caixa de papelão no bagageiro" loading="lazy" decoding="async">
-        <img class="restaurantes__selo" data-figma-node="7099:240" src="assets/images/09-restaurantes-selo.svg" width="53" height="63" alt="" loading="lazy" decoding="async">
+        <img class="restaurantes__image" data-figma-node="7057:515" src="assets/images/09-restaurantes-moto.webp" width="357" height="305" alt="Scooter vermelha de entrega com uma caixa de papelão no bagageiro" loading="lazy">
+        <img class="restaurantes__selo" data-figma-node="7099:240" src="assets/images/09-restaurantes-selo.svg" width="53" height="63" alt="" loading="lazy">
       </div>
       <div class="restaurantes__content" data-figma-node="7057:511">
         <p class="restaurantes__text" data-figma-node="7057:512">Cheesecakes inteiros prontos para porcionar, entrega semanal programada e <strong>pedido mínimo de R$500.</strong></p>
@@ -641,8 +692,8 @@
             <button class="faq__trigger" type="button" id="faq-pergunta-1" aria-expanded="true" aria-controls="faq-resposta-1">
               <span class="faq__question" data-figma-node="7057:768">Vocês têm loja física?</span>
               <span class="faq__icon" data-figma-node="7057:814" aria-hidden="true">
-                <img class="faq__icon-img faq__icon-img--minus" data-figma-node="7057:822" src="assets/images/10-perguntas-icon-minus.svg" alt="" width="20" height="20" loading="lazy" decoding="async">
-                <img class="faq__icon-img faq__icon-img--plus" src="assets/images/10-perguntas-icon-plus.svg" alt="" width="20" height="20" loading="lazy" decoding="async">
+                <img class="faq__icon-img faq__icon-img--minus" data-figma-node="7057:822" src="assets/images/10-perguntas-icon-minus.svg" alt="" width="20" height="20" decoding="async">
+                <img class="faq__icon-img faq__icon-img--plus" src="assets/images/10-perguntas-icon-plus.svg" alt="" width="20" height="20" decoding="async">
               </span>
             </button>
           </h3>
@@ -656,11 +707,11 @@
       <div class="faq__item" data-figma-node="7057:786">
         <div class="faq__row">
           <h3 class="faq__heading">
-            <button class="faq__trigger" type="button" id="faq-pergunta-2" aria-expanded="false" aria-controls="faq-resposta-2">
+            <button class="faq__trigger" type="button" id="faq-pergunta-2" aria-expanded="true" aria-controls="faq-resposta-2">
               <span class="faq__question" data-figma-node="7057:789">Qual o tamanho certo para o meu número de convidados?</span>
               <span class="faq__icon" data-figma-node="7057:825" aria-hidden="true">
-                <img class="faq__icon-img faq__icon-img--minus" src="assets/images/10-perguntas-icon-minus.svg" alt="" width="20" height="20" loading="lazy" decoding="async">
-                <img class="faq__icon-img faq__icon-img--plus" data-figma-node="7057:850" src="assets/images/10-perguntas-icon-plus.svg" alt="" width="20" height="20" loading="lazy" decoding="async">
+                <img class="faq__icon-img faq__icon-img--minus" src="assets/images/10-perguntas-icon-minus.svg" alt="" width="20" height="20" decoding="async">
+                <img class="faq__icon-img faq__icon-img--plus" data-figma-node="7057:850" src="assets/images/10-perguntas-icon-plus.svg" alt="" width="20" height="20" decoding="async">
               </span>
             </button>
           </h3>
@@ -674,11 +725,11 @@
       <div class="faq__item" data-figma-node="7057:792">
         <div class="faq__row">
           <h3 class="faq__heading">
-            <button class="faq__trigger" type="button" id="faq-pergunta-3" aria-expanded="false" aria-controls="faq-resposta-3">
+            <button class="faq__trigger" type="button" id="faq-pergunta-3" aria-expanded="true" aria-controls="faq-resposta-3">
               <span class="faq__question" data-figma-node="7057:795">Consigo receber hoje?</span>
               <span class="faq__icon" data-figma-node="7057:856" aria-hidden="true">
-                <img class="faq__icon-img faq__icon-img--minus" src="assets/images/10-perguntas-icon-minus.svg" alt="" width="20" height="20" loading="lazy" decoding="async">
-                <img class="faq__icon-img faq__icon-img--plus" data-figma-node="7057:857" src="assets/images/10-perguntas-icon-plus.svg" alt="" width="20" height="20" loading="lazy" decoding="async">
+                <img class="faq__icon-img faq__icon-img--minus" src="assets/images/10-perguntas-icon-minus.svg" alt="" width="20" height="20" decoding="async">
+                <img class="faq__icon-img faq__icon-img--plus" data-figma-node="7057:857" src="assets/images/10-perguntas-icon-plus.svg" alt="" width="20" height="20" decoding="async">
               </span>
             </button>
           </h3>
@@ -692,11 +743,11 @@
       <div class="faq__item" data-figma-node="7057:797">
         <div class="faq__row">
           <h3 class="faq__heading">
-            <button class="faq__trigger" type="button" id="faq-pergunta-4" aria-expanded="false" aria-controls="faq-resposta-4">
+            <button class="faq__trigger" type="button" id="faq-pergunta-4" aria-expanded="true" aria-controls="faq-resposta-4">
               <span class="faq__question" data-figma-node="7057:800">Quanto tempo dura na geladeira? Pode congelar?</span>
               <span class="faq__icon" data-figma-node="7057:853" aria-hidden="true">
-                <img class="faq__icon-img faq__icon-img--minus" src="assets/images/10-perguntas-icon-minus.svg" alt="" width="20" height="20" loading="lazy" decoding="async">
-                <img class="faq__icon-img faq__icon-img--plus" data-figma-node="7057:854" src="assets/images/10-perguntas-icon-plus.svg" alt="" width="20" height="20" loading="lazy" decoding="async">
+                <img class="faq__icon-img faq__icon-img--minus" src="assets/images/10-perguntas-icon-minus.svg" alt="" width="20" height="20" decoding="async">
+                <img class="faq__icon-img faq__icon-img--plus" data-figma-node="7057:854" src="assets/images/10-perguntas-icon-plus.svg" alt="" width="20" height="20" decoding="async">
               </span>
             </button>
           </h3>
@@ -710,11 +761,11 @@
       <div class="faq__item" data-figma-node="7057:802">
         <div class="faq__row">
           <h3 class="faq__heading">
-            <button class="faq__trigger" type="button" id="faq-pergunta-5" aria-expanded="false" aria-controls="faq-resposta-5">
+            <button class="faq__trigger" type="button" id="faq-pergunta-5" aria-expanded="true" aria-controls="faq-resposta-5">
               <span class="faq__question" data-figma-node="7057:805">Quais as formas de pagamento?</span>
               <span class="faq__icon" data-figma-node="7057:862" aria-hidden="true">
-                <img class="faq__icon-img faq__icon-img--minus" src="assets/images/10-perguntas-icon-minus.svg" alt="" width="20" height="20" loading="lazy" decoding="async">
-                <img class="faq__icon-img faq__icon-img--plus" data-figma-node="7057:863" src="assets/images/10-perguntas-icon-plus.svg" alt="" width="20" height="20" loading="lazy" decoding="async">
+                <img class="faq__icon-img faq__icon-img--minus" src="assets/images/10-perguntas-icon-minus.svg" alt="" width="20" height="20" decoding="async">
+                <img class="faq__icon-img faq__icon-img--plus" data-figma-node="7057:863" src="assets/images/10-perguntas-icon-plus.svg" alt="" width="20" height="20" decoding="async">
               </span>
             </button>
           </h3>
@@ -728,11 +779,11 @@
       <div class="faq__item" data-figma-node="7057:808">
         <div class="faq__row">
           <h3 class="faq__heading">
-            <button class="faq__trigger" type="button" id="faq-pergunta-6" aria-expanded="false" aria-controls="faq-resposta-6">
+            <button class="faq__trigger" type="button" id="faq-pergunta-6" aria-expanded="true" aria-controls="faq-resposta-6">
               <span class="faq__question" data-figma-node="7057:811">A entrega chega em qualquer bairro de São Paulo?</span>
               <span class="faq__icon" data-figma-node="7057:859" aria-hidden="true">
-                <img class="faq__icon-img faq__icon-img--minus" src="assets/images/10-perguntas-icon-minus.svg" alt="" width="20" height="20" loading="lazy" decoding="async">
-                <img class="faq__icon-img faq__icon-img--plus" data-figma-node="7057:860" src="assets/images/10-perguntas-icon-plus.svg" alt="" width="20" height="20" loading="lazy" decoding="async">
+                <img class="faq__icon-img faq__icon-img--minus" src="assets/images/10-perguntas-icon-minus.svg" alt="" width="20" height="20" decoding="async">
+                <img class="faq__icon-img faq__icon-img--plus" data-figma-node="7057:860" src="assets/images/10-perguntas-icon-plus.svg" alt="" width="20" height="20" decoding="async">
               </span>
             </button>
           </h3>
@@ -746,11 +797,11 @@
       <div class="faq__item" data-figma-node="7057:1021">
         <div class="faq__row">
           <h3 class="faq__heading">
-            <button class="faq__trigger" type="button" id="faq-pergunta-7" aria-expanded="false" aria-controls="faq-resposta-7">
+            <button class="faq__trigger" type="button" id="faq-pergunta-7" aria-expanded="true" aria-controls="faq-resposta-7">
               <span class="faq__question" data-figma-node="7057:1024">Como funciona a fatia por conta da casa?</span>
               <span class="faq__icon" data-figma-node="7057:1027" aria-hidden="true">
-                <img class="faq__icon-img faq__icon-img--minus" src="assets/images/10-perguntas-icon-minus.svg" alt="" width="20" height="20" loading="lazy" decoding="async">
-                <img class="faq__icon-img faq__icon-img--plus" data-figma-node="7057:1028" src="assets/images/10-perguntas-icon-plus.svg" alt="" width="20" height="20" loading="lazy" decoding="async">
+                <img class="faq__icon-img faq__icon-img--minus" src="assets/images/10-perguntas-icon-minus.svg" alt="" width="20" height="20" decoding="async">
+                <img class="faq__icon-img faq__icon-img--plus" data-figma-node="7057:1028" src="assets/images/10-perguntas-icon-plus.svg" alt="" width="20" height="20" decoding="async">
               </span>
             </button>
           </h3>
@@ -764,11 +815,11 @@
       <div class="faq__item" data-figma-node="7057:1030">
         <div class="faq__row">
           <h3 class="faq__heading">
-            <button class="faq__trigger" type="button" id="faq-pergunta-8" aria-expanded="false" aria-controls="faq-resposta-8">
+            <button class="faq__trigger" type="button" id="faq-pergunta-8" aria-expanded="true" aria-controls="faq-resposta-8">
               <span class="faq__question" data-figma-node="7057:1033">O cheesecake de vocês é assado?</span>
               <span class="faq__icon" data-figma-node="7057:1036" aria-hidden="true">
-                <img class="faq__icon-img faq__icon-img--minus" src="assets/images/10-perguntas-icon-minus.svg" alt="" width="20" height="20" loading="lazy" decoding="async">
-                <img class="faq__icon-img faq__icon-img--plus" data-figma-node="7057:1037" src="assets/images/10-perguntas-icon-plus.svg" alt="" width="20" height="20" loading="lazy" decoding="async">
+                <img class="faq__icon-img faq__icon-img--minus" src="assets/images/10-perguntas-icon-minus.svg" alt="" width="20" height="20" decoding="async">
+                <img class="faq__icon-img faq__icon-img--plus" data-figma-node="7057:1037" src="assets/images/10-perguntas-icon-plus.svg" alt="" width="20" height="20" decoding="async">
               </span>
             </button>
           </h3>
@@ -785,7 +836,11 @@
       </div>
     </div>
   </div>
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Vocês têm loja física?","acceptedAnswer":{"@type":"Answer","text":"Não. Trabalhamos exclusivamente com delivery em São Paulo, pelo nosso cardápio online e pelo iFood. Toda a produção sai da nossa cozinha direto para a entrega."}},{"@type":"Question","name":"Qual o tamanho certo para o meu número de convidados?","acceptedAnswer":{"@type":"Answer","text":"A fatia de 150 g serve uma pessoa. A torta de 600 g rende até 6 mini fatias, a de 1,2 kg serve até 8 pessoas e a de 1,8 kg, de 10 a 12. Se o cheesecake for a única sobremesa da mesa, vá para o tamanho de cima — porção de cheesecake some rápido. Se houver bolo e outros doces, o tamanho de baixo resolve."}},{"@type":"Question","name":"Consigo receber hoje?","acceptedAnswer":{"@type":"Answer","text":"Sim, para pedidos feitos dentro do horário de funcionamento e enquanto houver estoque do dia. É só escolher a entrega para hoje no cardápio — o sistema confirma a disponibilidade pelo seu endereço antes de fechar o pedido. Para data específica, como festa ou presente, o ideal é agendar com antecedência. [confirmar: horário de funcionamento e prazo mínimo]"}},{"@type":"Question","name":"Quanto tempo dura na geladeira? Pode congelar?","acceptedAnswer":{"@type":"Answer","text":"Na geladeira, bem fechado, o cheesecake dura [X dias]. Ele também pode ser congelado por até [X dias]: leve ao congelador inteiro ou em fatias, e transfira para a geladeira algumas horas antes de servir — nunca descongele em temperatura ambiente nem no micro-ondas, porque a textura se perde. [confirmar os dois prazos e a orientação de descongelamento]"}},{"@type":"Question","name":"Quais as formas de pagamento?","acceptedAnswer":{"@type":"Answer","text":"Aceitamos Pix, cartão de crédito e cartão de débito, todos pelo cardápio online, com confirmação automática. O pagamento acontece na hora do pedido, então a entrega chega sem nenhuma etapa a mais."}},{"@type":"Question","name":"A entrega chega em qualquer bairro de São Paulo?","acceptedAnswer":{"@type":"Answer","text":"Atendemos toda a cidade de São Paulo, dentro da nossa área de cobertura, com taxa a partir de R$15. O cardápio confirma a disponibilidade pelo seu endereço antes de você fechar o pedido, então não tem risco de comprar e descobrir depois que não chega. Também estamos no iFood em Pinheiros, Vila Leopoldina, Bela Vista e Brooklin. [confirmar: se a taxa varia por região]"}},{"@type":"Question","name":"Como funciona a fatia por conta da casa?","acceptedAnswer":{"@type":"Answer","text":"É para quem ainda não conhece a marca: você preenche o formulário, escolhe o sabor e a data, e recebe uma fatia pagando só os R$15 da entrega. É 1 fatia por pessoa, de segunda a sexta das 10h às 17h, enquanto durar o estoque do dia, dentro da nossa área de entrega em São Paulo."}},{"@type":"Question","name":"O cheesecake de vocês é assado?","acceptedAnswer":{"@type":"Answer","text":"Sim. É a receita original americana, assada no forno — não é uma sobremesa fria montada com gelatina ou creme batido. É isso que dá a textura densa, o sabor lácteo e a fatia que se sustenta em pé no prato. A quantidade de cream cheese Philadelphia é a da receita original, sem redução."}}]}</script>
+  <!-- Recolhe já no parse (antes do JS deferido) para não "pular" ~800–1100px de altura
+       quando a página abre/recarrega nesta altura. Sem JS nada roda e tudo fica aberto. -->
+  <script>(function (s) { if (s) s.classList.add('is-enhanced'); })(document.currentScript && document.currentScript.parentNode);</script>
+  <!-- JSON-LD: respostas com marcador "[confirmar …]"/"[X dias]" do Figma ficam fora até a copy ser confirmada (igual ao template PHP). -->
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Vocês têm loja física?","acceptedAnswer":{"@type":"Answer","text":"Não. Trabalhamos exclusivamente com delivery em São Paulo, pelo nosso cardápio online e pelo iFood. Toda a produção sai da nossa cozinha direto para a entrega."}},{"@type":"Question","name":"Qual o tamanho certo para o meu número de convidados?","acceptedAnswer":{"@type":"Answer","text":"A fatia de 150 g serve uma pessoa. A torta de 600 g rende até 6 mini fatias, a de 1,2 kg serve até 8 pessoas e a de 1,8 kg, de 10 a 12. Se o cheesecake for a única sobremesa da mesa, vá para o tamanho de cima — porção de cheesecake some rápido. Se houver bolo e outros doces, o tamanho de baixo resolve."}},{"@type":"Question","name":"Quais as formas de pagamento?","acceptedAnswer":{"@type":"Answer","text":"Aceitamos Pix, cartão de crédito e cartão de débito, todos pelo cardápio online, com confirmação automática. O pagamento acontece na hora do pedido, então a entrega chega sem nenhuma etapa a mais."}},{"@type":"Question","name":"Como funciona a fatia por conta da casa?","acceptedAnswer":{"@type":"Answer","text":"É para quem ainda não conhece a marca: você preenche o formulário, escolhe o sabor e a data, e recebe uma fatia pagando só os R$15 da entrega. É 1 fatia por pessoa, de segunda a sexta das 10h às 17h, enquanto durar o estoque do dia, dentro da nossa área de entrega em São Paulo."}},{"@type":"Question","name":"O cheesecake de vocês é assado?","acceptedAnswer":{"@type":"Answer","text":"Sim. É a receita original americana, assada no forno — não é uma sobremesa fria montada com gelatina ou creme batido. É isso que dá a textura densa, o sabor lácteo e a fatia que se sustenta em pé no prato. A quantidade de cream cheese Philadelphia é a da receita original, sem redução."}}]}</script>
 </section>
 
 <section class="cta-final" id="pedir" data-figma-node="7057:955" aria-labelledby="cta-final-titulo">
@@ -802,7 +857,7 @@
     <div class="cta-final__actions" data-figma-node="7057:1005">
       <a class="btn btn--primary-dark" data-figma-node="7079:408" href="#cardapio">Pedir agora</a>
       <p class="cta-final__ou" data-figma-node="7057:1006">Ou</p>
-      <a class="btn-link btn-link--dark" data-figma-node="7079:412" href="https://wa.me/5511956022366" target="_blank" rel="noopener">Falar no WhatsApp</a>
+      <a class="btn-link btn-link--dark" data-figma-node="7079:412" href="https://wa.me/5511956022366" target="_blank" rel="noopener">Falar no WhatsApp<span class="sr-only"> (abre em nova aba)</span></a>
     </div>
   </div>
 </section>
@@ -856,7 +911,7 @@
     </div>
 
     <div class="site-footer__bottom" data-figma-node="7073:91">
-      <p class="site-footer__copy" data-figma-node="7073:92">A Casa do Cheesecake ® · todos os direitos reservados</p>
+      <p class="site-footer__copy" data-figma-node="7073:92">A Casa do Cheesecake ®<span class="site-footer__sep"> · </span>todos os direitos reservados</p>
       <p class="site-footer__credits" data-figma-node="7073:93">
         <span data-figma-node="7073:94">Criado por</span>
         <img class="site-footer__credits-logo" data-figma-node="7073:95" src="assets/images/footer-criado-por.svg" width="20" height="16" alt="" loading="lazy" decoding="async">
@@ -864,12 +919,11 @@
     </div>
   </div>
 
-  <div class="site-footer__pattern" data-figma-node="7073:111" aria-hidden="true">
-    <img src="assets/images/footer-pattern.svg" width="1440" height="21.25" alt="" loading="lazy" decoding="async">
-  </div>
+  <div class="site-footer__pattern" data-figma-node="7073:111" aria-hidden="true"></div>
 </footer>
 
   <script src="assets/js/main.js" defer></script>
+  <script src="assets/js/sections/03-cardapio.js" defer></script>
   <script src="assets/js/sections/04-sabores.js" defer></script>
   <script src="assets/js/sections/07-depoimentos.js" defer></script>
   <script src="assets/js/sections/09-restaurantes.js" defer></script>

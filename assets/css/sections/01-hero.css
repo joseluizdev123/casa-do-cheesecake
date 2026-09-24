@@ -190,3 +190,126 @@
   color: var(--color-red-700);
 }
 .hero__text strong { font-weight: 700; }
+
+/* ==========================================================================
+   Responsivo — o Figma só tem desktop 1440. Abaixo de 1024 segue o padrão
+   mobile do site de referência do cliente: título → texto → botões → foto
+   em largura total → faixa escura com os 3 selos (lista ícone + texto).
+   A composição foto + recorte PNG que vaza sobre o título só existe no
+   desktop; no tablet/mobile a foto inteira (caixa, frutas, fatia, calda)
+   aparece com object-fit: cover, sem sobreposição.
+   ========================================================================== */
+@media (max-width: 1199.98px) {
+  .hero__title { font-size: clamp(var(--fs-t-h1), 6.1806vw, 89px); }  /* 89px em 1440 */
+  .hero__text { font-size: clamp(var(--fs-t-lead), 1.389vw, 20px); }
+}
+
+@media (max-width: 1023.98px) {
+  .hero__head {
+    padding-top: 48px;
+    padding-bottom: 20px;
+  }
+  .hero__title {
+    font-size: var(--fs-t-h1);
+    text-wrap: balance;
+  }
+
+  /* texto e botões sobem para antes da foto */
+  .hero__footer {
+    order: 1;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 28px;
+    padding-top: 0;
+    padding-bottom: 40px;
+  }
+  .hero__text {
+    order: -1;
+    flex: none;
+    max-width: 600px;
+    font-size: var(--fs-t-lead);
+    line-height: 1.5;
+  }
+  .hero__actions { gap: 16px; flex-wrap: wrap; }
+
+  /* foto em largura total + faixa de selos abaixo */
+  .hero__media {
+    order: 2;
+    display: grid;
+    aspect-ratio: auto;
+  }
+  .hero__bg {
+    position: relative;
+    inset: auto;
+    aspect-ratio: 2 / 1;
+  }
+  .hero__bg-img {
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 55% 62%;
+  }
+  .hero__cutout { display: none; }
+
+  .hero__since {
+    top: calc(50vw - 87px);             /* foto 2:1 → altura 50vw; selo 88×.85 + 12 */
+    left: var(--section-px);
+    transform: scale(.85);
+    transform-origin: top left;
+  }
+
+  .hero .hero__info {                 /* .hero vence ul[role="list"] do base.css */
+    position: static;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    align-items: center;
+    gap: 16px 24px;
+    padding: 24px var(--section-px);
+    background: var(--color-red-950);
+  }
+  .hero__info-item { justify-content: flex-start; }
+  .hero__info-badge { width: 40px; height: 40px; }
+  .hero__info-icon { width: 20px; height: 20px; }
+  .hero__info-icon img { width: 20px; height: auto; }
+  .hero__info-text {
+    font-size: 16px;
+    line-height: 1.3;
+    white-space: normal;
+  }
+}
+
+@media (max-width: 767.98px) {
+  .hero__head {
+    padding-top: 32px;
+    padding-bottom: 16px;
+  }
+  .hero__title { font-size: var(--fs-m-h1); }
+
+  .hero__footer { gap: 24px; padding-bottom: 32px; }
+  .hero__text {
+    font-size: var(--fs-m-lead);
+    line-height: var(--lh-m-body);
+  }
+  .hero__actions {
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+    gap: 12px;
+  }
+  .hero__actions .btn { width: 100%; }
+
+  .hero__bg { aspect-ratio: 3 / 2; }
+  .hero__bg-img { object-position: 58% 60%; }
+  .hero__since {
+    top: calc(66.667vw - 78px);         /* foto 3:2 → altura 66.667vw; selo 88×.75 + 12 */
+    transform: scale(.75);
+  }
+
+  .hero .hero__info {
+    grid-template-columns: 1fr;
+    gap: 16px;
+    padding: 24px var(--section-px) 28px;
+  }
+  .hero__info-text { font-size: var(--fs-m-label); }
+}

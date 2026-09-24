@@ -28,7 +28,8 @@ $cdc_img_attr = array(
 	'class'    => 'diferenciais__img',
 	'loading'  => 'lazy',
 	'decoding' => 'async',
-	'sizes'    => '(min-width: 1440px) 390px, 27vw',
+	// 3 cards por linha (>= 1024), 2 colunas no tablet, largura total no mobile.
+	'sizes'    => '(min-width: 1440px) 390px, (min-width: 1024px) 27vw, (min-width: 768px) 50vw, 100vw',
 );
 
 $cdc_posts = cdc_posts( 'cdc_diferencial' );

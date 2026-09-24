@@ -18,6 +18,10 @@ if ( ! $cdc_sabores ) {
 $cdc_sabores_primeiro = $cdc_sabores[0];
 $cdc_sabores_escuro   = 'escuro' === $cdc_sabores_primeiro['tema'];
 $cdc_sabores_btn      = 'btn-link' . ( $cdc_sabores_escuro ? ' btn-link--dark' : '' ) . ' sabores__aba';
+$cdc_sabores_url      = (string) cdc_mod( 'cdc_sabores_link_url' );
+if ( 0 === strpos( $cdc_sabores_url, '#' ) ) {
+	$cdc_sabores_url = cdc_anchor( $cdc_sabores_url ); // âncora funciona também fora da home
+}
 $cdc_sabores_alt      = static function ( $titulo ) {
 	$nome = function_exists( 'mb_strtolower' ) ? mb_strtolower( $titulo, 'UTF-8' ) : $titulo;
 	/* translators: %s: nome do sabor */
@@ -44,7 +48,7 @@ $cdc_sabores_alt      = static function ( $titulo ) {
     <h2 class="sabores__titulo" id="sabores-titulo" data-figma-node="I7057:329;7057:557"><?php echo esc_html( cdc_mod( 'cdc_sabores_titulo' ) ); ?></h2>
     <div class="sabores__fatia" data-figma-node="I7057:329;7086:582">
 <?php foreach ( $cdc_sabores as $cdc_i => $cdc_sabor ) : ?>
-      <div class="sabores__painel" role="tabpanel" id="<?php echo esc_attr( 'sabores-painel-' . $cdc_sabor['slug'] ); ?>" aria-labelledby="<?php echo esc_attr( 'sabores-aba-' . $cdc_sabor['slug'] ); ?>" tabindex="0"<?php echo $cdc_i ? ' hidden' : ''; ?>>
+      <div class="sabores__painel" role="tabpanel" id="<?php echo esc_attr( 'sabores-painel-' . $cdc_sabor['slug'] ); ?>" aria-labelledby="<?php echo esc_attr( 'sabores-aba-' . $cdc_sabor['slug'] ); ?>"<?php echo $cdc_i ? ' hidden' : ''; ?>>
         <img src="<?php echo esc_url( $cdc_sabor['imagem'] ); ?>" alt="<?php echo esc_attr( $cdc_sabores_alt( $cdc_sabor['titulo'] ) ); ?>" width="546" height="516"<?php echo $cdc_i ? ' loading="lazy"' : ''; ?>>
       </div>
 <?php endforeach; ?>
@@ -61,6 +65,6 @@ foreach ( $cdc_sabores as $cdc_i => $cdc_sabor ) :
       <button class="<?php echo esc_attr( $cdc_sabores_btn ); ?>" type="button" role="tab" id="<?php echo esc_attr( 'sabores-aba-' . $cdc_sabor['slug'] ); ?>" aria-controls="<?php echo esc_attr( 'sabores-painel-' . $cdc_sabor['slug'] ); ?>" aria-selected="<?php echo $cdc_i ? 'false' : 'true'; ?>"<?php echo $cdc_i ? ' tabindex="-1"' : ''; ?> data-bg="<?php echo esc_attr( $cdc_sabor['bg'] ); ?>" data-tema="<?php echo esc_attr( $cdc_sabor['tema'] ); ?>"<?php echo isset( $cdc_sabores_nodes[ $cdc_i ] ) ? ' data-figma-node="' . esc_attr( $cdc_sabores_nodes[ $cdc_i ] ) . '"' : ''; ?>><?php echo esc_html( $cdc_sabor['titulo'] ); ?></button>
 <?php endforeach; ?>
     </div>
-    <a class="<?php echo esc_attr( $cdc_sabores_btn ); ?>" href="<?php echo esc_url( cdc_mod( 'cdc_sabores_link_url' ) ); ?>" data-figma-node="I7057:329;7082:463"><?php echo esc_html( cdc_mod( 'cdc_sabores_link_rotulo' ) ); ?></a>
+    <a class="<?php echo esc_attr( $cdc_sabores_btn ); ?>" href="<?php echo esc_url( $cdc_sabores_url ); ?>" data-figma-node="I7057:329;7082:463"><?php echo esc_html( cdc_mod( 'cdc_sabores_link_rotulo' ) ); ?></a>
   </div>
 </section>

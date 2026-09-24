@@ -74,7 +74,7 @@ add_filter( 'cdc_customizer_sections', function ( $sections ) {
 				'label'   => 'Crédito — link (opcional)',
 				'type'    => 'url',
 				'default' => '',
-				'help'    => 'Se preenchido, o símbolo vira link (abre em nova aba).',
+				'help'    => 'Se preenchido junto com o nome acima, o símbolo vira link (abre em nova aba).',
 			),
 		),
 	);

@@ -5,7 +5,7 @@
    ├ Container 7057:992 (1216 × 571.8): flex col, gap 16, items-center
    │   ├ Selo 7057:1367 141.812 × 141.802 (text-paths "Desde 2004" /
    │   │   "• Yes, we have cheesecake •" + ícone fi_3400159 48px) → export SVG
-   │   │   do node (inclui o retângulo do fundo #b0282e da seção, idêntico ao bg)
+   │   │   do node (fundo transparente: retângulos dos frames-pai removidos)
    │   ├ Título 7057:993 — Anton 168 / 1.1, uppercase, center, cream (2 linhas)
    │   ├ Texto 7057:1009 — Archivo 20 / 1.4, center, cream
    │   └ Foreground image 7057:994 — 198 × 184, absoluta: left 50%,
@@ -113,4 +113,103 @@
   text-align: center;
   text-transform: uppercase;
   white-space: nowrap;
+}
+
+/* ==========================================================================
+   Responsivo (o Figma só tem 1440; >= 1200 nada muda)
+   1024–1199: composição do desktop — título e fatia escalam em vw (regras
+              base acima), a fatia continua sobreposta ao título como no Figma.
+   <= 1023:   composição empilhada, SEM sobreposição (padrão "Fale agora com
+              um consultor" da referência): selo → título → fatia → texto →
+              botão → "ou" → link, tudo centralizado. A fatia sai do absoluto
+              e entra no fluxo logo abaixo do título (order), o título escala
+              pela largura útil (cqi) para "CHEESECAKE HOJE" caber numa linha.
+   ========================================================================== */
+
+/* ---------- tablet (768–1023) ---------- */
+@media (max-width: 1023.98px) {
+  .cta-final__head {
+    container-type: inline-size;               /* largura útil p/ o título (cqi) */
+    gap: 20px;
+  }
+
+  .cta-final__selo {
+    width: 120px;
+    height: 120px;
+  }
+  .cta-final__selo img {
+    width: 100%;
+    height: 100%;
+  }
+
+  /* "CHEESECAKE HOJE" = 6.61em em Anton → /6.85 deixa ~3% de folga */
+  .cta-final__title {
+    font-size: min(var(--fs-t-giant), calc((100vw - 2 * var(--section-px)) / 6.85));
+    font-size: min(var(--fs-t-giant), calc(100cqi / 6.85));
+    line-height: 1.2;                          /* 1.1 do Figma encosta a cedilha do "Ç"
+                                                  no "S" da linha de baixo */
+    white-space: normal;                       /* sem o espaço final do Figma: linhas
+                                                  centralizadas de verdade */
+    text-wrap: balance;
+    hyphens: manual;
+  }
+
+  /* Fatia no fluxo, logo abaixo do título (sem cobrir nenhuma letra) */
+  .cta-final__fatia {
+    position: static;
+    order: 1;
+    width: 184px;
+    transform: scaleX(-1);                     /* mantém o espelhamento do Figma */
+  }
+
+  .cta-final__text {
+    order: 2;
+    max-width: 36em;
+    font-size: var(--fs-t-lead);
+    line-height: 1.5;
+    text-wrap: balance;
+  }
+}
+
+/* ---------- mobile (< 768) ---------- */
+@media (max-width: 767.98px) {
+  /* o link tem 12px de área de toque abaixo do texto: desconta do respiro
+     inferior para o bloco ficar opticamente centrado (56 em cima e embaixo) */
+  .cta-final { padding-bottom: calc(var(--section-py) - 12px); }
+
+  .cta-final__inner { gap: var(--gap-m-lg); }  /* 32 */
+
+  .cta-final__head { gap: var(--gap-m-md); }   /* 16 */
+
+  .cta-final__selo {
+    width: 96px;
+    height: 96px;
+  }
+
+  .cta-final__title {
+    font-size: min(var(--fs-m-giant), calc((100vw - 2 * var(--section-px)) / 6.85));
+    font-size: min(var(--fs-m-giant), calc(100cqi / 6.85));
+  }
+
+  .cta-final__fatia { width: clamp(120px, 36vw, 148px); }
+
+  .cta-final__text {
+    max-width: 22em;                           /* 2 linhas equilibradas */
+    font-size: var(--fs-m-lead);
+    line-height: var(--lh-m-body);
+  }
+
+  .cta-final__actions { gap: var(--gap-m-md); }
+
+  .cta-final__actions .btn { min-width: 200px; }
+
+  /* Link de texto com área de toque de 44px; a margem negativa devolve o
+     respiro visual de 16px entre "OU" e o texto do link (sem sobrepor caixas) */
+  .cta-final__actions .btn-link {
+    align-items: center;
+    justify-content: center;
+    min-height: 44px;
+    margin-top: -12px;
+    padding-inline: 12px;
+  }
 }

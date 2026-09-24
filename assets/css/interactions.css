@@ -1,0 +1,101 @@
+/* ==========================================================================
+   Interações (hover / toque) — UM sistema para desktop, tablet e mobile.
+   Carregado depois das seções.
+
+   Base: variantes "Behavior=Hover" do componente Button no Figma (7073:166)
+     Primary        #b0282e → #d2383e
+     Primary/Dark   #fbf5e7 → #f6e7c6
+     Secondary      borda + texto → #d2383e
+     Tertiary       texto → #d2383e + sublinhado
+     Tertiary/Dark  texto → #f6e7c6 + sublinhado
+   Clicáveis que não têm variante no Figma usam o mesmo vocabulário:
+     botões circulares (setas dos carrosséis, + / − do FAQ) → preenchem de
+       vermelho com ícone claro (como o Primary);
+     linhas clicáveis (perguntas do FAQ, links do menu mobile) → texto
+       #d2383e + sublinhado (como o Tertiary);
+     bolinhas de paginação → vermelho claro.
+   :hover só em dispositivo com cursor (evita hover "preso" no toque);
+   :active dá o mesmo retorno no toque, em qualquer largura.
+   ========================================================================== */
+
+/* ---------- Toque: mesmo retorno do hover do desktop ---------- */
+a, button, [role="tab"], summary { -webkit-tap-highlight-color: transparent; }
+
+.btn--primary:active { background: var(--color-red-600); }
+.btn--primary-dark:active { background: var(--color-cream-100); }
+.btn--secondary:active { border-color: var(--color-red-600); color: var(--color-red-600); }
+.btn-link:active { color: var(--color-red-600); text-decoration: underline; text-decoration-thickness: from-font; }
+.btn-link--dark:active { color: var(--color-cream-100); }
+
+/* ---------- Menu mobile (Tertiary / Secondary) ---------- */
+.mobile-nav__link,
+.mobile-nav__sub a,
+.mobile-nav__cta,
+.site-header__toggle { transition: color var(--dur) var(--ease), border-color var(--dur) var(--ease); }
+.mobile-nav__link,
+.mobile-nav__sub a { text-underline-offset: 4px; text-decoration-thickness: from-font; }
+
+.mobile-nav__link:active,
+.mobile-nav__sub a:active { color: var(--color-red-600); text-decoration-line: underline; }
+.mobile-nav__cta:active { border-color: var(--color-red-600); color: var(--color-red-600); }
+.site-header__toggle:active { color: var(--color-red-600); }
+
+/* ---------- FAQ: pergunta (Tertiary) + círculo do + / − (Primary) ---------- */
+.faq .faq__trigger { cursor: pointer; }
+.faq .faq__question { text-underline-offset: 4px; text-decoration-thickness: from-font; transition: color var(--dur) var(--ease); }
+.faq .faq__icon { transition: background-color var(--dur) var(--ease); }
+.faq .faq__icon-img { transition: filter var(--dur) var(--ease); }
+.faq .faq__trigger:active .faq__question { color: var(--color-red-600); text-decoration-line: underline; }
+.faq .faq__trigger:active .faq__icon { background: var(--color-red-700); }
+.faq .faq__trigger:active .faq__icon-img { filter: brightness(0) invert(1); }
+
+/* ---------- Setas dos carrosséis (Primary) ---------- */
+.cardapio .cardapio__nav,
+.depoimentos .depoimentos__nav { cursor: pointer; transition: background-color var(--dur) var(--ease), color var(--dur) var(--ease), opacity var(--dur) var(--ease); }
+.depoimentos .depoimentos__nav img { transition: filter var(--dur) var(--ease); }
+.cardapio .cardapio__nav:active:not([aria-disabled="true"]) { background: var(--color-red-700); color: var(--color-cream-50); }
+.depoimentos .depoimentos__nav:active:not(:disabled) { background: var(--color-red-700); }
+.depoimentos .depoimentos__nav:active:not(:disabled) img { filter: brightness(0) invert(1); }
+
+/* ---------- Abas de sabores: iguais ao desktop (Tertiary/Dark) ---------- */
+.sabores .sabores__aba { text-underline-offset: 4px; }
+.sabores .sabores__abas > .sabores__aba:active { color: var(--color-cream-100); text-decoration-line: underline; }
+
+/* ---------- Links do footer (Tertiary/Dark) ---------- */
+.site-footer .site-footer__link:active { color: var(--color-cream-100); text-decoration: underline; text-decoration-thickness: from-font; }
+
+/* ---------- Logos (header e footer) — não têm hover no Figma; realce sutil ---------- */
+.site-logo,
+.site-footer .site-footer__logo { transition: opacity var(--dur) var(--ease), width var(--dur) var(--ease), height var(--dur) var(--ease); }
+.site-logo:active,
+.site-footer .site-footer__logo:active { opacity: .85; }
+
+/* ---------- Botão flutuante do WhatsApp ---------- */
+.whatsapp-fab { transition: filter var(--dur) var(--ease); }
+.whatsapp-fab:active { filter: brightness(1.08); }
+
+@media (hover: hover) {
+  .mobile-nav__link:hover,
+  .mobile-nav__sub a:hover { color: var(--color-red-600); text-decoration-line: underline; }
+  .mobile-nav__cta:hover { border-color: var(--color-red-600); color: var(--color-red-600); }
+  .site-header__toggle:hover { color: var(--color-red-600); }
+
+  .faq .faq__trigger:hover .faq__question { color: var(--color-red-600); text-decoration-line: underline; }
+  .faq .faq__trigger:hover .faq__icon { background: var(--color-red-700); }
+  .faq .faq__trigger:hover .faq__icon-img { filter: brightness(0) invert(1); }
+
+  .cardapio .cardapio__nav:hover:not([aria-disabled="true"]) { background: var(--color-red-700); color: var(--color-cream-50); }
+  .depoimentos .depoimentos__nav:hover:not(:disabled) { background: var(--color-red-700); }
+  .depoimentos .depoimentos__nav:hover:not(:disabled) img { filter: brightness(0) invert(1); }
+
+  .cardapio .cardapio__dot:not([aria-current="true"]):hover::before { background: var(--color-red-600); }
+  .depoimentos .depoimentos__dots button.depoimentos__dot:not([aria-current="true"]):hover,
+  .depoimentos .depoimentos__dots button.depoimentos__dot:not([aria-current="true"]):hover::before { background: var(--color-red-600); }
+
+  .sabores .sabores__abas > .sabores__aba:hover { color: var(--color-cream-100); text-decoration-line: underline; text-decoration-thickness: from-font; }
+
+  .whatsapp-fab:hover { filter: brightness(1.08); }
+
+  .site-logo:hover,
+  .site-footer .site-footer__logo:hover { opacity: .85; }
+}

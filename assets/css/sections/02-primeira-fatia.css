@@ -3,15 +3,25 @@
    Figma "Call to action" 7057:164 (1440 × 441) · pt 80 · pb 48 · px 112
    Box amarelo 7057:165 (1216 × 313): p 56, flex items-center justify-between
    Fatias sobrepostas 7057:172 (311 × 403) vazam 45px acima e abaixo do box.
+
+   Responsivo (o Figma só tem o frame 1440; mobile segue o banner amarelo
+   "Fale agora com um consultor" do site de referência — _ref/mobile-ref):
+   ≥ 1200   3 colunas do Figma (título | fatias | texto); título e fatias
+            encolhem juntos com a viewport (clamp = 56px exatos em 1440).
+   ≤ 1199   2 colunas: texto à esquerda (título → subtítulo → condições →
+            botão) e o grupo de fatias do Figma à direita, em escala,
+            vazando pela borda de baixo do box como no desktop.
+   ≤ 1023   mesmo arranjo, banner amarelo full-bleed (borda a borda).
+   ≤ 767    banner full-bleed em uma coluna, alinhado à esquerda:
+            título → subtítulo → condições → botão → fatias (composição
+            horizontal ~75% da largura, centralizada, vazando na borda de baixo).
    ========================================================================== */
 
-:root {
-  --color-yellow-400: #ffb82e;   /* fundo do banner 7057:165 (mesmo valor das seções 03/04/09) */
-}
 
 .primeira-fatia {
   /* 1 "px do Figma": exatamente 1px em ≥ 1440; abaixo disso as fatias encolhem
-     proporcionalmente para caber entre título e coluna (desktop fluido, sem breakpoint). */
+     proporcionalmente para caber entre título e coluna (desktop fluido, sem breakpoint).
+     O 1440 é o --frame-w sem unidade: calc() não divide um comprimento por outro. */
   --fatia-u: min(1px, calc(100vw / 1440));
   padding-top: var(--section-py);     /* pt-[80px] */
   padding-bottom: 48px;               /* pb-[48px] */
@@ -27,11 +37,16 @@
   background: var(--color-yellow-400);
 }
 
-/* Título (7057:166): Anton 56/1.2 uppercase, 518px, 3 linhas (.u-display) */
+/* Título (7057:166): Anton 56/1.2 uppercase, 518px, 3 linhas (.u-display).
+   5vw − 16px = 56px em 1440 e 44px em 1200: a 1ª linha ("PRIMEIRA VEZ POR AQUI?")
+   continua cabendo inteira enquanto a coluna encolhe entre 1200 e 1440. */
 .primeira-fatia__title {
   flex: 0 1 518px;
   min-width: 0;
-  font-size: 56px;
+  font-size: clamp(40px, calc(5vw - 16px), 56px);
+  /* O Figma arredonda cada linha para px inteiro (56 × 1.2 = 67.2 → 67; título
+     201 = 3 × 67). Sem suporte a round(), fica o 1.2 do .u-display. */
+  line-height: round(1.2em, 1px);
   color: var(--color-red-700);
   overflow-wrap: break-word;
 }
@@ -42,12 +57,16 @@
    dois: começa 68px antes do fim do título (506 = 574 − 68) e termina 45px antes da
    coluna (817 = 862 − 45). 518 + (311 − 68) + 45 + 298 = 1104 = largura útil do box,
    então em 1440 a posição é idêntica; abaixo disso título/coluna encolhem em vez de
-   ficarem por baixo das fotos. */
+   ficarem por baixo das fotos.
+   Quando falta pouco espaço (ex.: 1440 com barra de rolagem clássica = 1423 úteis,
+   mas 100vw continua 1440), é o slot das fatias que cede primeiro (flex-shrink 20,
+   até 24px — as fotos são absolutas e só avançam sobre a margem de 45px); assim o
+   título não quebra em 4 linhas. */
 .primeira-fatia__media {
   position: relative;
-  flex: none;
+  flex: 0 20 calc(311 * var(--fatia-u));
   align-self: stretch;                /* altura = linha do flex (título) */
-  width: calc(311 * var(--fatia-u));
+  min-width: calc(311 * var(--fatia-u) - 24px);
   margin-left: calc(-68 * var(--fatia-u));
   margin-right: calc(45 * var(--fatia-u));
   pointer-events: none;
@@ -110,11 +129,187 @@
   color: var(--color-red-700);
 }
 
-/* 7057:169: Archivo Regular 14/1.4 */
+/* 7057:169: Archivo Regular 14/1.4 — o Figma arredonda cada linha para 20px
+   (14 × 1.4 = 19.6 → 20), então o passo de linha é 20px literal. */
 .primeira-fatia__text {
   font-family: var(--font-body);
   font-weight: 400;
   font-size: 14px;
-  line-height: var(--lh-body);        /* 1.4 */
+  line-height: 20px;
   color: var(--color-red-700);
+}
+
+
+/* ==========================================================================
+   Responsivo — escala compacta (tokens --fs-t-* / --fs-m-* de tokens.css)
+   Uma media query por breakpoint; ≥ 1200 fica intocado (Figma).
+   ========================================================================== */
+
+/* ---------- ≤ 1199 — laptop pequeno / tablet grande (1024–1199) ----------
+   Texto à esquerda (título em 3 linhas como no Figma → subtítulo → condições
+   → botão) e o grupo de fatias do Figma à direita, em escala (--fatia-w,
+   proporção 311 × 403), ancorado embaixo e vazando --fatia-leak pela borda
+   do box — o mesmo gesto do desktop. As fatias são absolutas dentro da área
+   "media" do grid (o box é o containing block), então nunca empurram nem
+   cobrem o texto: a coluna delas tem largura fixa. */
+@media (max-width: 1199.98px) {
+  .primeira-fatia {
+    --fatia-w: clamp(280px, 30vw, 340px);   /* 307 @1024 · 340 @1134+ */
+    --fatia-pad: 48px;                      /* padding vertical do box */
+    --fatia-leak: 40px;                     /* quanto as fatias passam da borda de baixo */
+    --fatia-gap: 48px;                      /* texto ↔ fatias */
+    --fatia-col: 440px;                     /* largura máx. das condições (~65 car./linha) */
+    padding-bottom: calc(var(--fatia-leak) + 8px);
+  }
+
+  .primeira-fatia__box {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) var(--fatia-w);
+    grid-template-areas:
+      "title   media"
+      "content media";
+    align-content: center;
+    column-gap: var(--fatia-gap);
+    row-gap: 24px;
+    padding: var(--fatia-pad) 48px;
+  }
+
+  .primeira-fatia__title {
+    grid-area: title;
+    /* 9.5em ≈ a caixa de 518px do Figma (9.25em): reproduz as quebras do
+       desktop em qualquer tamanho — PRIMEIRA VEZ POR AQUI? / PROVE UMA FATIA
+       POR / CONTA DA CASA — sem órfã. (text-wrap: balance não age em blocos
+       com <br>, então a medida é quem evita "DA CASA" / "CASA" sozinhos.) */
+    max-width: 9.5em;
+    font-size: clamp(var(--fs-t-h2), 3.6vw, 44px);   /* 40 → 43 (desktop começa em 44 no 1200) */
+    text-wrap: balance;
+  }
+
+  .primeira-fatia__media {
+    grid-area: media;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: calc(-1 * (var(--fatia-pad) + var(--fatia-leak)));
+    min-width: 0;
+    margin: 0;
+  }
+
+  /* Grupo em fluxo e proporcional: posições do Figma em % de 311 × 403 */
+  .primeira-fatia__images {
+    position: relative;
+    left: auto;
+    bottom: auto;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 311 / 403;
+  }
+
+  .primeira-fatia__img--foreground {
+    left: 33.762%;                      /* 105 / 311 */
+    width: 66.238%;                     /* 206 / 311 */
+    height: 47.395%;                    /* 191 / 403 */
+  }
+
+  .primeira-fatia__img--background {
+    width: 98.071%;                     /* 305 / 311 */
+    height: 75.682%;                    /* 305 / 403 */
+  }
+
+  .primeira-fatia__content {
+    grid-area: content;
+    gap: 12px;
+    max-width: var(--fatia-col);
+  }
+
+  .primeira-fatia__text { text-wrap: balance; }  /* linhas equilibradas: nada de "São Paulo." sozinho */
+
+  .primeira-fatia__content .btn { margin-top: 8px; }
+}
+
+
+/* ---------- ≤ 1023 — tablet (768–1023) ----------
+   Mesmo arranjo texto | fatias, mas o banner vira faixa full-bleed (borda a
+   borda), como o CTA amarelo da referência em 768; o texto fica alinhado à
+   margem das outras seções (--section-px). */
+@media (max-width: 1023.98px) {
+  .primeira-fatia {
+    --fatia-w: clamp(232px, 32vw, 280px);   /* 246 @768 · 267 @834 */
+    --fatia-leak: 32px;
+    --fatia-gap: 32px;
+  }
+
+  .primeira-fatia__box {
+    margin-inline: calc(-1 * var(--section-px));
+    padding: var(--fatia-pad) var(--section-px);
+  }
+
+  .primeira-fatia__title { font-size: var(--fs-t-h2); }          /* 40px */
+
+  .primeira-fatia__subtitle { font-size: var(--fs-t-lead); }     /* 18px */
+}
+
+
+/* ---------- ≤ 767 — mobile ----------
+   Banner amarelo full-bleed de uma coluna, alinhado à esquerda como o
+   "Fale agora com um consultor" da referência: título → subtítulo →
+   condições → botão → fatias. As fatias viram uma composição horizontal
+   baixa (morango na frente à esquerda, tradicional ao fundo à direita),
+   centralizada, e vazam --fatia-leak pela borda de baixo — ecoando o
+   vazamento do desktop, sem nunca cobrir texto (ficam depois do botão). */
+@media (max-width: 767.98px) {
+  .primeira-fatia {
+    --fatia-leak: 24px;
+    padding-bottom: var(--fatia-leak);  /* a seção 03 já abre com --section-py */
+  }
+
+  .primeira-fatia__box {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas:
+      "title"
+      "content"
+      "media";
+    row-gap: var(--gap-m-md);           /* 16 */
+    padding: 48px var(--section-px) 0;
+  }
+
+  .primeira-fatia__title { font-size: var(--fs-m-h2); }          /* 28px */
+
+  .primeira-fatia__media {
+    position: relative;
+    left: auto;
+    right: auto;
+    bottom: auto;
+    justify-self: start;
+    width: min(100%, 272px);            /* ~80% de 342 */
+    margin-top: var(--gap-m-md);        /* 16 + 16 = 32 do botão */
+    margin-bottom: calc(-1 * var(--fatia-leak));
+    /* centralizada sob a coluna de texto (≤ --fatia-col), não sob a tela:
+       em 390 dá no mesmo; em 600–767 as fatias não ficam soltas à direita. */
+    margin-left: max(0px, (min(100%, var(--fatia-col)) - 272px) / 2);
+  }
+
+  /* 236 × 160: morango 160² em (0, 0) · tradicional 118 × 109 em (118, 0) */
+  .primeira-fatia__images { aspect-ratio: 236 / 160; }
+
+  .primeira-fatia__img--background {
+    width: 67.797%;                     /* 160 / 236 */
+    height: 100%;
+  }
+
+  .primeira-fatia__img--foreground {
+    left: 50%;                          /* 118 / 236 */
+    width: 50%;                         /* 118 / 236 */
+    height: 68.313%;                    /* 118 × 191/206 = 109.3 / 160 */
+    object-position: top;
+  }
+
+  .primeira-fatia__content { gap: 8px; }
+
+  .primeira-fatia__text {
+    font-size: var(--fs-m-body);        /* 15px */
+    line-height: var(--lh-m-body);      /* 1.5 */
+  }
+
+  .primeira-fatia__content .btn { margin-top: var(--gap-m-md); } /* 8 + 16 = 24 */
 }

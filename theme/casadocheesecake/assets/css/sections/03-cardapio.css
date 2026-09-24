@@ -22,15 +22,10 @@
    2 × 20, "Price and Size" 50 = 28 + 22, botão 48 = 12 + 22 + 12 + 2).
    ========================================================================== */
 
-:root {
-  --color-cream-25: #fdfaf2;    /* fundo dos cards (7057:181…) — mesmo valor da seção 05 */
-  --color-red-950: #150506;     /* fundo da tag "Mais pedido" (7057:186) — mesmo valor da seção 05 */
-  --color-yellow-400: #ffb82e;  /* fundo da imagem "Doce de Leite" (7057:226) */
-  --color-pink-200: #ffc0c5;    /* fundo da imagem "Morangos" (7057:260) */
-  --color-blue-200: #b5d9fb;    /* fundo da imagem "Blue Berry" (7057:294) */
-}
 
 .cardapio {
+  /* 20px em ≥1440 · linear até 14px em 1200 (só age entre 1200 e 1439) */
+  --cardapio-fluid-px: clamp(14px, calc(20px - (1440px - 100vw) * .025), 20px);
   background: var(--color-cream-50);
   padding-block: var(--section-py);                 /* py-[80px] */
   color: var(--color-red-700);
@@ -56,9 +51,10 @@
   min-width: 0;
   font-family: var(--font-display);
   font-weight: 400;
-  font-size: 56px;
-  line-height: 67px;                                /* 1.2 → 67 no Figma */
+  font-size: clamp(40px, 3.8889vw, 56px);           /* 56 @ 1440 */
+  line-height: clamp(48px, 4.6528vw, 67px);         /* 67 @ 1440 (1.2 → 67 no Figma) · 1.2 abaixo */
   text-transform: uppercase;
+  text-wrap: balance;
 }
 
 .cardapio__lead {
@@ -158,13 +154,19 @@
   flex-shrink: 0;
 }
 
-/* Conteúdo (7057:196) */
+/* Conteúdo (7057:196)
+   flex-grow + preços com margin-top: auto: quando a descrição de um card quebra
+   em mais linhas (1280, textos do WP), as linhas de preço continuam alinhadas
+   entre os cards. Em 1440 os 4 cards têm a mesma altura → nada muda. */
 .cardapio__content {
   display: flex;
+  flex: 1 0 auto;
   flex-direction: column;
   gap: 24px;
   width: 100%;
-  padding: 24px 20px 32px;                          /* pt 24 · px 20 · pb 32 */
+  /* pt 24 · px 20 · pb 32 — px exato em 1440; de 1439 a 1200 cai até 14px
+     (junto com o botão e o tamanho) para "600 g · 6 mini fatias" caber em 1 linha */
+  padding: 24px var(--cardapio-fluid-px) 32px;
 }
 
 .cardapio__info {
@@ -194,7 +196,7 @@
   display: flex;
   flex-direction: column;
   gap: 16px;
-  margin: 0;
+  margin: auto 0 0;                                 /* margin-top: auto → alinha as linhas entre cards */
   padding: 0;
   list-style: none;
 }
@@ -235,7 +237,7 @@
 .cardapio__size {
   font-family: var(--font-body);
   font-weight: 400;
-  font-size: 16px;
+  font-size: clamp(14px, calc(16px - (1440px - 100vw) / 120), 16px); /* 16 em 1440 · 14 em 1200 */
   line-height: 22px;                                /* 1.4 → 22 no Figma */
   text-wrap: balance;                               /* 1 linha em 1440; evita órfão em larguras menores */
 }
@@ -245,7 +247,7 @@
    Variação real do Figma: px 20, py 12, Anton 16/22, borda 1px nos dois tipos. */
 .cardapio__btn {
   flex-shrink: 0;
-  padding: 12px 20px;
+  padding: 12px var(--cardapio-fluid-px);           /* px 20 em 1440 */
   border: 1px solid var(--color-red-700);
   font-size: 16px;
   line-height: 22px;                                /* 1.4 → 22 no Figma */
@@ -254,4 +256,296 @@
 .cardapio__btn.btn--primary:hover,
 .cardapio__btn.btn--primary:focus-visible {
   border-color: var(--color-red-600);
+}
+
+/* Controles do carrossel: só existem no mobile (≤767). O JS tira o [hidden]. */
+.cardapio__controls,
+.cardapio__controls[hidden] {
+  display: none;
+}
+
+
+/* ==========================================================================
+   Responsivo — o Figma só tem o frame 1440 (≥1200 = layout do Figma, nada
+   abaixo mexe nele). Escala de tokens.css (--fs-t-* / --fs-m-* / --gap-m-*),
+   padrão mobile do site de referência do cliente + pedido explícito dele.
+   ≤1199  grade 2×2. A faixa colorida tem altura contida (200–240) para o card
+          largo não virar um bloco de cor enorme; a foto acompanha a altura.
+   ≤1023  cabeçalho empilhado (título 40 → texto 18).
+   ≤767   CARROSSEL DE UM SABOR POR VEZ (pedido do cliente): trilho de borda a
+          borda com scroll-snap; o card ocupa a largura útil (342 em 390) e o
+          gap é igual à margem lateral, então o vizinho começa exatamente na
+          borda da tela (sem "peek"). scroll-snap-stop: um swipe = um sabor.
+          Controles abaixo: dots à esquerda + setas 44 à direita (mesma
+          família da seção 07 e da referência); "Ver cardápio completo"
+          centralizado no fim.
+   ========================================================================== */
+@media (max-width: 1199.98px) {
+  .cardapio__head {
+    gap: 48px;
+  }
+
+  .cardapio__lead {
+    font-size: var(--fs-t-lead);                    /* 18 */
+    line-height: 1.5;
+    text-wrap: pretty;
+  }
+
+  .cardapio__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .cardapio__media {
+    --cardapio-media-h: clamp(200px, 22vw, 240px);  /* 200 @ 768 · 225 @ 1024 · 240 @ 1100+ */
+    aspect-ratio: auto;
+    height: var(--cardapio-media-h);
+    padding-bottom: 28px;
+  }
+
+  .cardapio__photo {
+    width: auto;                                    /* largura pela proporção 204:116 */
+    height: calc(var(--cardapio-media-h) * .6);
+  }
+
+  .cardapio__content {
+    gap: 20px;
+    padding: 24px 24px 32px;
+  }
+
+  .cardapio__info {
+    gap: 4px;
+  }
+
+  .cardapio__name {
+    font-size: var(--fs-t-h3);                      /* 24 */
+    line-height: 1.25;
+  }
+
+  .cardapio__desc {
+    font-size: 15px;
+    line-height: 1.5;
+    text-wrap: pretty;
+  }
+
+  .cardapio__size {
+    font-size: 16px;                                /* literal do Figma (card largo) */
+  }
+
+  .cardapio__btn {
+    padding-inline: 20px;                           /* px do Figma (o fluido de 1200–1439 cairia a 14) */
+  }
+}
+
+@media (max-width: 1023.98px) {
+  .cardapio__head {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .cardapio__title,
+  .cardapio__lead {
+    flex: none;
+    width: 100%;
+  }
+
+  .cardapio__title {
+    font-size: var(--fs-t-h2);                      /* 40 */
+    line-height: 1.2;
+  }
+
+  .cardapio__lead {
+    max-width: 640px;
+  }
+
+  .cardapio__body {
+    gap: 40px;
+  }
+
+  .cardapio__grid {
+    gap: 24px;
+  }
+}
+
+@media (max-width: 767.98px) {
+  .cardapio {
+    overflow-x: clip;                               /* trilho do carrossel é de borda a borda */
+  }
+
+  .cardapio__head {
+    gap: var(--gap-m-sm);                           /* 12 */
+  }
+
+  .cardapio__title {
+    font-size: var(--fs-m-h2);                      /* 28 */
+    line-height: 1.15;
+  }
+
+  .cardapio__lead {
+    font-size: var(--fs-m-lead);                    /* 16 */
+  }
+
+  .cardapio__body {
+    gap: var(--gap-m-md);                           /* card → controles 16 */
+  }
+
+  /* Trilho: sangra até a borda da tela; padding e scroll-padding = margem
+     lateral mantêm o card atual alinhado ao conteúdo (x = 24).
+     [role="list"]: vence o ul[role="list"] { padding: 0 } do base.css. */
+  .cardapio__grid,
+  .cardapio__grid[role="list"] {
+    display: flex;
+    gap: var(--section-px);
+    align-self: stretch;
+    width: auto;
+    margin-inline: calc(-1 * var(--section-px));
+    padding-inline: var(--section-px);
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: var(--section-px);
+    scrollbar-width: none;
+  }
+
+  .cardapio__grid::-webkit-scrollbar {
+    display: none;
+  }
+
+  .cardapio__card {
+    flex: 0 0 100%;                                 /* largura útil: 342 em 390 */
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+    border-radius: var(--radius-m-card);
+  }
+
+  .cardapio__media {
+    --cardapio-media-h: 192px;
+    padding-bottom: 24px;
+    border-radius: var(--radius-m-card);
+  }
+
+  .cardapio__photo {
+    height: calc(var(--cardapio-media-h) * .64);    /* 123 × 216 */
+  }
+
+  .cardapio__content {
+    gap: var(--gap-m-md);                           /* 16 */
+    padding: 20px var(--pad-m-card) var(--pad-m-card);
+  }
+
+  .cardapio__name {
+    font-size: var(--fs-m-h3);                      /* 20 */
+    line-height: 28px;
+  }
+
+  .cardapio__desc {
+    font-size: var(--fs-m-body);                    /* 15 */
+    line-height: var(--lh-m-body);
+  }
+
+  .cardapio__prices {
+    gap: var(--gap-m-sm);                           /* 12 */
+  }
+
+  .cardapio__row {
+    padding-bottom: var(--gap-m-sm);
+  }
+
+  .cardapio__price {
+    line-height: 24px;
+  }
+
+  .cardapio__size {
+    font-size: var(--fs-m-small);                   /* 14 */
+    line-height: 20px;
+  }
+
+  .cardapio__btn {
+    padding: 10px 20px;                             /* 44 de altura */
+  }
+
+  /* dots à esquerda (alvos 44 × 44, ponto visível 8) + setas à direita */
+  .cardapio__controls:not([hidden]) {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    align-self: stretch;
+  }
+
+  .cardapio__dots {
+    display: flex;
+    margin-left: -18px;                             /* 1º ponto alinhado à margem do conteúdo */
+  }
+
+  .cardapio__dot {
+    position: relative;
+    flex-shrink: 0;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+  }
+
+  .cardapio__dot::before {
+    content: "";
+    position: absolute;
+    inset: 18px;
+    border-radius: 50%;
+    background: color-mix(in srgb, var(--color-red-700) 20%, transparent);
+    transition: background-color var(--dur) var(--ease);
+  }
+
+  .cardapio__dot[aria-current="true"]::before {
+    background: var(--color-red-700);
+  }
+
+  .cardapio__dot:focus-visible {
+    outline-offset: -8px;
+  }
+
+  .cardapio__arrows {
+    display: flex;
+    flex-shrink: 0;
+    gap: 8px;
+  }
+
+  .cardapio__nav {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: var(--color-white);
+    color: var(--color-red-700);
+    box-shadow: 0 4px 6px color-mix(in srgb, var(--color-ink-900) 6%, transparent);
+    transition: background-color var(--dur) var(--ease), opacity var(--dur) var(--ease);
+  }
+
+  .cardapio__nav:hover:not([aria-disabled="true"]) {
+    background: var(--color-cream-25);
+  }
+
+  .cardapio__nav[aria-disabled="true"] {
+    opacity: .4;
+    box-shadow: none;
+    cursor: default;
+  }
+
+  .cardapio__nav svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .cardapio__body > .btn:last-child {
+    margin-top: var(--gap-m-md);                    /* controles → CTA: 16 + 16 = 32 */
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cardapio__nav,
+  .cardapio__dot::before {
+    transition: none;
+  }
 }

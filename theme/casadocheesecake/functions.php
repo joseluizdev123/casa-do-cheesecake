@@ -41,6 +41,9 @@ add_action( 'wp_enqueue_scripts', function () {
 		wp_enqueue_style( "cdc-section-$slug", CDC_URI . "/assets/css/sections/$slug.css", array( 'cdc-components' ), cdc_asset_version( "css/sections/$slug.css" ) );
 	}
 
+	// Hover/toque unificados (desktop = tablet = mobile), sempre depois das seções.
+	wp_enqueue_style( 'cdc-interactions', CDC_URI . '/assets/css/interactions.css', array( 'cdc-components' ), cdc_asset_version( 'css/interactions.css' ) );
+
 	wp_enqueue_script( 'cdc-main', CDC_URI . '/assets/js/main.js', array(), cdc_asset_version( 'js/main.js' ), array( 'strategy' => 'defer', 'in_footer' => true ) );
 	foreach ( cdc_sorted_glob( CDC_DIR . '/assets/js/sections/*.js' ) as $file ) {
 		$slug = basename( $file, '.js' );

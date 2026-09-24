@@ -9,6 +9,7 @@
 defined( 'ABSPATH' ) || exit;
 
 $cdc_items    = cdc_cardapio_items();
+$cdc_total    = count( $cdc_items );
 $cdc_nodes    = cdc_cardapio_figma_nodes();
 $cdc_pedir    = cdc_mod( 'cdc_cardapio_botao_pedir' );
 $cdc_cta_link = cdc_mod( 'cdc_cardapio_botao_link' );
@@ -21,9 +22,9 @@ $cdc_cta_link = cdc_cardapio_href( '' !== $cdc_cta_link ? $cdc_cta_link : cdc_mo
 			<p class="cardapio__lead" data-figma-node="7057:178"><?php echo cdc_rich( cdc_mod( 'cdc_cardapio_texto' ) ); // phpcs:ignore WordPress.Security.EscapeOutput -- cdc_rich() escapa. ?></p>
 		</header>
 
-		<div class="cardapio__body" data-figma-node="7057:179">
+		<div class="cardapio__body" data-figma-node="7057:179" data-cardapio-carousel>
 			<?php if ( $cdc_items ) : ?>
-			<ul class="cardapio__grid" role="list" data-figma-node="7057:180">
+			<ul class="cardapio__grid" id="cardapio-lista" role="list" data-figma-node="7057:180" data-cardapio-track>
 				<?php
 				foreach ( $cdc_items as $cdc_i => $cdc_item ) :
 					$cdc_n  = isset( $cdc_nodes[ $cdc_i ] ) ? $cdc_nodes[ $cdc_i ] : array();
@@ -67,6 +68,26 @@ $cdc_cta_link = cdc_cardapio_href( '' !== $cdc_cta_link ? $cdc_cta_link : cdc_mo
 				</li>
 				<?php endforeach; ?>
 			</ul>
+
+			<?php if ( $cdc_total > 1 ) : ?>
+			<?php /* Carrossel de 1 sabor por vez (≤767px). Sem JS fica [hidden] e o trilho continua rolável; o CSS esconde tudo em ≥768px. */ ?>
+			<div class="cardapio__controls" role="group" aria-label="Navegar pelos sabores" data-cardapio-controls hidden>
+				<div class="cardapio__dots" data-cardapio-dots>
+					<?php foreach ( $cdc_items as $cdc_i => $cdc_item ) : ?>
+					<button class="cardapio__dot" type="button" aria-controls="cardapio-lista" aria-label="<?php echo esc_attr( sprintf( '%1$s, %2$d de %3$d', $cdc_item['title'], $cdc_i + 1, $cdc_total ) ); ?>"<?php echo 0 === $cdc_i ? ' aria-current="true"' : ''; ?> data-cardapio-dot></button>
+					<?php endforeach; ?>
+				</div>
+				<div class="cardapio__arrows">
+					<button class="cardapio__nav cardapio__nav--prev" type="button" aria-controls="cardapio-lista" aria-label="Sabor anterior" aria-disabled="true" data-cardapio-prev>
+						<svg viewBox="0 0 20 20" width="20" height="20" fill="none" aria-hidden="true" focusable="false"><path d="M12.5 15 7.5 10l5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+					</button>
+					<button class="cardapio__nav cardapio__nav--next" type="button" aria-controls="cardapio-lista" aria-label="Próximo sabor" aria-disabled="false" data-cardapio-next>
+						<svg viewBox="0 0 20 20" width="20" height="20" fill="none" aria-hidden="true" focusable="false"><path d="m7.5 15 5-5-5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+					</button>
+				</div>
+				<p class="sr-only" aria-live="polite" aria-atomic="true" data-cardapio-status></p>
+			</div>
+			<?php endif; ?>
 			<?php endif; ?>
 
 			<a class="btn btn--primary" href="<?php echo esc_url( $cdc_cta_link ); ?>" data-figma-node="7073:393"><?php echo esc_html( cdc_mod( 'cdc_cardapio_botao' ) ); ?></a>

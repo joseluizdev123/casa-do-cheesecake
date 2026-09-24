@@ -92,10 +92,10 @@ $cdc_node = function ( $id ) {
 						</li>
 					<?php endforeach; ?>
 				</ul>
-				<button class="depoimentos__nav depoimentos__nav--prev" type="button" aria-controls="depoimentos-lista" aria-label="<?php esc_attr_e( 'Depoimentos anteriores', 'casadocheesecake' ); ?>" data-carousel-prev data-figma-node="7057:482">
+				<button class="depoimentos__nav depoimentos__nav--prev" type="button" aria-controls="depoimentos-lista" aria-label="<?php esc_attr_e( 'Depoimentos anteriores', 'casadocheesecake' ); ?>" disabled data-carousel-prev data-figma-node="7057:482">
 					<img src="<?php echo esc_url( cdc_asset( 'images/07-depoimentos-chevron-left.svg' ) ); ?>" alt="" width="20" height="20" data-figma-node="7057:483">
 				</button>
-				<button class="depoimentos__nav depoimentos__nav--next" type="button" aria-controls="depoimentos-lista" aria-label="<?php esc_attr_e( 'Próximos depoimentos', 'casadocheesecake' ); ?>" data-carousel-next data-figma-node="7057:479">
+				<button class="depoimentos__nav depoimentos__nav--next" type="button" aria-controls="depoimentos-lista" aria-label="<?php esc_attr_e( 'Próximos depoimentos', 'casadocheesecake' ); ?>" disabled data-carousel-next data-figma-node="7057:479">
 					<img src="<?php echo esc_url( cdc_asset( 'images/07-depoimentos-chevron-right.svg' ) ); ?>" alt="" width="20" height="20" data-figma-node="7057:480">
 				</button>
 			</div>

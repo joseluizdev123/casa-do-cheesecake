@@ -38,15 +38,11 @@ def chrome():
 
 
 def shoot(url, width, height, out, wait):
-    with tempfile.TemporaryDirectory() as profile:
-        cmd = [
-            chrome(), "--headless=new", "--disable-gpu", "--hide-scrollbars",
-            "--force-device-scale-factor=1", f"--window-size={width},{height}",
-            f"--user-data-dir={profile}", "--no-first-run", "--no-default-browser-check",
-            "--run-all-compositor-stages-before-draw", f"--screenshot={out}", url,
-        ]
-        # sem --virtual-time-budget: trava o processo com listeners de scroll/rAF
-        subprocess.run(cmd, check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, stdin=subprocess.DEVNULL, timeout=90)
+    """Captura via puppeteer (networkidle0 + fontes + decode das imagens)."""
+    subprocess.run(
+        ["node", str(ROOT / "tools" / "capture.mjs"), url, str(width), str(height), out],
+        check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, stdin=subprocess.DEVNULL, timeout=150,
+    )
 
 
 def main():
@@ -63,7 +59,7 @@ def main():
     ref_path = Path(a.ref) if a.ref else REF / f"figma-{a.slug}.png"
     ref = Image.open(ref_path).convert("RGB") if ref_path.exists() else None
     height = a.height or (ref.height if ref else 900)
-    url = "http://localhost:5500" + (a.path or f"/s/{a.slug}")
+    url = f"http://localhost:{os.environ.get('PORT', '5500')}" + (a.path or f"/s/{a.slug}")
     shot_path = OUT / f"{a.slug}.png"
     shoot(url, 1440, height, str(shot_path), a.wait)
     impl = Image.open(shot_path).convert("RGB")

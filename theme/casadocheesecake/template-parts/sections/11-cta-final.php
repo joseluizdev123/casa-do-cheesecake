@@ -38,14 +38,14 @@ $cdc_cta_titulo = implode(
 				<img src="<?php echo esc_url( cdc_asset( 'images/11-cta-final-selo.svg' ) ); ?>" width="142" height="142" loading="lazy" decoding="async" alt="Yes, we have cheesecake. Desde 2004.">
 			</div>
 			<h2 class="cta-final__title" id="cta-final-titulo" data-figma-node="7057:993"><?php echo wp_kses( $cdc_cta_titulo, array( 'br' => array() ) ); ?></h2>
-			<p class="cta-final__text" data-figma-node="7057:1009"><?php echo esc_html( cdc_mod( 'cdc_cta_texto' ) ); ?></p>
+			<p class="cta-final__text" data-figma-node="7057:1009"><?php echo nl2br( esc_html( cdc_mod( 'cdc_cta_texto' ) ) ); ?></p>
 			<img class="cta-final__fatia" data-figma-node="7057:994" src="<?php echo esc_url( cdc_image( 'cdc_cta_imagem' ) ); ?>" width="198" height="184" loading="lazy" decoding="async" alt="<?php echo esc_attr( cdc_mod( 'cdc_cta_imagem_alt' ) ); ?>">
 		</div>
 
 		<div class="cta-final__actions" data-figma-node="7057:1005">
 			<a class="btn btn--primary-dark" data-figma-node="7079:408" href="<?php echo esc_url( $cdc_cta_pedir ); ?>"><?php echo esc_html( cdc_mod( 'cdc_cta_botao' ) ); ?></a>
 			<p class="cta-final__ou" data-figma-node="7057:1006"><?php echo esc_html( cdc_mod( 'cdc_cta_ou' ) ); ?></p>
-			<a class="btn-link btn-link--dark" data-figma-node="7079:412" href="<?php echo esc_url( $cdc_cta_whats ); ?>"<?php echo $cdc_cta_whats_externo ? ' target="_blank" rel="noopener"' : ''; ?>><?php echo esc_html( cdc_mod( 'cdc_cta_whatsapp' ) ); ?></a>
+			<a class="btn-link btn-link--dark" data-figma-node="7079:412" href="<?php echo esc_url( $cdc_cta_whats ); ?>"<?php echo $cdc_cta_whats_externo ? ' target="_blank" rel="noopener"' : ''; ?>><?php echo esc_html( cdc_mod( 'cdc_cta_whatsapp' ) ); ?><?php if ( $cdc_cta_whats_externo ) : ?><span class="sr-only"> (abre em nova aba)</span><?php endif; ?></a>
 		</div>
 	</div>
 </section>

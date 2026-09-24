@@ -5,12 +5,17 @@
    Layout: container 1216 · 2 colunas flex 1 (568 + 80 + 568) · py 80
    Anotações Figma: título "Fixo durante o scroll" (sticky);
    "Por padrão, todos os acordeões recolhidos, exceto o primeiro."
+   Responsivo (Figma só tem 1440 — adaptação inferida, padrão mobile do site
+   de referência: uma coluna, lateral 24, tipografia contida):
+     ≤1199  título numa coluna estreita (30%), acordeão ganha a largura da pergunta
+     ≤1023  empilha (título 40 → lista), título deixa de ser sticky, a faixa inteira
+            entre divisores vira área de toque (68px), pergunta 20 (literal do
+            Figma), resposta 16/1.5, rodapé em linha
+     ≤767   compacto: título 28, pergunta 18, círculo 36, faixa ≥64px, resposta
+            15/1.5 em largura total; rodapé fica em linha enquanto cabe (~520+) e,
+            quando quebra, o botão ocupa a largura toda (sem media query extra)
    ========================================================================== */
 
-:root {
-  --color-cream-25: #fdfaf2;                      /* fundo do botão circular (Carousel_Nav_Right 7057:814) */
-  --color-red-700-a15: rgba(176, 40, 46, 0.15);   /* divisor entre perguntas (border-b rgba(176,40,46,0.15)) */
-}
 
 .faq {
   background: var(--color-cream-50);
@@ -33,11 +38,10 @@
 
 .faq__title {
   position: sticky;
-  /* Figma: sticky top-0. Aqui o topo do trilho é a própria folga da seção
-     (80px), acima do header fixo de 70px — o título fixa exatamente onde já
-     está quando a seção encosta no topo. */
-  top: var(--section-py);
-  font-size: 56px;                                /* text-[56px] · Anton · lh 1.2 (u-display) */
+  /* Figma: sticky top-0. O header fixo tem 70px; o título fixa 10px abaixo dele
+     (= 80px em ≥1024, exatamente onde já está quando a seção encosta no topo). */
+  top: calc(var(--header-h-scroll) + 10px);
+  font-size: clamp(40px, 3.8889vw, 56px);         /* text-[56px] @1440 · Anton · lh 1.2 (u-display) */
   color: var(--color-red-700);
 }
 
@@ -76,9 +80,12 @@
   font-family: var(--font-display);
   font-weight: 400;
   font-size: 20px;                                /* text-[20px] */
-  line-height: var(--lh-button);                  /* leading-[1.4] → 28px */
+  line-height: 1.4;                               /* leading-[1.4] → 28px */
   text-transform: uppercase;
   color: var(--color-red-700);
+  /* Em 1440 todas as perguntas cabem numa linha (no-op); de 1200 a 1439 a coluna
+     encolhe e evita "CONVIDADOS?" sozinho na 2ª linha. */
+  text-wrap: balance;
 }
 
 .faq__icon {
@@ -96,7 +103,9 @@
 
 .faq__icon-img { width: 20px; height: 20px; }     /* size-[20px] */
 
-/* Ícone: minus quando aberto, plus quando fechado. Sem JS tudo fica aberto (minus). */
+/* Ícone: minus quando aberto, plus quando fechado. Sem JS tudo fica aberto (minus).
+   `.is-enhanced` entra por um <script> inline no fim da seção (antes do JS deferido),
+   então o estado recolhido já vale no primeiro paint. */
 .faq__icon-img--plus { display: none; }
 .faq.is-enhanced .faq__item:not(.is-open) .faq__icon-img--minus { display: none; }
 .faq.is-enhanced .faq__item:not(.is-open) .faq__icon-img--plus { display: block; }
@@ -154,8 +163,149 @@
   font-family: var(--font-display);
   font-weight: 400;
   font-size: 20px;                                /* text-[20px] */
-  line-height: var(--lh-button);                  /* leading-[1.4] */
+  line-height: 1.4;                               /* leading-[1.4] → 28px */
   text-transform: uppercase;
   white-space: nowrap;
   color: var(--color-red-700);
+}
+
+
+/* ==========================================================================
+   Responsivo (escala compacta — tokens --fs-t-* / --fs-m-* / --gap-m-*)
+   Uma media query por breakpoint; ≥1200 fica exatamente como o Figma.
+   ========================================================================== */
+
+/* ---- Laptop / tablet grande (1024–1199): título numa coluna estreita ----
+   Com 2 colunas iguais a pergunta ficaria com ~320px e quebraria em quase
+   todas as linhas; com o título em 30% o acordeão volta a ter ~470–570px de
+   texto (a coluna de 496 do Figma). O clamp do título dá 56px em 1440. */
+@media (max-width: 1199.98px) {
+  .faq__inner { gap: 64px; }
+
+  .faq__header { flex: 0 0 30%; }
+
+  .faq__title { text-wrap: balance; }
+}
+
+/* ---- Tablet (≤1023): empilha título → lista ----
+   A faixa inteira entre divisores vira a área de toque: o respiro que no
+   desktop vem do gap/padding passa para o próprio botão (14 + 40 + 14 = 68).
+   Pergunta fica no literal do Figma (20): é item de lista, não título de card,
+   e 24 deixaria a lista mais pesada que o próprio título da seção. */
+@media (max-width: 1023.98px) {
+  .faq__inner {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 18px;                                    /* + 14 da 1ª faixa = 32 até o 1º círculo */
+  }
+
+  .faq__header {
+    flex: none;
+    align-self: auto;
+  }
+
+  .faq__title {
+    position: static;                             /* empilhado, sticky cobriria a lista */
+    font-size: var(--fs-t-h2);                    /* 40 */
+  }
+
+  .faq__content { gap: 0; }
+
+  .faq__item { padding-bottom: 0; }
+
+  .faq__row { min-height: 0; }
+
+  .faq__trigger {
+    display: flex;
+    align-items: center;                          /* círculo centrado na pergunta (1 ou 2 linhas) */
+    gap: 24px;
+    padding: 14px 0;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .faq__question {
+    flex: 1 1 auto;
+    min-width: 0;
+    font-size: 20px;                              /* literal do Figma (≤ --fs-t-h3) */
+    line-height: 1.3;
+  }
+
+  .faq__icon {
+    position: static;
+    flex: 0 0 40px;
+    transition: background-color .2s var(--ease);
+  }
+
+  /* Feedback de toque: o círculo escurece enquanto o dedo está na faixa. */
+  .faq__trigger:active .faq__icon { background: var(--color-cream-100); }
+
+  .faq__answer { padding-right: 64px; }           /* mesma coluna da pergunta (24 + 40) */
+
+  .faq__answer-text {
+    max-width: 600px;                             /* medida de leitura (~75 caracteres) */
+    margin-top: -2px;                             /* ~16 visuais entre pergunta e resposta */
+    margin-bottom: 20px;
+    font-size: var(--fs-t-body);                  /* 16 */
+    line-height: 1.5;
+    text-wrap: pretty;                            /* sem palavra órfã na última linha */
+  }
+
+  .faq__footer { margin-top: 32px; }
+
+  .faq__footer-text { font-size: 20px; }          /* mesmo corpo das perguntas */
+}
+
+/* ---- Mobile (≤767): lista densa, resposta em largura total, rodapé adaptável ---- */
+@media (max-width: 767.98px) {
+  .faq__inner { gap: 10px; }                      /* título → 1ª pergunta ≈ 28 visuais */
+
+  .faq__title { font-size: var(--fs-m-h2); }      /* 28 */
+
+  .faq__trigger {
+    gap: var(--gap-m-md);                         /* 16 */
+    min-height: 64px;                             /* faixa ≥ 64 (toque ≥ 44) */
+    padding: 14px 0;
+  }
+
+  .faq__question {
+    font-size: 18px;                              /* SPEC: pergunta 16–18 Anton */
+    line-height: 1.3;
+  }
+
+  .faq__icon {
+    flex-basis: 36px;                             /* SPEC: ícones 32–40 */
+    width: 36px;
+    height: 36px;
+  }
+
+  .faq__icon-img { width: 18px; height: 18px; }
+
+  .faq__answer { padding-right: 0; }              /* resposta usa a largura toda */
+
+  .faq__answer-text {
+    max-width: none;
+    margin-top: -4px;                             /* ~12–18 visuais abaixo da pergunta */
+    margin-bottom: var(--gap-m-md);               /* 16 */
+    font-size: var(--fs-m-body);                  /* 15 */
+    line-height: var(--lh-m-body);                /* 1.5 */
+  }
+
+  /* Rodapé: continua flex-wrap. O texto absorve quase toda a sobra da linha
+     (grow 999) e o botão fica à direita enquanto os dois cabem (≈ 520px+);
+     quando quebra (390/375/320), o botão fica sozinho na linha e o grow 1
+     o estica para a largura toda — alvo grande para o polegar. */
+  .faq__footer {
+    gap: var(--gap-m-md);                         /* 16 */
+    margin-top: var(--gap-m-lg);                  /* 32 */
+  }
+
+  .faq__footer-text {
+    flex: 999 1 auto;
+    font-size: 18px;                              /* mesmo corpo das perguntas */
+    line-height: 1.3;
+    white-space: normal;
+    text-wrap: balance;
+  }
+
+  .faq__footer .btn { flex: 1 1 auto; }
 }

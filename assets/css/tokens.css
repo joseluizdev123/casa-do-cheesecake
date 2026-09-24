@@ -55,13 +55,23 @@
   --color-red-700: #b0282e;     /* cor da marca (texto, botões, fundos) */
   --color-white: #ffffff;
   --color-black: #000000;
+  --color-cream-25: #fdfaf2;    /* fundo de cards claros (03, 05, 07) e botões circulares (10) */
+  --color-yellow-400: #ffb82e;  /* banners amarelos (02, 09) e fundo "Doce de leite" (03, 04) */
+  --color-pink-200: #ffc0c5;    /* fundo "Morangos" (03, 04) */
+  --color-blue-200: #b5d9fb;    /* fundo "Blue berry" (03, 04) */
+  --color-red-950: #150506;     /* tags "Mais pedido" / "Na quantidade certa" (03, 05) */
+  --color-ink-900: #1a221e;     /* base das sombras das setas do carrossel (07) */
+  --color-red-700-a15: rgba(176, 40, 46, 0.15); /* divisores (10, drawer do header) */
+  --color-red-700-a08: rgba(176, 40, 46, 0.08); /* fundo de hover/press em áreas clicáveis (mobile/tablet) */
+  --color-whatsapp: #25d366;    /* botão flutuante do WhatsApp (mobile/tablet) */
 
   /* ---- Tipografia ---- */
   --font-display: "Anton", "Impact", "Arial Narrow", sans-serif;
   --font-body: "Archivo", "Helvetica Neue", Arial, sans-serif;
 
   --lh-display: 1.2;
-  --lh-button: 1.4;
+  --lh-button: 1.4;          /* textos Anton de apoio (badges, selos) */
+  --lh-btn: 25px;            /* só .btn — Figma: 18px × 140% arredondado → botão 65px */
   --lh-body: 1.4;
 
   --fs-button: 18px;
@@ -80,4 +90,65 @@
   /* ---- Motion ---- */
   --ease: cubic-bezier(.2, .7, .2, 1);
   --dur: .2s;
+}
+
+/* ---- Breakpoints (Figma só tem desktop 1440; adaptação responsiva inferida) ----
+   desktop  >= 1200px  → layout do Figma
+   tablet   768–1199px → @media (max-width: 1199.98px)
+   header compacto     → @media (max-width: 1023.98px)
+   mobile   < 768px    → @media (max-width: 767.98px)   (validado em 390 e 375)
+   ------------------------------------------------------------------------------ */
+@media (max-width: 1023.98px) {
+  :root {
+    --header-h: 72px;           /* ref: 73px */
+    --header-h-scroll: 72px;
+    --logo-w: 56px;
+    --logo-h: 64.23px;          /* proporção 108.103×124 do Figma */
+    --logo-w-scroll: 56px;
+    --logo-h-scroll: 64.23px;
+  }
+}
+/* ---- Escala responsiva — padrão mobile do site de referência
+   (joseluizdev123.github.io/ms-equipaseg-site, medido em 390/768px:
+   H1 28 · H2 28 · H3 24 · texto 15/1.5 · lateral 24 · seções ~56–64).
+   Anton uppercase é visualmente maior que um sans bold, por isso os
+   equivalentes abaixo. Desktop (>=1200) segue os literais do Figma. ---- */
+:root {
+  /* tablet (768–1199) — ref: H1 48 · H2 40 · H3 32 · texto 16 · lead 18 */
+  --fs-t-h1: 48px;
+  --fs-t-h2: 40px;
+  --fs-t-giant: 96px;   /* títulos gigantes decorativos (Yes, we have… / Peça o seu…) */
+  --fs-t-h3: 24px;      /* títulos de card / labels Anton grandes */
+  --fs-t-body: 16px;
+  --fs-t-lead: 18px;    /* parágrafo de destaque (Figma 20px) */
+  /* mobile (< 768) — ref: H1 28 · H2 28 · H3 24 · texto 15 · lead 16 · small 14 */
+  --fs-m-h1: 32px;
+  --fs-m-h2: 28px;
+  --fs-m-giant: 56px;
+  --fs-m-h3: 20px;
+  --fs-m-label: 14px;   /* badges, tags, labels Anton pequenos */
+  --fs-m-body: 15px;    /* texto corrido */
+  --fs-m-lead: 16px;    /* parágrafo de destaque */
+  --fs-m-small: 14px;   /* legendas, datas, tamanhos */
+  --lh-m-body: 1.5;     /* ref: 15/23 */
+  --gap-m-lg: 32px;     /* entre blocos grandes (ref: 32) */
+  --gap-m-md: 16px;     /* entre elementos relacionados (ref: 16) */
+  --gap-m-sm: 12px;     /* dentro de cards */
+  --pad-m-card: 24px;   /* padding interno de card (ref: 23 + borda 1) */
+  --radius-m-card: 16px;
+}
+@media (max-width: 1023.98px) {
+  :root {
+    --section-px: clamp(24px, 5.56vw, 48px);   /* ref: 24 @390 · 42.7 @768 */
+    --section-py: 72px;
+    --content-gap: 48px;
+  }
+}
+@media (max-width: 767.98px) {
+  :root {
+    --section-py: 56px;   /* ref: ~56–64 */
+    --content-gap: 32px;
+    --fs-button: 16px;
+    --lh-btn: 22px;       /* botão mobile: 14 + 22 + 14 = 50px */
+  }
 }

@@ -128,7 +128,9 @@ function cdc_cardapio_parse_precos( $text ) {
 		$parts = array_map( 'trim', explode( '|', $line, 2 ) );
 		$out[] = array(
 			'preco'   => $parts[0],
-			'tamanho' => isset( $parts[1] ) ? $parts[1] : '',
+			// Espaço não separável antes do "·": a linha nunca quebra com o ponto
+			// órfão no início ("1,8 kg / · serve 10 a 12"), igual ao HTML estático.
+			'tamanho' => isset( $parts[1] ) ? str_replace( ' · ', "\u{00A0}· ", $parts[1] ) : '',
 		);
 	}
 	return $out;
@@ -152,6 +154,9 @@ function cdc_cardapio_href( $url ) {
 function cdc_cardapio_items() {
 	$fallback_link = cdc_mod( 'cdc_contato_cardapio' );
 	$items         = array();
+	// A foto provisória do Figma é a mesma nos 4 sabores (frutas vermelhas):
+	// enquanto ela for usada, o alt descreve o que a imagem mostra.
+	$fallback_alt = 'Cheesecake inteiro com calda de frutas vermelhas (foto ilustrativa)';
 
 	foreach ( cdc_posts( 'cdc_cheesecake', 4 ) as $post ) {
 		$title = get_the_title( $post );
@@ -168,6 +173,13 @@ function cdc_cardapio_items() {
 				$img_h = (int) $src[2];
 			}
 			$alt = (string) get_post_meta( $thumb, '_wp_attachment_image_alt', true );
+			if ( '' === $alt ) {
+				// Destacada importada pelo seed = a foto provisória compartilhada.
+				$placeholder = 'images/03-cardapio-cheesecake.png' === get_post_meta( $thumb, '_cdc_seed_src', true );
+				$alt         = $placeholder ? $fallback_alt : 'Cheesecake inteiro sabor ' . $title;
+			}
+		} else {
+			$alt = $fallback_alt;
 		}
 		$link    = (string) cdc_meta( $post->ID, 'link_pedido' );
 		$items[] = array(
@@ -178,7 +190,7 @@ function cdc_cardapio_items() {
 			'image'     => $image,
 			'image_w'   => $img_w,
 			'image_h'   => $img_h,
-			'alt'       => '' !== $alt ? $alt : 'Cheesecake inteiro sabor ' . $title,
+			'alt'       => $alt,
 			'link'      => cdc_cardapio_href( '' !== $link ? $link : $fallback_link ),
 			'precos'    => cdc_cardapio_parse_precos( cdc_meta( $post->ID, 'precos' ) ),
 		);
@@ -194,7 +206,7 @@ function cdc_cardapio_items() {
 				'image'     => cdc_asset( $d['featured'] ),
 				'image_w'   => 801,
 				'image_h'   => 801,
-				'alt'       => 'Cheesecake inteiro sabor ' . $d['title'],
+				'alt'       => $fallback_alt,
 				'link'      => cdc_cardapio_href( $fallback_link ),
 				'precos'    => cdc_cardapio_parse_precos( $d['meta']['precos'] ),
 			);

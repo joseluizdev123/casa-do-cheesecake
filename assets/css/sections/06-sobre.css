@@ -1,6 +1,6 @@
 /* ==========================================================================
    06 — Sobre ("Uma cozinha, não uma embalagem")
-   Figma: 7057:349 (1440 × 728) · bg #fbf5e7 · flex gap 80 · py 80 · px 112
+   Figma: 7057:349 (frame desktop, h 728) · bg cream-50 · flex gap 80 · py 80 · px 112
    - 7057:350  Image 568×568, radius 24, p 24, conteúdo alinhado embaixo/esquerda
      └ 7057:1481 Selo 141.812×141.802 (text-paths "5 MILHÕES DE FATIAS" /
                  "YES, WE HAVE IT" + ícone fi_3400159) → export SVG do node
@@ -14,7 +14,7 @@
   padding-block: var(--section-py);             /* py-[80px] */
 }
 
-/* 2 colunas iguais: imagem 568 | conteúdo flex-1 (= 568 @ 1440) */
+/* 2 colunas iguais: imagem 568 | conteúdo flex-1 (= 568 no frame desktop) */
 .sobre__inner {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
@@ -95,6 +95,12 @@
   line-height: 25px;
 }
 .sobre__body p + p { margin-top: 16px; }       /* mb-[16px] no 1º parágrafo */
+/* Chrome assenta a linha de base do Archivo 18/25 ~1px acima do Figma (caixas
+   batem): desloca só os glifos, sem mexer na geometria medida. */
+.sobre__body p {
+  position: relative;
+  top: 1px;
+}
 
 /* ---------- Especialista (7057:356) ---------- */
 .sobre__especialista {
@@ -139,4 +145,170 @@
   font-size: 16px;                              /* text-[16px] */
   /* Figma: leading 1.4 (22.4px) arredondado para 22px (2 linhas = 44). */
   line-height: 22px;
+}
+
+/* ==========================================================================
+   Responsivo — o Figma só tem desktop; >= 1200px nada muda.
+   Escala do projeto: tokens --fs-t-* / --fs-m-* / --gap-m-* (tokens.css).
+   Padrão mobile da referência ("Sobre nós"): título → texto → assinatura →
+   foto full-bleed encostada no fim da seção. A foto é 3:4 (1047×1400); os
+   recortes horizontais usam object-position ~42% para manter a marca da
+   caixa e a fatia (com a base) no quadro.
+   ========================================================================== */
+
+/* ---------- Laptop / tablet grande (1024–1199): 2 colunas mais justas ------
+   Título fluido: 40px em 1024 → ~47px em 1199 (o literal 56 fica no desktop).
+   A foto acompanha a altura da coluna de texto (stretch), nunca menor que um
+   quadrado. */
+@media (max-width: 1199.98px) {
+  .sobre__inner { column-gap: 48px; }
+
+  .sobre__media {
+    align-self: stretch;
+    width: 100%;                  /* largura = coluna; altura = trilha (≥ quadrado) */
+    padding: 20px;
+    border-radius: 20px;
+  }
+  .sobre__foto { border-radius: 20px; }
+
+  .sobre__selo {
+    width: 120px;
+    height: 120px;
+  }
+  .sobre__selo img {
+    width: 100%;
+    height: 100%;
+  }
+
+  .sobre__content { gap: 40px; }
+  .sobre__text { gap: 20px; }
+
+  .sobre__title {
+    font-size: clamp(var(--fs-t-h2), 3.889vw, 56px);
+    line-height: 1.15;
+    text-wrap: balance;
+    hyphens: manual;
+  }
+
+  .sobre__body p {
+    top: 0;
+    text-wrap: pretty;
+  }
+  .sobre__especialista-desc { text-wrap: pretty; }
+
+  .sobre__especialista { gap: 20px; }
+  .sobre__especialista-foto {
+    width: 80px;
+    height: 80px;
+  }
+  .sobre__especialista-info { gap: 4px; }
+  .sobre__especialista-nome {
+    font-size: var(--fs-t-h3);
+    line-height: 1.3;
+    text-wrap: balance;
+  }
+}
+
+/* ---------- Tablet (768–1023): uma coluna, texto primeiro ------------------
+   Título → texto (medida ~70 caracteres) → assinatura separada por um fio →
+   foto 4:3 em card arredondado na largura do conteúdo. Abrir com o título
+   mantém o ritmo da página (05 termina em fotos; 07 abre com título). */
+@media (max-width: 1023.98px) {
+  .sobre__inner {
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: 40px;
+  }
+
+  .sobre__media {
+    order: 2;                     /* foto depois do texto (DOM inalterado) */
+    align-self: auto;
+    aspect-ratio: 4 / 3;
+  }
+  .sobre__foto { object-position: 50% 42%; }
+
+  .sobre__selo {
+    width: 104px;
+    height: 104px;
+  }
+
+  .sobre__content { gap: 24px; }
+  .sobre__text { gap: 16px; }
+
+  .sobre__title { font-size: var(--fs-t-h2); }
+
+  .sobre__body {
+    max-width: 38em;
+    font-size: var(--fs-t-body);
+    line-height: 1.5;
+  }
+  .sobre__body p + p { margin-top: 12px; }
+
+  .sobre__especialista {
+    gap: 16px;
+    padding-top: 24px;
+    border-top: 1px solid var(--color-red-700-a15);
+  }
+  .sobre__especialista-foto {
+    width: 64px;
+    height: 64px;
+  }
+  .sobre__especialista-desc { line-height: 1.45; }
+}
+
+/* ---------- Mobile (< 768): padrão "Sobre nós" da referência ---------------
+   Texto em 24px de margem; foto full-bleed (borda a borda, sem raio) 8:7 —
+   390×341 em 390 — encostada no fim da seção; selo no canto alinhado à
+   margem do texto. */
+@media (max-width: 767.98px) {
+  .sobre { padding-bottom: 0; }
+
+  .sobre__inner { row-gap: var(--gap-m-lg); }
+
+  .sobre__media {
+    width: calc(100% + 2 * var(--section-px));
+    margin-inline: calc(-1 * var(--section-px));
+    aspect-ratio: 8 / 7;
+    padding: var(--section-px);
+    border-radius: 0;
+  }
+  .sobre__foto {
+    border-radius: 0;
+    object-position: 50% 39%;
+  }
+
+  /* 142 → 80–92 (proporção preservada; texto do selo em contorno no SVG) */
+  .sobre__selo {
+    width: clamp(80px, 22vw, 92px);
+    height: auto;
+    aspect-ratio: 1 / 1;
+  }
+
+  .sobre__content { gap: 24px; }
+  .sobre__text { gap: var(--gap-m-md); }
+
+  .sobre__title { font-size: var(--fs-m-h2); }
+
+  .sobre__body {
+    max-width: none;
+    font-size: var(--fs-m-body);
+    line-height: var(--lh-m-body);
+  }
+  .sobre__body p + p { margin-top: var(--gap-m-sm); }
+
+  .sobre__especialista {
+    gap: var(--gap-m-md);
+    padding-top: 24px;
+  }
+  .sobre__especialista-foto {
+    width: 56px;
+    height: 56px;
+  }
+  .sobre__especialista-nome {
+    font-size: var(--fs-m-h3);
+    line-height: 1.2;
+  }
+  .sobre__especialista-desc {
+    font-size: var(--fs-m-small);
+    line-height: 1.45;
+  }
 }

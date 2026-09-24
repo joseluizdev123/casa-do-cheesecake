@@ -26,9 +26,10 @@ add_filter( 'cdc_customizer_sections', function ( $sections ) {
 				'default' => "Somos uma cozinha em São Paulo, com uma equipe que assa, resfria, cobre e embala cada torta que sai daqui — e que faz isso desde 2004, com a mesma receita e o mesmo padrão.\nCada cheesecake é assado por encomenda e sai da cozinha direto para a sua casa. Não trabalhamos com loja física nem com revenda em prateleira.",
 			),
 			'cdc_sobre_imagem'             => array(
-				'label'   => 'Foto principal (quadrada, 568 × 568 no layout)',
+				'label'   => 'Foto principal',
 				'type'    => 'image',
 				'default' => 'images/06-sobre-foto.webp',
+				'help'    => 'Retrato 3:4 (ex. 1047 × 1400). O layout recorta em quadrado no computador e em faixa horizontal no tablet/celular: mantenha o assunto no centro da imagem.',
 			),
 			'cdc_sobre_imagem_alt'         => array(
 				'label'   => 'Descrição da foto principal (acessibilidade)',
@@ -39,7 +40,7 @@ add_filter( 'cdc_customizer_sections', function ( $sections ) {
 				'label'   => 'Selo sobre a foto (142 × 142)',
 				'type'    => 'image',
 				'default' => 'images/06-sobre-selo.svg',
-				'help'    => 'Imagem circular exibida no canto inferior esquerdo da foto.',
+				'help'    => 'Imagem circular exibida no canto inferior esquerdo da foto. Envie PNG ou WebP 284 × 284 com fundo transparente (a Biblioteca de Mídia do WordPress não aceita SVG).',
 			),
 			'cdc_sobre_selo_alt'           => array(
 				'label'   => 'Texto do selo (acessibilidade)',

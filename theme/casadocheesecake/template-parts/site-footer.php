@@ -3,6 +3,7 @@
  * Rodapé (Figma "Footer" 7073:66) — espelha src/partials/footer.html (mesmas classes e data-figma-node).
  * Links: menus footer-* com fallback do Figma (cdc_rodape_links() em inc/sections/99-footer.php);
  * textos, logo e crédito: Customizer → Casa do Cheesecake → Rodapé.
+ * Pattern de linhas: fundo CSS de .site-footer__pattern (assets/images/footer-pattern.svg).
  *
  * @package casadocheesecake
  */
@@ -30,8 +31,16 @@ $cdc_rodape_grupos = array(
 	),
 );
 
-$cdc_rodape_credito_nome = (string) cdc_mod( 'cdc_rodape_credito_nome' );
+$cdc_rodape_credito_nome = trim( (string) cdc_mod( 'cdc_rodape_credito_nome' ) );
 $cdc_rodape_credito_link = (string) cdc_mod( 'cdc_rodape_credito_link' );
+// Sem nome o símbolo não tem texto acessível: só vira link quando nome e link estão preenchidos.
+$cdc_rodape_credito_linkado = '' !== $cdc_rodape_credito_link && '' !== $cdc_rodape_credito_nome;
+
+// Copyright: o separador " · " vira <span> para quebrar a linha no mobile (CSS .site-footer__sep).
+$cdc_rodape_copyright = implode(
+	'<span class="site-footer__sep"> · </span>',
+	array_map( 'esc_html', explode( ' · ', (string) cdc_mod( 'cdc_rodape_copyright' ) ) )
+);
 
 /**
  * Renderiza um grupo de colunas de links do rodapé.
@@ -81,21 +90,19 @@ $cdc_rodape_grupo = function ( $modifier, $grupo, $links ) {
 		</div>
 
 		<div class="site-footer__bottom" data-figma-node="7073:91">
-			<p class="site-footer__copy" data-figma-node="7073:92"><?php echo esc_html( cdc_mod( 'cdc_rodape_copyright' ) ); ?></p>
+			<p class="site-footer__copy" data-figma-node="7073:92"><?php echo $cdc_rodape_copyright; // phpcs:ignore WordPress.Security.EscapeOutput -- partes escapadas com esc_html() acima. ?></p>
 			<p class="site-footer__credits" data-figma-node="7073:93">
 				<span data-figma-node="7073:94"><?php echo esc_html( cdc_mod( 'cdc_rodape_credito' ) ); ?></span>
-				<?php if ( $cdc_rodape_credito_link ) : ?>
+				<?php if ( $cdc_rodape_credito_linkado ) : ?>
 					<a href="<?php echo esc_url( $cdc_rodape_credito_link ); ?>" target="_blank" rel="noopener">
 				<?php endif; ?>
 				<img class="site-footer__credits-logo" data-figma-node="7073:95" src="<?php echo esc_url( cdc_asset( 'images/footer-criado-por.svg' ) ); ?>" width="20" height="16" alt="<?php echo esc_attr( $cdc_rodape_credito_nome ); ?>" loading="lazy" decoding="async">
-				<?php if ( $cdc_rodape_credito_link ) : ?>
+				<?php if ( $cdc_rodape_credito_linkado ) : ?>
 					</a>
 				<?php endif; ?>
 			</p>
 		</div>
 	</div>
 
-	<div class="site-footer__pattern" data-figma-node="7073:111" aria-hidden="true">
-		<img src="<?php echo esc_url( cdc_asset( 'images/footer-pattern.svg' ) ); ?>" width="1440" height="21.25" alt="" loading="lazy" decoding="async">
-	</div>
+	<div class="site-footer__pattern" data-figma-node="7073:111" aria-hidden="true"></div>
 </footer>

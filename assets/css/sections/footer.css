@@ -18,15 +18,26 @@
    (18 × 1.4 = 25.2 → 25; 16 × 1.4 = 22.4 → 22). Conferido no recorte: o
    Main Container mede 398 (80 + 232 + 32 + 22 + 32) e a 1ª linha do Pattern
    cai inteira na linha de pixel 398 — com 25.2/22.4 tudo desceria 0.8px.
-   Pattern 7073:111 (1440 × 20): 3 linhas com gradiente dourado (SVG do Figma,
-     1440 × 21.25, inset -0.25px 0 -1px 0 — as espessuras 0.5/1/2 vazam a caixa).
-   Abaixo de 1280px as colunas laterais (348 cada) não deixam espaço para o
-   logo + texto central → a marca sobe para uma linha própria e os dois grupos
-   de links ficam lado a lado embaixo (desktop-first; mobile fica p/ etapa própria).
+   Pattern 7073:111 (1440 × 20): 3 linhas com gradiente dourado (SVG do Figma
+     1440 × 21.25, preserveAspectRatio none) como fundo do div decorativo —
+     o box de 20px recorta a linha de 2px como o frame do Figma.
+
+   Responsivo (desktop-first; ≥1280 = Figma):
+   - ≤1279.98: as laterais de 348px não deixam espaço para logo + texto no
+     centro → a marca sobe para uma linha própria e os dois grupos de links
+     ficam lado a lado embaixo (layout do desktop, sem botão flutuante).
+   - ≤1023.98 (tablet): marca centralizada em cima com divisor; as 4 colunas
+     numa linha (space-between, texto à esquerda); copyright e "Criado por"
+     empilhados e centralizados (o botão flutuante do WhatsApp fica no canto
+     inferior direito — nada do rodapé pode ficar embaixo dele).
+   - ≤767.98 (mobile): mesma ordem em uma coluna — logo 104px + texto
+     centralizados → divisor → colunas em grade 2 × 2 → divisor →
+     copyright (2 linhas) e "Criado por" centralizados → pattern.
    ========================================================================== */
 
 .site-footer {
   --footer-side-w: 348px;                        /* w-[348px] de 7073:97 (= largura de 7073:73) */
+  --footer-rule: 1px solid rgba(251, 245, 231, 0.16); /* divisor tablet/mobile: cream-50 a 16% sobre preto */
   display: flex;
   flex-direction: column;
   background: var(--color-black);                /* bg-black */
@@ -93,8 +104,10 @@
 
 .site-footer__link {
   display: block;
+  height: 25px;                                  /* 1.4 → 25.2 → 25 no Figma */
+  padding-top: 1px;                              /* Archivo 18: o Chrome assenta o glifo ~1px acima do Figma; a caixa continua 25 */
   font-size: 18px;                               /* text-[18px] */
-  line-height: 25px;                             /* 1.4 → 25.2 → 25 no Figma */
+  line-height: 25px;
   color: var(--color-cream-50);
   text-underline-offset: 3px;
   transition: color var(--dur) var(--ease);
@@ -132,6 +145,8 @@
 .site-footer__tagline {
   width: 100%;
   max-width: 360px;                              /* largura de 7073:70 @1440 */
+  padding-top: 1px;                              /* mesmo ajuste de baseline dos links (Archivo 18) */
+  margin-bottom: -1px;                           /* …sem mudar a altura da marca (232) */
   font-size: 18px;                               /* text-[18px] */
   line-height: 25px;                             /* 1.4 → 25.2 → 25 no Figma (2 linhas = 50) */
   text-align: center;
@@ -165,18 +180,16 @@
 
 /* ---------- Pattern (7073:111): 3 linhas douradas ---------- */
 .site-footer__pattern {
-  position: relative;
   flex-shrink: 0;
   height: 20px;                                  /* h-[20px] */
+  /* SVG 1440 × 21.25 esticado só na horizontal (linhas retas, sem distorção);
+     +0.25px centra as linhas de 0.5/1/2px nas linhas de pixel como no recorte do Figma */
+  background: url("../../images/footer-pattern.svg") 0 0.25px / 100% 21.25px no-repeat;
 }
-.site-footer__pattern img {
-  position: absolute;
-  top: -0.25px;                                  /* inset-[-1.25%_0_-5%_0] de 20px */
-  left: 0;
-  width: 100%;
-  height: calc(100% + 1.25px);                   /* 21.25px = viewBox do SVG */
-  max-width: none;
-}
+
+/* ==========================================================================
+   Responsivo
+   ========================================================================== */
 
 /* ---------- < 1280px: marca em linha própria, links embaixo ---------- */
 @media (max-width: 1279.98px) {
@@ -191,4 +204,140 @@
   .site-footer__group--start { grid-area: start; }
   .site-footer__group--end { grid-area: end; }
   .site-footer__brand { grid-area: brand; }
+}
+
+/* ---------- Tablet (768–1023) ---------- */
+@media (max-width: 1023.98px) {
+  .site-footer__main {
+    gap: 32px;
+    padding-bottom: 32px;
+  }
+
+  /* marca em cima, as 4 colunas numa linha: os grupos viram "transparentes"
+     para a grade (div sem semântica — display: contents é seguro) */
+  .site-footer__row {
+    grid-template-columns: repeat(4, auto);
+    grid-template-areas: none;
+    justify-content: space-between;
+    column-gap: 24px;
+    row-gap: 40px;
+  }
+  .site-footer__group { display: contents; }
+  .site-footer__group--end { text-align: left; }
+  .site-footer__group--end .site-footer__col { align-items: stretch; }
+
+  .site-footer__brand {
+    grid-area: 1 / 1 / 2 / -1;                   /* linha 1 inteira; as colunas fluem para as linhas seguintes */
+    gap: 24px;
+    padding-bottom: 40px;
+    border-bottom: var(--footer-rule);
+  }
+  .site-footer__logo {
+    width: 120px;
+    height: auto;
+    aspect-ratio: 148 / 150;
+  }
+  .site-footer__tagline {
+    max-width: 400px;
+    padding-top: 0;
+    margin-bottom: 0;
+    font-size: var(--fs-t-body);                 /* 16 */
+    line-height: 1.5;
+    text-wrap: balance;
+  }
+
+  .site-footer__col { gap: 8px; }
+  .site-footer__heading {
+    font-size: 18px;                             /* entre label (16) e título de card (24) da escala tablet */
+    line-height: 1.4;
+  }
+  .site-footer__list { gap: 0; }
+  /* alvo de toque 44px: o respiro entre os links vem da própria área clicável */
+  .site-footer__link {
+    display: flex;
+    align-items: center;
+    height: auto;
+    min-height: 44px;
+    padding-block: 0;
+    font-size: var(--fs-t-body);                 /* 16 */
+    line-height: 1.4;
+  }
+
+  /* copyright + crédito empilhados e centralizados (livres do botão flutuante) */
+  .site-footer__bottom {
+    flex-direction: column;
+    justify-content: center;
+    gap: 8px;
+    padding-top: 32px;
+    border-top: var(--footer-rule);
+    font-size: 14px;
+    line-height: 1.5;
+    text-align: center;
+  }
+  /* WP: com link de crédito preenchido, o símbolo 20 × 16 ganha área de toque de 44px sem mudar a linha */
+  .site-footer__credits a {
+    display: grid;
+    place-items: center;
+    min-width: 44px;
+    min-height: 44px;
+    margin: -11.5px -12px;
+  }
+}
+
+/* ---------- Mobile (< 768) ---------- */
+@media (max-width: 767.98px) {
+  .site-footer__main {
+    gap: var(--gap-m-lg);                        /* 32 */
+    padding-bottom: 24px;
+  }
+
+  /* 2×2: colunas na largura do conteúdo e distribuídas com a mesma distância
+     entre si e até as bordas (pedido do cliente: nada encostado à esquerda) */
+  .site-footer__row {
+    grid-template-columns: repeat(2, minmax(0, max-content));   /* encolhe só se não couber (320) */
+    justify-content: space-evenly;
+    column-gap: 16px;
+    row-gap: var(--gap-m-lg);                    /* 32 */
+  }
+
+  .site-footer__brand {
+    gap: var(--gap-m-md);                        /* 16 */
+    padding-bottom: var(--gap-m-lg);             /* 32 */
+  }
+  .site-footer__logo { width: 104px; }
+  .site-footer__tagline {
+    max-width: 320px;
+    font-size: var(--fs-m-body);                 /* 15 */
+    line-height: var(--lh-m-body);               /* 1.5 */
+  }
+
+  .site-footer__col { gap: 4px; }
+  .site-footer__heading {
+    font-size: 16px;                             /* ref: títulos do rodapé 15–16 */
+    line-height: 1.5;
+  }
+  .site-footer__link {
+    font-size: var(--fs-m-body);                 /* 15 */
+    line-height: var(--lh-m-body);
+  }
+
+  .site-footer__bottom {
+    padding-top: var(--pad-m-card);              /* 24 */
+    font-size: var(--fs-m-small);                /* 14 */
+  }
+  .site-footer__copy {
+    white-space: normal;
+    text-wrap: balance;
+  }
+  /* "A Casa do Cheesecake ®" / "todos os direitos reservados": o separador vira a quebra de linha */
+  .site-footer__sep {
+    display: block;
+    height: 0;
+    overflow: hidden;
+  }
+}
+
+/* 320–359: colunas de 124px — o respiro entre elas cede para os links caberem numa linha */
+@media (max-width: 359.98px) {
+  .site-footer__row { column-gap: 16px; }
 }

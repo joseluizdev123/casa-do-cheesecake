@@ -33,12 +33,16 @@
   width: 100%;
 }
 
-/* 7057:492 — Anton 56 / 1.2, uppercase, w 534 */
+/* 7057:492 — Anton 56 / 1.2, uppercase, w 534
+   Fluido: 56px @1440 (3.8889vw) → mín. 40px. A largura acompanha o corpo
+   (534/56 em = 534px @1440), então a quebra do Figma se mantém em qualquer
+   tamanho; abaixo disso o max-width e o balance cuidam das linhas. */
 .entrega__title {
-  width: 534px;
+  width: calc(1em * 534 / 56);
   max-width: 100%;
-  font-size: 56px;
+  font-size: clamp(40px, 3.8889vw, 56px);
   text-align: center;
+  text-wrap: balance;
   color: var(--color-red-700);
   overflow-wrap: break-word;
 }
@@ -173,4 +177,120 @@
   font-weight: 400;
   font-size: 18px;
   font-variation-settings: "wdth" 100;
+}
+
+
+/* ==========================================================================
+   Responsivo — o Figma só tem o frame desktop 1440: tudo acima de 1199px fica
+   intocado. Escala compacta dos tokens (--fs-t-* / --fs-m-* / --gap-m-*) e
+   padrão mobile do site de referência (_ref/mobile-ref/SPEC.md → 08-entrega):
+   ≤1199  4 colunas de ~200px ficariam espremidas → grade 2×2 centrada, mesma
+          pilha do desktop (badge → título → texto) e mesmos tamanhos. Título
+          → grade 64; grade → botão mantém os 48 do Figma (maior que o gap de
+          40 entre linhas, então o botão não parece uma 5ª célula).
+   ≤1023  2×2 compacta: título 40, badge 48 (ícone 24), título do item 20
+          (literal do Figma — nunca maior que o desktop), texto 16/1.5.
+   ≤767   lista "Nossos números" da referência: uma coluna, badge 40 (ícone
+          20) à esquerda, título Anton 18 alinhado ao centro do badge, texto
+          14/1.5 à esquerda, itens empilhados com gap 24 (itens de 2–3 linhas).
+          Título da seção 28 centrado e CTA único centrado, largura automática.
+   Os ícones são SVG posicionados em px (insets do Figma, máscara no 1º), então
+   o tamanho menor vem de transform: scale na moldura — geometria preservada.
+   ========================================================================== */
+
+/* ---- Laptop / tablet grande (1024–1199) ---- */
+@media (max-width: 1199.98px) {
+  .entrega__inner { gap: 64px; }
+
+  .entrega__list {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 40px 48px;
+    max-width: 760px;
+  }
+
+  .entrega__item { gap: 20px; }
+
+  .entrega__item-title { text-wrap: balance; }
+
+  .entrega__item-text { text-wrap: pretty; }
+}
+
+/* ---- Tablet (768–1023) ---- */
+@media (max-width: 1023.98px) {
+  .entrega__inner { gap: var(--content-gap); }          /* 48 */
+
+  .entrega__title { font-size: var(--fs-t-h2); }        /* 40 */
+
+  .entrega__list {
+    gap: 40px 32px;
+    max-width: 680px;
+  }
+
+  .entrega__item { gap: 16px; }
+
+  .entrega__badge {
+    width: 48px;
+    height: 48px;
+  }
+
+  .entrega__icon { transform: scale(.75); }             /* 32 → 24 */
+
+  .entrega__text { gap: 6px; }
+
+  .entrega__item-title {
+    font-size: 20px;                                    /* literal do Figma */
+    line-height: 1.2;
+  }
+
+  .entrega__item-text {
+    font-size: var(--fs-t-body);                        /* 16 */
+    line-height: 1.5;
+  }
+}
+
+/* ---- Mobile (≤767) ---- */
+@media (max-width: 767.98px) {
+  .entrega__inner { gap: var(--gap-m-lg); }             /* 32 */
+
+  .entrega__title { font-size: var(--fs-m-h2); }        /* 28 */
+
+  .entrega__body { gap: var(--gap-m-lg); }              /* 32 */
+
+  .entrega__list {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--pad-m-card);                             /* 24 */
+    max-width: 480px;
+  }
+
+  .entrega__item {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: var(--gap-m-md);                               /* 16 */
+  }
+
+  .entrega__badge {
+    width: 40px;
+    height: 40px;
+  }
+
+  .entrega__icon { transform: scale(.625); }            /* 32 → 20 */
+
+  .entrega__text {
+    flex: 1 1 0;
+    min-width: 0;
+    gap: 4px;
+    padding-top: 9px;                                   /* (40 − 18 × 1.2) / 2: título no eixo do badge */
+    text-align: left;
+  }
+
+  .entrega__item-title {
+    font-size: 18px;                                    /* SPEC: --fs-m-h3 menor (16–18) */
+    text-wrap: wrap;
+  }
+
+  .entrega__item-text {
+    font-size: var(--fs-m-small);                       /* 14 — itens de lista da referência */
+    line-height: var(--lh-m-body);                      /* 1.5 */
+  }
 }

@@ -9,15 +9,12 @@
    linhas do depoimento têm baseline a cada 22px e os text nodes medem 22·n.
    ========================================================================== */
 
-:root {
-  --color-cream-25: #fdfaf2;   /* fundo dos cards (7057:371 bg) */
-  --color-ink-900: #1a221e;    /* cor da sombra das setas (drop-shadow rgba(26,34,30,.06)) */
-}
 
 .depoimentos {
   padding-block: var(--section-py);            /* py-[80px] */
   background: var(--color-cream-50);
   color: var(--color-red-700);
+  overflow-x: clip;                            /* trilho sangrado (≤1023) e setas a -24px nunca geram scroll lateral */
 }
 
 .depoimentos__container {
@@ -37,10 +34,11 @@
 
 .depoimentos__title {                          /* 7057:363 */
   font-family: var(--font-display);
-  font-size: 56px;
+  font-size: clamp(40px, 3.8889vw, 56px);      /* 56px @ 1440 (Figma) → 40px no mobile */
   font-weight: 400;
-  line-height: 67px;                           /* 56 × 1.2 = 67.2 → 67 no Figma */
+  line-height: clamp(44px, 4.6528vw, 67px);    /* 67px @ 1440 (56 × 1.2 arredondado no Figma) → 1.1 no mobile */
   text-transform: uppercase;
+  text-wrap: balance;                          /* 2 linhas equilibradas quando quebra */
 }
 
 .depoimentos__badge {                          /* 7057:364 Verified_Badge */
@@ -129,8 +127,10 @@
 }
 
 /* Hover: o card cresce um pouco e volta ao tamanho ao tirar o cursor.
+   Não existe no Figma: pedido do cliente, fora do design (diferença documentada).
    Só em dispositivos com mouse (evita hover "preso" no toque) e sem
-   preferência por movimento reduzido. transform não altera o layout. */
+   preferência por movimento reduzido. transform não altera o layout.
+   .3s de propósito (mais lento que --dur .2s dos botões: o card é uma área grande). */
 @media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
   .depoimentos__card {
     transition: transform .3s var(--ease);
@@ -244,7 +244,10 @@
   box-shadow: 0 4px 6px color-mix(in srgb, var(--color-ink-900) 6%, transparent);
   transition: background-color var(--dur) var(--ease);
 }
-.depoimentos__nav:hover:not(:disabled) { background: var(--color-cream-50); }
+/* só com mouse: no toque o :hover "gruda" após o tap e a seta ativa parecia desabilitada */
+@media (hover: hover) {
+  .depoimentos__nav:hover:not(:disabled) { background: var(--color-cream-50); }
+}
 .depoimentos__nav:disabled { cursor: default; }
 
 .depoimentos__nav img {
@@ -252,15 +255,17 @@
   height: 20px;
 }
 
-/* Posições literais do Figma (as duas setas não estão alinhadas entre si). */
+/* Posições do Figma (as duas setas não estão alinhadas entre si). As duas são
+   relativas à altura da linha de cards, então a distância entre elas é
+   constante (31px) quando o card cresce abaixo de 1440. */
 .depoimentos__nav--prev {                      /* left-[-24px] top-[calc(50%+12px)] -translate-y-1/2 */
   top: calc(50% + 12px);
   left: -24px;
   transform: translateY(-50%);
 }
 
-.depoimentos__nav--next {                      /* right-[-23px] top-[116px] */
-  top: 116px;
+.depoimentos__nav--next {                      /* right-[-23px] top-[116px] = 50% − 43px com a linha de 318px */
+  top: calc(50% - 43px);
   right: -23px;
 }
 
@@ -279,11 +284,266 @@
   background: color-mix(in srgb, var(--color-red-700) 10%, transparent);   /* fill-opacity .1 */
 }
 .depoimentos__dot.is-active,
-.depoimentos__dot[aria-selected="true"] { background: var(--color-red-700); }
+.depoimentos__dot[aria-current="true"] { background: var(--color-red-700); }
 
 /* área de toque maior sem alterar o layout (dots viram <button> via JS) */
 button.depoimentos__dot::before {
   content: "";
   position: absolute;
   inset: -8px -3px;
+}
+
+
+/* ==========================================================================
+   Responsivo — o Figma só tem o frame de 1440. ≥1200 = layout do Figma.
+   Padrão mobile da referência do cliente ("Clientes que confiam e
+   recomendam"): título → selo → carrossel de 1 card por vez em largura total
+   → dots à esquerda + setas à direita, abaixo do card. Escala em tokens.css
+   (--fs-t-* / --fs-m-* / --gap-m-*). Uma media query por breakpoint.
+   ========================================================================== */
+
+/* ---------- ≤1199 · laptop: 2 cards por página, setas laterais ---------- */
+@media (max-width: 1199.98px) {
+  .depoimentos__container {
+    gap: 56px;
+  }
+
+  .depoimentos__card {
+    flex-basis: calc((100% - 24px) / 2);
+    min-height: 0;                             /* altura pelo conteúdo (os cards da linha esticam juntos) */
+  }
+
+  /* setas centradas na altura dos cards (sem o desalinhamento do Figma) */
+  .depoimentos__nav--prev,
+  .depoimentos__nav--next {
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  /* com 2+ páginas, a seta do extremo fica visivelmente inativa */
+  .depoimentos__nav:disabled {
+    opacity: .4;
+    box-shadow: none;
+  }
+
+  /* Tudo cabe numa página (ex.: WP com 1–2 depoimentos): sem controles mortos.
+     O JS marca a raiz; ≥1200 mantém as setas/dot do Figma. */
+  [data-single-page] .depoimentos__nav,
+  [data-single-page] .depoimentos__dots {
+    display: none;
+  }
+}
+
+/* ---------- ≤1023 · tablet: 2 cards por vez, controles abaixo ----------- */
+@media (max-width: 1023.98px) {
+  .depoimentos__container {
+    gap: var(--content-gap);                   /* 48 · 32 no mobile */
+  }
+
+  .depoimentos__title {
+    font-size: var(--fs-t-h2);                 /* 40 */
+    line-height: 1.1;
+  }
+
+  /* Grade do carrossel: trilho em cima; dots à esquerda e setas à direita
+     embaixo (como na referência). O viewport vira "contents" para as setas
+     saírem de cima dos cards sem mudar o markup. */
+  .depoimentos__carousel {
+    display: grid;
+    grid-template-columns: 1fr auto auto;
+    grid-template-areas:
+      "track track track"
+      "dots  prev  next";
+    align-items: center;
+    gap: 20px 8px;
+  }
+
+  .depoimentos__carousel[data-single-page] {
+    row-gap: 0;                                /* linha de controles oculta não deixa respiro sobrando */
+  }
+
+  .depoimentos__viewport {
+    display: contents;
+  }
+
+  /* Trilho de borda a borda da tela: o 1º card alinha com o conteúdo
+     (padding = --section-px) e o gap entre cards é o mesmo respiro lateral,
+     então o card seguinte começa exatamente na borda da tela (sem "peek"). */
+  .depoimentos__track,
+  .depoimentos__track[role="list"] {
+    grid-area: track;
+    gap: var(--section-px);
+    margin: calc(-1 * var(--card-hover-room)) calc(-1 * var(--section-px));
+    padding: var(--card-hover-room) var(--section-px);
+    scroll-padding-inline: var(--section-px);
+  }
+
+  .depoimentos__card {
+    flex-basis: calc((100% - var(--section-px)) / 2);
+    gap: 20px;
+    padding: 24px;
+  }
+
+  .depoimentos__card-body {
+    gap: 16px;
+  }
+
+  .depoimentos__quote {
+    font-size: var(--fs-t-body);               /* 16 */
+    line-height: 1.5;
+  }
+
+  /* autor → fonte → data empilhados (a data não "pula" de linha conforme o
+     nome), com divisor sutil entre depoimento e autor (card da referência) */
+  .depoimentos__card-foot {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2px;
+    padding-top: 16px;
+    border-top: 1px solid var(--color-red-700-a15);
+  }
+
+  .depoimentos__author-name {
+    width: auto;                               /* nome usa a largura do card, sem quebrar pelo rótulo */
+    min-width: 0;
+    line-height: 24px;
+  }
+
+  /* setas 44 × 44 na linha de controles */
+  .depoimentos__nav {
+    position: static;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+  }
+
+  .depoimentos__nav--prev,
+  .depoimentos__nav--next {
+    transform: none;
+  }
+
+  .depoimentos__nav--prev { grid-area: prev; }
+  .depoimentos__nav--next { grid-area: next; }
+
+  /* Indicador de páginas em segmentos: cada alvo tem 44 × 44 (toque) e o
+     traço visível (32 × 4) é o ::before. Com alvos de 44px, pontos de 8px
+     ficariam espalhados a cada 44px; segmentos com 12px de respiro leem como
+     um indicador único e compacto. O -6px alinha o 1º traço à margem. */
+  .depoimentos__dots {
+    grid-area: dots;
+    justify-self: start;
+    gap: 0;
+    margin-left: -6px;
+  }
+
+  .depoimentos__dots .depoimentos__dot,
+  .depoimentos__dots .depoimentos__dot.is-active,
+  .depoimentos__dots .depoimentos__dot[aria-current="true"] {
+    width: 44px;
+    height: 44px;
+    border-radius: 0;
+    background: none;
+  }
+
+  .depoimentos__dots .depoimentos__dot::before {
+    content: "";
+    position: absolute;
+    inset: 20px 6px;
+    border-radius: 2px;
+    background: color-mix(in srgb, var(--color-red-700) 18%, transparent);
+    transition: background-color var(--dur) var(--ease);
+  }
+
+  .depoimentos__dots button.depoimentos__dot:not([aria-current="true"]):hover::before {
+    background: color-mix(in srgb, var(--color-red-700) 40%, transparent);
+  }
+
+  .depoimentos__dots .depoimentos__dot.is-active::before,
+  .depoimentos__dots .depoimentos__dot[aria-current="true"]::before {
+    background: var(--color-red-700);
+  }
+}
+
+/* ---------- ≤767 · mobile: header empilhado, 1 card por vez ------------ */
+@media (max-width: 767.98px) {
+  .depoimentos__header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--gap-m-sm);                      /* 12 */
+  }
+
+  .depoimentos__title {
+    font-size: var(--fs-m-h2);                 /* 28 */
+  }
+
+  .depoimentos__badge {
+    align-items: flex-start;
+    gap: 2px;
+  }
+
+  .depoimentos__rating {
+    gap: 8px;
+    font-size: 16px;
+    line-height: 22px;
+  }
+
+  .depoimentos__rating-stars {
+    font-size: 18px;                           /* ★ ~12px (proporção do selo de 1440) */
+  }
+
+  .depoimentos__badge-label {
+    font-size: var(--fs-m-small);              /* 14 */
+    line-height: 20px;
+  }
+
+  /* 1 card por vez, largura total do conteúdo; o swipe para em cada card */
+  .depoimentos__card {
+    flex-basis: 100%;
+    gap: var(--gap-m-md);                      /* 16 */
+    padding: var(--pad-m-card);                /* 24 */
+    border-radius: var(--radius-m-card);       /* 16 */
+    scroll-snap-stop: always;
+  }
+
+  .depoimentos__card-body {
+    gap: var(--gap-m-md);                      /* 16 */
+  }
+
+  .depoimentos__stars {
+    gap: 3px;
+  }
+
+  .depoimentos__star {
+    width: 14px;
+    height: 14px;
+  }
+
+  /* logo Google 24 → 20 (máscara escalada na mesma proporção) */
+  .depoimentos__google {
+    width: 20px;
+    height: 20px;
+  }
+
+  .depoimentos__google-mask {
+    -webkit-mask-position: 0.149px 0.086px;
+            mask-position: 0.149px 0.086px;
+    -webkit-mask-size: 20px 20px;
+            mask-size: 20px 20px;
+  }
+
+  .depoimentos__quote {
+    font-size: var(--fs-m-body);               /* 15 */
+    line-height: var(--lh-m-body);             /* 1.5 */
+  }
+
+  .depoimentos__author-name {
+    font-size: var(--fs-m-h3);                 /* 20 */
+  }
+
+  .depoimentos__source,
+  .depoimentos__date {
+    font-size: var(--fs-m-small);              /* 14 */
+    line-height: 20px;
+    white-space: normal;
+  }
 }

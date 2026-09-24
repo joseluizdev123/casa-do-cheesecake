@@ -18,6 +18,36 @@
         <li><a class="btn-link" href="#contato" data-figma-node="7073:240">Contato</a></li>
       </ul>
     </nav>
+    <button class="site-header__toggle" type="button" aria-expanded="false" aria-controls="menu-mobile" data-menu-toggle>
+      <span class="site-header__toggle-bars" aria-hidden="true"></span>
+      <span class="sr-only">Abrir menu</span>
+    </button>
   </div>
+  </div>
+  <div class="site-header__drawer" id="menu-mobile" hidden data-menu-drawer>
+    <nav class="mobile-nav" aria-label="Menu principal">
+      <ul class="mobile-nav__list" role="list">
+        <li class="mobile-nav__item is-current"><a class="mobile-nav__link" href="#topo" aria-current="page">Página inicial</a></li>
+        <li class="mobile-nav__item"><a class="mobile-nav__link" href="#cardapio">Nosso cheesecake</a></li>
+        <li class="mobile-nav__item">
+          <a class="mobile-nav__link" href="#sabores">Sabores<span class="mobile-nav__caret" aria-hidden="true"></span></a>
+          <ul class="mobile-nav__sub" role="list">
+            <li><a href="#sabores">Frutas vermelhas</a></li>
+            <li><a href="#sabores">Doce de leite</a></li>
+            <li><a href="#sabores">Morangos</a></li>
+            <li><a href="#sabores">Blue berry</a></li>
+          </ul>
+        </li>
+        <li class="mobile-nav__item"><a class="mobile-nav__link" href="#pedir">Pedir agora</a></li>
+        <li class="mobile-nav__item"><a class="mobile-nav__link" href="#sobre">Sobre nós</a></li>
+        <li class="mobile-nav__item"><a class="mobile-nav__link" href="#blog">Blog</a></li>
+        <li class="mobile-nav__item"><a class="mobile-nav__link" href="#contato">Contato</a></li>
+      </ul>
+    </nav>
+    <a class="mobile-nav__cta" href="https://wa.me/5511956022366" target="_blank" rel="noopener">
+      <span class="mobile-nav__cta-icon" aria-hidden="true"></span>
+      <span>Fale conosco</span>
+    </a>
   </div>
 </header>
+<a class="whatsapp-fab" href="https://wa.me/5511956022366" target="_blank" rel="noopener" aria-label="Falar no WhatsApp"></a>

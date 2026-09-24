@@ -7,10 +7,6 @@
    - Tag 7057:1494 sobre a foto do 1º card (left 12 / top 12 da foto)
    ========================================================================== */
 
-:root {
-  --color-cream-25: #fdfaf2;   /* fundo dos cards claros (7057:341, 7057:345) */
-  --color-red-950: #150506;    /* fundo da tag "Na quantidade certa" (7057:1494) */
-}
 
 .diferenciais {
   background: var(--color-cream-50);
@@ -41,12 +37,15 @@
 .diferenciais__title {                        /* 7057:332 */
   font-family: var(--font-display);
   font-weight: 400;
-  font-size: 56px;
+  /* 56px no Figma (1440); fluido abaixo disso para manter as 2 linhas do
+     layout ("O que faz um cheesecake / ser o de verdade") entre 1024 e 1440. */
+  font-size: clamp(40px, 3.8889vw, 56px);
   line-height: var(--lh-display);            /* 1.2 */
   text-transform: uppercase;
+  text-wrap: balance;
 }
 
-.diferenciais__lead {                         /* 7057:333 */
+.diferenciais__lead {                       /* 7057:333 */
   font-family: var(--font-body);
   font-weight: 400;
   font-size: 20px;
@@ -148,7 +147,167 @@
   font-family: var(--font-display);
   font-weight: 400;
   font-size: 14px;
-  line-height: var(--lh-body);               /* 1.4 */
+  line-height: 20px;                         /* Figma: 14 × 1.4 arredondado (caixa 114 × 20 → tag 32) */
   text-transform: uppercase;
   white-space: nowrap;
+}
+
+
+/* ==========================================================================
+   Responsivo (o Figma só tem o frame 1440; >= 1200 px nada muda)
+   Padrão do site de referência (SPEC.md): título → texto → cards de largura
+   total com a foto dentro do card, na base.
+   - <= 1199: cabeçalho ainda em 2 colunas (texto 18px); 3 cards lado a lado
+     com respiro interno menor (p 24).
+   - <= 1023: cabeçalho empilha (título 40 → texto 18); cards em grade de 2
+     colunas e o 1º card (destaque) ocupa a linha inteira na horizontal —
+     texto à esquerda, foto à direita alinhada à 2ª coluna. Fotos 16:10 / 3:2.
+   - <= 767: uma coluna — título 28 → texto 16 → 3 cards empilhados de largura
+     total (título 20 → texto 15 → foto 16:10 dentro do card).
+   O "card largo" do tablet é o 1º quando a quantidade de cards é ímpar (3 no
+   layout; o CPT pode ter outra contagem): a grade nunca fica com buraco.
+   Ele usa :where() para ter a mesma especificidade de .diferenciais__card /
+   __body / __media e ser desfeito no mobile sem repetir seletores.
+   ========================================================================== */
+@media (max-width: 1199.98px) {
+  .diferenciais__inner {
+    gap: 64px;
+  }
+
+  .diferenciais__head {
+    gap: 48px;
+  }
+
+  .diferenciais__lead {
+    font-size: var(--fs-t-lead);             /* 18px */
+    text-wrap: pretty;
+  }
+
+  .diferenciais__body {
+    gap: 12px;
+    padding: 24px;
+  }
+
+  .diferenciais__card-title {
+    text-wrap: balance;                      /* evita "forno" sozinho na 2ª linha */
+  }
+
+  .diferenciais__card-text {
+    text-wrap: pretty;
+  }
+}
+
+@media (max-width: 1023.98px) {
+  .diferenciais__inner {
+    gap: var(--content-gap);                 /* 48px (32px no mobile) */
+  }
+
+  .diferenciais__head {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .diferenciais__title,
+  .diferenciais__lead {
+    flex: none;
+    width: 100%;
+    max-width: 640px;
+  }
+
+  .diferenciais__title {
+    font-size: var(--fs-t-h2);               /* 40px */
+  }
+
+  .diferenciais__list {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+  }
+
+  .diferenciais__card {
+    border-radius: 20px;
+  }
+
+  .diferenciais__media {
+    aspect-ratio: 16 / 10;
+    border-radius: 20px;
+  }
+
+  .diferenciais__card:where(:first-child:nth-last-child(odd)) {
+    grid-column: 1 / -1;
+    flex-direction: row;
+    gap: 16px;                               /* = gap da grade → foto alinha à 2ª coluna */
+  }
+
+  :where(.diferenciais__card:first-child:nth-last-child(odd)) > .diferenciais__body {
+    flex: 1 1 0;
+    min-width: 0;
+    justify-content: center;
+    padding: 32px 8px 32px 24px;             /* texto alinhado ao dos outros cards (24) */
+  }
+
+  :where(.diferenciais__card:first-child:nth-last-child(odd)) > .diferenciais__media {
+    flex: 1 1 0;
+    min-width: 0;
+    aspect-ratio: 3 / 2;
+  }
+}
+
+@media (max-width: 767.98px) {
+  .diferenciais__head {
+    gap: var(--gap-m-md);                    /* 16px */
+  }
+
+  .diferenciais__title,
+  .diferenciais__lead {
+    max-width: none;
+  }
+
+  .diferenciais__title {
+    font-size: var(--fs-m-h2);               /* 28px */
+  }
+
+  .diferenciais__lead {
+    font-size: var(--fs-m-lead);             /* 16px */
+    line-height: var(--lh-m-body);           /* 1.5 */
+  }
+
+  .diferenciais__list {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 24px;                               /* ref: 24–32 entre cards empilhados */
+  }
+
+  .diferenciais__card {
+    flex-direction: column;
+    gap: 0;
+    border-radius: var(--radius-m-card);     /* 16px */
+  }
+
+  .diferenciais__body {
+    flex: none;
+    justify-content: flex-start;
+    gap: var(--gap-m-sm);                    /* 12px */
+    padding: var(--pad-m-card);              /* 24px */
+  }
+
+  .diferenciais__card-title {
+    font-size: var(--fs-m-h3);               /* 20px */
+    line-height: 1.25;
+  }
+
+  .diferenciais__card-text {
+    font-size: var(--fs-m-body);             /* 15px */
+    line-height: var(--lh-m-body);           /* 1.5 */
+  }
+
+  .diferenciais__media {
+    flex: none;
+    aspect-ratio: 16 / 10;                   /* 342 × 214 em 390 */
+    border-radius: var(--radius-m-card);
+  }
+
+  .diferenciais__img {
+    object-position: 50% 58%;                /* mantém o assunto (tigela / fatia / calda) */
+  }
 }

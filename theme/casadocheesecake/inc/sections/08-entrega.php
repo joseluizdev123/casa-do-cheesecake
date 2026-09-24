@@ -11,7 +11,8 @@
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Itens fixos da seção: defaults do Figma + geometria do slot do ícone.
+ * Itens fixos da seção: defaults do Figma (título, texto, ícone).
+ * A geometria do slot do ícone fica no template-part ($cdc_entrega_slots).
  *
  * @return array[]
  */
@@ -24,7 +25,8 @@ function cdc_entrega_items_defaults() {
 		),
 		2 => array(
 			'titulo' => 'Hoje ou agendado',
-			'texto'  => 'Receba no mesmo dia ou escolha a data — festa, presente ou data comemorativa.',
+			// "data\u{00A0}—": espaço não separável evita o travessão abrindo linha no tablet/mobile.
+			'texto'  => "Receba no mesmo dia ou escolha a data\u{00A0}— festa, presente ou data comemorativa.",
 			'icone'  => 'images/08-entrega-icon-calendario.svg',
 		),
 		3 => array(
@@ -64,7 +66,7 @@ add_filter( 'cdc_customizer_sections', function ( $sections ) {
 			'label'   => sprintf( 'Item %d — ícone', $n ),
 			'type'    => 'image',
 			'default' => $item['icone'],
-			'help'    => 'Ícone vermelho (#b0282e) com fundo transparente, até 32×32 px. Sem imagem, usa o ícone do layout.',
+			'help'    => 'Ícone vermelho (#b0282e) com fundo transparente, até 32×32 px, em PNG ou WebP. Sem imagem, usa o ícone padrão do layout (já aplicado).',
 		);
 	}
 

@@ -56,11 +56,11 @@ $cdc_icon_plus  = cdc_asset( 'images/10-perguntas-icon-plus.svg' );
 				<div class="faq__item<?php echo $cdc_open ? ' is-open' : ''; ?>"<?php echo $cdc_faq_node( $cdc_nodes[0] ); // phpcs:ignore WordPress.Security.EscapeOutput -- escapado no closure. ?>>
 					<div class="faq__row"<?php echo $cdc_open ? $cdc_faq_node( '7057:767' ) : ''; // phpcs:ignore WordPress.Security.EscapeOutput ?>>
 						<h3 class="faq__heading">
-							<button class="faq__trigger" type="button" id="faq-pergunta-<?php echo (int) $cdc_n; ?>" aria-expanded="<?php echo $cdc_open ? 'true' : 'false'; ?>" aria-controls="faq-resposta-<?php echo (int) $cdc_n; ?>">
+							<button class="faq__trigger" type="button" id="faq-pergunta-<?php echo (int) $cdc_n; ?>" aria-expanded="true" aria-controls="faq-resposta-<?php echo (int) $cdc_n; ?>">
 								<span class="faq__question"<?php echo $cdc_faq_node( $cdc_nodes[1] ); // phpcs:ignore WordPress.Security.EscapeOutput ?>><?php echo esc_html( $cdc_item['pergunta'] ); ?></span>
 								<span class="faq__icon"<?php echo $cdc_faq_node( $cdc_nodes[2] ); // phpcs:ignore WordPress.Security.EscapeOutput ?> aria-hidden="true">
-									<img class="faq__icon-img faq__icon-img--minus"<?php echo $cdc_open ? $cdc_faq_node( $cdc_nodes[3] ) : ''; // phpcs:ignore WordPress.Security.EscapeOutput ?> src="<?php echo esc_url( $cdc_icon_minus ); ?>" alt="" width="20" height="20" loading="lazy" decoding="async">
-									<img class="faq__icon-img faq__icon-img--plus"<?php echo $cdc_open ? '' : $cdc_faq_node( $cdc_nodes[3] ); // phpcs:ignore WordPress.Security.EscapeOutput ?> src="<?php echo esc_url( $cdc_icon_plus ); ?>" alt="" width="20" height="20" loading="lazy" decoding="async">
+									<img class="faq__icon-img faq__icon-img--minus"<?php echo $cdc_open ? $cdc_faq_node( $cdc_nodes[3] ) : ''; // phpcs:ignore WordPress.Security.EscapeOutput ?> src="<?php echo esc_url( $cdc_icon_minus ); ?>" alt="" width="20" height="20" decoding="async">
+									<img class="faq__icon-img faq__icon-img--plus"<?php echo $cdc_open ? '' : $cdc_faq_node( $cdc_nodes[3] ); // phpcs:ignore WordPress.Security.EscapeOutput ?> src="<?php echo esc_url( $cdc_icon_plus ); ?>" alt="" width="20" height="20" decoding="async">
 								</span>
 							</button>
 						</h3>
@@ -78,14 +78,21 @@ $cdc_icon_plus  = cdc_asset( 'images/10-perguntas-icon-plus.svg' );
 			</div>
 		</div>
 	</div>
+	<?php // Recolhe já no parse (antes do JS deferido): evita o salto de altura ao abrir/recarregar nesta altura. ?>
+	<script>(function (s) { if (s) s.classList.add('is-enhanced'); })(document.currentScript && document.currentScript.parentNode);</script>
 	<?php
-	// Dados estruturados FAQPage (mesmas perguntas/respostas exibidas).
+	// Dados estruturados FAQPage (mesmas perguntas/respostas exibidas). Respostas que ainda
+	// têm marcador de revisão do Figma ("[confirmar …]", "[X dias]") ficam fora do JSON-LD
+	// até a copy ser confirmada no admin — o Google não deve indexar o placeholder.
 	$cdc_faq_schema = array(
 		'@context'   => 'https://schema.org',
 		'@type'      => 'FAQPage',
 		'mainEntity' => array(),
 	);
 	foreach ( $cdc_faq_items as $cdc_item ) {
+		if ( false !== strpos( $cdc_item['resposta'], '[' ) ) {
+			continue;
+		}
 		$cdc_faq_schema['mainEntity'][] = array(
 			'@type'          => 'Question',
 			'name'           => wp_strip_all_tags( $cdc_item['pergunta'] ),

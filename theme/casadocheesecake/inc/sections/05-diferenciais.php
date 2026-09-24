@@ -26,7 +26,7 @@ function cdc_diferenciais_defaults() {
 			'texto'    => 'É o item mais caro da receita — e exatamente o que não se pode reduzir. Diminuir seria entregar outra coisa no lugar do que a pessoa pediu.',
 			'tag'      => 'na quantidade certa',
 			'destaque' => '1',
-			'featured' => 'images/05-diferenciais-cream-cheese.png',
+			'featured' => 'images/05-diferenciais-cream-cheese.webp',
 			'alt'      => 'Tigela de cream cheese batido ao lado da embalagem de Philadelphia',
 		),
 		array(

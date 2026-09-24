@@ -20,6 +20,11 @@ import assemble  # noqa: E402
 ROOT = Path(__file__).resolve().parent.parent
 
 
+class Server(ThreadingHTTPServer):
+    request_queue_size = 128
+    daemon_threads = True
+
+
 class Handler(SimpleHTTPRequestHandler):
     def __init__(self, *a, **kw):
         super().__init__(*a, directory=str(ROOT), **kw)
@@ -62,4 +67,4 @@ class Handler(SimpleHTTPRequestHandler):
 if __name__ == "__main__":
     port = int(os.environ.get("PORT") or (sys.argv[1] if len(sys.argv) > 1 else 5500))
     print(f"Serving {ROOT} on http://localhost:{port}")
-    ThreadingHTTPServer(("127.0.0.1", port), Handler).serve_forever()
+    Server(("127.0.0.1", port), Handler).serve_forever()

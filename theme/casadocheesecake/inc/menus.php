@@ -68,3 +68,13 @@ function cdc_menu_links( $location, $fallback = array() ) {
 function cdc_anchor( $hash ) {
 	return is_front_page() ? $hash : home_url( '/' ) . $hash;
 }
+
+/**
+ * Link vindo do Customizer: "#ancora" vira âncora da home; URL completa passa direto.
+ *
+ * @param string $link Link salvo.
+ * @return string
+ */
+function cdc_anchor_or_url( $link ) {
+	return ( is_string( $link ) && 0 === strpos( $link, '#' ) ) ? cdc_anchor( $link ) : $link;
+}

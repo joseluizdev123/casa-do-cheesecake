@@ -1,10 +1,14 @@
 /* 09 — Restaurantes (Figma 7057:508): entrada da moto.
- * A moto começa recuada (atrás do título, menor e transparente) e, quando o
- * banner entra na tela, avança e freia exatamente na posição do Figma.
- * - Toca uma vez a cada chegada na seção: quando a seção sai TOTALMENTE da tela
- *   (para cima ou para baixo), a moto volta ao ponto de partida sem transição
- *   (fora da vista, sem "dar ré") e anima de novo na próxima chegada.
- * - Sem JS ou com prefers-reduced-motion: a moto já aparece parada no lugar.
+ * Adição deliberada (não existe motion no Figma): quando o banner chega na tela,
+ * a moto avança de trás do título e freia exatamente na posição do Figma.
+ * - O estado de repouso (sem classes) É o layout do Figma. A animação só é
+ *   "armada" (.has-moto-anim = ponto de partida) enquanto a seção está TOTALMENTE
+ *   fora da tela, então nada salta/some diante do usuário.
+ * - Toca a cada chegada: ao sair totalmente da tela a moto é rearmada sem
+ *   transição (fora da vista, sem "dar ré") e anima de novo na próxima chegada.
+ * - Se a página já abre com a seção visível, a moto fica parada no lugar (não há
+ *   chegada); a animação passa a valer a partir da próxima saída/chegada.
+ * - Sem JS, sem IntersectionObserver ou com prefers-reduced-motion: moto parada.
  */
 (function () {
   'use strict';
@@ -13,34 +17,37 @@
   if (!sections.length || !('IntersectionObserver' in window)) return;
   if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
-  // Chegada: banner ≥ 45% visível → anima.
+  // Arma no ponto de partida sem transição (só chamado com a seção fora da tela).
+  function arm(section) {
+    section.classList.add('is-resetting', 'has-moto-anim');
+    section.classList.remove('is-inview');
+    void section.offsetWidth; // aplica o estado inicial antes de religar a transição
+    section.classList.remove('is-resetting');
+  }
+
+  // Chegada: banner ≥ 45% visível e animação armada → anima até o repouso.
   var enter = new IntersectionObserver(function (entries) {
     entries.forEach(function (entry) {
-      if (entry.isIntersecting) entry.target.closest('.restaurantes').classList.add('is-inview');
+      var section = entry.target.closest('.restaurantes');
+      if (entry.isIntersecting && section.classList.contains('has-moto-anim')) {
+        section.classList.add('is-inview');
+      }
     });
   }, { threshold: 0.45 });
 
   // Saída: seção inteira fora da tela (inclui o padding acima do banner, onde a
-  // moto vaza 46px) → rearma sem transição.
+  // moto vaza 46px) → arma/rearma. A 1ª chamada informa o estado inicial: se a
+  // seção começa visível, nada é armado e a moto fica no lugar.
   var leave = new IntersectionObserver(function (entries) {
     entries.forEach(function (entry) {
-      var section = entry.target;
-      if (entry.isIntersecting || !section.classList.contains('is-inview')) return;
-      section.classList.add('is-resetting');
-      section.classList.remove('is-inview');
-      void section.offsetWidth; // aplica o estado inicial antes de religar a transição
-      section.classList.remove('is-resetting');
+      if (!entry.isIntersecting) arm(entry.target);
     });
   }, { threshold: 0 });
 
   Array.prototype.forEach.call(sections, function (section) {
     var banner = section.querySelector('.restaurantes__banner');
     if (!banner) return;
-    // arma no ponto de partida sem animar (evita "ré" visível se a página abrir na seção)
-    section.classList.add('is-resetting', 'has-moto-anim');
-    void section.offsetWidth;
-    section.classList.remove('is-resetting');
-    enter.observe(banner);
     leave.observe(section);
+    enter.observe(banner);
   });
 })();

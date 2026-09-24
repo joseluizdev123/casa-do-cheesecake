@@ -1,6 +1,7 @@
 /* 10 · Perguntas frequentes — acordeão acessível (Figma 7057:763)
    - Progressive enhancement: sem JS todas as respostas ficam visíveis.
-   - Estado inicial vem do markup (aria-expanded): 1ª aberta, demais fechadas.
+   - Estado inicial vem da classe .is-open do markup: 1ª aberta, demais fechadas
+     (aria-expanded é "true" em todas no HTML porque, sem JS, tudo fica visível).
    - Cada pergunta abre/fecha de forma independente (frame 7057:1039 mostra todas abertas).
    - Teclado: Enter/Espaço (nativo do <button>), ↑/↓ entre perguntas, Home/End. */
 (function () {
@@ -19,7 +20,10 @@
     };
 
     triggers.forEach(function (trigger, index) {
-      setOpen(trigger, trigger.getAttribute('aria-expanded') === 'true');
+      // Sem JS todas ficam abertas (aria-expanded="true" no markup); o estado
+      // inicial do Figma vem da classe .is-open (só a 1ª pergunta).
+      var item = trigger.closest('.faq__item');
+      setOpen(trigger, !!item && item.classList.contains('is-open'));
 
       trigger.addEventListener('click', function () {
         setOpen(trigger, trigger.getAttribute('aria-expanded') !== 'true');

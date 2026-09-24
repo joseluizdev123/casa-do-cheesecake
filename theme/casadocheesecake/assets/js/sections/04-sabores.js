@@ -14,6 +14,27 @@
       return document.getElementById(tab.getAttribute('aria-controls'));
     }
 
+    var tablist = root.querySelector('[role="tablist"]');
+    var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    // Faixa rolável (tablet/mobile): traz a aba ativa inteira para a área visível,
+    // rolando só a faixa na horizontal (nunca a página).
+    function reveal(tab) {
+      if (!tablist || tablist.scrollWidth <= tablist.clientWidth + 1) return;
+      var list = tablist.getBoundingClientRect();
+      var box = tab.getBoundingClientRect();
+      var pad = parseFloat(getComputedStyle(tablist).scrollPaddingLeft) || 0;
+      var delta = 0;
+      if (box.left < list.left + pad) delta = box.left - list.left - pad;
+      else if (box.right > list.right - pad) delta = box.right - list.right + pad;
+      if (!delta) return;
+      if (typeof tablist.scrollBy === 'function') {
+        tablist.scrollBy({ left: delta, behavior: reduceMotion ? 'auto' : 'smooth' });
+      } else {
+        tablist.scrollLeft += delta;
+      }
+    }
+
     function activate(tab, moveFocus) {
       tabs.forEach(function (t) {
         var on = t === tab;
@@ -33,7 +54,10 @@
         el.classList.toggle('btn-link--dark', !claro);
       });
 
-      if (moveFocus) tab.focus();
+      if (moveFocus) {
+        try { tab.focus({ preventScroll: true }); } catch (err) { tab.focus(); }
+      }
+      reveal(tab);
     }
 
     tabs.forEach(function (tab, i) {
@@ -54,7 +78,6 @@
 
     // Pré-carrega as fatias ocultas (loading="lazy") na intenção de uso das abas
     // (hover/foco/toque), para a troca acontecer sem esperar o download.
-    var tablist = root.querySelector('[role="tablist"]');
     var preloaded = false;
     var preload = function () {
       if (preloaded) return;

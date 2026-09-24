@@ -16,9 +16,6 @@
    moto continuar cabendo no vão entre o título e a coluna de texto.
    ========================================================================== */
 
-:root {
-  --color-yellow-400: #ffb82e;   /* fundo do banner 7057:509 */
-}
 
 .restaurantes {
   padding-block: var(--section-py);            /* py-[80px] */
@@ -64,10 +61,13 @@
   pointer-events: none;
 }
 
-/* Entrada da moto (JS: 09-restaurantes.js adiciona .has-moto-anim e, ao entrar
-   na tela, .is-inview). Começa recuada, menor e transparente atrás do título;
-   avança e freia (ease-out forte) até transform: none = posição exata do Figma.
-   Origem na base: as rodas ficam no chão enquanto ela "cresce" para frente. */
+/* Entrada da moto — adição deliberada, sem motion no Figma. O repouso (sem
+   classes, sem JS) é o layout do Figma. 09-restaurantes.js só arma
+   .has-moto-anim com a seção TOTALMENTE fora da tela e adiciona .is-inview na
+   chegada: a moto sai recuada, menor e transparente POR TRÁS do título (título
+   com z-index 1, acima desta camada absoluta) e freia (ease-out forte) até
+   transform: none = posição exata do Figma. Origem na base: as rodas ficam no
+   chão enquanto ela "cresce" para frente. */
 .restaurantes.has-moto-anim .restaurantes__media {
   opacity: 0;
   transform: translateX(-70%) scale(.85);
@@ -129,3 +129,137 @@
   color: var(--color-red-700);
 }
 .restaurantes__text strong { font-weight: 700; }
+
+
+/* ==========================================================================
+   Responsivo — o Figma só tem o frame 1440; de 1200 para cima vale só o
+   layout acima. Referência de linguagem mobile: _ref/mobile-ref/SPEC.md
+   (banner de CTA "Fale agora com um consultor").
+
+   ≤1199 (laptop/tablet) — 2 colunas, como o banner de CTA da referência:
+       ┌──────────────────────────────┬──── moto ────┐ ← vaza acima quando cabe
+       │ TÍTULO (2 linhas)            │              │
+       │ texto                        │     🛵       │
+       │ [VER CONDIÇÕES]              │              │
+       └──────────────────────────────┴──────────────┘ ← rodas na borda (Figma)
+     A moto continua "pousada" na base do banner (bottom 0, como no Figma).
+     O min-height do banner = altura da moto − vazamento, então o vazamento
+     só acontece quando o texto cabe nessa altura; ela nunca cobre o texto.
+   ≤767 (mobile) — banner amarelo full-bleed, alinhado à esquerda:
+     título → texto → botão → moto (pousada na base do banner, proporcional,
+     com o selo na caixa).
+   ========================================================================== */
+@media (max-width: 1199.98px) {
+  .restaurantes {
+    --rest-p: 40px;                                /* padding do banner */
+    --rest-moto-w: 436px;                          /* 436 × 372.5 */
+    --rest-moto-r: 16px;                           /* recuo da moto até a borda direita */
+    --rest-bleed: 32px;                            /* quanto a moto passa do topo */
+    overflow-x: clip;                              /* a entrada da moto parte da esquerda */
+  }
+
+  /* Trilha 2 = parte da moto dentro da área de conteúdo (o resto ocupa o
+     padding direito), então o texto nunca passa por baixo dela. */
+  .restaurantes__banner {
+    grid-template-columns: minmax(0, 1fr) calc(var(--rest-moto-w) - var(--rest-p) + var(--rest-moto-r));
+    grid-template-areas:
+      "title   ."
+      "content .";
+    align-content: center;
+    align-items: start;
+    column-gap: 32px;
+    row-gap: 16px;
+    min-height: calc(var(--rest-moto-w) * 305 / 357 - var(--rest-bleed));
+    padding: var(--rest-p);
+  }
+
+  .restaurantes__title {
+    grid-area: title;
+    font-size: clamp(var(--fs-t-h2), 3.889vw, 56px); /* 40 em 1024 → 46.6 em 1199 */
+    text-wrap: balance;
+  }
+
+  /* grid-column auto → containing block = padding box do banner:
+     rodas na borda de baixo, recuada --rest-moto-r da borda direita. */
+  .restaurantes__media {
+    grid-column: auto;
+    left: auto;
+    right: var(--rest-moto-r);
+    bottom: 0;
+    width: var(--rest-moto-w);
+  }
+
+  .restaurantes__content {
+    grid-area: content;
+    align-items: flex-start;
+    gap: 24px;
+  }
+
+  .restaurantes__text {
+    max-width: 440px;
+    margin-bottom: 0;
+    text-align: left;
+    text-wrap: pretty;
+  }
+}
+
+/* Tablet: a coluna de texto precisa de ~340px para o título de 40px caber em
+   2 linhas; a moto fica com o resto, pousada na base e sem vazar. */
+@media (max-width: 1023.98px) {
+  .restaurantes {
+    --rest-p: 32px;
+    --rest-moto-w: clamp(272px, 36vw, 320px);      /* 276 em 768 · 300 em 834 · 320 ≥ 889 */
+    --rest-moto-r: 8px;
+    --rest-bleed: 0px;
+  }
+
+  .restaurantes__banner {
+    column-gap: 24px;
+    min-height: 0;
+  }
+
+  .restaurantes__title { font-size: var(--fs-t-h2); }   /* 40px */
+}
+
+@media (max-width: 767.98px) {
+  /* Bloco amarelo de borda a borda: a seção não tem respiro próprio — as
+     vizinhas (08 e 10, creme) já abrem/fecham com --section-py. */
+  .restaurantes { padding-block: 0; }
+  .restaurantes > .container { padding-inline: 0; }
+
+  .restaurantes__banner {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas:
+      "title"
+      "content"
+      "media";
+    row-gap: var(--gap-m-md);                      /* título → texto 16 */
+    padding: 40px var(--section-px) 0;             /* sem base: a moto pousa na borda */
+  }
+
+  .restaurantes__title {
+    max-width: 10em;                               /* quebra do Figma: "TEM RESTAURANTE," / "PIZZARIA OU DELIVERY?" */
+    font-size: var(--fs-m-h2);                     /* 28px */
+  }
+
+  .restaurantes__content { gap: 24px; }
+
+  .restaurantes__text {
+    max-width: 30em;
+    font-size: var(--fs-m-body);                   /* 15px */
+    line-height: var(--lh-m-body);                 /* 1.5 */
+  }
+
+  /* Em fluxo depois do botão, pousada na base do banner e alinhada à direita
+     (diagonal texto ↖ moto ↘, como no desktop; em 390 fica praticamente
+     centrada). */
+  .restaurantes__media {
+    position: relative;
+    grid-area: media;
+    right: auto;
+    bottom: auto;
+    justify-self: end;
+    width: min(100%, 320px);
+    margin-top: var(--gap-m-md);                   /* botão → moto: 16 + 16 do row-gap */
+  }
+}
