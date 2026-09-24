@@ -1,0 +1,154 @@
+/* ==========================================================================
+   05 — Diferenciais ("O que faz um cheesecake ser o de verdade")
+   Figma: frame "Cardápio" 7057:330 (1440 × 868) · y 3476.65 no Desktop 7057:68
+   - Cabeçalho 7057:331: título Anton 56 + texto Archivo 20, gap 80, items-center
+   - Lista 7057:334: 3 cards "Cheesecake Info" (389.33 × 488), gap 24
+     texto (p 32, gap 16) em cima + foto 4:3 (389.33 × 292, radius 24) embaixo
+   - Tag 7057:1494 sobre a foto do 1º card (left 12 / top 12 da foto)
+   ========================================================================== */
+
+:root {
+  --color-cream-25: #fdfaf2;   /* fundo dos cards claros (7057:341, 7057:345) */
+  --color-red-950: #150506;    /* fundo da tag "Na quantidade certa" (7057:1494) */
+}
+
+.diferenciais {
+  background: var(--color-cream-50);
+  padding-block: var(--section-py);          /* py-[80px] */
+  color: var(--color-red-700);
+}
+
+.diferenciais__inner {
+  display: flex;
+  flex-direction: column;
+  gap: var(--content-gap);                   /* gap-[80px] */
+}
+
+/* ---- Cabeçalho (7057:331) ---- */
+.diferenciais__head {
+  display: flex;
+  align-items: center;
+  gap: 80px;
+  overflow-wrap: break-word;
+}
+
+.diferenciais__title,
+.diferenciais__lead {
+  flex: 1 0 0;
+  min-width: 1px;
+}
+
+.diferenciais__title {                        /* 7057:332 */
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 56px;
+  line-height: var(--lh-display);            /* 1.2 */
+  text-transform: uppercase;
+}
+
+.diferenciais__lead {                         /* 7057:333 */
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 20px;
+  line-height: var(--lh-body);               /* 1.4 → 28px */
+}
+
+/* ---- Lista de cards (7057:334) ---- */
+.diferenciais__list {
+  display: flex;
+  align-items: stretch;
+  gap: 24px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.diferenciais__card {                         /* 7057:335 / 341 / 345 */
+  position: relative;
+  display: flex;
+  flex: 1 0 0;
+  flex-direction: column;
+  justify-content: space-between;            /* texto no topo, foto na base */
+  min-width: 1px;
+  border-radius: 24px;
+  background: var(--color-cream-25);
+  color: var(--color-red-700);
+}
+
+.diferenciais__card--destaque {               /* card vermelho (7057:335) */
+  background: var(--color-red-700);
+  color: var(--color-cream-50);
+}
+
+.diferenciais__body {                         /* 7057:336 (p 32) + 7057:1477 (gap 16) */
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 32px;
+  overflow-wrap: break-word;
+}
+
+.diferenciais__card-title {                   /* 7057:337 */
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 20px;
+  line-height: var(--lh-body);               /* 1.4 → 28px */
+  text-transform: uppercase;
+}
+
+.diferenciais__card-text {                    /* 7057:338 */
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 16px;
+  /* Figma: leading 1.4 (22.4px); o Figma arredonda cada linha para 22px
+     (caixas de 66 / 88 px no metadata = 3 / 4 linhas × 22). */
+  line-height: 22px;
+}
+
+/* ---- Foto 4:3 (7057:1414 / 1438 / 1440) ---- */
+.diferenciais__media {
+  position: relative;
+  flex-shrink: 0;
+  aspect-ratio: 4 / 3;                       /* 389.33 × 292 */
+  margin: 0;
+  border-radius: 24px;
+  overflow: hidden;
+}
+
+.diferenciais__img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: cover;
+}
+
+/* ---- Tag "Na quantidade certa" (7057:1494) ---- */
+.diferenciais__tag {
+  position: absolute;
+  top: 12px;                                 /* 208 no card − 196 do topo da foto */
+  left: 12px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px 6px 8px;                 /* py 6 · pr 12 · pl 8 */
+  border-radius: 14px;
+  background: var(--color-red-950);
+  color: var(--color-cream-50);
+}
+
+.diferenciais__tag-icon {                     /* 7057:1495 — 16 × 16 */
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+}
+
+.diferenciais__tag-text {                     /* 7057:1499 */
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 14px;
+  line-height: var(--lh-body);               /* 1.4 */
+  text-transform: uppercase;
+  white-space: nowrap;
+}

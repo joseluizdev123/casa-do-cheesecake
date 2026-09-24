@@ -1,0 +1,142 @@
+/* ==========================================================================
+   06 — Sobre ("Uma cozinha, não uma embalagem")
+   Figma: 7057:349 (1440 × 728) · bg #fbf5e7 · flex gap 80 · py 80 · px 112
+   - 7057:350  Image 568×568, radius 24, p 24, conteúdo alinhado embaixo/esquerda
+     └ 7057:1481 Selo 141.812×141.802 (text-paths "5 MILHÕES DE FATIAS" /
+                 "YES, WE HAVE IT" + ícone fi_3400159) → export SVG do node
+   - 7057:352  Hero Container (flex-1 → 568) col gap 56, centrado na vertical
+     ├ 7057:353  título Anton 56/1.2 + texto Archivo 18/1.4 (gap 24, § 16)
+     └ 7057:356  especialista: foto 100×100 + nome Anton 20/1.4 + desc 16/1.4
+   ========================================================================== */
+
+.sobre {
+  background: var(--color-cream-50);
+  padding-block: var(--section-py);             /* py-[80px] */
+}
+
+/* 2 colunas iguais: imagem 568 | conteúdo flex-1 (= 568 @ 1440) */
+.sobre__inner {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  align-items: center;                          /* items-center */
+  column-gap: 80px;                             /* gap-[80px] */
+}
+
+/* ---------- Imagem + selo (7057:350) ---------- */
+.sobre__media {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;                    /* justify-end */
+  align-items: flex-start;                      /* items-start */
+  aspect-ratio: 1 / 1;                          /* size-[568px] */
+  padding: 24px;                                /* p-[24px] */
+  border-radius: 24px;                          /* rounded-[24px] */
+  overflow: hidden;
+}
+
+.sobre__foto {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: cover;
+  border-radius: 24px;
+}
+
+/* Selo 7057:1481 — 141.812 × 141.802, overflow-clip */
+.sobre__selo {
+  position: relative;
+  flex: none;
+  width: 141.812px;
+  height: 141.802px;
+  overflow: hidden;
+}
+.sobre__selo img { max-width: none; }          /* SVG no tamanho nativo (142×142) */
+
+/* ---------- Conteúdo (7057:352) ---------- */
+.sobre__content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 56px;                                    /* gap-[56px] */
+  min-width: 0;
+}
+
+.sobre__text {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 24px;                                    /* gap-[24px] */
+  width: 100%;
+  color: var(--color-red-700);
+  overflow-wrap: break-word;
+}
+
+.sobre__title {
+  width: 100%;
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 56px;                              /* text-[56px] */
+  /* Figma: leading 1.2 (67.2px), mas o Figma arredonda a entrelinha para 67px
+     (metadata: 2 linhas = 134). 67px reproduz a geometria. */
+  line-height: 67px;
+  text-transform: uppercase;
+}
+
+.sobre__body {
+  width: 100%;
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 18px;                              /* text-[18px] */
+  /* Figma: leading 1.4 (25.2px) arredondado para 25px
+     (metadata: 6 linhas + § 16 = 166). */
+  line-height: 25px;
+}
+.sobre__body p + p { margin-top: 16px; }       /* mb-[16px] no 1º parágrafo */
+
+/* ---------- Especialista (7057:356) ---------- */
+.sobre__especialista {
+  display: flex;
+  align-items: center;                          /* items-center */
+  gap: 24px;                                    /* gap-[24px] */
+  width: 100%;
+}
+
+.sobre__especialista-foto {
+  flex: none;
+  width: 100px;                                 /* size-[100px] */
+  height: 100px;
+  border-radius: 50%;                           /* Ellipse 1 */
+  object-fit: cover;
+}
+
+.sobre__especialista-info {
+  display: flex;
+  flex: 1 1 0;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;                                     /* gap-[8px] */
+  min-width: 0;
+  color: var(--color-red-700);
+  line-height: var(--lh-body);                  /* leading-[1.4] */
+  overflow-wrap: break-word;
+}
+
+.sobre__especialista-nome {
+  width: 100%;
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 20px;                              /* text-[20px] → h 28 */
+  text-transform: uppercase;
+}
+
+.sobre__especialista-desc {
+  width: 100%;
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 16px;                              /* text-[16px] */
+  /* Figma: leading 1.4 (22.4px) arredondado para 22px (2 linhas = 44). */
+  line-height: 22px;
+}

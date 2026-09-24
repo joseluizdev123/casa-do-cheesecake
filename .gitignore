@@ -1,0 +1,5 @@
+node_modules/
+_shots/
+# Referências do Figma (prints/exports, ~47 MB) — ficam só na máquina de desenvolvimento
+_ref/
+__pycache__/

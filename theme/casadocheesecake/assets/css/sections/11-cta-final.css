@@ -1,0 +1,116 @@
+/* ==========================================================================
+   11 — CTA final ("Peça o seu cheesecake hoje")
+   Figma "Sabores" 7057:955 (1440 × 923.8) · bg #b0282e · flex col, gap 32,
+   items-center · py 80 · px 112
+   ├ Container 7057:992 (1216 × 571.8): flex col, gap 16, items-center
+   │   ├ Selo 7057:1367 141.812 × 141.802 (text-paths "Desde 2004" /
+   │   │   "• Yes, we have cheesecake •" + ícone fi_3400159 48px) → export SVG
+   │   │   do node (inclui o retângulo do fundo #b0282e da seção, idêntico ao bg)
+   │   ├ Título 7057:993 — Anton 168 / 1.1, uppercase, center, cream (2 linhas)
+   │   ├ Texto 7057:1009 — Archivo 20 / 1.4, center, cream
+   │   └ Foreground image 7057:994 — 198 × 184, absoluta: left 50%,
+   │       top calc(50% + 56.95px), translate(-50%, -50%), espelhada na
+   │       horizontal (-scale-y-100 + rotate-180 = scaleX(-1)), object-bottom.
+   │       O offset 56.95 = (selo + gap − gap − texto) / 2 mantém a fatia
+   │       centrada no título mesmo quando ele escala.
+   └ Container 7057:1005: flex col, gap 24, items-center
+       ├ Button 7079:408 — Primary/Dark → .btn.btn--primary-dark (150 × 65)
+       ├ "Ou" 7057:1006 — Anton 18 / 1.4, uppercase, cream
+       └ Button 7079:412 — Tertiary/Dark → .btn-link.btn-link--dark (138 × 22)
+   Abaixo de 1440 o título e a fatia escalam em vw (mesma proporção do frame)
+   para "CHEESECAKE HOJE" continuar numa linha só.
+   ========================================================================== */
+
+.cta-final {
+  padding-block: var(--section-py);            /* py-[80px] */
+  background: var(--color-red-700);            /* bg-[#b0282e] */
+  color: var(--color-cream-50);
+}
+
+.cta-final :focus-visible { outline-color: var(--color-cream-50); }
+
+.cta-final__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;                         /* items-center */
+  gap: 32px;                                   /* gap-[32px] */
+}
+
+/* ---------- Container 7057:992 ---------- */
+.cta-final__head {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;                         /* items-center */
+  gap: 16px;                                   /* gap-[16px] */
+  width: 100%;
+}
+
+/* Selo 7057:1367 — 141.812 × 141.802, overflow-clip */
+.cta-final__selo {
+  position: relative;
+  flex: none;
+  width: 141.812px;
+  height: 141.802px;
+  overflow: hidden;
+}
+.cta-final__selo img { max-width: none; }      /* SVG no tamanho nativo (142 × 142) */
+
+/* Título 7057:993 — Anton 168/1.1 (2 × 184.8 = 369.6; Figma arredonda a caixa p/ 370) */
+.cta-final__title {
+  width: 100%;
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: min(168px, 11.6667vw);            /* text-[168px] @1440 */
+  line-height: 1.1;                            /* leading-[1.1] */
+  text-align: center;
+  text-transform: uppercase;
+  white-space: pre-wrap;                       /* whitespace-pre-wrap: o espaço final de
+                                                  "Peça o seu " conta na centralização
+                                                  (1ª linha fica ~½ espaço à esquerda) */
+  overflow-wrap: break-word;
+}
+
+/* Texto 7057:1009 — Archivo 20/1.4 */
+.cta-final__text {
+  width: 100%;
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 20px;                             /* text-[20px] */
+  line-height: var(--lh-body);                 /* 1.4 */
+  text-align: center;
+}
+
+/* Foreground image 7057:994 — 198 × 184, sobreposta ao título */
+.cta-final__fatia {
+  position: absolute;
+  left: 50%;
+  top: calc(50% + 56.95px);
+  width: min(198px, 13.75vw);                  /* w-[198px] @1440 */
+  height: auto;
+  aspect-ratio: 198 / 184;                     /* h-[184px] */
+  max-width: none;
+  object-fit: contain;
+  object-position: 50% 100%;                   /* object-bottom */
+  transform: translate(-50%, -50%) scaleX(-1);
+  pointer-events: none;
+}
+
+/* ---------- Container 7057:1005 ---------- */
+.cta-final__actions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;                         /* items-center */
+  gap: 24px;                                   /* gap-[24px] */
+}
+
+/* "Ou" 7057:1006 — Anton 18/1.4 uppercase */
+.cta-final__ou {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: var(--fs-button);                 /* text-[18px] */
+  line-height: var(--lh-button);               /* 1.4 */
+  text-align: center;
+  text-transform: uppercase;
+  white-space: nowrap;
+}

@@ -1,0 +1,194 @@
+/* ==========================================================================
+   Footer — compartilhado
+   Figma "Footer" 7073:66 (1440 × 418) · bg #000 · flex column
+   Main Container 7073:149: flex column, gap 32, items-center, pt 80 · pb 32 · px 112
+     ├ Container 7073:67 (1216 × 232): flex, gap 80, items-start
+     │   ├ 7073:73 (348): COMPRAR 7073:74 | A MARCA 7073:79 — flex gap 56
+     │   │    cada coluna: flex column gap 16; título Anton 20/1.4 uppercase,
+     │   │    links Archivo 18/1.4, cor #fbf5e7
+     │   ├ 7073:68 (flex 1 → 360): column gap 32, items-center
+     │   │    Logo 7073:69 148 × 150 (PNG → webp, object-cover)
+     │   │    Texto 7073:71 Archivo 18/1.4, text-center
+     │   └ 7073:97 (w 348): CONTATO 7073:84 | SOCIAL 7073:87 — flex gap 56,
+     │        justify-end, items-end, text-right
+     └ Copyright 7073:91 (1216 × 22): flex justify-between items-center
+         ├ 7073:92 Archivo 16/1.4 nowrap
+         └ Créditos 7073:93: flex gap 10 → "Criado por" + símbolo 7073:95 (20 × 16)
+   Line-heights em px: o Figma arredonda a altura de linha para px inteiro
+   (18 × 1.4 = 25.2 → 25; 16 × 1.4 = 22.4 → 22). Conferido no recorte: o
+   Main Container mede 398 (80 + 232 + 32 + 22 + 32) e a 1ª linha do Pattern
+   cai inteira na linha de pixel 398 — com 25.2/22.4 tudo desceria 0.8px.
+   Pattern 7073:111 (1440 × 20): 3 linhas com gradiente dourado (SVG do Figma,
+     1440 × 21.25, inset -0.25px 0 -1px 0 — as espessuras 0.5/1/2 vazam a caixa).
+   Abaixo de 1280px as colunas laterais (348 cada) não deixam espaço para o
+   logo + texto central → a marca sobe para uma linha própria e os dois grupos
+   de links ficam lado a lado embaixo (desktop-first; mobile fica p/ etapa própria).
+   ========================================================================== */
+
+.site-footer {
+  --footer-side-w: 348px;                        /* w-[348px] de 7073:97 (= largura de 7073:73) */
+  display: flex;
+  flex-direction: column;
+  background: var(--color-black);                /* bg-black */
+  color: var(--color-cream-50);                  /* text-[#fbf5e7] */
+  font-family: var(--font-body);
+  line-height: var(--lh-body);                   /* leading-[1.4] */
+}
+
+/* ---------- Main Container (7073:149) ---------- */
+.site-footer__main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 32px;                                     /* gap-[32px] */
+  padding-top: var(--section-py);                /* pt-[80px] */
+  padding-bottom: 32px;                          /* pb-[32px] */
+}
+
+/* ---------- Container 7073:67 — 348 | 1fr | 348, gap 80 ---------- */
+.site-footer__row {
+  display: grid;
+  grid-template-columns: var(--footer-side-w) minmax(0, 1fr) var(--footer-side-w);
+  column-gap: clamp(40px, 5.5556vw, 80px);       /* gap-[80px] @1440 */
+  align-items: start;
+  width: 100%;
+}
+
+/* Grupos de colunas de links (7073:73 / 7073:97) */
+.site-footer__group {
+  display: flex;
+  align-items: flex-start;
+  gap: 56px;                                     /* gap-[56px] */
+}
+.site-footer__group--end {
+  justify-content: flex-end;                     /* justify-end */
+  text-align: right;                             /* text-right */
+}
+
+/* Coluna (7073:74 / 79 / 84 / 87): flex column gap 16 */
+.site-footer__col {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;                                     /* gap-[16px] */
+}
+.site-footer__group--end .site-footer__col { align-items: flex-end; }
+
+.site-footer__heading {
+  width: 100%;
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 20px;                               /* text-[20px] */
+  line-height: 28px;                             /* leading-[1.4] → 20 × 1.4 = 28 */
+  text-transform: uppercase;
+}
+
+.site-footer__list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;                                     /* gap-[16px] */
+  width: 100%;
+  margin: 0;
+}
+.site-footer__list li { display: block; }
+
+.site-footer__link {
+  display: block;
+  font-size: 18px;                               /* text-[18px] */
+  line-height: 25px;                             /* 1.4 → 25.2 → 25 no Figma */
+  color: var(--color-cream-50);
+  text-underline-offset: 3px;
+  transition: color var(--dur) var(--ease);
+}
+.site-footer__link:hover,
+.site-footer__link:focus-visible {
+  color: var(--color-cream-100);
+  text-decoration: underline;
+  text-decoration-thickness: from-font;
+}
+.site-footer__link:focus-visible { outline-color: var(--color-cream-50); }
+
+/* ---------- Marca central (7073:68): column gap 32, items-center ---------- */
+.site-footer__brand {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 32px;                                     /* gap-[32px] */
+  min-width: 0;
+}
+
+.site-footer__logo {
+  display: block;
+  flex-shrink: 0;
+  width: 148px;                                  /* w-[148px] */
+  height: 150px;                                 /* h-[150px] */
+}
+.site-footer__logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;                             /* object-cover */
+}
+.site-footer__logo:focus-visible { outline-color: var(--color-cream-50); border-radius: 50%; }
+
+.site-footer__tagline {
+  width: 100%;
+  max-width: 360px;                              /* largura de 7073:70 @1440 */
+  font-size: 18px;                               /* text-[18px] */
+  line-height: 25px;                             /* 1.4 → 25.2 → 25 no Figma (2 linhas = 50) */
+  text-align: center;
+  text-wrap: pretty;                             /* evita palavra órfã quando a coluna estreita (<1440); em 1440 as 2 linhas do Figma não mudam */
+}
+
+/* ---------- Copyright (7073:91): justify-between, items-center ---------- */
+.site-footer__bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  width: 100%;
+  font-size: 16px;                               /* text-[16px] */
+  line-height: 22px;                             /* 1.4 → 22.4 → 22 no Figma */
+}
+.site-footer__copy { white-space: nowrap; }
+
+.site-footer__credits {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;                                     /* gap-[10px] */
+  white-space: nowrap;
+}
+.site-footer__credits-logo {
+  flex-shrink: 0;
+  width: 20px;                                   /* w-[20px] */
+  height: 16px;                                  /* h-[16px] */
+}
+
+/* ---------- Pattern (7073:111): 3 linhas douradas ---------- */
+.site-footer__pattern {
+  position: relative;
+  flex-shrink: 0;
+  height: 20px;                                  /* h-[20px] */
+}
+.site-footer__pattern img {
+  position: absolute;
+  top: -0.25px;                                  /* inset-[-1.25%_0_-5%_0] de 20px */
+  left: 0;
+  width: 100%;
+  height: calc(100% + 1.25px);                   /* 21.25px = viewBox do SVG */
+  max-width: none;
+}
+
+/* ---------- < 1280px: marca em linha própria, links embaixo ---------- */
+@media (max-width: 1279.98px) {
+  .site-footer__row {
+    grid-template-columns: auto auto;
+    grid-template-areas:
+      "brand brand"
+      "start end";
+    justify-content: space-between;
+    row-gap: 56px;
+  }
+  .site-footer__group--start { grid-area: start; }
+  .site-footer__group--end { grid-area: end; }
+  .site-footer__brand { grid-area: brand; }
+}

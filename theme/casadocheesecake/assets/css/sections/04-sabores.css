@@ -1,0 +1,155 @@
+/* ==========================================================================
+   04 · Sabores — Figma instância 7057:329 (component set "Sabores" 7057:518)
+   Variantes: Frutas vermelhas 7057:519 · Doce de leite 7057:566 ·
+              Morangos 7057:613 · Blue Berry 7057:660
+   O que muda entre variantes: cor de fundo, cor do texto/decoração
+   (cream no fundo vermelho, vermelho nos fundos claros), foto da fatia e
+   aba sublinhada. Anotação Figma: "Ao clicar, mudar a fatia".
+   ========================================================================== */
+
+:root {
+  --color-yellow-400: #ffb82e;  /* fundo variante Doce de leite (7057:566) */
+  --color-pink-200: #ffc0c5;    /* fundo variante Morangos (7057:613) */
+  --color-blue-200: #b5d9fb;    /* fundo variante Blue Berry (7057:660) */
+}
+
+/* Sabores 7057:329 — flex col, gap 80, px 112, py 80 */
+.sabores {
+  --sabores-bg: var(--color-red-700);
+  --sabores-fg: var(--color-cream-50);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 80px;
+  padding: var(--section-py) var(--section-px);
+  background-color: var(--sabores-bg);
+  color: var(--sabores-fg);
+  transition: background-color .3s var(--ease), color .3s var(--ease);
+}
+
+/* Variantes de fundo claro: texto e decoração em vermelho */
+.sabores--claro { --sabores-fg: var(--color-red-700); }
+
+.sabores :focus-visible { outline-color: currentColor; }
+
+/* ---------- Selo "Desde 2004" (7057:520) ----------------------------------
+   inline-grid com 3 itens sobrepostos na mesma célula (col-1 row-1)       */
+.sabores__selo {
+  display: inline-grid;
+  grid-template-columns: max-content;
+  grid-template-rows: max-content;
+  place-items: start;
+  flex-shrink: 0;
+}
+.sabores__selo > * { grid-area: 1 / 1; }
+
+/* Decoration 7057:521 (41.243×68.154, mt 20) · 7057:540 (41.102×68.077, ml 81.24, mt 20) */
+.sabores__decoracao {
+  position: relative;
+  display: block;
+  margin-top: 20px;
+}
+.sabores__decoracao--esq { width: 41.243px; height: 68.154px; }
+.sabores__decoracao--dir { width: 41.102px; height: 68.077px; margin-left: 81.24px; }
+
+.sabores__decoracao-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+}
+.sabores__decoracao-img--claro { display: none; }
+.sabores--claro .sabores__decoracao-img--escuro { display: none; }
+.sabores--claro .sabores__decoracao-img--claro { display: block; }
+
+/* Since Badge 7057:537 — flex col, items center, Anton, lh 1.4, ml 35.24 */
+.sabores__selo-texto {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-left: 35.24px;
+  font-family: var(--font-display);
+  font-weight: 400;
+  line-height: var(--lh-body);          /* 1.4 */
+  text-align: center;
+  text-transform: uppercase;
+}
+.sabores__selo-rotulo {                 /* 7057:538 — 18px */
+  display: block;
+  min-width: 100%;
+  width: min-content;
+  font-size: 18px;
+}
+.sabores__selo-ano {                    /* 7057:539 — 26px */
+  display: block;
+  font-size: 26px;
+  white-space: nowrap;
+}
+
+/* ---------- Título + fatia (Container 7057:556 — 849.5×370) -------------- */
+.sabores__palco {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  flex-shrink: 0;
+  width: 849.5px;
+  max-width: 100%;
+  height: 370px;
+}
+
+/* Hero text 7057:557 — Anton 168/1.1, center, uppercase */
+.sabores__titulo {
+  width: 849.5px;
+  max-width: 100%;
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 168px;
+  line-height: 1.1;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+/* Slice image 7086:582 — 273×258, centrada (+0.5 / −0.15), sobre o texto */
+.sabores__fatia {
+  position: absolute;
+  left: calc(50% + 0.5px);
+  top: calc(50% - 0.15px);
+  width: 273px;
+  height: 258px;
+  transform: translate(-50%, -50%);
+}
+.sabores__painel { width: 100%; height: 100%; }
+.sabores__painel[hidden] { display: none; }
+.sabores__painel img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* ---------- Abas (Badge Container 7057:560 — flex, gap 56) ---------------
+   Instâncias do Button Tertiary: Dark (7079:421) no fundo vermelho e
+   Light (7073:185) nos fundos claros → .btn-link(.btn-link--dark).
+   Variação real do Figma: 20px (o componente base usa 18px).            */
+.sabores__nav,
+.sabores__abas {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 56px;
+}
+.sabores__nav { flex-shrink: 0; }
+
+.sabores__aba { font-size: 20px; }      /* Anton 20/1.2, uppercase (via .btn-link) */
+
+/* Aba ativa: sublinhado na mesma cor do texto (Figma: underline from-font) */
+.sabores__aba[aria-selected="true"] {
+  text-decoration: underline;
+  text-decoration-thickness: from-font;
+  text-underline-position: from-font;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sabores { transition: none; }
+}

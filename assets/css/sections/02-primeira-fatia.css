@@ -1,0 +1,120 @@
+/* ==========================================================================
+   02 — Primeira fatia
+   Figma "Call to action" 7057:164 (1440 × 441) · pt 80 · pb 48 · px 112
+   Box amarelo 7057:165 (1216 × 313): p 56, flex items-center justify-between
+   Fatias sobrepostas 7057:172 (311 × 403) vazam 45px acima e abaixo do box.
+   ========================================================================== */
+
+:root {
+  --color-yellow-400: #ffb82e;   /* fundo do banner 7057:165 (mesmo valor das seções 03/04/09) */
+}
+
+.primeira-fatia {
+  /* 1 "px do Figma": exatamente 1px em ≥ 1440; abaixo disso as fatias encolhem
+     proporcionalmente para caber entre título e coluna (desktop fluido, sem breakpoint). */
+  --fatia-u: min(1px, calc(100vw / 1440));
+  padding-top: var(--section-py);     /* pt-[80px] */
+  padding-bottom: 48px;               /* pb-[48px] */
+}
+
+/* ---------- Box amarelo (7057:165) ---------- */
+.primeira-fatia__box {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 56px;                      /* p-[56px] */
+  background: var(--color-yellow-400);
+}
+
+/* Título (7057:166): Anton 56/1.2 uppercase, 518px, 3 linhas (.u-display) */
+.primeira-fatia__title {
+  flex: 0 1 518px;
+  min-width: 0;
+  font-size: 56px;
+  color: var(--color-red-700);
+  overflow-wrap: break-word;
+}
+
+/* ---------- Fatias (grupo 7057:172) ----------
+   Figma: grupo centrado em calc(50% + 53.5px), bottom -45px → @1216: x 506 · y -45.
+   Como título (518) e coluna (298) têm largura fixa, isso equivale a um slot entre os
+   dois: começa 68px antes do fim do título (506 = 574 − 68) e termina 45px antes da
+   coluna (817 = 862 − 45). 518 + (311 − 68) + 45 + 298 = 1104 = largura útil do box,
+   então em 1440 a posição é idêntica; abaixo disso título/coluna encolhem em vez de
+   ficarem por baixo das fotos. */
+.primeira-fatia__media {
+  position: relative;
+  flex: none;
+  align-self: stretch;                /* altura = linha do flex (título) */
+  width: calc(311 * var(--fatia-u));
+  margin-left: calc(-68 * var(--fatia-u));
+  margin-right: calc(45 * var(--fatia-u));
+  pointer-events: none;
+}
+
+.primeira-fatia__images {
+  position: absolute;
+  left: 0;
+  bottom: calc(-56px - 45 * var(--fatia-u));   /* padding do box + vazamento de 45px */
+  width: calc(311 * var(--fatia-u));
+  height: calc(403 * var(--fatia-u));
+}
+
+.primeira-fatia__img {
+  position: absolute;
+  max-width: none;
+  object-fit: contain;                /* asset já na proporção do slot (Figma estica: fill) */
+  object-position: bottom;            /* object-bottom */
+}
+
+/* Foreground 7057:173: 206 × 191 em (611, -45) do box = (105, 0) do grupo.
+   Figma: -scale-y-100 + rotate-180 = espelhamento horizontal. */
+.primeira-fatia__img--foreground {
+  top: 0;
+  left: calc(105 * var(--fatia-u));
+  width: calc(206 * var(--fatia-u));
+  height: calc(191 * var(--fatia-u));
+  transform: scaleX(-1);
+}
+
+/* Background 7057:174: 305 × 305 em (506, 53) do box = (0, 98) do grupo */
+.primeira-fatia__img--background {
+  left: 0;
+  bottom: 0;
+  width: calc(305 * var(--fatia-u));
+  height: calc(305 * var(--fatia-u));
+}
+
+/* ---------- Coluna direita (7057:167): 298px, flex col gap 16 ---------- */
+.primeira-fatia__content {
+  display: flex;
+  flex: 0 1 298px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+  min-width: 0;
+}
+
+/* Textos ocupam a largura da coluna (min-w-full); o botão fica no tamanho do conteúdo */
+.primeira-fatia__subtitle,
+.primeira-fatia__text { align-self: stretch; }
+
+/* 7057:168: Anton 20/1.4 uppercase */
+.primeira-fatia__subtitle {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 20px;
+  line-height: var(--lh-body);        /* 1.4 */
+  text-transform: uppercase;
+  color: var(--color-red-700);
+}
+
+/* 7057:169: Archivo Regular 14/1.4 */
+.primeira-fatia__text {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 14px;
+  line-height: var(--lh-body);        /* 1.4 */
+  color: var(--color-red-700);
+}

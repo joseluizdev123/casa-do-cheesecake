@@ -1,0 +1,11 @@
+{
+  "$schema": "https://playground.wordpress.net/blueprint-schema.json",
+  "landingPage": "/",
+  "preferredVersions": { "php": "8.3", "wp": "latest" },
+  "steps": [
+    { "step": "login" },
+    { "step": "setSiteOptions", "options": { "blogname": "A Casa do Cheesecake", "blogdescription": "O autêntico New York Cheesecake", "permalink_structure": "/%postname%/" } },
+    { "step": "activateTheme", "themeFolderName": "casadocheesecake" },
+    { "step": "runPHP", "code": "<?php require '/wordpress/wp-load.php'; require_once ABSPATH . 'wp-admin/includes/admin.php'; wp_set_current_user(1); $r = cdc_run_seeder(); file_put_contents('/wordpress/seed-report.json', json_encode($r));" }
+  ]
+}

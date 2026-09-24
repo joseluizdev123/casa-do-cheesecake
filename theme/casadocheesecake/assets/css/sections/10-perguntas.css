@@ -1,0 +1,161 @@
+/* ==========================================================================
+   10 · Perguntas frequentes (acordeão)
+   Figma: "Perguntas" 7057:763 (estado inicial: 1ª aberta)
+          7057:1039 (todas abertas — fonte das respostas)
+   Layout: container 1216 · 2 colunas flex 1 (568 + 80 + 568) · py 80
+   Anotações Figma: título "Fixo durante o scroll" (sticky);
+   "Por padrão, todos os acordeões recolhidos, exceto o primeiro."
+   ========================================================================== */
+
+:root {
+  --color-cream-25: #fdfaf2;                      /* fundo do botão circular (Carousel_Nav_Right 7057:814) */
+  --color-red-700-a15: rgba(176, 40, 46, 0.15);   /* divisor entre perguntas (border-b rgba(176,40,46,0.15)) */
+}
+
+.faq {
+  background: var(--color-cream-50);
+  color: var(--color-red-700);
+  padding-block: var(--section-py);               /* py-[80px] */
+}
+
+.faq__inner {
+  display: flex;
+  align-items: flex-start;
+  gap: 80px;                                      /* gap-[80px] */
+}
+
+/* ---- Coluna esquerda: título fixo durante o scroll (7057:764) ---- */
+.faq__header {
+  flex: 1 1 0;
+  min-width: 0;
+  align-self: stretch;                            /* self-stretch: trilho do sticky */
+}
+
+.faq__title {
+  position: sticky;
+  /* Figma: sticky top-0. Aqui o topo do trilho é a própria folga da seção
+     (80px), acima do header fixo de 70px — o título fixa exatamente onde já
+     está quando a seção encosta no topo. */
+  top: var(--section-py);
+  font-size: 56px;                                /* text-[56px] · Anton · lh 1.2 (u-display) */
+  color: var(--color-red-700);
+}
+
+/* ---- Coluna direita: lista + rodapé (7057:791) ---- */
+.faq__content {
+  flex: 1 1 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;                                      /* gap-[16px] */
+}
+
+.faq__item {
+  padding-bottom: 16px;                           /* pb-[16px] */
+  border-bottom: 1px solid var(--color-red-700-a15);
+}
+
+/* Linha: pergunta + resposta (coluna de 496) com o botão circular de 40 ao lado.
+   A altura mínima é a do círculo (item fechado = 40 + 16 + 1 = 57). */
+.faq__row { min-height: 40px; }
+
+.faq__heading {
+  font: inherit;
+}
+
+.faq__trigger {
+  position: relative;
+  display: block;
+  width: 100%;
+  padding-right: 72px;                            /* gap-[32px] + círculo 40 → texto 496 */
+  text-align: left;
+}
+
+.faq__question {
+  display: block;
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 20px;                                /* text-[20px] */
+  line-height: var(--lh-button);                  /* leading-[1.4] → 28px */
+  text-transform: uppercase;
+  color: var(--color-red-700);
+}
+
+.faq__icon {
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;                                    /* size-[40px] */
+  height: 40px;
+  border-radius: 24px;                            /* rounded-[24px] */
+  background: var(--color-cream-25);
+}
+
+.faq__icon-img { width: 20px; height: 20px; }     /* size-[20px] */
+
+/* Ícone: minus quando aberto, plus quando fechado. Sem JS tudo fica aberto (minus). */
+.faq__icon-img--plus { display: none; }
+.faq.is-enhanced .faq__item:not(.is-open) .faq__icon-img--minus { display: none; }
+.faq.is-enhanced .faq__item:not(.is-open) .faq__icon-img--plus { display: block; }
+
+/* Resposta: colapso com grid-template-rows (0fr ↔ 1fr) */
+.faq__answer {
+  display: grid;
+  grid-template-rows: 1fr;
+  padding-right: 72px;                            /* mesma coluna de 496 da pergunta */
+}
+
+.faq__answer-inner {
+  min-height: 0;
+  overflow: hidden;
+}
+
+.faq__answer-text {
+  margin-top: 16px;                               /* gap-[16px] entre pergunta e resposta */
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 16px;                                /* text-[16px] · Archivo Regular */
+  /* Figma: leading 1.4 (22.4px), mas o Figma arredonda a entrelinha para 22px
+     (metadata: 3 linhas = 66, 5 = 110, 6 = 132). 22px reproduz a geometria. */
+  line-height: 22px;
+  color: var(--color-red-700);
+}
+
+.faq.is-enhanced .faq__item:not(.is-open) .faq__answer {
+  grid-template-rows: 0fr;
+  visibility: hidden;                             /* tira do fluxo de leitura/tab quando fechado */
+}
+
+.faq.is-animated .faq__answer {
+  transition: grid-template-rows .3s var(--ease), visibility 0s linear .3s;
+}
+.faq.is-animated .faq__item.is-open .faq__answer {
+  transition: grid-template-rows .3s var(--ease), visibility 0s linear 0s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .faq.is-animated .faq__answer,
+  .faq.is-animated .faq__item.is-open .faq__answer { transition: none; }
+}
+
+/* ---- Rodapé: "Ainda tem dúvidas?" + botão secondary (7057:893) ---- */
+.faq__footer {
+  display: flex;
+  flex-wrap: wrap;                                /* só quebra abaixo de ~495px de coluna */
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px 24px;
+}
+
+.faq__footer-text {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 20px;                                /* text-[20px] */
+  line-height: var(--lh-button);                  /* leading-[1.4] */
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: var(--color-red-700);
+}

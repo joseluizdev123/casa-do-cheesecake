@@ -1,0 +1,192 @@
+/* ==========================================================================
+   01 — Hero
+   Figma: Hero 7057:81 (1440 × 959) · Container 7057:82
+     Hero Container 7057:83 → título 7057:84 (Anton 89/1.2)
+     Image 7057:85 (1440 × 454) → Background 7057:86 · Png 7057:87 (vaza 122px p/ cima)
+       Desde 7057:90 (selo + louros) · Info Container 7057:126 (3 badges)
+     Container 7057:157 → botões 7073:331 / 7073:335 · texto 7057:163 (Archivo 20/1.4)
+   ========================================================================== */
+
+.hero {
+  background: var(--color-cream-50);
+  /* borda esquerda do conteúdo: acompanha o .container em qualquer largura */
+  --hero-inset: max(var(--section-px), calc((100% - var(--content-w)) / 2));
+}
+
+.hero__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+/* ---- Hero Container 7057:83: pt 80 · pb 32 · px 112 (.container) ---- */
+.hero__head {
+  padding-top: var(--section-py);
+  padding-bottom: 32px;
+}
+
+.hero__title {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 89px;
+  line-height: var(--lh-display);     /* 1.2 → 106.8px */
+  text-transform: uppercase;
+  color: var(--color-red-700);
+}
+
+/* ---- Image 7057:85: faixa full-bleed 1440 × 454 --------------------------
+   Escala uniforme (aspect-ratio do frame) para a foto e o PNG recortado
+   continuarem alinhados em qualquer largura de viewport. */
+.hero__media {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1440 / 454;
+}
+
+/* Background 7057:86 — foto recortada (percentuais do design_context) */
+.hero__bg {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+.hero__bg-img {
+  position: absolute;
+  left: -0.03%;
+  top: -109.52%;
+  width: 132.46%;
+  height: 235.94%;
+  max-width: none;
+  object-fit: cover;
+}
+
+/* Png 7057:87 — recorte com transparência: top -122px, 1440 × 575.527 */
+.hero__cutout {
+  position: absolute;
+  left: 0;
+  top: calc(-122 / 454 * 100%);
+  width: 100%;
+  height: calc(575.527 / 454 * 100%);
+  pointer-events: none;
+}
+.hero__cutout-img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+}
+
+/* ---- Desde 7057:90 (grupo 122.345 × 88.154 em 112, 32) ---------------- */
+.hero__since {
+  position: absolute;
+  top: 32px;
+  left: var(--hero-inset);
+  width: 122.345px;
+  height: 88.154px;
+}
+.hero__laurel {
+  position: absolute;
+  top: 20px;
+  width: auto;                         /* tamanho intrínseco da raiz do SVG */
+  height: auto;
+  max-width: none;
+}
+.hero__laurel--left { left: 0; }          /* 7057:91 */
+.hero__laurel--right { left: 81.243px; }  /* 7057:110 */
+
+/* Since Badge 7057:107: coluna centrada, Anton, branco, lh 1.4 */
+.hero__since-badge {
+  position: absolute;
+  top: 0;
+  left: 35.243px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: var(--font-display);
+  font-weight: 400;
+  line-height: var(--lh-button);      /* 1.4 */
+  text-align: center;
+  text-transform: uppercase;
+  color: var(--color-white);
+}
+.hero__since-label { align-self: stretch; font-size: 18px; }     /* 7057:108 (min-w-full) */
+.hero__since-year { font-size: 26px; white-space: nowrap; }      /* 7057:109 */
+
+/* ---- Info Container 7057:126: bottom 32 · gap 40 ----------------------- */
+.hero__info {
+  position: absolute;
+  left: var(--hero-inset);
+  bottom: 32px;
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.hero__info-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+.hero__info-badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 48px;
+  height: 48px;
+  border: 1px solid var(--color-white);
+  border-radius: var(--radius-pill);
+}
+.hero__info-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  overflow: hidden;
+}
+.hero__info-icon img {
+  width: auto;                         /* tamanho intrínseco da raiz do SVG */
+  height: auto;
+  max-width: none;
+}
+.hero__info-text {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 18px;
+  line-height: var(--lh-button);       /* 1.4 */
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: var(--color-white);
+}
+
+/* ---- Container 7057:157: pt 32 · pb 80 · px 112, space-between ---------- */
+.hero__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;                           /* só atua abaixo de 1440 (no Figma sobram 67px) */
+  padding-top: 32px;
+  padding-bottom: var(--section-py);
+}
+
+.hero__actions {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  flex-shrink: 0;
+}
+
+.hero__text {
+  flex: 0 1 710px;
+  min-width: 0;
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 20px;
+  line-height: var(--lh-body);         /* 1.4 → 28px */
+  font-variation-settings: "wdth" 100;
+  color: var(--color-red-700);
+}
+.hero__text strong { font-weight: 700; }

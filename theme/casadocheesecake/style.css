@@ -1,0 +1,17 @@
+/*
+Theme Name: A Casa do Cheesecake
+Theme URI: https://acasadocheesecake.com.br
+Author: Studio Artemis
+Author URI: https://studioartemis.com.br
+Description: Tema da landing page A Casa do Cheesecake — implementação pixel-perfect do Figma, com CPTs (cheesecakes, diferenciais, depoimentos, FAQ), Customizer por seção e importador de conteúdo em 1 clique.
+Version: 1.0.0
+Requires at least: 6.3
+Tested up to: 6.6
+Requires PHP: 7.4
+License: Proprietary
+Text Domain: casadocheesecake
+GitHub Theme URI: studioartemis/casadocheesecake-theme
+Primary Branch: main
+*/
+
+/* Os estilos do tema ficam em assets/css/ (enfileirados em functions.php). */

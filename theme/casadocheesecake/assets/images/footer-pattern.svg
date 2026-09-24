@@ -1,0 +1,36 @@
+<svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="1440" height="21.25" viewBox="0 0 1440 21.25" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Pattern">
+<path id="LIne" d="M0 0.25C17.8328 0.25 967.43 0.25 1440 0.25" stroke="url(#paint0_linear_0_5)" stroke-width="0.5"/>
+<path id="LIne_2" d="M0 10.25C17.8328 10.25 967.43 10.25 1440 10.25" stroke="url(#paint1_linear_0_5)"/>
+<path id="LIne_3" d="M0 20.25C17.8328 20.25 967.43 20.25 1440 20.25" stroke="url(#paint2_linear_0_5)" stroke-width="2"/>
+</g>
+<defs>
+<linearGradient id="paint0_linear_0_5" x1="0" y1="0.75" x2="1440" y2="0.75" gradientUnits="userSpaceOnUse">
+<stop stop-color="#AD5E29"/>
+<stop offset="0.2" stop-color="#DCAD55"/>
+<stop offset="0.4" stop-color="#DCAD55"/>
+<stop offset="0.5" stop-color="#FFF885"/>
+<stop offset="0.6" stop-color="#DCAD55"/>
+<stop offset="0.8" stop-color="#DCAD55"/>
+<stop offset="1" stop-color="#AD5E29"/>
+</linearGradient>
+<linearGradient id="paint1_linear_0_5" x1="0" y1="10.75" x2="1440" y2="10.75" gradientUnits="userSpaceOnUse">
+<stop stop-color="#AD5E29"/>
+<stop offset="0.2" stop-color="#DCAD55"/>
+<stop offset="0.4" stop-color="#DCAD55"/>
+<stop offset="0.5" stop-color="#FFF885"/>
+<stop offset="0.6" stop-color="#DCAD55"/>
+<stop offset="0.8" stop-color="#DCAD55"/>
+<stop offset="1" stop-color="#AD5E29"/>
+</linearGradient>
+<linearGradient id="paint2_linear_0_5" x1="0" y1="20.75" x2="1440" y2="20.75" gradientUnits="userSpaceOnUse">
+<stop stop-color="#AD5E29"/>
+<stop offset="0.2" stop-color="#DCAD55"/>
+<stop offset="0.4" stop-color="#DCAD55"/>
+<stop offset="0.5" stop-color="#FFF885"/>
+<stop offset="0.6" stop-color="#DCAD55"/>
+<stop offset="0.8" stop-color="#DCAD55"/>
+<stop offset="1" stop-color="#AD5E29"/>
+</linearGradient>
+</defs>
+</svg>

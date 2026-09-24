@@ -1,0 +1,131 @@
+/* ==========================================================================
+   09 — Restaurantes (B2B)
+   Figma "Delivery" 7057:508 (1440 × 419) · py 80 · px 112
+   Banner amarelo 7057:509 (1216 × 259): p 56, flex items-center justify-between
+     ├ Título 7057:510 — Anton 56/1.2 uppercase, 478px, 2 linhas
+     ├ Imagem 7099:227 → moto 7057:515 (357 × 305) ancorada 0.15px acima da base
+     │   do banner; vaza 46.15px acima dele. Selo 7099:240 (text-paths "Desde 2004"
+     │   + "• Yes, we have cheesecake •" + ícone) em mix-blend multiply sobre a caixa.
+     │   Nó "Logo" 7099:228 é hidden → não renderizado.
+     └ Coluna 7057:511 (282px): flex column, gap 16, items-end
+         ├ Texto 7057:512 — Archivo 16/1.4, text-right (trecho final em bold)
+         └ Button 7079:401 — Primary/Light (.btn.btn--primary), 165 × 65
+   Layout: grid [título | vão da moto | coluna 282]. Em 1440 as trilhas dão
+   478 | 344 | 282 = 1104 (= 1216 − 2×56), idêntico ao justify-between do Figma.
+   Abaixo de 1440 título e moto escalam em vw (mesma proporção do frame) para a
+   moto continuar cabendo no vão entre o título e a coluna de texto.
+   ========================================================================== */
+
+:root {
+  --color-yellow-400: #ffb82e;   /* fundo do banner 7057:509 */
+}
+
+.restaurantes {
+  padding-block: var(--section-py);            /* py-[80px] */
+  background: var(--color-cream-50);           /* bg cream (Figma fbf5e7) */
+}
+
+/* ---------- Banner amarelo (7057:509) ---------- */
+.restaurantes__banner {
+  position: relative;
+  display: grid;
+  grid-template-columns: min(478px, 33.19445vw) minmax(0, 1fr) 282px;
+  align-items: center;
+  padding: 56px;                               /* p-[56px] */
+  background: var(--color-yellow-400);
+}
+
+/* ---------- Título (7057:510) ---------- */
+.restaurantes__title {
+  position: relative;
+  z-index: 1;                                  /* na entrada, a moto passa por trás do título */
+  grid-column: 1;
+  grid-row: 1;
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: min(56px, 3.88889vw);             /* text-[56px] @1440 */
+  line-height: var(--lh-display);              /* 1.2 */
+  text-transform: uppercase;
+  color: var(--color-red-700);
+}
+
+/* ---------- Moto + selo (7099:227) ----------
+   Absoluta com containing block = trilha 2 do grid na horizontal (vão entre
+   título e coluna) e o padding box do banner na vertical (grid-row auto):
+   left 22px (556 − 534), bottom 0.15px, 357 × 305 — ou a largura do vão + 13px
+   quando ele encolhe (em 1440: 344 + 13 = 357). */
+.restaurantes__media {
+  position: absolute;
+  grid-column: 2 / 3;
+  left: 22px;
+  bottom: 0.15px;                              /* bottom-[0.15px] */
+  width: min(357px, calc(100% + 13px));
+  aspect-ratio: 357 / 305;
+  pointer-events: none;
+}
+
+/* Entrada da moto (JS: 09-restaurantes.js adiciona .has-moto-anim e, ao entrar
+   na tela, .is-inview). Começa recuada, menor e transparente atrás do título;
+   avança e freia (ease-out forte) até transform: none = posição exata do Figma.
+   Origem na base: as rodas ficam no chão enquanto ela "cresce" para frente. */
+.restaurantes.has-moto-anim .restaurantes__media {
+  opacity: 0;
+  transform: translateX(-70%) scale(.85);
+  transform-origin: 50% 100%;
+  transition:
+    transform 1.4s cubic-bezier(.16, .84, .3, 1),
+    opacity .6s ease-out;
+}
+.restaurantes.has-moto-anim.is-inview .restaurantes__media {
+  opacity: 1;
+  transform: none;
+}
+/* rearme fora da tela: volta ao ponto de partida sem animar */
+.restaurantes.is-resetting .restaurantes__media { transition: none; }
+
+/* 7057:515 — object-bottom (imagem-padrão já exportada em 357:305) */
+.restaurantes__image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: 50% 100%;
+}
+
+/* 7099:240 — caixa do export Figma 53 × 63 em (565.909, 23.113) do banner,
+   i.e. (9.909, 69.267) relativo à moto; escala junto com ela. */
+.restaurantes__selo {
+  position: absolute;
+  left: calc(100% * 9.909 / 357);
+  top: calc(100% * 69.267 / 305);
+  width: calc(100% * 53 / 357);
+  height: calc(100% * 63 / 305);
+  max-width: none;
+  mix-blend-mode: multiply;
+}
+
+/* ---------- Coluna de texto + botão (7057:511) ---------- */
+.restaurantes__content {
+  position: relative;
+  z-index: 1;
+  grid-column: 3;
+  grid-row: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 16px;                                   /* gap-[16px] */
+}
+
+/* 7057:512 — Archivo 16/1.4, text-right.
+   No Figma a caixa do texto tem 66px (3 linhas × 22.4 = 67.2 transbordam 1.2px)
+   e o botão começa em y 82 (66 + gap 16): a margem negativa reproduz isso. */
+.restaurantes__text {
+  width: 100%;
+  margin-bottom: -1.2px;
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 16px;
+  line-height: var(--lh-body);                 /* 1.4 */
+  text-align: right;
+  color: var(--color-red-700);
+}
+.restaurantes__text strong { font-weight: 700; }

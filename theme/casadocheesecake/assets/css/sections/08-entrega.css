@@ -1,0 +1,176 @@
+/* ==========================================================================
+   08 — Entrega
+   Figma: "Entrega" 7057:490 (1440 × 678) · fileKey wKx5nynbRuELPfTDjiAWDg
+   - Seção: bg cream-50, flex col, gap 80, items-center, padding 80px 112px
+   - Header 7057:491 → título 7057:492 (Anton 56/1.2, uppercase, w 534, centrado)
+   - Container 7057:1348: flex col, gap 48, items-center
+     · Info section 7057:493: 4 colunas flex 1 (280 @1440), gap 32, items-start
+       cada coluna: flex col, gap 24, items-center
+       Delivery Badge 56×56, borda 1px red-700, radius 999, ícone 32 (29 no 2º)
+       Container de texto: flex col, gap 8, lh 1.4, centrado
+         título Anton 20 uppercase · texto Archivo Regular 18
+     · Button 7073:396 → .btn.btn--primary (components.css)
+   ========================================================================== */
+
+.entrega {
+  background: var(--color-cream-50);
+  padding-block: var(--section-py);            /* py-[80px] */
+  color: var(--color-red-700);
+}
+
+.entrega__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--content-gap);                     /* gap-[80px] */
+}
+
+/* Header 7057:491 */
+.entrega__header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+/* 7057:492 — Anton 56 / 1.2, uppercase, w 534 */
+.entrega__title {
+  width: 534px;
+  max-width: 100%;
+  font-size: 56px;
+  text-align: center;
+  color: var(--color-red-700);
+  overflow-wrap: break-word;
+}
+
+/* Container 7057:1348 */
+.entrega__body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 48px;
+  width: 100%;
+}
+
+/* Info section 7057:493 */
+.entrega__list {
+  display: flex;
+  align-items: flex-start;
+  gap: 32px;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* Colunas 7057:494 / 497 / 500 / 503 — flex-[1_0_0] */
+.entrega__item {
+  display: flex;
+  flex: 1 0 0;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  min-width: 1px;
+}
+
+/* Delivery Badge 7057:1287 … — 56×56, borda 1px, pill */
+.entrega__badge {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  border: 1px solid var(--color-red-700);
+  border-radius: var(--radius-pill);
+}
+
+/* Moldura do ícone (overflow-clip). O <img> ocupa a caixa do "Group" do Figma:
+   mesmo tamanho da raiz do SVG, posição pelos insets do design. object-fit
+   protege ícones trocados pelo Customizer (WP) contra distorção. */
+.entrega__icon {
+  position: relative;
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  overflow: clip;
+}
+
+.entrega__icon img {
+  position: absolute;
+  max-width: none;
+  object-fit: contain;
+}
+
+/* fi_8929788 (7057:1349): Group inset 8.33% 20.83% 10.54% 20.83% + clip-path 32×32 */
+.entrega__icon--local img {
+  top: 8.33%;
+  left: 20.83%;
+  width: 18.6667px;
+  height: 25.96px;
+  -webkit-mask: url("../../images/08-entrega-icon-local-mask.svg") no-repeat -6.667px -2.667px / 32px 32px;
+          mask: url("../../images/08-entrega-icon-local-mask.svg") no-repeat -6.667px -2.667px / 32px 32px;
+  -webkit-mask-clip: no-clip;
+          mask-clip: no-clip;
+  mask-mode: alpha;
+  mask-composite: intersect;
+}
+
+/* fi_2886665 (7057:1325): caixa 29×29, Group inset 5.88% 2.65% 5.88% 2.94% */
+.entrega__icon--agenda {
+  width: 29px;
+  height: 29px;
+}
+.entrega__icon--agenda img {
+  top: 5.88%;
+  left: 2.94%;
+  width: 27.3794px;
+  height: 25.5882px;
+}
+
+/* fi_3400159 (7057:1329): Group inset 12.73% 0 */
+.entrega__icon--gelado img {
+  top: 12.73%;
+  left: 0;
+  width: 32px;
+  height: 23.8543px;
+}
+
+/* fi_12660130 (7057:1356): vetor 32×32 direto */
+.entrega__icon--ifood img {
+  inset: 0;
+  width: 32px;
+  height: 32px;
+}
+
+/* Container de texto 7057:1315 … — gap 8, lh 1.4, centrado */
+.entrega__text {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  width: 100%;
+  line-height: var(--lh-body);                 /* leading-[1.4] */
+  text-align: center;
+  color: var(--color-red-700);
+  overflow-wrap: break-word;
+}
+
+/* 7057:495 … — Anton 20, uppercase */
+.entrega__item-title {
+  width: 100%;
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 20px;
+  line-height: inherit;
+  text-transform: uppercase;
+}
+
+/* 7057:496 … — Archivo Regular 18, wdth 100 */
+.entrega__item-text {
+  width: 100%;
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 18px;
+  font-variation-settings: "wdth" 100;
+}

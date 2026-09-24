@@ -1,0 +1,142 @@
+/* ==========================================================================
+   Componentes compartilhados
+   - Button (Figma component set 7073:166)
+   - Site header (7073:253 default / 7073:254 scroll)
+   ========================================================================== */
+
+/* ---------- Button -------------------------------------------------------
+   Variantes Figma → classes:
+   Type=Primary,  Background=Light  → .btn.btn--primary
+   Type=Primary,  Background=Dark   → .btn.btn--primary-dark
+   Type=Secondary,Background=Light  → .btn.btn--secondary
+   Type=Tertiary, Background=Light  → .btn-link
+   Type=Tertiary, Background=Dark   → .btn-link.btn-link--dark
+   ------------------------------------------------------------------------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px 32px;                 /* px-[32px] py-[20px] */
+  border-radius: var(--radius-pill);
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: var(--fs-button);        /* 18px */
+  line-height: var(--lh-button);      /* 1.4 → 25.2px; altura total 65.2px */
+  text-align: center;
+  text-transform: uppercase;
+  white-space: nowrap;
+  transition: background-color var(--dur) var(--ease), color var(--dur) var(--ease), border-color var(--dur) var(--ease);
+}
+
+.btn--primary { background: var(--color-red-700); color: var(--color-cream-50); }
+.btn--primary:hover,
+.btn--primary:focus-visible { background: var(--color-red-600); }
+
+.btn--primary-dark { background: var(--color-cream-50); color: var(--color-red-700); }
+.btn--primary-dark:hover,
+.btn--primary-dark:focus-visible { background: var(--color-cream-100); }
+
+.btn--secondary {
+  border: 1px solid var(--color-red-700);
+  color: var(--color-red-700);
+}
+.btn--secondary:hover,
+.btn--secondary:focus-visible { border-color: var(--color-red-600); color: var(--color-red-600); }
+
+/* Tertiary = link de texto */
+.btn-link {
+  display: inline-flex;
+  align-items: flex-start;
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: var(--fs-button);
+  line-height: var(--lh-display);     /* 1.2 */
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: var(--color-red-700);
+  text-decoration: none;
+  text-underline-position: from-font;
+  transition: color var(--dur) var(--ease);
+}
+.btn-link:hover,
+.btn-link:focus-visible,
+.btn-link.is-active { color: var(--color-red-600); text-decoration: underline; text-decoration-thickness: from-font; }
+
+.btn-link--dark { color: var(--color-cream-50); }
+.btn-link--dark:hover,
+.btn-link--dark:focus-visible,
+.btn-link--dark.is-active { color: var(--color-cream-100); }
+
+/* ---------- Site header --------------------------------------------------
+   Default (7073:253): 1440×124, px 112, menus py 24 gap 24, logo 108.103×124
+   Scroll  (7073:254): 1440×70,  logo 88.051×101 absoluto, centrado, top 0
+   Anotação Figma: "Após o scroll, o menu deve ser fixo no topo. O logo
+   diminui e fica em posição absoluta."
+   ------------------------------------------------------------------------- */
+.site-header {
+  /* placeholder em fluxo: reserva a altura do header default (evita layout shift) */
+  position: relative;
+  z-index: 100;
+  height: var(--header-h);
+}
+
+.site-header__bar {
+  position: fixed;
+  inset: 0 0 auto 0;
+  height: var(--header-h);
+  background: var(--color-cream-50);
+  transition: height var(--dur) var(--ease);
+}
+
+.site-header__inner {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  height: 100%;
+  max-width: var(--frame-w);
+  margin-inline: auto;
+  padding-inline: var(--section-px);
+}
+
+.site-header__nav { display: flex; align-self: stretch; }
+
+.site-header__menu {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  align-self: stretch;
+  padding-block: 24px;
+  margin: 0;
+  list-style: none;
+}
+.site-header__menu--left { width: 346px; padding-right: 24px; }
+.site-header__menu--right { width: 346px; justify-content: flex-end; padding-left: 24px; }
+.site-header__menu li { display: flex; }
+
+.site-logo {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  display: block;
+  width: var(--logo-w);
+  height: var(--logo-h);
+  overflow: hidden;
+  -webkit-mask: url("../images/logo-mask.svg") no-repeat 0 0 / 100% 100%;
+          mask: url("../images/logo-mask.svg") no-repeat 0 0 / 100% 100%;
+  transition: width var(--dur) var(--ease), height var(--dur) var(--ease);
+}
+/* Foto do logo: 194.485×196.586 em (-44.513, -47.692) dentro da máscara 108.103×124 */
+.site-logo img {
+  position: absolute;
+  left: -41.177%;
+  top: -38.461%;
+  width: 179.907%;
+  height: 158.537%;
+  max-width: none;
+  object-fit: cover;
+}
+
+.site-header.is-scrolled .site-header__bar { height: var(--header-h-scroll); }
+.site-header.is-scrolled .site-logo { width: var(--logo-w-scroll); height: var(--logo-h-scroll); }

@@ -1,0 +1,257 @@
+/* ==========================================================================
+   03 — Cardápio ("Nossos cheesecakes")
+   Figma: frame "Cardápio" 7057:175 (1440 × 1150.5) · y 1524 no Desktop 7057:68
+   - Seção: flex col, gap 80, px 112, py 80
+   - Cabeçalho 7057:176: título Anton 56 (w 425) + texto Archivo 20 (w 592),
+     justify-between, items-end
+   - 7057:179: grid 7057:180 (4 cards × 286, gap 24) + botão central 7073:393,
+     flex col, gap 48, items-center
+   - Card 7057:181: bg #fdfaf2, radius 24, overflow clip
+       · imagem 7057:182: aspect 286/214.5, bg por sabor (CPT cor_fundo),
+         radius 24, foto 204 × 116 alinhada embaixo com pb 40
+       · tag 7057:186 (só no 1º): absoluta left/top 12, bg #150506, radius 14
+       · conteúdo 7057:196: pt 24, px 20, pb 32, gap 24
+       · preços 7057:200: gap 16; linhas com pb 16 + borda inferior 15%
+         (exceto a última); botão "Pedir" 76 × 48 (Button 7073:166 em tamanho
+         menor: px 20, py 12, Anton 16, borda 1px) → modificador .cardapio__btn
+   Nós "Sabor" (7095:236/241/244/247) estão hidden no Figma → não renderizados.
+
+   Line-heights em px: o Figma arredonda a entrelinha percentual para pixel
+   inteiro (1.2 × 56 = 67.2 → 67; 1.4 × 14 = 19.6 → 20; 1.4 × 16 = 22.4 → 22).
+   Confirmado pelas alturas do metadata (título 134 = 2 × 67, descrição 40 =
+   2 × 20, "Price and Size" 50 = 28 + 22, botão 48 = 12 + 22 + 12 + 2).
+   ========================================================================== */
+
+:root {
+  --color-cream-25: #fdfaf2;    /* fundo dos cards (7057:181…) — mesmo valor da seção 05 */
+  --color-red-950: #150506;     /* fundo da tag "Mais pedido" (7057:186) — mesmo valor da seção 05 */
+  --color-yellow-400: #ffb82e;  /* fundo da imagem "Doce de Leite" (7057:226) */
+  --color-pink-200: #ffc0c5;    /* fundo da imagem "Morangos" (7057:260) */
+  --color-blue-200: #b5d9fb;    /* fundo da imagem "Blue Berry" (7057:294) */
+}
+
+.cardapio {
+  background: var(--color-cream-50);
+  padding-block: var(--section-py);                 /* py-[80px] */
+  color: var(--color-red-700);
+}
+
+.cardapio__inner {
+  display: flex;
+  flex-direction: column;
+  gap: var(--content-gap);                          /* gap-[80px] */
+}
+
+/* ---- Cabeçalho (7057:176) ---- */
+.cardapio__head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;                                        /* só atua abaixo de 1440 (em 1440 sobra 199px) */
+  overflow-wrap: break-word;
+}
+
+.cardapio__title {
+  flex: 0 1 425px;                                  /* w-[425px] */
+  min-width: 0;
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 56px;
+  line-height: 67px;                                /* 1.2 → 67 no Figma */
+  text-transform: uppercase;
+}
+
+.cardapio__lead {
+  flex: 0 1 592px;                                  /* w-[592px] */
+  min-width: 0;
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 28px;                                /* 1.4 */
+}
+
+/* ---- Cards + botão (7057:179) ---- */
+.cardapio__body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 48px;                                        /* gap-[48px] */
+}
+
+.cardapio__grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr)); /* 4 × 286 @ 1216 */
+  gap: 24px;                                        /* gap-[24px] */
+  align-items: stretch;                             /* Figma items-start; cards têm a mesma altura em 1440 — stretch mantém a base alinhada se o texto variar (WP) */
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.cardapio__card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: hidden;
+  border-radius: 24px;
+  background: var(--color-cream-25);
+}
+
+/* Imagem colorida (7057:182) — cor via --cardapio-bg (meta cor_fundo no WP) */
+.cardapio__media {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+  width: 100%;
+  aspect-ratio: 286 / 214.5;
+  padding-bottom: calc(100% * 40 / 286);            /* pb-[40px] @ card 286 (proporcional abaixo de 1440) */
+  border-radius: 24px;
+  background: var(--cardapio-bg, var(--color-red-700));
+}
+
+/* Foto 204 × 116 (7057:183) — escala com o card fora de 1440 */
+.cardapio__photo {
+  position: relative;
+  flex-shrink: 0;
+  width: calc(100% * 204 / 286);                    /* 204px @ card 286 */
+  aspect-ratio: 204 / 116;
+  overflow: hidden;
+}
+
+/* Recorte do Figma: w 133.72% · h 234.21% · left -16.53% · top -71.93% */
+.cardapio__img {
+  position: absolute;
+  left: -16.53%;
+  top: -71.93%;
+  width: 133.72%;
+  height: 234.21%;
+  max-width: none;
+  pointer-events: none;
+}
+
+/* Tag "Mais pedido" (7057:186) */
+.cardapio__tag {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 6px 12px 6px 8px;                        /* pl 8 · pr 12 · py 6 */
+  border-radius: 14px;
+  background: var(--color-red-950);
+  color: var(--color-cream-50);
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;                                /* 1.4 → 20 no Figma */
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.cardapio__tag-icon {
+  flex-shrink: 0;
+}
+
+/* Conteúdo (7057:196) */
+.cardapio__content {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  width: 100%;
+  padding: 24px 20px 32px;                          /* pt 24 · px 20 · pb 32 */
+}
+
+.cardapio__info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  overflow-wrap: break-word;
+}
+
+.cardapio__name {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 28px;                                /* 1.4 */
+  text-transform: uppercase;
+}
+
+.cardapio__desc {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;                                /* 1.4 → 20 no Figma */
+}
+
+/* Preços (7057:200) */
+.cardapio__prices {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.cardapio__row {
+  display: flex;
+  align-items: center;
+  padding-bottom: 16px;                             /* pb-[16px] */
+  border-bottom: 1px solid color-mix(in srgb, var(--color-red-700) 15%, transparent); /* rgba(176,40,46,.15) */
+}
+
+.cardapio__row:last-child {
+  padding-bottom: 0;
+  border-bottom: 0;
+}
+
+.cardapio__option {
+  display: flex;
+  flex: 1 0 0;
+  flex-direction: column;
+  min-width: 1px;
+  overflow-wrap: break-word;
+}
+
+.cardapio__price,
+.cardapio__size {
+  padding-right: 8px;                               /* respiro antes do botão abaixo de 1440 (em 1440 o texto mais longo tem 147 de 170) */
+}
+
+.cardapio__price {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 28px;                                /* 1.4 */
+  text-transform: uppercase;
+}
+
+.cardapio__size {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 22px;                                /* 1.4 → 22 no Figma */
+  text-wrap: balance;                               /* 1 linha em 1440; evita órfão em larguras menores */
+}
+
+/* Botão "Pedir": instância Button (7073:166) em tamanho menor — 76 × 48.
+   Primary: bg + borda #b0282e, texto cream · Secondary: só borda.
+   Variação real do Figma: px 20, py 12, Anton 16/22, borda 1px nos dois tipos. */
+.cardapio__btn {
+  flex-shrink: 0;
+  padding: 12px 20px;
+  border: 1px solid var(--color-red-700);
+  font-size: 16px;
+  line-height: 22px;                                /* 1.4 → 22 no Figma */
+}
+
+.cardapio__btn.btn--primary:hover,
+.cardapio__btn.btn--primary:focus-visible {
+  border-color: var(--color-red-600);
+}

@@ -1,0 +1,289 @@
+/* ==========================================================================
+   07 — Depoimentos
+   Figma: 7057:361 "Depoimentos" (1440 × 665) · frame Desktop 7057:68
+   - Header 7057:362: título 56px + selo de avaliação (7057:364)
+   - Carrossel 7057:369: linha de cards 7057:370 (3 × 389.33 × 318, gap 24),
+     setas 48 × 48 (7057:482 esq. / 7057:479 dir.) e paginação 7057:485.
+   Line-heights em px: o Figma arredonda a altura de linha para px inteiro
+   (16 × 1.4 = 22.4 → 22; 14 × 1.4 = 19.6 → 20). Conferido no recorte: as
+   linhas do depoimento têm baseline a cada 22px e os text nodes medem 22·n.
+   ========================================================================== */
+
+:root {
+  --color-cream-25: #fdfaf2;   /* fundo dos cards (7057:371 bg) */
+  --color-ink-900: #1a221e;    /* cor da sombra das setas (drop-shadow rgba(26,34,30,.06)) */
+}
+
+.depoimentos {
+  padding-block: var(--section-py);            /* py-[80px] */
+  background: var(--color-cream-50);
+  color: var(--color-red-700);
+}
+
+.depoimentos__container {
+  display: flex;
+  flex-direction: column;
+  gap: 80px;                                   /* gap-[80px] header → carrossel */
+}
+
+/* ---------- Header (7057:362) -------------------------------------------- */
+.depoimentos__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  column-gap: 24px;                            /* respiro < 1440 (em 1440 sobra espaço) */
+  overflow-wrap: break-word;
+}
+
+.depoimentos__title {                          /* 7057:363 */
+  font-family: var(--font-display);
+  font-size: 56px;
+  font-weight: 400;
+  line-height: 67px;                           /* 56 × 1.2 = 67.2 → 67 no Figma */
+  text-transform: uppercase;
+}
+
+.depoimentos__badge {                          /* 7057:364 Verified_Badge */
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 8px;
+  white-space: nowrap;
+}
+
+.depoimentos__rating {                         /* 7057:365 Rating */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 28px;                           /* 20 × 1.4 */
+  text-transform: uppercase;
+}
+
+/* ★ não existe na Anton: cai na fonte de símbolos do sistema (como no Figma).
+   O fallback do Figma desenha o ★ de 20px com glifo 15 × 15 e avanço 19.2px
+   (5 glifos = 96px). O ★ da Segoe UI Symbol tem 0.833em de avanço: a 23px dá
+   o mesmo glifo 15 × 15 e o mesmo avanço (95.8px). A caixa segue com 28px. */
+.depoimentos__rating-stars {                   /* 7057:366 */
+  font-family: "Segoe UI Symbol", "Apple Symbols", "Noto Sans Symbols 2", var(--font-display);
+  font-size: 23px;
+}
+
+.depoimentos__badge-label {                    /* 7057:368 */
+  font-size: 16px;
+  line-height: 22px;
+}
+
+/* ---------- Carrossel (7057:369) ----------------------------------------- */
+.depoimentos__carousel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 32px;                                   /* linha de cards → paginação */
+}
+
+.depoimentos__viewport {                       /* 7057:370 Testimonials Row */
+  position: relative;
+  width: 100%;
+}
+
+.depoimentos__track {
+  --card-hover-room: 12px;                     /* folga p/ o card ampliado no hover não ser cortado pelo overflow */
+  position: relative;                          /* offsetParent dos slides (JS) */
+  display: flex;
+  gap: 24px;
+  margin: calc(-1 * var(--card-hover-room));   /* folga compensada: layout idêntico ao Figma */
+  padding: var(--card-hover-room);
+  scroll-padding-inline: var(--card-hover-room);
+  list-style: none;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+}
+.depoimentos__track::-webkit-scrollbar { display: none; }
+/* vence o reset ul[role="list"] { padding: 0 } do base.css */
+.depoimentos__track[role="list"] { padding: var(--card-hover-room); }
+
+@media (prefers-reduced-motion: no-preference) {
+  .depoimentos__track { scroll-behavior: smooth; }
+}
+
+.depoimentos__card {                           /* 7057:371 Testimonial_Card */
+  display: flex;
+  flex: 0 0 calc((100% - 2 * 24px) / 3);       /* 3 por página: 389.33px @ 1216 */
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 24px;
+  min-height: 318px;
+  padding: 32px;
+  border-radius: 16px;
+  background: var(--color-cream-25);
+  overflow-wrap: break-word;
+  scroll-snap-align: start;
+}
+
+/* Hover: o card cresce um pouco e volta ao tamanho ao tirar o cursor.
+   Só em dispositivos com mouse (evita hover "preso" no toque) e sem
+   preferência por movimento reduzido. transform não altera o layout. */
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .depoimentos__card {
+    transition: transform .3s var(--ease);
+  }
+  .depoimentos__card:hover {
+    transform: scale(1.04);
+  }
+}
+
+.depoimentos__card-body {                      /* 7057:372 */
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.depoimentos__card-head {                      /* 7057:373 Card_Header */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.depoimentos__stars {                          /* 7057:374 Stars_Row */
+  display: flex;
+  gap: 4px;
+}
+
+.depoimentos__star {
+  width: 16px;
+  height: 16px;
+}
+
+/* Logo Google (7057:386 Symbol.svg): arte com blur mascarada pelo "G".
+   Estrutura/offsets idênticos ao Figma (7057:391 + wrapper da imagem). */
+.depoimentos__google {
+  position: relative;
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  overflow: hidden;
+}
+
+.depoimentos__google-mask {
+  position: absolute;
+  inset: -0.43% -0.75% -0.73% -0.75%;
+  -webkit-mask: url("../../images/07-depoimentos-google-mask.svg") 0.179px 0.103px / 24px 24px no-repeat;
+          mask: url("../../images/07-depoimentos-google-mask.svg") 0.179px 0.103px / 24px 24px no-repeat;
+  mask-mode: alpha;
+}
+
+.depoimentos__google-art {
+  position: absolute;
+  inset: -9.57% -1.93% -1.94% -3.38%;          /* = 25.6525 × 27.0713 (tamanho do SVG) */
+}
+
+.depoimentos__google-art img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+}
+
+.depoimentos__quote {                          /* 7057:401 */
+  font-size: 16px;
+  line-height: 22px;
+}
+
+.depoimentos__card-foot {                      /* 7057:402 Card_Footer */
+  display: flex;
+  flex-wrap: wrap;                             /* data desce de linha em cards estreitos */
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 4px 16px;
+}
+
+.depoimentos__author {                         /* 7057:403 Author_Stack */
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+}
+
+/* Figma: w-[min-content] + min-w-full → o nome quebra na largura do rótulo */
+.depoimentos__author-name {                    /* 7057:404 */
+  width: min-content;
+  min-width: 100%;
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 28px;
+  text-transform: uppercase;
+}
+
+.depoimentos__source,                          /* 7057:405 */
+.depoimentos__date {                           /* 7057:406 */
+  font-size: 14px;
+  line-height: 20px;
+  white-space: nowrap;
+}
+
+/* ---------- Setas (7057:482 / 7057:479) ---------------------------------- */
+.depoimentos__nav {
+  position: absolute;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 24px;
+  background: var(--color-white);
+  box-shadow: 0 4px 6px color-mix(in srgb, var(--color-ink-900) 6%, transparent);
+  transition: background-color var(--dur) var(--ease);
+}
+.depoimentos__nav:hover:not(:disabled) { background: var(--color-cream-50); }
+.depoimentos__nav:disabled { cursor: default; }
+
+.depoimentos__nav img {
+  width: 20px;
+  height: 20px;
+}
+
+/* Posições literais do Figma (as duas setas não estão alinhadas entre si). */
+.depoimentos__nav--prev {                      /* left-[-24px] top-[calc(50%+12px)] -translate-y-1/2 */
+  top: calc(50% + 12px);
+  left: -24px;
+  transform: translateY(-50%);
+}
+
+.depoimentos__nav--next {                      /* right-[-23px] top-[116px] */
+  top: 116px;
+  right: -23px;
+}
+
+/* ---------- Paginação (7057:485) ----------------------------------------- */
+.depoimentos__dots {
+  display: flex;
+  gap: 6px;                                    /* dots 8px a cada 14px */
+}
+
+.depoimentos__dot {
+  position: relative;
+  display: block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--color-red-700) 10%, transparent);   /* fill-opacity .1 */
+}
+.depoimentos__dot.is-active,
+.depoimentos__dot[aria-selected="true"] { background: var(--color-red-700); }
+
+/* área de toque maior sem alterar o layout (dots viram <button> via JS) */
+button.depoimentos__dot::before {
+  content: "";
+  position: absolute;
+  inset: -8px -3px;
+}
