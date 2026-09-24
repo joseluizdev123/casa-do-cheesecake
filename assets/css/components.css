@@ -157,8 +157,13 @@
 
   .site-logo {
     left: var(--section-px);
-    top: 4px;
+    top: 0;
     transform: none;
+  }
+  /* menu aberto: logo no tamanho reduzido para não cobrir as opções */
+  .site-header.is-menu-open .site-logo {
+    width: var(--logo-w-scroll);
+    height: var(--logo-h-scroll);
   }
 
   .site-header__toggle {

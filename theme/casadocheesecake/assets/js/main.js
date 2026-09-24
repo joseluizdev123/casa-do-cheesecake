@@ -45,6 +45,7 @@
       toggle.setAttribute('aria-expanded', String(open));
       if (label) label.textContent = open ? 'Fechar menu' : 'Abrir menu';
       drawer.hidden = !open;
+      if (header) header.classList.toggle('is-menu-open', open);
       // foco no 1º link só quando aberto pelo teclado (no toque/mouse não aparece contorno)
       if (open && viaKeyboard) {
         var first = drawer.querySelector('a');

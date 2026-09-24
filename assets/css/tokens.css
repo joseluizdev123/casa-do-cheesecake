@@ -102,8 +102,9 @@
   :root {
     --header-h: 72px;           /* ref: 73px */
     --header-h-scroll: 72px;
-    --logo-w: 56px;
-    --logo-h: 64.23px;          /* proporção 108.103×124 do Figma */
+    /* como no desktop: logo maior no topo (hero), menor depois de rolar */
+    --logo-w: 72px;
+    --logo-h: 82.59px;          /* proporção 108.103×124 do Figma */
     --logo-w-scroll: 56px;
     --logo-h-scroll: 64.23px;
   }
