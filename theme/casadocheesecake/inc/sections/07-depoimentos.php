@@ -4,8 +4,8 @@
  *
  * - Customizer: título, nota exibida (estrelas), contagem de avaliações e rótulo da fonte.
  * - CPT cdc_depoimento (campos base 'texto', 'estrelas', 'data', 'fonte' em inc/cpt.php)
- *   + seed dos 3 depoimentos do Figma + 1 do site oficial com a copy exata (inclusive "Setenbro 2026" e os
- *   pontos sem espaço do 1º depoimento, como estão no layout — revisar no admin).
+ *   + seed dos 3 depoimentos do Figma + 1 do site oficial com a copy exata (data corrigida de "Setenbro" para "Setembro 2026";
+ *   os pontos sem espaço do 1º depoimento seguem como no layout — revisar no admin).
  *
  * @package casadocheesecake
  */
@@ -56,21 +56,21 @@ function cdc_depoimentos_defaults() {
 			'nome'     => 'Layza Souza',
 			'texto'    => '“Comprei para o Dia das Mães e foi um baita sucesso em casa. Todos amaram e comeram muito.A torta é cremosa na medida, a calda é uma fartura só.Atendimento, entrega, embalagem e cheesecake impecáveis.”',
 			'estrelas' => 5,
-			'data'     => 'Setenbro 2026',
+			'data'     => 'Setembro 2026',
 			'fonte'    => 'Avaliação publicada no Google.',
 		),
 		array(
 			'nome'     => 'Lu Cunha',
 			'texto'    => '“Atendimento atencioso e simpático. Cheesecake de frutas vermelhas maravilhosa, entregue perfeitamente embalada. O presente foi um sucesso e surpreendeu quem recebeu. Recomendo a Casa do Cheesecake.',
 			'estrelas' => 5,
-			'data'     => 'Setenbro 2026',
+			'data'     => 'Setembro 2026',
 			'fonte'    => 'Avaliação publicada no Google.',
 		),
 		array(
 			'nome'     => 'Giovanna Marescalchi',
 			'texto'    => '“Muito bom! Desde o atendimento até a entrega! E com toda certeza o sabor e a qualidade do cheesecake… super recomendo 🤍.”',
 			'estrelas' => 5,
-			'data'     => 'Setenbro 2026',
+			'data'     => 'Setembro 2026',
 			'fonte'    => 'Avaliação publicada no Google.',
 		),
 		// 4º depoimento: site oficial (acasadocheesecake.com.br), sem data publicada.
