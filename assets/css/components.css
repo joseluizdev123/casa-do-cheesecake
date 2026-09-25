@@ -94,7 +94,10 @@
   align-items: flex-start;
   justify-content: space-between;
   height: 100%;
-  max-width: var(--frame-w);
+  /* mesma largura do .container: com --section-px = (100vw − 1216)/2 em telas
+     largas, um max-width de 1440 deixava só (1440 − 2·px) para menu + logo + menu
+     (96px em 2560 — o menu se empilhava sobre o logo com Ctrl −) */
+  max-width: calc(var(--content-w) + 2 * var(--section-px));
   margin-inline: auto;
   padding-inline: var(--section-px);
 }
