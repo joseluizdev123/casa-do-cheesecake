@@ -20,7 +20,7 @@ add_filter( 'cdc_customizer_sections', function ( $sections ) {
 			'cdc_sabores_selo_ano'    => array( 'label' => 'Selo — ano', 'type' => 'text', 'default' => '2004' ),
 			'cdc_sabores_titulo'      => array( 'label' => 'Título', 'type' => 'text', 'default' => 'Yes, we have cheesecake.' ),
 			'cdc_sabores_link_rotulo' => array( 'label' => 'Rótulo do link final', 'type' => 'text', 'default' => 'Ver todas as opções' ),
-			'cdc_sabores_link_url'    => array( 'label' => 'Link final', 'type' => 'url', 'default' => '#cardapio', 'help' => 'Âncora ou URL. Padrão: #cardapio (seção Nossos cheesecakes).' ),
+			'cdc_sabores_link_url'    => array( 'label' => 'Link final', 'type' => 'url', 'default' => '', 'help' => 'Âncora ou URL. Em branco = cardápio online (Contato e links globais), com todos os sabores.' ),
 		),
 	);
 	return $sections;

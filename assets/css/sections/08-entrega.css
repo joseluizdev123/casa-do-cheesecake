@@ -179,6 +179,17 @@
   font-variation-settings: "wdth" 100;
 }
 
+/* Bairros do iFood viram links para cada loja: sublinhado discreto para
+   serem reconhecíveis como link sem mudar a cor do texto. */
+.entrega__item-text a {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+  transition: color var(--dur) var(--ease);
+}
+.entrega__item-text a:hover,
+.entrega__item-text a:focus-visible { color: var(--color-red-600); }
+
 
 /* ==========================================================================
    Responsivo — o Figma só tem o frame desktop 1440: tudo acima de 1199px fica

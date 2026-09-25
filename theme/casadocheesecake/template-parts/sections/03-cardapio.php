@@ -59,7 +59,7 @@ $cdc_cta_link = cdc_cardapio_href( '' !== $cdc_cta_link ? $cdc_cta_link : cdc_mo
 									<span class="cardapio__size"<?php echo cdc_cardapio_node_attr( $cdc_n, 'rows', $cdc_r, 3 ); // phpcs:ignore WordPress.Security.EscapeOutput ?>><?php echo esc_html( $cdc_opcao['tamanho'] ); ?></span>
 									<?php endif; ?>
 								</p>
-								<a class="btn <?php echo 0 === $cdc_r ? 'btn--primary' : 'btn--secondary'; ?> cardapio__btn" href="<?php echo esc_url( $cdc_item['link'] ); ?>" aria-label="<?php echo esc_attr( trim( $cdc_pedir . ' ' . $cdc_item['title'] . ( '' !== $cdc_opcao['tamanho'] ? ' — ' . $cdc_opcao['tamanho'] : '' ) ) ); ?>"<?php echo cdc_cardapio_node_attr( $cdc_n, 'rows', $cdc_r, 4 ); // phpcs:ignore WordPress.Security.EscapeOutput ?>><?php echo esc_html( $cdc_pedir ); ?></a>
+								<a class="btn <?php echo 0 === $cdc_r ? 'btn--primary' : 'btn--secondary'; ?> cardapio__btn" href="<?php echo esc_url( $cdc_opcao['link'] ? $cdc_opcao['link'] : $cdc_item['link'] ); ?>"<?php echo cdc_target_attr( $cdc_opcao['link'] ? $cdc_opcao['link'] : $cdc_item['link'] ); // phpcs:ignore WordPress.Security.EscapeOutput ?> aria-label="<?php echo esc_attr( trim( $cdc_pedir . ' ' . $cdc_item['title'] . ( '' !== $cdc_opcao['tamanho'] ? ' — ' . $cdc_opcao['tamanho'] : '' ) ) ); ?>"<?php echo cdc_cardapio_node_attr( $cdc_n, 'rows', $cdc_r, 4 ); // phpcs:ignore WordPress.Security.EscapeOutput ?>><?php echo esc_html( $cdc_pedir ); ?></a>
 							</li>
 							<?php endforeach; ?>
 						</ul>
@@ -90,7 +90,7 @@ $cdc_cta_link = cdc_cardapio_href( '' !== $cdc_cta_link ? $cdc_cta_link : cdc_mo
 			<?php endif; ?>
 			<?php endif; ?>
 
-			<a class="btn btn--primary" href="<?php echo esc_url( $cdc_cta_link ); ?>" data-figma-node="7073:393"><?php echo esc_html( cdc_mod( 'cdc_cardapio_botao' ) ); ?></a>
+			<a class="btn btn--primary" href="<?php echo esc_url( $cdc_cta_link ); ?>"<?php echo cdc_target_attr( $cdc_cta_link ); // phpcs:ignore WordPress.Security.EscapeOutput ?> data-figma-node="7073:393"><?php echo esc_html( cdc_mod( 'cdc_cardapio_botao' ) ); ?></a>
 		</div>
 	</div>
 </section>

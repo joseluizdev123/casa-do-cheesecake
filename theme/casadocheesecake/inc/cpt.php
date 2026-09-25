@@ -45,7 +45,7 @@ add_filter( 'cdc_post_fields', function ( $fields ) {
 		'descricao'    => array( 'label' => 'Descrição curta', 'type' => 'textarea', 'rows' => 2 ),
 		'tag'          => array( 'label' => 'Tag (opcional)', 'type' => 'text', 'help' => 'Ex.: Mais pedido' ),
 		'cor_fundo'    => array( 'label' => 'Cor de fundo do card', 'type' => 'color' ),
-		'precos'       => array( 'label' => 'Preços', 'type' => 'textarea', 'rows' => 4, 'help' => 'Uma linha por opção: preço | tamanho. Ex.: R$ 28,90 | Fatia 150 g' ),
+		'precos'       => array( 'label' => 'Preços', 'type' => 'textarea', 'rows' => 4, 'help' => 'Uma linha por opção: preço | tamanho | link do produto (opcional). Ex.: R$ 28,90 | Fatia 150 g | https://pedido.brendi.com.br/a-casa-do-cheesecake/produto/...' ),
 		'imagem_fatia' => array( 'label' => 'Foto da fatia (carrossel de sabores)', 'type' => 'image' ),
 		'link_pedido'  => array( 'label' => 'Link do pedido', 'type' => 'url', 'help' => 'Vazio = link do cardápio definido no Customizer' ),
 	);

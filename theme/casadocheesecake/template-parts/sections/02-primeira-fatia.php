@@ -12,7 +12,7 @@ $cdc_fatia_link = cdc_mod( 'cdc_fatia_botao_link' );
 if ( ! $cdc_fatia_link ) {
 	$cdc_fatia_link = cdc_mod( 'cdc_contato_whatsapp' );
 }
-$cdc_fatia_externo = (bool) preg_match( '#^https?://#', $cdc_fatia_link );
+$cdc_fatia_externo = cdc_is_external( $cdc_fatia_link );
 ?>
 <section class="primeira-fatia" id="primeira-fatia" data-figma-node="7057:164" aria-labelledby="primeira-fatia-titulo">
 	<div class="container">

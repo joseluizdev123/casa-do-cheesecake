@@ -18,10 +18,11 @@ if ( ! $cdc_sabores ) {
 $cdc_sabores_primeiro = $cdc_sabores[0];
 $cdc_sabores_escuro   = 'escuro' === $cdc_sabores_primeiro['tema'];
 $cdc_sabores_btn      = 'btn-link' . ( $cdc_sabores_escuro ? ' btn-link--dark' : '' ) . ' sabores__aba';
-$cdc_sabores_url      = (string) cdc_mod( 'cdc_sabores_link_url' );
-if ( 0 === strpos( $cdc_sabores_url, '#' ) ) {
-	$cdc_sabores_url = cdc_anchor( $cdc_sabores_url ); // âncora funciona também fora da home
+$cdc_sabores_url      = trim( (string) cdc_mod( 'cdc_sabores_link_url' ) );
+if ( '' === $cdc_sabores_url ) {
+	$cdc_sabores_url = (string) cdc_mod( 'cdc_contato_cardapio' ); // cardápio online completo
 }
+$cdc_sabores_url      = cdc_anchor_or_url( $cdc_sabores_url ); // âncora funciona também fora da home
 $cdc_sabores_alt      = static function ( $titulo ) {
 	$nome = function_exists( 'mb_strtolower' ) ? mb_strtolower( $titulo, 'UTF-8' ) : $titulo;
 	/* translators: %s: nome do sabor */
@@ -65,6 +66,6 @@ foreach ( $cdc_sabores as $cdc_i => $cdc_sabor ) :
       <button class="<?php echo esc_attr( $cdc_sabores_btn ); ?>" type="button" role="tab" id="<?php echo esc_attr( 'sabores-aba-' . $cdc_sabor['slug'] ); ?>" aria-controls="<?php echo esc_attr( 'sabores-painel-' . $cdc_sabor['slug'] ); ?>" aria-selected="<?php echo $cdc_i ? 'false' : 'true'; ?>"<?php echo $cdc_i ? ' tabindex="-1"' : ''; ?> data-bg="<?php echo esc_attr( $cdc_sabor['bg'] ); ?>" data-tema="<?php echo esc_attr( $cdc_sabor['tema'] ); ?>"<?php echo isset( $cdc_sabores_nodes[ $cdc_i ] ) ? ' data-figma-node="' . esc_attr( $cdc_sabores_nodes[ $cdc_i ] ) . '"' : ''; ?>><?php echo esc_html( $cdc_sabor['titulo'] ); ?></button>
 <?php endforeach; ?>
     </div>
-    <a class="<?php echo esc_attr( $cdc_sabores_btn ); ?>" href="<?php echo esc_url( $cdc_sabores_url ); ?>" data-figma-node="I7057:329;7082:463"><?php echo esc_html( cdc_mod( 'cdc_sabores_link_rotulo' ) ); ?></a>
+    <a class="<?php echo esc_attr( $cdc_sabores_btn ); ?>" href="<?php echo esc_url( $cdc_sabores_url ); ?>"<?php echo cdc_target_attr( $cdc_sabores_url ); // phpcs:ignore WordPress.Security.EscapeOutput ?> data-figma-node="I7057:329;7082:463"><?php echo esc_html( cdc_mod( 'cdc_sabores_link_rotulo' ) ); ?></a>
   </div>
 </section>

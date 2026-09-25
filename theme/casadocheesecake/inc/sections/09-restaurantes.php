@@ -37,7 +37,7 @@ add_filter( 'cdc_customizer_sections', function ( $sections ) {
 				'label'   => 'Link do botão',
 				'type'    => 'url',
 				'default' => '',
-				'help'    => 'Deixe em branco para usar o WhatsApp de "Contato e links globais".',
+				'help'    => 'Deixe em branco para usar a "Página para restaurantes (B2B)" de "Contato e links globais".',
 			),
 			'cdc_rest_imagem'      => array(
 				'label'   => 'Imagem da moto (357 × 305)',

@@ -78,7 +78,7 @@ $cdc_info = array(
 
 		<div class="hero__footer container" data-figma-node="7057:157">
 			<div class="hero__actions" data-figma-node="7057:158">
-				<a class="btn btn--primary" data-figma-node="7073:331" href="<?php echo esc_url( $cdc_cardapio ); ?>"><?php echo esc_html( cdc_mod( 'cdc_hero_botao_1' ) ); ?></a>
+				<a class="btn btn--primary" data-figma-node="7073:331" href="<?php echo esc_url( $cdc_cardapio ); ?>"<?php echo cdc_target_attr( $cdc_cardapio ); // phpcs:ignore WordPress.Security.EscapeOutput ?>><?php echo esc_html( cdc_mod( 'cdc_hero_botao_1' ) ); ?></a>
 				<a class="btn btn--secondary" data-figma-node="7073:335" href="<?php echo esc_url( cdc_mod( 'cdc_contato_whatsapp' ) ); ?>" target="_blank" rel="noopener"><?php echo esc_html( cdc_mod( 'cdc_hero_botao_2' ) ); ?></a>
 			</div>
 			<p class="hero__text" data-figma-node="7057:163"><?php echo wp_kses_post( cdc_rich( cdc_mod( 'cdc_hero_texto' ) ) ); ?></p>

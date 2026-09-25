@@ -36,7 +36,7 @@ function cdc_entrega_items_defaults() {
 		),
 		4 => array(
 			'titulo' => 'Também no iFood',
-			'texto'  => 'Pinheiros, Vila Leopoldina, Bela Vista e Brooklin.',
+			'texto'  => '[Pinheiros](https://www.ifood.com.br/delivery/sao-paulo-sp/a-casa-do-cheesecake-pinheiros-butanta/f42ba7bf-5aab-4c8e-a2bd-722b0a60e6b7), [Vila Leopoldina](https://www.ifood.com.br/delivery/sao-paulo-sp/a-casa-do-cheesecake-vila-leopoldina-vila-santa-edwiges/97da8119-0fd3-4a74-9032-71037049bcf3), [Bela Vista](https://www.ifood.com.br/delivery/sao-paulo-sp/a-casa-do-cheesecake-bela-vista-cerqueira-cesar/2aceeb0e-6129-45af-b7fb-ca8f8dcafb73) e [Brooklin](https://www.ifood.com.br/delivery/sao-paulo-sp/a-casa-do-cheesecake-brooklin-brooklin/8c12ef63-1673-4db5-858b-380af22f58d8).',
 			'icone'  => 'images/08-entrega-icon-ifood.svg',
 		),
 	);
@@ -61,6 +61,7 @@ add_filter( 'cdc_customizer_sections', function ( $sections ) {
 			'label'   => sprintf( 'Item %d — texto', $n ),
 			'type'    => 'textarea',
 			'default' => $item['texto'],
+			'help'    => 'Use **texto** para negrito e [texto](https://link) para link.',
 		);
 		$fields[ "cdc_entrega_item{$n}_icone" ] = array(
 			'label'   => sprintf( 'Item %d — ícone', $n ),

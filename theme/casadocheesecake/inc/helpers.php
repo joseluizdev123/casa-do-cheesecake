@@ -52,7 +52,8 @@ function cdc_asset( $rel ) {
 function cdc_mod( $key ) {
 	$field = cdc_customizer_field( $key );
 	$default = $field && isset( $field['default'] ) ? $field['default'] : '';
-	$value = get_theme_mod( $key, $default );
+	// Sem default no get_theme_mod(): o WP roda sprintf() em defaults com "%…s" (URLs codificadas).
+	$value = get_theme_mod( $key, null );
 	return ( '' === $value || null === $value ) ? $default : $value;
 }
 
@@ -131,7 +132,32 @@ function cdc_posts( $post_type, $limit = -1 ) {
 }
 
 /**
- * Texto com **negrito** simples → <strong>, escapado.
+ * Link externo = http(s) para outro domínio (Brendi, iFood, WhatsApp, redes sociais).
+ *
+ * @param string $url URL.
+ * @return bool
+ */
+function cdc_is_external( $url ) {
+	if ( ! is_string( $url ) || ! preg_match( '#^https?://#i', $url ) ) {
+		return false;
+	}
+	$host = wp_parse_url( $url, PHP_URL_HOST );
+	$home = wp_parse_url( home_url( '/' ), PHP_URL_HOST );
+	return $host && strtolower( $host ) !== strtolower( (string) $home );
+}
+
+/**
+ * Atributos de nova aba para links externos (já escapados; '' para links internos).
+ *
+ * @param string $url URL.
+ * @return string
+ */
+function cdc_target_attr( $url ) {
+	return cdc_is_external( $url ) ? ' target="_blank" rel="noopener"' : '';
+}
+
+/**
+ * Texto com **negrito** → <strong> e [rótulo](https://url) → link, escapado.
  *
  * @param string $text Texto.
  * @return string HTML seguro.
@@ -139,5 +165,13 @@ function cdc_posts( $post_type, $limit = -1 ) {
 function cdc_rich( $text ) {
 	$html = esc_html( $text );
 	$html = preg_replace( '/\*\*(.+?)\*\*/s', '<strong>$1</strong>', $html );
+	$html = preg_replace_callback(
+		'/\[([^\]]+)\]\(((?:https?:\/\/|mailto:|tel:|#)[^\s)]+)\)/',
+		function ( $m ) {
+			$url = html_entity_decode( $m[2], ENT_QUOTES, 'UTF-8' );
+			return '<a href="' . esc_url( $url ) . '"' . cdc_target_attr( $url ) . '>' . $m[1] . '</a>';
+		},
+		$html
+	);
 	return nl2br( $html );
 }

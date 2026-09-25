@@ -40,6 +40,7 @@ $cdc_entrega_link = cdc_mod( 'cdc_entrega_botao_link' );
 if ( '' === $cdc_entrega_link ) {
 	$cdc_entrega_link = cdc_mod( 'cdc_contato_cardapio' );
 }
+$cdc_entrega_link = cdc_anchor_or_url( (string) $cdc_entrega_link );
 ?>
 <section class="entrega" id="entrega" data-figma-node="7057:490" aria-labelledby="entrega-titulo">
 	<div class="entrega__inner container">
@@ -68,7 +69,7 @@ if ( '' === $cdc_entrega_link ) {
 					</li>
 				<?php endforeach; ?>
 			</ul>
-			<a class="btn btn--primary" href="<?php echo esc_url( $cdc_entrega_link ); ?>" data-figma-node="7073:396"><?php echo esc_html( cdc_mod( 'cdc_entrega_botao_rotulo' ) ); ?></a>
+			<a class="btn btn--primary" href="<?php echo esc_url( $cdc_entrega_link ); ?>"<?php echo cdc_target_attr( $cdc_entrega_link ); // phpcs:ignore WordPress.Security.EscapeOutput ?> data-figma-node="7073:396"><?php echo esc_html( cdc_mod( 'cdc_entrega_botao_rotulo' ) ); ?></a>
 		</div>
 	</div>
 </section>

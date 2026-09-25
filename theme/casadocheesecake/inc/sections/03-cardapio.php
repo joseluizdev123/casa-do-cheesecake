@@ -55,7 +55,14 @@ add_filter( 'cdc_customizer_sections', function ( $sections ) {
  * @return array[]
  */
 function cdc_cardapio_defaults() {
-	$precos = "R$ 28,90 | Fatia 150 g\nR$ 99 | 600 g · 6 mini fatias\nR$ 185 | 1,2 kg · serve 8\nR$ 252 | 1,8 kg · serve 10 a 12";
+	// Links dos produtos no cardápio online (Brendi), conferidos um a um no site atual.
+	$loja   = 'https://pedido.brendi.com.br/a-casa-do-cheesecake/produto/';
+	$precos = static function ( $fatia, $p600, $p1200, $p1800 ) use ( $loja ) {
+		return "R$ 28,90 | Fatia 150 g | {$loja}{$fatia}\n"
+			. "R$ 99 | 600 g · 6 mini fatias | {$loja}{$p600}\n"
+			. "R$ 185 | 1,2 kg · serve 8 | {$loja}{$p1200}\n"
+			. "R$ 252 | 1,8 kg · serve 10 a 12 | {$loja}{$p1800}";
+	};
 	return array(
 		array(
 			'title'       => 'Frutas Vermelhas',
@@ -65,7 +72,7 @@ function cdc_cardapio_defaults() {
 				'descricao' => 'Base assada de cream cheese com calda de frutas vermelhas inteiras.',
 				'tag'       => 'Mais pedido',
 				'cor_fundo' => '#b0282e',
-				'precos'    => $precos,
+				'precos'    => $precos( 'cheesecake-de-frutas-vermelhas-fatia', 'cheesecake-de-frutas-vermelhas-600g-rende-6-mini-fatias', 'cheesecake-de-frutas-vermelhas-12-kg-rende-8-fatias', 'cheesecake-de-frutas-vermelhas-18-kg-rende-de-10-a-12-fatias' ),
 			),
 			'meta_images' => array( 'imagem_fatia' => 'images/sabor-frutas-vermelhas.png' ),
 		),
@@ -77,7 +84,7 @@ function cdc_cardapio_defaults() {
 				'descricao' => 'A mesma base assada, coberta com doce de leite.',
 				'tag'       => '',
 				'cor_fundo' => '#ffb82e',
-				'precos'    => $precos,
+				'precos'    => $precos( 'cheesecake-de-doce-de-leite-fatia', 'cheesecake-de-doce-de-leite-600gr-rende-6-mini-fatias', 'cheesecake-de-doce-de-leite-12-kg-rende-8-fatias', 'cheesecake-de-doce-de-leite-18-kg-rende-de-10-a-12-fatias' ),
 			),
 			'meta_images' => array( 'imagem_fatia' => 'images/sabor-doce-de-leite.png' ),
 		),
@@ -89,7 +96,7 @@ function cdc_cardapio_defaults() {
 				'descricao' => 'Calda de morangos frescos sobre a base assada.',
 				'tag'       => '',
 				'cor_fundo' => '#ffc0c5',
-				'precos'    => $precos,
+				'precos'    => $precos( 'cheesecake-de-morango-fatia', 'cheesecake-de-morango-600gr-rende-6-mini-fatias', 'cheesecake-de-morangos-12-kg-rende-8-fatias', 'cheesecake-de-morango-18-kg-rende-de-10-a-12-fatias' ),
 			),
 			'meta_images' => array( 'imagem_fatia' => 'images/sabor-morangos.png' ),
 		),
@@ -101,7 +108,7 @@ function cdc_cardapio_defaults() {
 				'descricao' => 'Calda de blueberry, ácida na medida para cortar o creme.',
 				'tag'       => '',
 				'cor_fundo' => '#b5d9fb',
-				'precos'    => $precos,
+				'precos'    => $precos( 'cheesecake-de-blueberry-fatia', 'cheesecake-de-blue-berry-600gr-rende-6-mini-fatias', 'cheesecake-de-blue-berry-12-kg-rende-8-fatias', 'cheesecake-de-blue-berry-18-kg-rende-de-10-a-12-fatias' ),
 			),
 			'meta_images' => array( 'imagem_fatia' => 'images/sabor-blue-berry.png' ),
 		),
@@ -117,17 +124,18 @@ add_filter( 'cdc_seed_posts', function ( $posts ) {
 } );
 
 /**
- * "preço | tamanho" por linha → lista de opções.
+ * "preço | tamanho | link (opcional)" por linha → lista de opções.
  *
  * @param string $text Conteúdo do campo precos.
- * @return array[] Cada item: array( 'preco' => '', 'tamanho' => '' ).
+ * @return array[] Cada item: array( 'preco' => '', 'link' => '', 'tamanho' => '' ).
  */
 function cdc_cardapio_parse_precos( $text ) {
 	$out = array();
 	foreach ( cdc_lines( $text ) as $line ) {
-		$parts = array_map( 'trim', explode( '|', $line, 2 ) );
+		$parts = array_map( 'trim', explode( '|', $line, 3 ) );
 		$out[] = array(
 			'preco'   => $parts[0],
+			'link'    => isset( $parts[2] ) ? esc_url_raw( $parts[2] ) : '',
 			// Espaço não separável antes do "·": a linha nunca quebra com o ponto
 			// órfão no início ("1,8 kg / · serve 10 a 12"), igual ao HTML estático.
 			'tamanho' => isset( $parts[1] ) ? str_replace( ' · ', "\u{00A0}· ", $parts[1] ) : '',

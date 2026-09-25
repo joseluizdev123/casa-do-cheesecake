@@ -7,19 +7,21 @@
 
 defined( 'ABSPATH' ) || exit;
 
-$cdc_left  = cdc_menu_links(
+$cdc_pedido = cdc_anchor_or_url( (string) cdc_mod( 'cdc_contato_cardapio' ) );
+$cdc_blog   = cdc_anchor_or_url( (string) cdc_mod( 'cdc_contato_blog' ) );
+$cdc_left   = cdc_menu_links(
 	'header-left',
 	array(
 		array( 'label' => 'Nosso cheesecake', 'url' => cdc_anchor( '#cardapio' ) ),
 		array( 'label' => 'Sabores', 'url' => cdc_anchor( '#sabores' ) ),
-		array( 'label' => 'Pedir agora', 'url' => cdc_anchor( '#pedir' ) ),
+		array( 'label' => 'Pedir agora', 'url' => $cdc_pedido, 'target' => cdc_is_external( $cdc_pedido ) ? '_blank' : '' ),
 	)
 );
-$cdc_right = cdc_menu_links(
+$cdc_right  = cdc_menu_links(
 	'header-right',
 	array(
 		array( 'label' => 'Sobre nós', 'url' => cdc_anchor( '#sobre' ) ),
-		array( 'label' => 'Blog', 'url' => cdc_anchor( '#blog' ) ),
+		array( 'label' => 'Blog', 'url' => $cdc_blog, 'target' => cdc_is_external( $cdc_blog ) ? '_blank' : '' ),
 		array( 'label' => 'Contato', 'url' => cdc_anchor( '#contato' ) ),
 	)
 );

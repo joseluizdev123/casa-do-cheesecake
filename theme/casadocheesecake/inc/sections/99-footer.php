@@ -90,13 +90,27 @@ function cdc_rodape_links() {
 	$telefone = (string) cdc_mod( 'cdc_contato_telefone' );
 	$digitos  = preg_replace( '/\D+/', '', $telefone );
 	$tel_url  = $digitos ? 'tel:+55' . $digitos : '';
+	$email    = sanitize_email( (string) cdc_mod( 'cdc_contato_email' ) );
+	$pedido   = cdc_anchor_or_url( (string) cdc_mod( 'cdc_contato_cardapio' ) );
+	$blog     = cdc_anchor_or_url( (string) cdc_mod( 'cdc_contato_blog' ) );
+	$nova_aba = static function ( $url ) {
+		return cdc_is_external( $url ) ? '_blank' : '';
+	};
+
+	$contato = array(
+		array( 'label' => 'Fale com a gente', 'url' => cdc_mod( 'cdc_contato_whatsapp' ), 'target' => '_blank' ),
+		array( 'label' => $telefone, 'url' => $tel_url ),
+	);
+	if ( $email ) {
+		$contato[] = array( 'label' => 'Mande um e-mail', 'url' => 'mailto:' . $email );
+	}
 
 	return array(
 		'comprar' => cdc_menu_links(
 			'footer-comprar',
 			array(
-				array( 'label' => 'Cardápio', 'url' => cdc_anchor( '#cardapio' ) ),
-				array( 'label' => 'Frutas Vermelhas', 'url' => cdc_anchor( '#sabores' ) ),
+				array( 'label' => 'Cardápio', 'url' => $pedido, 'target' => $nova_aba( $pedido ) ),
+				array( 'label' => 'Frutas Vermelhas', 'url' => cdc_anchor( '#cardapio' ) ),
 				array( 'label' => 'Provar uma fatia', 'url' => cdc_anchor( '#primeira-fatia' ) ),
 			)
 		),
@@ -105,16 +119,10 @@ function cdc_rodape_links() {
 			array(
 				array( 'label' => 'Sobre nós', 'url' => cdc_anchor( '#sobre' ) ),
 				array( 'label' => 'Nossa especialista', 'url' => cdc_anchor( '#sobre' ) ),
-				array( 'label' => 'Blog', 'url' => cdc_anchor( '#blog' ) ),
+				array( 'label' => 'Blog', 'url' => $blog, 'target' => $nova_aba( $blog ) ),
 			)
 		),
-		'contato' => cdc_menu_links(
-			'footer-contato',
-			array(
-				array( 'label' => 'Fale com a gente', 'url' => cdc_mod( 'cdc_contato_whatsapp' ), 'target' => '_blank' ),
-				array( 'label' => $telefone, 'url' => $tel_url ),
-			)
-		),
+		'contato' => cdc_menu_links( 'footer-contato', $contato ),
 		'social'  => cdc_menu_links(
 			'footer-social',
 			array(

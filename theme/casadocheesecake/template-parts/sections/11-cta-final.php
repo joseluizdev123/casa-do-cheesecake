@@ -22,7 +22,7 @@ $cdc_cta_whats = trim( (string) cdc_mod( 'cdc_cta_whatsapp_url' ) );
 if ( '' === $cdc_cta_whats ) {
 	$cdc_cta_whats = (string) cdc_mod( 'cdc_contato_whatsapp' );
 }
-$cdc_cta_whats_externo = (bool) preg_match( '#^https?://#', $cdc_cta_whats );
+$cdc_cta_whats_externo = cdc_is_external( $cdc_cta_whats );
 
 // Título: uma linha por linha do campo. O título usa white-space: pre-wrap, então
 // o markup não pode ter quebras/indentação dentro do <h2> (espaços finais são mantidos).
@@ -43,7 +43,7 @@ $cdc_cta_titulo = implode(
 		</div>
 
 		<div class="cta-final__actions" data-figma-node="7057:1005">
-			<a class="btn btn--primary-dark" data-figma-node="7079:408" href="<?php echo esc_url( $cdc_cta_pedir ); ?>"><?php echo esc_html( cdc_mod( 'cdc_cta_botao' ) ); ?></a>
+			<a class="btn btn--primary-dark" data-figma-node="7079:408" href="<?php echo esc_url( $cdc_cta_pedir ); ?>"<?php echo cdc_target_attr( $cdc_cta_pedir ); // phpcs:ignore WordPress.Security.EscapeOutput ?>><?php echo esc_html( cdc_mod( 'cdc_cta_botao' ) ); ?></a>
 			<p class="cta-final__ou" data-figma-node="7057:1006"><?php echo esc_html( cdc_mod( 'cdc_cta_ou' ) ); ?></p>
 			<a class="btn-link btn-link--dark" data-figma-node="7079:412" href="<?php echo esc_url( $cdc_cta_whats ); ?>"<?php echo $cdc_cta_whats_externo ? ' target="_blank" rel="noopener"' : ''; ?>><?php echo esc_html( cdc_mod( 'cdc_cta_whatsapp' ) ); ?><?php if ( $cdc_cta_whats_externo ) : ?><span class="sr-only"> (abre em nova aba)</span><?php endif; ?></a>
 		</div>

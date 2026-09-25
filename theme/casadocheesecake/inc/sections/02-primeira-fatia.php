@@ -39,8 +39,8 @@ add_filter( 'cdc_customizer_sections', function ( $sections ) {
 			'cdc_fatia_botao_link'        => array(
 				'label'   => 'Link do botão',
 				'type'    => 'url',
-				'default' => '',
-				'help'    => 'Deixe em branco para usar o WhatsApp de "Contato e links globais".',
+				'default' => 'https://wa.me/5511956022366?text=Ol%C3%A1!+Quero+provar+minha+fatia+por+conta+da+casa.',
+				'help'    => 'Padrão: WhatsApp com a mensagem "Quero provar minha fatia por conta da casa". Em branco = WhatsApp de "Contato e links globais".',
 			),
 			'cdc_fatia_imagem_frente'     => array(
 				'label'   => 'Foto da fatia de cima (206 × 191)',

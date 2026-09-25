@@ -10,9 +10,10 @@ defined( 'ABSPATH' ) || exit;
 
 $cdc_rest_link = cdc_mod( 'cdc_rest_botao_link' );
 if ( ! $cdc_rest_link ) {
-	$cdc_rest_link = cdc_mod( 'cdc_contato_whatsapp' );
+	$cdc_rest_link = cdc_mod( 'cdc_contato_b2b' ); // página de condições para restaurantes
 }
-$cdc_rest_externo = (bool) preg_match( '#^https?://#', $cdc_rest_link );
+$cdc_rest_link    = cdc_anchor_or_url( (string) $cdc_rest_link );
+$cdc_rest_externo = cdc_is_external( $cdc_rest_link );
 ?>
 <section class="restaurantes" id="restaurantes" data-figma-node="7057:508" aria-labelledby="restaurantes-titulo">
 	<div class="container">
