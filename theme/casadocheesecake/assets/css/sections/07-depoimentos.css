@@ -140,6 +140,19 @@
   }
 }
 
+/* Autoplay infinito (JS: .is-marquee na raiz; ver 07-depoimentos.js).
+   O loop escreve scrollLeft a cada quadro: sem snap e sem scroll suave do
+   CSS (as setas usam scrollTo smooth explícito). As bordas esmaecem na folga
+   do trilho, onde os cards entram e saem da vista. */
+.depoimentos__carousel.is-marquee .depoimentos__track {
+  --marquee-fade: calc(var(--card-hover-room) + 16px);
+  scroll-snap-type: none;
+  scroll-behavior: auto;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 var(--marquee-fade), #000 calc(100% - var(--marquee-fade)), transparent);
+          mask-image: linear-gradient(90deg, transparent, #000 var(--marquee-fade), #000 calc(100% - var(--marquee-fade)), transparent);
+}
+.depoimentos__carousel.is-marquee .depoimentos__card { scroll-snap-align: none; }
+
 .depoimentos__card-body {                      /* 7057:372 */
   display: flex;
   flex-direction: column;
@@ -369,6 +382,10 @@ button.depoimentos__dot::before {
   /* Trilho de borda a borda da tela: o 1º card alinha com o conteúdo
      (padding = --section-px) e o gap entre cards é o mesmo respiro lateral,
      então o card seguinte começa exatamente na borda da tela (sem "peek"). */
+  .depoimentos__carousel.is-marquee .depoimentos__track {
+    --marquee-fade: var(--section-px);         /* esmaece só na margem da tela */
+  }
+
   .depoimentos__track,
   .depoimentos__track[role="list"] {
     grid-area: track;

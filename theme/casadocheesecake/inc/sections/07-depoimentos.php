@@ -4,7 +4,7 @@
  *
  * - Customizer: título, nota exibida (estrelas), contagem de avaliações e rótulo da fonte.
  * - CPT cdc_depoimento (campos base 'texto', 'estrelas', 'data', 'fonte' em inc/cpt.php)
- *   + seed dos 3 depoimentos do Figma com a copy exata (inclusive "Setenbro 2026" e os
+ *   + seed dos 3 depoimentos do Figma + 1 do site oficial com a copy exata (inclusive "Setenbro 2026" e os
  *   pontos sem espaço do 1º depoimento, como estão no layout — revisar no admin).
  *
  * @package casadocheesecake
@@ -71,6 +71,14 @@ function cdc_depoimentos_defaults() {
 			'texto'    => '“Muito bom! Desde o atendimento até a entrega! E com toda certeza o sabor e a qualidade do cheesecake… super recomendo 🤍.”',
 			'estrelas' => 5,
 			'data'     => 'Setenbro 2026',
+			'fonte'    => 'Avaliação publicada no Google.',
+		),
+		// 4º depoimento: site oficial (acasadocheesecake.com.br), sem data publicada.
+		array(
+			'nome'     => 'Sandra Sejtman',
+			'texto'    => '“Uma delícia!!! Sempre peço nos eventos. Atendimento maravilhoso e eficiência na entrega.”',
+			'estrelas' => 5,
+			'data'     => '',
 			'fonte'    => 'Avaliação publicada no Google.',
 		),
 	);

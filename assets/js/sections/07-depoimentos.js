@@ -1,17 +1,20 @@
-/* 07 — Depoimentos (Figma 7057:361): carrossel acessível.
- * - Base sem JS: a lista rola na horizontal com scroll-snap (CSS); as setas
- *   vêm com `disabled` no HTML (não fazem nada sem JS).
- * - Com JS: setas prev/next por página, dots gerados a partir do número REAL
- *   de páginas (o Figma mostra 4 dots de exemplo). Cards por página vêm do CSS:
- *   3 (≥1200) · 2 (≤1199) · 1 por vez, largura total (≤767) → 1, 2 e 3
- *   páginas com os 3 depoimentos do layout.
- * - Dots = botões simples; o da página atual recebe aria-current="true".
- * - Com 1 página só, a raiz ganha [data-single-page] (o CSS esconde setas e
- *   dots abaixo de 1200; no desktop ficam como no Figma).
- * - Giro infinito (pedido do cliente): depois da última página vem a primeira
- *   e vice-versa — nas setas e no swipe além da ponta.
- * - Durante a rolagem animada de uma seta/dot, a página-alvo fica travada
- *   (os dots não "voltam" no meio da animação e cliques rápidos avançam 1 a 1).
+/* 07 — Depoimentos (Figma 7057:361): carrossel.
+ * Dois modos, escolhidos pelo movimento do sistema:
+ * - AUTOPLAY (padrão, pedido do cliente): os depoimentos correm para o lado
+ *   sem parar, em loop infinito sem emenda — o JS clona o conjunto uma vez
+ *   antes e uma vez depois dos originais (clones com aria-hidden + inert) e,
+ *   ao passar de meio conjunto, reposiciona o scroll em 1 conjunto (visualmente
+ *   idêntico). Freia suavemente com o mouse sobre o carrossel (o card cresce
+ *   no hover), com foco de teclado, durante o toque/arraste e fora da tela;
+ *   retoma depois. Setas avançam 1 card; dots = 1 por depoimento.
+ *   Com poucos depoimentos (todos cabem na tela) cai no modo manual.
+ * - MANUAL (prefers-reduced-motion: reduce, ou sem JS = CSS puro):
+ *   · Base sem JS: a lista rola na horizontal com scroll-snap (CSS); as setas
+ *     vêm com `disabled` no HTML (não fazem nada sem JS).
+ *   · Setas prev/next por página, dots gerados a partir do número REAL de
+ *     páginas. Cards por página vêm do CSS: 3 (≥1200) · 2 (≤1199) · 1 (≤767).
+ *   · Com 1 página só, a raiz ganha [data-single-page].
+ *   · Giro infinito: depois da última página vem a primeira e vice-versa.
  */
 (function () {
   'use strict';
@@ -21,7 +24,8 @@
 
   var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  Array.prototype.forEach.call(roots, function (root) {
+  // ---------- modo manual (movimento reduzido / poucos depoimentos) ----------
+  function manual(root) {
     var track = root.querySelector('[data-carousel-track]');
     var prev = root.querySelector('[data-carousel-prev]');
     var next = root.querySelector('[data-carousel-next]');
@@ -165,6 +169,265 @@
       window.addEventListener('resize', build);
     }
     build();
+  }
+
+  function gapOf(track) {
+    var cs = window.getComputedStyle(track);
+    return parseFloat(cs.columnGap || cs.gap) || 0;
+  }
+
+  // Cards inteiros que cabem na área útil do trilho (sem o padding).
+  function perViewOf(track, card) {
+    var cs = window.getComputedStyle(track);
+    var inner = track.clientWidth - (parseFloat(cs.paddingLeft) || 0) - (parseFloat(cs.paddingRight) || 0);
+    var w = card.getBoundingClientRect().width;
+    if (!w) return 1;
+    var g = gapOf(track);
+    return Math.max(1, Math.floor((inner + g + 1) / (w + g)));
+  }
+
+  // ---------- modo autoplay (loop infinito) ----------
+  function marquee(root) {
+    var track = root.querySelector('[data-carousel-track]');
+    var prev = root.querySelector('[data-carousel-prev]');
+    var next = root.querySelector('[data-carousel-next]');
+    var dotsWrap = root.querySelector('[data-carousel-dots]');
+    if (!track || !dotsWrap) return;
+
+    var originals = Array.prototype.slice.call(track.children);
+    var n = originals.length;
+    if (n < 2 || n <= perViewOf(track, originals[0])) { manual(root); return; }
+
+    // clones: 1 conjunto antes + 1 depois (loop sem emenda nos dois sentidos)
+    function cloneSet() {
+      var frag = document.createDocumentFragment();
+      originals.forEach(function (li) {
+        var c = li.cloneNode(true);
+        c.classList.add('is-clone');
+        c.setAttribute('aria-hidden', 'true');
+        c.setAttribute('inert', '');
+        c.removeAttribute('data-figma-node');
+        Array.prototype.forEach.call(c.querySelectorAll('[data-figma-node], [id]'), function (el) {
+          el.removeAttribute('data-figma-node');
+          el.removeAttribute('id');
+        });
+        frag.appendChild(c);
+      });
+      return frag;
+    }
+    track.insertBefore(cloneSet(), originals[0]);
+    track.appendChild(cloneSet());
+    root.classList.add('is-marquee');
+    root.removeAttribute('data-single-page');
+
+    // geometria
+    var setW = 0;     // largura de 1 conjunto = n × (card + gap)
+    var step = 0;     // 1 card + gap
+    function measure() {
+      setW = originals[0].offsetLeft - track.children[0].offsetLeft;
+      step = setW / n;
+    }
+    // mantém a posição no conjunto do meio (os clones cobrem as duas pontas)
+    function wrap(x) {
+      if (setW <= 0) return x;
+      while (x < setW * 0.5) x += setW;
+      while (x >= setW * 1.5) x -= setW;
+      return x;
+    }
+
+    var pos = 0;
+    var lastWrite = -1;
+    function write(x) {
+      pos = x;
+      lastWrite = x;
+      track.scrollLeft = x;
+    }
+
+    measure();
+    write(setW);      // originais alinhados como no layout
+
+    // dots: 1 por depoimento
+    dotsWrap.innerHTML = '';
+    dotsWrap.setAttribute('role', 'group');
+    dotsWrap.setAttribute('aria-label', 'Depoimentos');
+    var dots = originals.map(function (li, i) {
+      var b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'depoimentos__dot';
+      b.setAttribute('aria-controls', track.id);
+      var nome = li.querySelector('.depoimentos__author-name');
+      b.setAttribute('aria-label', 'Depoimento ' + (i + 1) + ' de ' + n + (nome ? ': ' + nome.textContent.trim() : ''));
+      if (i === 0) b.setAttribute('aria-current', 'true');
+      b.addEventListener('click', function () { glideToIndex(i); });
+      dotsWrap.appendChild(b);
+      return b;
+    });
+    var active = 0;
+    function updateDots() {
+      if (!step) return;
+      var i = ((Math.round(track.scrollLeft / step) % n) + n) % n;
+      if (i === active) return;
+      dots[active].removeAttribute('aria-current');
+      dots[i].setAttribute('aria-current', 'true');
+      active = i;
+    }
+
+    // motivos para parar
+    var holds = { boot: true, offscreen: true, hover: false, focus: false, touch: false, nav: false };
+    function held() {
+      for (var k in holds) { if (holds[k]) return true; }
+      return document.hidden;
+    }
+    function cruise() {
+      return window.matchMedia('(max-width: 767.98px)').matches ? 26 : 34;   // px/s
+    }
+
+    // loop
+    var speed = 0;
+    var last = 0;
+    var raf = 0;
+    var glide = null;     // deslize das setas/dots: { from, to, t0, dur }
+    var navTimer = 0;
+    function frame(t) {
+      raf = 0;
+      var dt = last ? Math.min(0.05, (t - last) / 1000) : 0;
+      last = t;
+      if (glide) {
+        var p = Math.min(1, (t - glide.t0) / glide.dur);
+        write(glide.from + (glide.to - glide.from) * (1 - Math.pow(1 - p, 3)));   // ease-out
+        if (p >= 1) {
+          glide = null;
+          write(wrap(pos));
+          speed = 0;
+          window.clearTimeout(navTimer);
+          navTimer = window.setTimeout(function () { hold('nav', false); }, 1200);   // tempo para ler
+        }
+      }
+      var target = held() ? 0 : cruise();
+      speed += (target - speed) * Math.min(1, dt * 5);                 // acelera/freia em ~0,3 s
+      if (target === 0 && speed < 0.4) speed = 0;
+      if (!glide && speed > 0 && !holds.touch && !holds.nav) write(wrap(pos + speed * dt));
+      updateDots();
+      if (glide || speed > 0 || target > 0) raf = window.requestAnimationFrame(frame);
+      else last = 0;
+    }
+    function kick() {
+      if (!raf) raf = window.requestAnimationFrame(frame);
+    }
+    function hold(name, on) {
+      holds[name] = on;
+      kick();
+    }
+
+    // setas / dots: desliza até o card alvo (animação própria, no mesmo loop)
+    function glideTo(x) {
+      window.clearTimeout(navTimer);
+      holds.nav = true;
+      glide = { from: pos, to: x, t0: window.performance.now(), dur: 520 };
+      kick();
+    }
+    // ponto de partida: o destino do deslize em curso (cliques rápidos somam),
+    // levado ao conjunto do meio junto com a posição atual (mesma imagem)
+    function from() {
+      measure();
+      var base = glide ? glide.to : pos;
+      var shift = wrap(base) - base;
+      if (shift) {
+        if (glide) { glide.from += shift; glide.to += shift; }
+        write(pos + shift);
+      }
+      return base + shift;
+    }
+    // limiar de 35%: se o card mal começou a passar, a seta vai ao anterior/próximo
+    // de verdade (e não só ao início do card que já está na frente)
+    function glideBy(dir) {
+      var x = from();
+      var k = dir > 0 ? Math.floor(x / step + 0.35) + 1 : Math.ceil(x / step - 0.35) - 1;
+      glideTo(k * step);
+    }
+    function glideToIndex(i) {
+      var x = from();
+      var k0 = Math.round(x / step);
+      var d = (((i - k0) % n) + n) % n;
+      if (d > n / 2) d -= n;
+      glideTo((k0 + d) * step);
+    }
+    if (prev) { prev.disabled = false; prev.addEventListener('click', function () { glideBy(-1); }); }
+    if (next) { next.disabled = false; next.addEventListener('click', function () { glideBy(1); }); }
+
+    // mouse em cima / foco de teclado: freia
+    root.addEventListener('pointerenter', function (e) { if (e.pointerType === 'mouse') hold('hover', true); });
+    root.addEventListener('pointerleave', function (e) { if (e.pointerType === 'mouse') hold('hover', false); });
+    root.addEventListener('focusin', function (e) {
+      if (e.target.matches && e.target.matches(':focus-visible')) hold('focus', true);
+    });
+    root.addEventListener('focusout', function () { hold('focus', false); });
+
+    // toque/arraste/trackpad: o usuário manda; retoma 2,5 s depois
+    var touchTimer = 0;
+    function userStart() {
+      window.clearTimeout(touchTimer);
+      holds.touch = true;
+    }
+    function userEnd() {
+      window.clearTimeout(touchTimer);
+      touchTimer = window.setTimeout(function () {
+        write(wrap(track.scrollLeft));
+        hold('touch', false);
+      }, 2500);
+    }
+    track.addEventListener('touchstart', userStart, { passive: true });
+    track.addEventListener('touchend', userEnd, { passive: true });
+    track.addEventListener('touchcancel', userEnd, { passive: true });
+    track.addEventListener('wheel', function (e) {
+      if (Math.abs(e.deltaX) <= Math.abs(e.deltaY)) return;     // rolagem vertical da página: ignora
+      userStart();
+      userEnd();
+    }, { passive: true });
+
+    // rolagem que não veio do loop: acompanha e, parada, volta ao conjunto do meio
+    var idleTimer = 0;
+    track.addEventListener('scroll', function () {
+      if (Math.abs(track.scrollLeft - lastWrite) < 1.5) return;          // foi o próprio loop
+      pos = track.scrollLeft;
+      updateDots();
+      window.clearTimeout(idleTimer);
+      idleTimer = window.setTimeout(function () {
+        if (!holds.nav) write(wrap(track.scrollLeft));
+      }, 180);
+    }, { passive: true });
+
+    // só roda na tela; espera a entrada dos cards antes de começar
+    var started = false;
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function (entries) {
+        var on = entries[0].isIntersecting;
+        holds.offscreen = !on;
+        if (on && !started) {
+          started = true;
+          window.setTimeout(function () { hold('boot', false); }, 1200);
+        }
+        kick();
+      }).observe(root);
+    } else {
+      holds.offscreen = false;
+      holds.boot = false;
+    }
+    document.addEventListener('visibilitychange', function () { last = 0; kick(); });
+
+    if ('ResizeObserver' in window) {
+      new ResizeObserver(function () {
+        var ratio = setW ? (pos - setW) / setW : 0;       // mesma fração do conjunto
+        measure();
+        write(wrap(setW + ratio * setW));
+      }).observe(track);
+    }
+    kick();
+  }
+
+  Array.prototype.forEach.call(roots, function (root) {
+    if (reduceMotion) manual(root);
+    else marquee(root);
   });
 })();
 
