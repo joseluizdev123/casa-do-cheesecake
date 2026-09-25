@@ -342,13 +342,16 @@
   .site-footer__row { column-gap: 16px; }
 }
 
-/* Mobile: grids em uma coluna (Willy) — Comprar / A marca / Contato / Social
-   um embaixo do outro, centralizados como a marca e o copyright */
+/* Mobile: 2 × 2 (pedido do cliente) — Comprar | A marca em cima, Contato | Social
+   embaixo; colunas de larguras iguais com o mesmo espaçamento, cada uma centrada
+   como a marca e o copyright */
 @media (max-width: 767.98px) {
   .site-footer__row {
-    grid-template-columns: minmax(0, 1fr);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     justify-content: stretch;
     justify-items: center;
+    column-gap: 24px;
+    row-gap: var(--gap-m-lg);                    /* 32 */
     text-align: center;
   }
   .site-footer .site-footer__col,

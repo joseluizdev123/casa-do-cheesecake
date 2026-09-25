@@ -102,11 +102,23 @@
     drawer.addEventListener('click', function (e) {
       var link = e.target.closest('a');
       if (!link) return;
-      setOpen(false);
-      // chip de sabor: além de rolar até a seção, abre a aba do sabor escolhido
+      // chip de sabor: vai direto ao sabor — fecha o menu, abre a aba do sabor
+      // e rola até a seção (sem depender do salto de âncora com a página travada)
       var sabor = link.getAttribute('data-sabor');
       var aba = sabor && document.getElementById('sabores-aba-' + sabor);
-      if (aba) window.setTimeout(function () { aba.click(); }, 60);
+      var secao = aba && (aba.closest('section') || document.getElementById('sabores'));
+      if (aba && secao) {
+        e.preventDefault();
+        setOpen(false);
+        aba.click();
+        window.requestAnimationFrame(function () {
+          var reduzir = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+          secao.scrollIntoView({ behavior: reduzir ? 'auto' : 'smooth', block: 'start' });
+          if (window.history && window.history.replaceState) window.history.replaceState(null, '', '#' + secao.id);
+        });
+        return;
+      }
+      setOpen(false);
     });
     // clique fora do painel fecha (a página continua visível abaixo, como na referência)
     document.addEventListener('click', function (e) {

@@ -250,20 +250,20 @@
   .mobile-nav__chips {
     display: flex;
     flex-wrap: wrap;
-    gap: 8px;
+    gap: 6px;
     padding-bottom: 18px;
   }
   .mobile-nav__chip {
     display: inline-flex;
     align-items: center;
-    gap: 8px;
-    min-height: 40px;
-    padding: 8px 14px 8px 10px;
+    gap: 6px;
+    min-height: 32px;
+    padding: 5px 12px 5px 8px;
     border: 1px solid var(--color-red-700-a15);
     border-radius: var(--radius-pill);
     background: var(--color-cream-25);
     font-family: var(--font-body);
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 500;
     line-height: 1.2;
     color: var(--color-red-700);
@@ -272,8 +272,8 @@
   .mobile-nav__chip::before {
     content: "";
     flex-shrink: 0;
-    width: 14px;
-    height: 14px;
+    width: 10px;
+    height: 10px;
     border-radius: 50%;
     background: var(--chip, var(--color-red-700));
     box-shadow: inset 0 0 0 1px rgb(0 0 0 / .08);
