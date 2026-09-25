@@ -33,7 +33,7 @@ $cdc_cta_link = cdc_cardapio_href( '' !== $cdc_cta_link ? $cdc_cta_link : cdc_mo
 				<li class="cardapio__card"<?php echo cdc_cardapio_node_attr( $cdc_n, 'card' ); // phpcs:ignore WordPress.Security.EscapeOutput ?>>
 					<div class="cardapio__media" style="--cardapio-bg: <?php echo esc_attr( $cdc_bg ); ?>"<?php echo cdc_cardapio_node_attr( $cdc_n, 'media' ); // phpcs:ignore WordPress.Security.EscapeOutput ?>>
 						<div class="cardapio__photo"<?php echo cdc_cardapio_node_attr( $cdc_n, 'photo' ); // phpcs:ignore WordPress.Security.EscapeOutput ?>>
-							<img class="cardapio__img" src="<?php echo esc_url( $cdc_item['image'] ); ?>" alt="<?php echo esc_attr( $cdc_item['alt'] ); ?>" width="<?php echo (int) $cdc_item['image_w']; ?>" height="<?php echo (int) $cdc_item['image_h']; ?>" loading="lazy" decoding="async">
+							<img class="cardapio__img cardapio__img--recorte" src="<?php echo esc_url( $cdc_item['image'] ); ?>" alt="<?php echo esc_attr( $cdc_item['alt'] ); ?>" width="<?php echo (int) $cdc_item['image_w']; ?>" height="<?php echo (int) $cdc_item['image_h']; ?>" loading="lazy" decoding="async">
 						</div>
 						<?php if ( '' !== $cdc_item['tag'] ) : ?>
 						<p class="cardapio__tag"<?php echo cdc_cardapio_node_attr( $cdc_n, 'tag' ); // phpcs:ignore WordPress.Security.EscapeOutput ?>>

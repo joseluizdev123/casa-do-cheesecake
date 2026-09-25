@@ -592,3 +592,14 @@
     padding: 16px var(--pad-m-card) var(--pad-m-card);
   }
 }
+
+/* Fotos do cliente: bolo recortado justo (uma por sabor). Ocupa a moldura
+   inteira, sem o recorte percentual da foto quadrada do Figma, apoiado na base. */
+.cardapio__img.cardapio__img--recorte {
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: 50% 100%;
+}

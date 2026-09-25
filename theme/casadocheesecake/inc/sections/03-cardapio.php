@@ -67,7 +67,7 @@ function cdc_cardapio_defaults() {
 		array(
 			'title'       => 'Frutas Vermelhas',
 			'menu_order'  => 1,
-			'featured'    => 'images/03-cardapio-cheesecake.png',
+			'featured'    => 'images/03-cardapio-frutas-vermelhas.webp',
 			'meta'        => array(
 				'descricao' => 'Base assada de cream cheese com calda de frutas vermelhas inteiras.',
 				'tag'       => 'Mais pedido',
@@ -79,7 +79,7 @@ function cdc_cardapio_defaults() {
 		array(
 			'title'       => 'Doce de Leite',
 			'menu_order'  => 2,
-			'featured'    => 'images/03-cardapio-cheesecake.png',
+			'featured'    => 'images/03-cardapio-doce-de-leite.webp',
 			'meta'        => array(
 				'descricao' => 'A mesma base assada, coberta com doce de leite.',
 				'tag'       => '',
@@ -91,7 +91,7 @@ function cdc_cardapio_defaults() {
 		array(
 			'title'       => 'Morangos',
 			'menu_order'  => 3,
-			'featured'    => 'images/03-cardapio-cheesecake.png',
+			'featured'    => 'images/03-cardapio-morangos.webp',
 			'meta'        => array(
 				'descricao' => 'Calda de morangos frescos sobre a base assada.',
 				'tag'       => '',
@@ -103,7 +103,7 @@ function cdc_cardapio_defaults() {
 		array(
 			'title'       => 'Blue Berry',
 			'menu_order'  => 4,
-			'featured'    => 'images/03-cardapio-cheesecake.png',
+			'featured'    => 'images/03-cardapio-blue-berry.webp',
 			'meta'        => array(
 				'descricao' => 'Calda de blueberry, ácida na medida para cortar o creme.',
 				'tag'       => '',
@@ -206,15 +206,16 @@ function cdc_cardapio_items() {
 
 	if ( ! $items ) {
 		foreach ( cdc_cardapio_defaults() as $d ) {
+			$cdc_dim  = @getimagesize( CDC_DIR . '/assets/' . $d['featured'] ); // phpcs:ignore WordPress.PHP.NoSilencedErrors
 			$items[] = array(
 				'title'     => $d['title'],
 				'descricao' => $d['meta']['descricao'],
 				'tag'       => $d['meta']['tag'],
 				'cor'       => $d['meta']['cor_fundo'],
 				'image'     => cdc_asset( $d['featured'] ),
-				'image_w'   => 801,
-				'image_h'   => 801,
-				'alt'       => $fallback_alt,
+				'image_w'   => $cdc_dim ? (int) $cdc_dim[0] : 801,
+				'image_h'   => $cdc_dim ? (int) $cdc_dim[1] : 801,
+				'alt'       => 'Cheesecake inteiro sabor ' . $d['title'],
 				'link'      => cdc_cardapio_href( $fallback_link ),
 				'precos'    => cdc_cardapio_parse_precos( $d['meta']['precos'] ),
 			);
