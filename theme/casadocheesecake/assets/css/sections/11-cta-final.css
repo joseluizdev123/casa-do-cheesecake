@@ -126,6 +126,21 @@
               pela largura útil (cqi) para "CHEESECAKE HOJE" caber numa linha.
    ========================================================================== */
 
+/* ---------- ≤1199 (iPad deitado e menores = toque) ---------- */
+@media (max-width: 1199.98px) {
+  /* Link "Falar no WhatsApp" com área de toque de 44px sem mexer na
+     composição: as margens negativas devolvem exatamente a sobra sobre a
+     linha do texto (fs × 1.2 → 21.6 no tablet, 19.2 no mobile), então o
+     respiro visual até o "OU" e até o fim da seção continua o mesmo. */
+  .cta-final__actions .btn-link {
+    align-items: center;
+    justify-content: center;
+    min-height: 44px;
+    margin-block: calc((var(--fs-button) * 1.2 - 44px) / 2);
+    padding-inline: 12px;
+  }
+}
+
 /* ---------- tablet (768–1023) ---------- */
 @media (max-width: 1023.98px) {
   .cta-final__head {
@@ -173,10 +188,6 @@
 
 /* ---------- mobile (< 768) ---------- */
 @media (max-width: 767.98px) {
-  /* o link tem 12px de área de toque abaixo do texto: desconta do respiro
-     inferior para o bloco ficar opticamente centrado (56 em cima e embaixo) */
-  .cta-final { padding-bottom: calc(var(--section-py) - 12px); }
-
   .cta-final__inner { gap: var(--gap-m-lg); }  /* 32 */
 
   .cta-final__head { gap: var(--gap-m-md); }   /* 16 */
@@ -202,16 +213,6 @@
   .cta-final__actions { gap: var(--gap-m-md); }
 
   .cta-final__actions .btn { min-width: 200px; }
-
-  /* Link de texto com área de toque de 44px; a margem negativa devolve o
-     respiro visual de 16px entre "OU" e o texto do link (sem sobrepor caixas) */
-  .cta-final__actions .btn-link {
-    align-items: center;
-    justify-content: center;
-    min-height: 44px;
-    margin-top: -12px;
-    padding-inline: 12px;
-  }
 }
 
 /* ==========================================================================

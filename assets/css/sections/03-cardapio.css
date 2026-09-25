@@ -365,6 +365,18 @@
   .cardapio__grid {
     gap: 24px;
   }
+
+  /* "Ver cardápio completo": botão compacto do mobile também no tablet
+     (16/22 + 14 = 50px), na mesma família dos "Pedir" de 48 dos cards —
+     antes eram 65px lado a lado com 48. Os "Pedir" têm tamanho próprio. */
+  .cardapio {
+    --fs-button: 16px;
+    --lh-btn: 22px;
+  }
+
+  .cardapio__body > .btn {
+    padding: 14px 28px;
+  }
 }
 
 @media (max-width: 767.98px) {
@@ -381,7 +393,11 @@
     line-height: 1.15;
   }
 
+  /* medida de 20.5em (~328px): as mesmas 4 linhas de 360 a 767 —
+     "…na nossa cozinha / em São Paulo e entregues gelados, / …" —
+     sem "São / Paulo" partido (acontecia em 414) */
   .cardapio__lead {
+    max-width: 20.5em;
     font-size: var(--fs-m-lead);                    /* 16 */
   }
 
@@ -542,6 +558,7 @@
 
   .cardapio__body > .btn:last-child {
     margin-top: var(--gap-m-md);                    /* controles → CTA: 16 + 16 = 32 */
+    padding-inline: 24px;                           /* pílula do mobile (components.css) */
   }
 }
 

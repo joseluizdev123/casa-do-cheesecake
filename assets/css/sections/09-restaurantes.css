@@ -145,13 +145,14 @@
      A moto continua "pousada" na base do banner (bottom 0, como no Figma).
      O min-height do banner = altura da moto − vazamento, então o vazamento
      só acontece quando o texto cabe nessa altura; ela nunca cobre o texto.
-   ≤767 (mobile) — banner amarelo full-bleed, alinhado à esquerda:
+   ≤767 (mobile) — tipografia do mobile; até 576 ainda em 2 colunas.
+   ≤575 (celular em pé) — banner amarelo full-bleed, alinhado à esquerda:
      título → texto → botão → moto (pousada na base do banner, proporcional,
      com o selo na caixa).
    ========================================================================== */
 @media (max-width: 1199.98px) {
   .restaurantes {
-    --rest-p: 40px;                                /* padding do banner */
+    --rest-p: 48px;                                /* padding do banner (= banner amarelo da seção 02) */
     --rest-moto-w: 436px;                          /* 436 × 372.5 */
     --rest-moto-r: 16px;                           /* recuo da moto até a borda direita */
     --rest-bleed: 32px;                            /* quanto a moto passa do topo */
@@ -198,45 +199,50 @@
   .restaurantes__text {
     max-width: 440px;
     margin-bottom: 0;
+    line-height: 1.5;                              /* corpo 16/1.5 do tablet (como 02, 07, 08) */
     text-align: left;
     text-wrap: pretty;
   }
+
+  /* o destaque "pedido mínimo de R$500." nunca parte ao meio */
+  .restaurantes__text strong { white-space: nowrap; }
 }
 
-/* Tablet: a coluna de texto precisa de ~340px para o título de 40px caber em
-   2 linhas; a moto fica com o resto, pousada na base e sem vazar. */
+/* Tablet: faixa amarela de borda a borda, como o banner amarelo da seção 02
+   nesta faixa — texto na margem das outras seções (--section-px) e a seção
+   sem respiro próprio (as vizinhas creme já abrem/fecham com --section-py).
+   A coluna de texto precisa de ~340px para o título de 40px caber em 2
+   linhas; a moto fica com o resto, pousada na base e sem vazar, com a roda
+   da frente na margem direita (a arte tem 26/714 de respiro transparente). */
 @media (max-width: 1023.98px) {
   .restaurantes {
-    --rest-p: 32px;
-    --rest-moto-w: clamp(272px, 36vw, 320px);      /* 276 em 768 · 300 em 834 · 320 ≥ 889 */
-    --rest-moto-r: 8px;
+    --rest-p: var(--section-px);
+    /* 311 em 768 · 338 em 834 · 360 ≥ 889 — em 768 a coluna de texto fica com
+       380px e a frase fecha em 2 linhas ("…porcionar, entrega" / "semanal
+       programada e pedido mínimo de R$500."), sem a 2ª linha curta em "e".
+       240 no piso: celular deitado (576–767), ver abaixo. */
+    --rest-moto-w: clamp(240px, 40.5vw, 360px);
+    --rest-moto-r: calc(var(--section-px) - var(--rest-moto-w) * 26 / 714);
     --rest-bleed: 0px;
+    padding-block: 0;
   }
+
+  .restaurantes > .container { padding-inline: 0; }
 
   .restaurantes__banner {
     column-gap: 24px;
     min-height: 0;
+    padding: 48px var(--rest-p);
   }
 
   .restaurantes__title { font-size: var(--fs-t-h2); }   /* 40px */
 }
 
+/* Mobile: tipografia compacta. De 576 a 767 (celular deitado / tablet
+   pequeno) continua a composição de 2 colunas do tablet — texto à esquerda,
+   moto de 240–310px pousada à direita —; numa coluna só a moto de 320px
+   deixava ~250px de amarelo vazio ao lado dela e a faixa ficava alta. */
 @media (max-width: 767.98px) {
-  /* Bloco amarelo de borda a borda: a seção não tem respiro próprio — as
-     vizinhas (08 e 10, creme) já abrem/fecham com --section-py. */
-  .restaurantes { padding-block: 0; }
-  .restaurantes > .container { padding-inline: 0; }
-
-  .restaurantes__banner {
-    grid-template-columns: minmax(0, 1fr);
-    grid-template-areas:
-      "title"
-      "content"
-      "media";
-    row-gap: var(--gap-m-md);                      /* título → texto 16 */
-    padding: 40px var(--section-px) 0;             /* sem base: a moto pousa na borda */
-  }
-
   .restaurantes__title {
     max-width: 10em;                               /* quebra do Figma: "TEM RESTAURANTE," / "PIZZARIA OU DELIVERY?" */
     font-size: var(--fs-m-h2);                     /* 28px */
@@ -248,6 +254,19 @@
     max-width: 30em;
     font-size: var(--fs-m-body);                   /* 15px */
     line-height: var(--lh-m-body);                 /* 1.5 */
+  }
+}
+
+@media (max-width: 575.98px) {
+  /* Bloco amarelo de borda a borda (desde o tablet), uma coluna. */
+  .restaurantes__banner {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas:
+      "title"
+      "content"
+      "media";
+    row-gap: var(--gap-m-md);                      /* título → texto 16 */
+    padding: 48px var(--section-px) 0;             /* topo = banner amarelo da 02; sem base: a moto pousa na borda */
   }
 
   /* Em fluxo depois do botão, pousada na base do banner e alinhada à direita

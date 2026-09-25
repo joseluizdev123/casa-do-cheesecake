@@ -141,6 +141,20 @@
 .site-header.is-scrolled .site-header__bar { height: var(--header-h-scroll); }
 .site-header.is-scrolled .site-logo { width: var(--logo-w-scroll); height: var(--logo-h-scroll); }
 
+/* 1024–1199 (iPad deitado): o menu do desktop continua, mas os links têm só
+   22px de altura. Área de toque invisível de 44px (22 + 11 + 11) e 12px a
+   mais de cada lado — com o gap de 24 as áreas vizinhas não se sobrepõem, e
+   o padding-block de 24 do menu comporta os 11px (também no header de 70px
+   depois do scroll). Nada visual muda; ≥1200 fica como no Figma. */
+@media (min-width: 1024px) and (max-width: 1199.98px) {
+  .site-header__menu .btn-link { position: relative; }
+  .site-header__menu .btn-link::after {
+    content: "";
+    position: absolute;
+    inset: -11px -12px;
+  }
+}
+
 /* ---------- Header: tablet/mobile (padrão do site de referência) ---------
    O Figma só tem desktop 1440. Abaixo de 1024px: barra 72px com borda
    inferior, logo à esquerda, hambúrguer 44×44 à direita; menu em painel

@@ -206,6 +206,18 @@
   .site-footer__brand { grid-area: brand; }
 }
 
+/* ---------- iPad deitado (1024–1199): mesmo layout de < 1280, mas é toque ----
+   Área de toque de 44px nos links sem mexer no desenho: um ::after invisível
+   estende o link 9.5px para cima e para baixo (25 + 19 = 44). */
+@media (min-width: 1024px) and (max-width: 1199.98px) {
+  .site-footer__link { position: relative; }
+  .site-footer__link::after {
+    content: "";
+    position: absolute;
+    inset: -9.5px 0;
+  }
+}
+
 /* ---------- Tablet (768–1023) ---------- */
 @media (max-width: 1023.98px) {
   .site-footer__main {
@@ -268,7 +280,7 @@
     flex-direction: column;
     justify-content: center;
     gap: 8px;
-    padding-top: 32px;
+    padding-top: 40px;                           /* = respiro acima do divisor (32 + sobra do toque do último link) */
     border-top: var(--footer-rule);
     font-size: 14px;
     line-height: 1.5;
@@ -291,17 +303,29 @@
     padding-bottom: 24px;
   }
 
-  /* 2×2: colunas na largura do conteúdo e distribuídas com a mesma distância
-     entre si e até as bordas (pedido do cliente: nada encostado à esquerda) */
+  /* 2 × 2 (pedido do cliente) — Comprar | A marca em cima, Contato | Social
+     embaixo; colunas de larguras iguais e o mesmo espaçamento (24) entre as
+     colunas e entre as duas linhas, cada uma centrada como a marca e o copyright */
   .site-footer__row {
-    grid-template-columns: repeat(2, minmax(0, max-content));   /* encolhe só se não couber (320) */
-    justify-content: space-evenly;
-    column-gap: 16px;
-    row-gap: var(--gap-m-lg);                    /* 32 */
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    justify-content: stretch;
+    justify-items: center;
+    gap: 24px;
+    /* a área de toque do último link (44) sobra ~11px abaixo do texto: desconta
+       para o respiro texto → divisor ficar igual ao divisor → títulos (~38) */
+    margin-bottom: calc((15px * 1.5 - 44px) / 2);
+    text-align: center;
   }
+  .site-footer .site-footer__col,
+  .site-footer .site-footer__group--end .site-footer__col,
+  .site-footer .site-footer__list { align-items: center; text-align: center; }
+  .site-footer .site-footer__heading { align-self: center; text-align: center; }
+  .site-footer .site-footer__link { justify-content: center; }
 
   .site-footer__brand {
+    justify-self: stretch;                       /* divisor na largura toda, igual ao de baixo */
     gap: var(--gap-m-md);                        /* 16 */
+    margin-bottom: 8px;                          /* 24 + 8 = 32 do divisor até os títulos */
     padding-bottom: var(--gap-m-lg);             /* 32 */
   }
   .site-footer__logo { width: 104px; }
@@ -322,7 +346,7 @@
   }
 
   .site-footer__bottom {
-    padding-top: var(--pad-m-card);              /* 24 */
+    padding-top: var(--gap-m-lg);                /* 32 = respiro acima do divisor */
     font-size: var(--fs-m-small);                /* 14 */
   }
   .site-footer__copy {
@@ -337,26 +361,8 @@
   }
 }
 
-/* 320–359: colunas de 124px — o respiro entre elas cede para os links caberem numa linha */
+/* 320–359: colunas de ~122px — links em 14 para "Nossa especialista" caber numa linha */
 @media (max-width: 359.98px) {
-  .site-footer__row { column-gap: 16px; }
-}
-
-/* Mobile: 2 × 2 (pedido do cliente) — Comprar | A marca em cima, Contato | Social
-   embaixo; colunas de larguras iguais com o mesmo espaçamento, cada uma centrada
-   como a marca e o copyright */
-@media (max-width: 767.98px) {
-  .site-footer__row {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    justify-content: stretch;
-    justify-items: center;
-    column-gap: 24px;
-    row-gap: var(--gap-m-lg);                    /* 32 */
-    text-align: center;
-  }
-  .site-footer .site-footer__col,
-  .site-footer .site-footer__group--end .site-footer__col,
-  .site-footer .site-footer__list { align-items: center; text-align: center; }
-  .site-footer .site-footer__heading { align-self: center; text-align: center; }
-  .site-footer .site-footer__link { justify-content: center; }
+  .site-footer__row { column-gap: 12px; }
+  .site-footer__link { font-size: var(--fs-m-small); }   /* 14 */
 }

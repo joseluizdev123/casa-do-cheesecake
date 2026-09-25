@@ -53,6 +53,11 @@ $cdc_entrega_link = cdc_anchor_or_url( (string) $cdc_entrega_link );
 				foreach ( $cdc_entrega_slots as $cdc_n => $cdc_slot ) :
 					list( $cdc_li, $cdc_badge, $cdc_icon, $cdc_text, $cdc_title, $cdc_desc ) = $cdc_slot['nodes'];
 					$cdc_icon_url = cdc_image( "cdc_entrega_item{$cdc_n}_icone" );
+					$cdc_desc_raw = (string) cdc_mod( "cdc_entrega_item{$cdc_n}_texto" );
+					// Texto que é só uma lista de links (ex.: lojas do iFood, "[A](url), [B](url) e [C](url).")
+					// ganha o modificador --links: no tablet/mobile cada link vira um chip de toque >= 44px.
+					$cdc_link_re    = '\[[^\]]+\]\((?:https?:\/\/|mailto:|tel:|#)[^\s)]+\)';
+					$cdc_desc_links = 1 === preg_match( '/^\s*' . $cdc_link_re . '(?:(?:\s*,\s*(?:e\s+)?|\s+e\s+|\s*&\s*)' . $cdc_link_re . ')*\s*\.?\s*$/u', $cdc_desc_raw );
 					?>
 					<li class="entrega__item" data-figma-node="<?php echo esc_attr( $cdc_li ); ?>">
 						<span class="entrega__badge" data-figma-node="<?php echo esc_attr( $cdc_badge ); ?>">
@@ -64,7 +69,7 @@ $cdc_entrega_link = cdc_anchor_or_url( (string) $cdc_entrega_link );
 						</span>
 						<div class="entrega__text" data-figma-node="<?php echo esc_attr( $cdc_text ); ?>">
 							<h3 class="entrega__item-title" data-figma-node="<?php echo esc_attr( $cdc_title ); ?>"><?php echo esc_html( cdc_mod( "cdc_entrega_item{$cdc_n}_titulo" ) ); ?></h3>
-							<p class="entrega__item-text" data-figma-node="<?php echo esc_attr( $cdc_desc ); ?>"><?php echo cdc_rich( cdc_mod( "cdc_entrega_item{$cdc_n}_texto" ) ); // phpcs:ignore WordPress.Security.EscapeOutput -- cdc_rich() escapa. ?></p>
+							<p class="entrega__item-text<?php echo $cdc_desc_links ? ' entrega__item-text--links' : ''; ?>" data-figma-node="<?php echo esc_attr( $cdc_desc ); ?>"><?php echo cdc_rich( $cdc_desc_raw ); // phpcs:ignore WordPress.Security.EscapeOutput -- cdc_rich() escapa. ?></p>
 						</div>
 					</li>
 				<?php endforeach; ?>

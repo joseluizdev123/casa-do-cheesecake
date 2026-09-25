@@ -163,9 +163,18 @@
    ========================================================================== */
 
 /* ---------- Laptop / tablet grande (<= 1199) ------------------------------
-   Mesma composição do desktop; título 168 → 140 (1199) → 119 (1024).      */
+   Mesma composição do desktop; título 168 → 140 (1199) → 119 (1024).
+   Abas e "Ver todas as opções" com alvo de toque de 44px (texto centrado na
+   caixa); a margem negativa da barra devolve os 20px invisíveis, então o
+   respiro ótico título → abas → fim da seção fica igual ao de antes.      */
 @media (max-width: 1199.98px) {
   .sabores { gap: 64px; }
+
+  .sabores__nav { margin-block: -10px; }
+  .sabores__aba {
+    align-items: center;
+    min-height: 44px;                   /* alvo de toque */
+  }
 
   .sabores__palco {
     --sabores-fs: clamp(var(--fs-t-giant), 11.667vw, 168px);
@@ -222,6 +231,10 @@
     flex-direction: column;
     align-self: stretch;
     gap: 4px;
+    /* abas só-texto com alvo de 44px (+6px do anel de foco): sobram ~11–17px
+       invisíveis em volta do texto. Devolve esse vazio para o respiro ótico
+       título → abas igualar selo → título, e o fim da seção igualar o topo. */
+    margin-block: -16px -10px;
   }
 
   /* Faixa de abas full-bleed: rola na horizontal quando não cabe; quando
@@ -246,8 +259,6 @@
 
   .sabores__aba {
     flex-shrink: 0;
-    align-items: center;
-    min-height: 44px;                   /* alvo de toque */
     font-size: 18px;
     scroll-snap-align: center;
   }
@@ -256,50 +267,53 @@
 
 /* ---------- Mobile (<= 767) -----------------------------------------------
    Coluna única centrada: selo → título (56px, cai para 19.6cqi em 320) com
-   a fatia proporcional (~91px) → sabores → "Ver todas as opções".
+   a fatia proporcional (~91px) → faixa de sabores → "Ver todas as opções".
    · Selo a 75% (14 / 20px).
-   · Sabores: grade 2 × 2 de chips em pílula (como a grade de botões com
-     borda do site de referência) — todos visíveis, nada cortado na borda,
-     composição simétrica. Ativa preenchida na cor do texto (contraste
+   · Palco de no máximo 540px: o título fica sempre em 2 linhas ("YES, WE
+     HAVE / CHEESECAKE.") como no desktop — em 620–767 ele cabia em uma linha
+     e a fatia cobria o meio da frase.
+   · Sabores (Willy): faixa de chips em pílula que rola na horizontal
+     (arraste), em vez de grade. Ativa preenchida na cor do texto (contraste
      ≥ 6:1 nos 4 temas; o sublinhado de 1px não se lê num chip de 14px).
-     Quantidade ímpar (WP): o último chip fica centrado, na largura de um.
    · "Ver todas as opções": link sublinhado de 16px, centrado, alvo 44px. */
 @media (max-width: 767.98px) {
   .sabores { gap: var(--gap-m-lg); }             /* 32 */
 
-  .sabores__palco { --sabores-fs: var(--fs-m-giant); }
+  .sabores__palco {
+    --sabores-fs: var(--fs-m-giant);
+    max-width: 540px;
+  }
 
   .sabores__selo { --selo-s: .75; }
   .sabores__selo-rotulo { font-size: var(--fs-m-label); }
   .sabores__selo-ano { font-size: 20px; }
 
-  .sabores__nav { gap: var(--gap-m-md); }        /* 16 */
+  .sabores__nav {
+    gap: var(--gap-m-md);                        /* 16 */
+    margin-top: 0;                               /* chips com borda: a caixa é visível */
+  }
 
+  /* Faixa (Willy) full-bleed, herdada do tablet (rolagem, snap, pontas com
+     margem auto: centraliza quando todos cabem, sem cortar o início quando
+     não cabem). Aqui: gap 8, 4px em cima/embaixo para o anel de foco não ser
+     recortado e degradê curto na esquerda (só aparece depois de rolar). */
   .sabores__abas {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: var(--gap-m-sm);               /* 12 — ref: grade 2 × 2 com ~16 */
-    align-self: center;
-    width: 100%;
-    max-width: 440px;
-    margin-inline: 0;
-    padding: 0;
-    overflow: visible;
-    scroll-snap-type: none;
-    -webkit-mask-image: none;
-            mask-image: none;
-  }
-  .sabores__abas > :first-child,
-  .sabores__abas > :last-child { margin-inline: 0; }
-  .sabores__abas > .sabores__aba:last-child:nth-child(odd) {
-    grid-column: 1 / -1;
-    justify-self: center;
-    width: calc(50% - var(--gap-m-sm) / 2);
+    gap: 8px;
+    margin: -4px calc(-1 * var(--section-px));
+    padding: 4px var(--section-px);
+    scroll-padding-inline: var(--section-px);
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 var(--gap-m-md), #000 calc(100% - var(--section-px)), transparent);
+            mask-image: linear-gradient(90deg, transparent, #000 var(--gap-m-md), #000 calc(100% - var(--section-px)), transparent);
   }
 
+  /* Chips de largura igual, proporcional à tela — 2,2 chips por largura útil
+     (320–539: 2 inteiros + parte do 3º, que some no degradê da direita: a
+     faixa sempre "avisa" que rola), no máximo 168px. Nunca mais estreito que
+     o próprio rótulo (rótulo longo vindo do WP alarga o chip). */
   .sabores__abas > .sabores__aba {
+    flex: 0 0 min(calc((100% - 2 * 8px) / 2.2), 168px);
     justify-content: center;
-    min-width: 0;
+    min-width: max-content;
     min-height: 44px;
     padding: 10px 12px;
     border: 1px solid currentColor;
@@ -307,10 +321,9 @@
     border-radius: var(--radius-pill);
     font-size: var(--fs-m-label);
     line-height: 1.2;
-    white-space: normal;                /* rótulo longo vindo do WP quebra dentro do chip */
+    white-space: nowrap;
     text-align: center;
-    text-wrap: balance;
-    scroll-snap-align: none;
+    scroll-snap-align: start;
     -webkit-tap-highlight-color: transparent;
     transition: color var(--dur) var(--ease), background-color var(--dur) var(--ease), border-color var(--dur) var(--ease);
   }
@@ -331,6 +344,21 @@
     text-decoration-thickness: from-font;
     text-underline-offset: 4px;
   }
+}
+
+/* Celular grande deitado / dobrável (540–599): com o teto de 168px a regra
+   dos 2,2 mostraria 3 chips exatos (nada "vazando") perto de 560. Aqui a
+   largura segue a tela para mostrar sempre ~3,4 chips (3 + parte do 4º). */
+@media (min-width: 540px) and (max-width: 599.98px) {
+  .sabores__abas > .sabores__aba {
+    flex-basis: calc((100% + var(--section-px)) / 3.4 - 8px);
+  }
+}
+
+/* Tablet pequeno (600–767): os 4 sabores cabem — chips iguais de até 168px,
+   que encolhem juntos até o rótulo, e a faixa fica centrada (sem rolagem). */
+@media (min-width: 600px) and (max-width: 767.98px) {
+  .sabores__abas > .sabores__aba { flex: 0 1 168px; }
 }
 
 @media (max-width: 767.98px) and (hover: hover) {
@@ -414,28 +442,3 @@
 /* A fatia cai de cima da seção conforme a rolagem (04-sabores.js): a seção
    recorta o que está acima da borda (overflow: clip não cria rolagem nem muda o layout). */
 .sabores { overflow: clip; }
-
-/* Mobile: grids em uma coluna ou carrossel (Willy) — as abas viram uma faixa
-   que rola na horizontal (arraste), em vez da grade 2 × 2 */
-@media (max-width: 767.98px) {
-  .sabores .sabores__abas {
-    display: flex;
-    flex-wrap: nowrap;
-    gap: 8px;
-    align-self: stretch;
-    width: auto;
-    margin-inline: calc(-1 * var(--section-px));
-    padding-inline: var(--section-px);
-    overflow-x: auto;
-    scroll-snap-type: x proximity;
-    scroll-padding-inline: var(--section-px);
-    scrollbar-width: none;
-  }
-  .sabores .sabores__abas::-webkit-scrollbar { display: none; }
-  .sabores .sabores__abas > .sabores__aba {
-    flex: 0 0 auto;
-    white-space: nowrap;
-    scroll-snap-align: start;
-    padding-inline: 18px;
-  }
-}

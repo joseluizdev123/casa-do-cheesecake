@@ -254,41 +254,36 @@
   }
 }
 
+/* Mobile (< 768): tipografia e raios do mobile. De 600 a 767 (celular
+   deitado, tablet pequeno) continua a grade do tablet — card largo + 2 cards
+   lado a lado —: em coluna única cada foto chegava a ~600 × 380 e a seção a
+   ~1850px. A coluna única fica para < 600. */
 @media (max-width: 767.98px) {
   .diferenciais__head {
     gap: var(--gap-m-md);                    /* 16px */
   }
 
-  .diferenciais__title,
-  .diferenciais__lead {
-    max-width: none;
-  }
-
   .diferenciais__title {
+    max-width: none;
     font-size: var(--fs-m-h2);               /* 28px */
   }
 
   .diferenciais__lead {
+    max-width: 36em;                         /* ~70 caracteres por linha (576px); < 600 ocupa a largura toda */
     font-size: var(--fs-m-lead);             /* 16px */
     line-height: var(--lh-m-body);           /* 1.5 */
   }
 
   .diferenciais__list {
-    grid-template-columns: minmax(0, 1fr);
-    gap: 24px;                               /* ref: 24–32 entre cards empilhados */
+    gap: var(--gap-m-md);                    /* 16px — mesmo ritmo do tablet, seção mais compacta */
   }
 
   .diferenciais__card {
-    flex-direction: column;
-    gap: 0;
     border-radius: var(--radius-m-card);     /* 16px */
   }
 
   .diferenciais__body {
-    flex: none;
-    justify-content: flex-start;
     gap: var(--gap-m-sm);                    /* 12px */
-    padding: var(--pad-m-card);              /* 24px */
   }
 
   .diferenciais__card-title {
@@ -302,13 +297,35 @@
   }
 
   .diferenciais__media {
-    flex: none;
-    aspect-ratio: 16 / 10;                   /* 342 × 214 em 390 */
     border-radius: var(--radius-m-card);
   }
 
   .diferenciais__img {
     object-position: 50% 58%;                /* mantém o assunto (tigela / fatia / calda) */
+  }
+}
+
+/* Celular em pé (< 600): uma coluna — 3 cards empilhados de largura total,
+   texto em cima e foto 16:10 dentro do card, na base. */
+@media (max-width: 599.98px) {
+  .diferenciais__list {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .diferenciais__card {
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .diferenciais__body {
+    flex: none;
+    justify-content: flex-start;
+    padding: var(--pad-m-card);              /* 24px */
+  }
+
+  .diferenciais__media {
+    flex: none;
+    aspect-ratio: 16 / 10;                   /* 342 × 214 em 390 */
   }
 }
 

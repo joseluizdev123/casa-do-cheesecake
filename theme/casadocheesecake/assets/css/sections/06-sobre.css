@@ -154,10 +154,10 @@
 /* ==========================================================================
    Responsivo — o Figma só tem desktop; >= 1200px nada muda.
    Escala do projeto: tokens --fs-t-* / --fs-m-* / --gap-m-* (tokens.css).
-   Padrão mobile da referência ("Sobre nós"): título → texto → assinatura →
-   foto full-bleed encostada no fim da seção. A foto é 3:4 (1047×1400); os
-   recortes horizontais usam object-position ~42% para manter a marca da
-   caixa e a fatia (com a base) no quadro.
+   A partir de 600: foto | texto em 2 colunas (como o Figma). Celular em pé
+   (< 600): título → texto → assinatura → foto quadrada em card. A foto é 3:4
+   (1047×1400); os recortes centrados mantêm a marca da caixa e a fatia (com
+   a base) no quadro.
    ========================================================================== */
 
 /* ---------- Laptop / tablet grande (1024–1199): 2 colunas mais justas ------
@@ -198,7 +198,9 @@
     top: 0;
     text-wrap: pretty;
   }
-  .sobre__especialista-desc { text-wrap: pretty; }
+  /* 3 linhas equilibradas quando a coluna aperta (768: "…receita / e pelo
+     padrão de forno / da Casa do Cheesecake.", sem "da" no fim da linha) */
+  .sobre__especialista-desc { text-wrap: balance; }
 
   .sobre__especialista { gap: 20px; }
   .sobre__especialista-foto {
@@ -207,51 +209,37 @@
   }
   .sobre__especialista-info { gap: 4px; }
   .sobre__especialista-nome {
-    font-size: var(--fs-t-h3);
+    font-size: 20px;              /* como no desktop e nos títulos de card da 05 (24 competia com o título) */
     line-height: 1.3;
     text-wrap: balance;
   }
 }
 
-/* ---------- Tablet (768–1023): uma coluna, texto primeiro ------------------
-   Título → texto (medida ~70 caracteres) → assinatura separada por um fio →
-   foto 4:3 em card arredondado na largura do conteúdo. Abrir com o título
-   mantém o ritmo da página (05 termina em fotos; 07 abre com título). */
+/* ---------- Tablet (768–1023): 2 colunas, como no desktop e em 1024 --------
+   Foto | texto lado a lado (a foto acompanha a altura do texto, retrato ~3:4,
+   quase a foto inteira), em vez de empilhar uma foto 4:3 de 700px de largura
+   sob o texto: a seção fica ~35% mais baixa e sem o vazio à direita do texto
+   (antes limitado a 38em). Título 40 → texto 16/1.5 → assinatura. */
 @media (max-width: 1023.98px) {
-  .sobre__inner {
-    grid-template-columns: minmax(0, 1fr);
-    row-gap: 40px;
-  }
-
-  .sobre__media {
-    order: 2;                     /* foto depois do texto (DOM inalterado) */
-    align-self: auto;
-    aspect-ratio: 4 / 3;
-  }
-  .sobre__foto { object-position: 50% 42%; }
+  .sobre__inner { column-gap: 32px; }
 
   .sobre__selo {
-    width: 104px;
-    height: 104px;
+    width: 96px;
+    height: 96px;
   }
 
-  .sobre__content { gap: 24px; }
+  .sobre__content { gap: 32px; }
   .sobre__text { gap: 16px; }
 
   .sobre__title { font-size: var(--fs-t-h2); }
 
   .sobre__body {
-    max-width: 38em;
     font-size: var(--fs-t-body);
     line-height: 1.5;
   }
   .sobre__body p + p { margin-top: 12px; }
 
-  .sobre__especialista {
-    gap: 16px;
-    padding-top: 24px;
-    border-top: 1px solid var(--color-red-700-a15);
-  }
+  .sobre__especialista { gap: 16px; }
   .sobre__especialista-foto {
     width: 64px;
     height: 64px;
@@ -259,25 +247,18 @@
   .sobre__especialista-desc { line-height: 1.45; }
 }
 
-/* ---------- Mobile (< 768): padrão "Sobre nós" da referência ---------------
-   Texto em 24px de margem; foto full-bleed (borda a borda, sem raio) 8:7 —
-   390×341 em 390 — encostada no fim da seção; selo no canto alinhado à
-   margem do texto. */
+/* ---------- Mobile (< 768) ---------------------------------------------------
+   Tipografia, selo e raios do mobile. De 600 a 767 (celular deitado, tablet
+   pequeno) segue foto | texto em 2 colunas, como no tablet: em coluna única
+   a foto quadrada chegava a ~680 × 680 e o texto a ~95 caracteres por linha. */
 @media (max-width: 767.98px) {
-  .sobre { padding-bottom: 0; }
-
-  .sobre__inner { row-gap: var(--gap-m-lg); }
-
   .sobre__media {
-    width: calc(100% + 2 * var(--section-px));
-    margin-inline: calc(-1 * var(--section-px));
-    aspect-ratio: 8 / 7;
-    padding: var(--section-px);
-    border-radius: 0;
+    padding: var(--gap-m-md);
+    border-radius: var(--radius-m-card);
   }
   .sobre__foto {
-    border-radius: 0;
-    object-position: 50% 39%;
+    border-radius: var(--radius-m-card);
+    object-position: 50% 50%;
   }
 
   /* 142 → 80–92 (proporção preservada; texto do selo em contorno no SVG) */
@@ -293,7 +274,6 @@
   .sobre__title { font-size: var(--fs-m-h2); }
 
   .sobre__body {
-    max-width: none;
     font-size: var(--fs-m-body);
     line-height: var(--lh-m-body);
   }
@@ -302,6 +282,7 @@
   .sobre__especialista {
     gap: var(--gap-m-md);
     padding-top: 24px;
+    border-top: 1px solid var(--color-red-700-a15);
   }
   .sobre__especialista-foto {
     width: 56px;
@@ -314,6 +295,26 @@
   .sobre__especialista-desc {
     font-size: var(--fs-m-small);
     line-height: 1.45;
+  }
+}
+
+/* ---------- Celular em pé (< 600) ---------------------------------------------
+   Título → texto → assinatura → foto em card arredondado dentro das margens
+   (como os cards da 05; nada encostado na borda da tela nem colado na seção
+   seguinte). Card quadrado, recorte centrado, selo no
+   canto inferior esquerdo: é a composição do desktop (568 × 568, selo 25%
+   da largura) em miniatura — o selo cai na mesma área escura da foto. */
+@media (max-width: 599.98px) {
+  .sobre__inner {
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: var(--gap-m-lg);
+  }
+
+  .sobre__media {
+    order: 2;                     /* foto depois do texto (DOM inalterado) */
+    align-self: auto;
+    width: 100%;
+    aspect-ratio: 1 / 1;
   }
 }
 

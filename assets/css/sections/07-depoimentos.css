@@ -315,22 +315,17 @@ button.depoimentos__dot::before {
    (--fs-t-* / --fs-m-* / --gap-m-*). Uma media query por breakpoint.
    ========================================================================== */
 
-/* ---------- ≤1199 · laptop: 2 cards por página, setas laterais ---------- */
+/* ---------- ≤1199 · laptop/tablet: 2 cards por vez, controles abaixo -----
+   Setas laterais a −24px (Figma) ficariam a 8px da borda da tela e por cima
+   dos cards, e os dots de 8px são pequenos demais para o toque (iPad
+   paisagem): de 1199 para baixo os controles vão para a linha de baixo. */
 @media (max-width: 1199.98px) {
   .depoimentos__container {
     gap: 56px;
   }
 
   .depoimentos__card {
-    flex-basis: calc((100% - 24px) / 2);
     min-height: 0;                             /* altura pelo conteúdo (os cards da linha esticam juntos) */
-  }
-
-  /* setas centradas na altura dos cards (sem o desalinhamento do Figma) */
-  .depoimentos__nav--prev,
-  .depoimentos__nav--next {
-    top: 50%;
-    transform: translateY(-50%);
   }
 
   /* com 2+ páginas, a seta do extremo fica visivelmente inativa */
@@ -344,18 +339,6 @@ button.depoimentos__dot::before {
   [data-single-page] .depoimentos__nav,
   [data-single-page] .depoimentos__dots {
     display: none;
-  }
-}
-
-/* ---------- ≤1023 · tablet: 2 cards por vez, controles abaixo ----------- */
-@media (max-width: 1023.98px) {
-  .depoimentos__container {
-    gap: var(--content-gap);                   /* 48 · 32 no mobile */
-  }
-
-  .depoimentos__title {
-    font-size: var(--fs-t-h2);                 /* 40 */
-    line-height: 1.1;
   }
 
   /* Grade do carrossel: trilho em cima; dots à esquerda e setas à direita
@@ -397,33 +380,6 @@ button.depoimentos__dot::before {
 
   .depoimentos__card {
     flex-basis: calc((100% - var(--section-px)) / 2);
-    gap: 20px;
-    padding: 24px;
-  }
-
-  .depoimentos__card-body {
-    gap: 16px;
-  }
-
-  .depoimentos__quote {
-    font-size: var(--fs-t-body);               /* 16 */
-    line-height: 1.5;
-  }
-
-  /* autor → fonte → data empilhados (a data não "pula" de linha conforme o
-     nome), com divisor sutil entre depoimento e autor (card da referência) */
-  .depoimentos__card-foot {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 2px;
-    padding-top: 16px;
-    border-top: 1px solid var(--color-red-700-a15);
-  }
-
-  .depoimentos__author-name {
-    width: auto;                               /* nome usa a largura do card, sem quebrar pelo rótulo */
-    min-width: 0;
-    line-height: 24px;
   }
 
   /* setas 44 × 44 na linha de controles */
@@ -478,6 +434,48 @@ button.depoimentos__dot::before {
   .depoimentos__dots .depoimentos__dot.is-active::before,
   .depoimentos__dots .depoimentos__dot[aria-current="true"]::before {
     background: var(--color-red-700);
+  }
+}
+
+/* ---------- ≤1023 · tablet: título 40, card compacto -------------------- */
+@media (max-width: 1023.98px) {
+  .depoimentos__container {
+    gap: var(--content-gap);                   /* 48 · 32 no mobile */
+  }
+
+  .depoimentos__title {
+    font-size: var(--fs-t-h2);                 /* 40 */
+    line-height: 1.1;
+  }
+
+  .depoimentos__card {
+    gap: 20px;
+    padding: 24px;
+  }
+
+  .depoimentos__card-body {
+    gap: 16px;
+  }
+
+  .depoimentos__quote {
+    font-size: var(--fs-t-body);               /* 16 */
+    line-height: 1.5;
+  }
+
+  /* autor → fonte → data empilhados (a data não "pula" de linha conforme o
+     nome), com divisor sutil entre depoimento e autor (card da referência) */
+  .depoimentos__card-foot {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2px;
+    padding-top: 16px;
+    border-top: 1px solid var(--color-red-700-a15);
+  }
+
+  .depoimentos__author-name {
+    width: auto;                               /* nome usa a largura do card, sem quebrar pelo rótulo */
+    min-width: 0;
+    line-height: 24px;
   }
 }
 

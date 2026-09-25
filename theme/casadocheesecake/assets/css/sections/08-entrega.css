@@ -203,7 +203,7 @@
           (literal do Figma — nunca maior que o desktop), texto 16/1.5.
    ≤767   lista "Nossos números" da referência: uma coluna, badge 40 (ícone
           20) à esquerda, título Anton 18 alinhado ao centro do badge, texto
-          14/1.5 à esquerda, itens empilhados com gap 24 (itens de 2–3 linhas).
+          15/1.5 à esquerda, itens empilhados com gap 24 (itens de 2–3 linhas).
           Título da seção 28 centrado e CTA único centrado, largura automática.
    Os ícones são SVG posicionados em px (insets do Figma, máscara no 1º), então
    o tamanho menor vem de transform: scale na moldura — geometria preservada.
@@ -225,6 +225,53 @@
   .entrega__item-title { text-wrap: balance; }
 
   .entrega__item-text { text-wrap: pretty; }
+
+  /* Lista de links (lojas do iFood; modificador --links, também no tema WP
+     quando o texto é só links): no toque, links de uma linha de texto medem
+     ~17px e ficam a ~6px uns dos outros. Viram chips em pílula, 2 por linha,
+     mesma largura, alvo de 44px (como os chips de sabor da seção 04). Os
+     separadores ", " / " e " / "." continuam no DOM (leitores de tela leem a
+     frase); font-size 0 só os tira da tela: viram itens flex de largura 0.
+     Colunas com margem (não gap): o gap contaria os separadores vazios. */
+  .entrega__text > .entrega__item-text--links {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-self: center;
+    row-gap: 8px;
+    width: calc(100% + 8px);
+    max-width: 348px;
+    margin: 4px -4px 0;
+    font-size: 0;
+  }
+
+  .entrega__item-text--links a {
+    display: inline-flex;
+    flex: 0 0 calc(50% - 8.5px);                        /* 2 por linha (0.5px de folga contra arredondamento) */
+    align-items: center;
+    justify-content: center;
+    min-width: 0;
+    min-height: 44px;                                   /* alvo de toque */
+    margin-inline: 4px;                                 /* 8 entre chips */
+    padding: 6px 8px;
+    border: 1px solid color-mix(in srgb, var(--color-red-700) 45%, transparent);
+    border-radius: var(--radius-pill);
+    font-size: var(--fs-t-body);                        /* 16 */
+    font-weight: 500;
+    line-height: 1.2;
+    text-align: center;
+    text-decoration: none;
+    -webkit-tap-highlight-color: transparent;
+    transition: color var(--dur) var(--ease), background-color var(--dur) var(--ease), border-color var(--dur) var(--ease);
+  }
+
+  .entrega__item-text--links a:hover,
+  .entrega__item-text--links a:focus-visible,
+  .entrega__item-text--links a:active {
+    border-color: var(--color-red-700);
+    background-color: var(--color-red-700-a08);
+    color: var(--color-red-700);
+  }
 }
 
 /* ---- Tablet (768–1023) ---- */
@@ -300,8 +347,20 @@
     text-wrap: wrap;
   }
 
+  /* pretty (não o balance global do mobile): a descrição usa a largura da
+     coluna, como o item 1, e só evita a palavra sozinha na última linha */
   .entrega__item-text {
-    font-size: var(--fs-m-small);                       /* 14 — itens de lista da referência */
+    font-size: var(--fs-m-body);                        /* 15 — corpo do mobile (14 ficava miúdo ao lado do título 18) */
     line-height: var(--lh-m-body);                      /* 1.5 */
+    text-wrap: pretty !important;
   }
+
+  /* chips alinhados à esquerda com o texto; o 1º encosta na margem da coluna */
+  .entrega__text > .entrega__item-text--links {
+    justify-content: flex-start;
+    align-self: flex-start;
+    margin-top: 8px;                                    /* título → chips: 4 + 8 */
+  }
+
+  .entrega__item-text--links a { font-size: var(--fs-m-label); }   /* 14 */
 }

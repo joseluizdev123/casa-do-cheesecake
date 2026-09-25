@@ -222,7 +222,11 @@
     max-width: var(--fatia-col);
   }
 
-  .primeira-fatia__text { text-wrap: balance; }  /* linhas equilibradas: nada de "São Paulo." sozinho */
+  .primeira-fatia__text {
+    font-size: var(--fs-t-body);        /* 16 — os 14px do Figma ficam miúdos fora do desktop */
+    line-height: 1.5;
+    text-wrap: balance;                 /* linhas equilibradas: nada de "São Paulo." sozinho */
+  }
 
   .primeira-fatia__content .btn { margin-top: 8px; }
 }
@@ -237,7 +241,18 @@
     --fatia-w: clamp(232px, 32vw, 280px);   /* 246 @768 · 267 @834 */
     --fatia-leak: 32px;
     --fatia-gap: 32px;
+    /* a faixa amarela é full-bleed: o respiro acima dela é o padding de baixo
+       do hero (--section-py); somar outro --section-py dobrava o vazio creme */
+    padding-top: 0;
+    /* embaixo, só o vazamento das fatias: da base da fatia ao título do
+       cardápio fica exatamente --section-py (antes sobravam +8px de creme) */
+    padding-bottom: var(--fatia-leak);
+    /* botão compacto do mobile também no tablet: 16/22 + 14 = 50px */
+    --fs-button: 16px;
+    --lh-btn: 22px;
   }
+
+  .primeira-fatia__content .btn { padding: 14px 28px; }
 
   .primeira-fatia__box {
     margin-inline: calc(-1 * var(--section-px));
@@ -311,7 +326,19 @@
     line-height: var(--lh-m-body);      /* 1.5 */
   }
 
-  .primeira-fatia__content .btn { margin-top: var(--gap-m-md); } /* 8 + 16 = 24 */
+  .primeira-fatia__content .btn {
+    margin-top: var(--gap-m-md);        /* 8 + 16 = 24 */
+    padding-inline: 24px;               /* pílula do mobile (components.css) */
+  }
+}
+
+
+/* ---------- 1024–1199 (iPad deitado / laptop pequeno) ----------
+   Mantém a composição do desktop, mas numa tela baixa os 80 + 80 de creme
+   entre os botões do hero e o box amarelo pesavam (160px): 80 + 48 = 128,
+   o mesmo respiro que fica entre o box e o cardápio (48 + 80). */
+@media (min-width: 1024px) and (max-width: 1199.98px) {
+  .primeira-fatia { padding-top: 48px; }
 }
 
 
