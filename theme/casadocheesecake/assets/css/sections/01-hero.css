@@ -172,6 +172,15 @@
   gap: 24px;                           /* só atua abaixo de 1440 (no Figma sobram 67px) */
   padding-top: 48px;
   padding-bottom: var(--section-py);
+  /* O parallax (01-hero.js, ≥1024) desce a foto e o recorte da fatia/colher
+     até 40px; o recorte não é cortado pela faixa da foto e vazava sobre esta
+     área. A faixa dos botões fica por cima, com fundo creme de ponta a ponta
+     (box-shadow + clip-path: sangra na horizontal sem gerar rolagem lateral). */
+  position: relative;
+  z-index: 2;
+  background: var(--color-cream-50);
+  box-shadow: 0 0 0 100vmax var(--color-cream-50);
+  clip-path: inset(0 -100vmax);
 }
 
 .hero__actions {

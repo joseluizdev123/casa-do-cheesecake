@@ -155,6 +155,36 @@
   }
 }
 
+/* Desktop (≥1024): menu | logo | menu num grid de 3 colunas. O logo entra no
+   fluxo (antes era absolute e não ocupava espaço, então nada impedia o menu de
+   passar por baixo dele quando a área útil encolhia — zoom do navegador,
+   escala do Windows, fonte maior). Colunas laterais iguais = logo exatamente
+   no centro (665.95 @1440, como no Figma). Se faltar espaço, o menu quebra
+   em 2 linhas dentro da própria coluna em vez de invadir o logo. */
+@media (min-width: 1024px) {
+  .site-header__inner {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+    align-items: start;
+  }
+  .site-header__inner > .site-header__nav:first-of-type { grid-column: 1; min-width: 0; }
+  .site-header__inner > .site-header__nav:last-of-type { grid-column: 3; justify-self: end; min-width: 0; }
+  .site-logo {
+    position: relative;
+    top: 0;
+    left: auto;
+    grid-column: 2;
+    grid-row: 1;
+    transform: none;
+  }
+  .site-header__menu--left,
+  .site-header__menu--right {
+    max-width: 100%;
+    flex-wrap: wrap;
+    row-gap: 4px;
+  }
+}
+
 /* ---------- Header: tablet/mobile (padrão do site de referência) ---------
    O Figma só tem desktop 1440. Abaixo de 1024px: barra 72px com borda
    inferior, logo à esquerda, hambúrguer 44×44 à direita; menu em painel
