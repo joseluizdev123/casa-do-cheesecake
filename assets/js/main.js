@@ -89,6 +89,7 @@
       if (label) label.textContent = open ? 'Fechar menu' : 'Abrir menu';
       drawer.hidden = !open;
       if (header) header.classList.toggle('is-menu-open', open);
+      document.documentElement.classList.toggle('is-menu-open', open);   // página parada atrás do menu
       // foco no 1º link só quando aberto pelo teclado (no toque/mouse não aparece contorno)
       if (open && viaKeyboard) {
         var first = drawer.querySelector('a');
@@ -99,7 +100,13 @@
       setOpen(toggle.getAttribute('aria-expanded') !== 'true', e.detail === 0);
     });
     drawer.addEventListener('click', function (e) {
-      if (e.target.closest('a')) setOpen(false);
+      var link = e.target.closest('a');
+      if (!link) return;
+      setOpen(false);
+      // chip de sabor: além de rolar até a seção, abre a aba do sabor escolhido
+      var sabor = link.getAttribute('data-sabor');
+      var aba = sabor && document.getElementById('sabores-aba-' + sabor);
+      if (aba) window.setTimeout(function () { aba.click(); }, 60);
     });
     // clique fora do painel fecha (a página continua visível abaixo, como na referência)
     document.addEventListener('click', function (e) {

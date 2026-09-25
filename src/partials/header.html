@@ -27,27 +27,30 @@
   <div class="site-header__drawer" id="menu-mobile" hidden data-menu-drawer>
     <nav class="mobile-nav" aria-label="Menu principal">
       <ul class="mobile-nav__list" role="list">
-        <li class="mobile-nav__item is-current"><a class="mobile-nav__link" href="#topo" aria-current="page">Página inicial</a></li>
         <li class="mobile-nav__item"><a class="mobile-nav__link" href="#cardapio">Nosso cheesecake</a></li>
-        <li class="mobile-nav__item">
-          <a class="mobile-nav__link" href="#sabores">Sabores<span class="mobile-nav__caret" aria-hidden="true"></span></a>
-          <ul class="mobile-nav__sub" role="list">
-            <li><a href="#sabores">Frutas vermelhas</a></li>
-            <li><a href="#sabores">Doce de leite</a></li>
-            <li><a href="#sabores">Morangos</a></li>
-            <li><a href="#sabores">Blue berry</a></li>
+        <li class="mobile-nav__item mobile-nav__item--sabores">
+          <a class="mobile-nav__link" href="#sabores">Sabores</a>
+          <ul class="mobile-nav__chips" role="list" aria-label="Sabores">
+            <li><a class="mobile-nav__chip" href="#sabores" data-sabor="frutas-vermelhas" style="--chip: var(--color-red-700)">Frutas vermelhas</a></li>
+            <li><a class="mobile-nav__chip" href="#sabores" data-sabor="doce-de-leite" style="--chip: var(--color-yellow-400)">Doce de leite</a></li>
+            <li><a class="mobile-nav__chip" href="#sabores" data-sabor="morangos" style="--chip: var(--color-pink-200)">Morangos</a></li>
+            <li><a class="mobile-nav__chip" href="#sabores" data-sabor="blue-berry" style="--chip: var(--color-blue-200)">Blue berry</a></li>
           </ul>
         </li>
-        <li class="mobile-nav__item"><a class="mobile-nav__link" href="https://pedido.brendi.com.br/a-casa-do-cheesecake" target="_blank" rel="noopener">Pedir agora</a></li>
         <li class="mobile-nav__item"><a class="mobile-nav__link" href="#sobre">Sobre nós</a></li>
         <li class="mobile-nav__item"><a class="mobile-nav__link" href="https://acasadocheesecake.com.br/blog/">Blog</a></li>
         <li class="mobile-nav__item"><a class="mobile-nav__link" href="#contato">Contato</a></li>
       </ul>
     </nav>
-    <a class="mobile-nav__cta" href="https://wa.me/5511956022366?text=Ol%C3%A1!+Passei+pelo+site+e+gostaria+de+mais+informa%C3%A7%C3%B5es." target="_blank" rel="noopener">
-      <span class="mobile-nav__cta-icon" aria-hidden="true"></span>
-      <span>Fale conosco</span>
-    </a>
+    <div class="mobile-nav__actions">
+      <a class="btn btn--primary mobile-nav__btn" href="https://pedido.brendi.com.br/a-casa-do-cheesecake" target="_blank" rel="noopener">Pedir agora</a>
+      <a class="btn btn--secondary mobile-nav__btn" href="https://wa.me/5511956022366?text=Ol%C3%A1!+Passei+pelo+site+e+gostaria+de+mais+informa%C3%A7%C3%B5es." target="_blank" rel="noopener"><span class="mobile-nav__wa" aria-hidden="true"></span>Falar no WhatsApp</a>
+    </div>
+    <p class="mobile-nav__contact">
+      <a href="tel:+5511956022366">(11) 95602-2366</a>
+      <a href="https://www.instagram.com/acasadocheesecakeoficial/" target="_blank" rel="noopener">Instagram</a>
+      <a href="https://www.facebook.com/acasadocheesecakeoficial" target="_blank" rel="noopener">Facebook</a>
+    </p>
   </div>
 </header>
 <a class="whatsapp-fab" href="https://wa.me/5511956022366?text=Ol%C3%A1!+Passei+pelo+site+e+gostaria+de+mais+informa%C3%A7%C3%B5es." target="_blank" rel="noopener" aria-label="Falar no WhatsApp"></a>

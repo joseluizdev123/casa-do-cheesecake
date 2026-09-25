@@ -55,15 +55,20 @@ $cdc_right  = cdc_menu_links(
 	<div class="site-header__drawer" id="menu-mobile" hidden data-menu-drawer>
 		<nav class="mobile-nav" aria-label="<?php esc_attr_e( 'Menu principal', 'casadocheesecake' ); ?>">
 			<ul class="mobile-nav__list" role="list">
-				<li class="mobile-nav__item is-current"><a class="mobile-nav__link" href="<?php echo esc_url( home_url( '/' ) ); ?>" aria-current="page"><?php esc_html_e( 'Página inicial', 'casadocheesecake' ); ?></a></li>
 				<?php foreach ( array_merge( $cdc_left, $cdc_right ) as $cdc_link ) : ?>
-					<?php $cdc_is_sabores = false !== strpos( $cdc_link['url'], '#sabores' ); ?>
-					<li class="mobile-nav__item">
-						<a class="mobile-nav__link" href="<?php echo esc_url( $cdc_link['url'] ); ?>"<?php echo $cdc_link['target'] ? ' target="' . esc_attr( $cdc_link['target'] ) . '" rel="noopener"' : ''; ?>><?php echo esc_html( $cdc_link['label'] ); ?><?php if ( $cdc_is_sabores ) : ?><span class="mobile-nav__caret" aria-hidden="true"></span><?php endif; ?></a>
-						<?php if ( $cdc_is_sabores ) : ?>
-							<ul class="mobile-nav__sub" role="list">
-								<?php foreach ( cdc_posts( 'cdc_cheesecake' ) as $cdc_sabor ) : ?>
-									<li><a href="<?php echo esc_url( $cdc_link['url'] ); ?>"><?php echo esc_html( get_the_title( $cdc_sabor ) ); ?></a></li>
+					<?php
+					if ( $cdc_link['url'] === $cdc_pedido ) {
+						continue; // "Pedir agora" vira o botão principal no pé do menu.
+					}
+					$cdc_sabores = false !== strpos( $cdc_link['url'], '#sabores' ) ? cdc_posts( 'cdc_cheesecake' ) : array();
+					?>
+					<li class="mobile-nav__item<?php echo $cdc_sabores ? ' mobile-nav__item--sabores' : ''; ?>">
+						<a class="mobile-nav__link" href="<?php echo esc_url( $cdc_link['url'] ); ?>"<?php echo $cdc_link['target'] ? ' target="' . esc_attr( $cdc_link['target'] ) . '" rel="noopener"' : ''; ?>><?php echo esc_html( $cdc_link['label'] ); ?></a>
+						<?php if ( $cdc_sabores ) : ?>
+							<ul class="mobile-nav__chips" role="list" aria-label="<?php esc_attr_e( 'Sabores', 'casadocheesecake' ); ?>">
+								<?php foreach ( $cdc_sabores as $cdc_sabor ) : ?>
+									<?php $cdc_cor = sanitize_hex_color( (string) cdc_meta( $cdc_sabor->ID, 'cor_fundo' ) ); ?>
+									<li><a class="mobile-nav__chip" href="<?php echo esc_url( $cdc_link['url'] ); ?>" data-sabor="<?php echo esc_attr( sanitize_title( $cdc_sabor->post_title ) ); ?>"<?php echo $cdc_cor ? ' style="--chip: ' . esc_attr( $cdc_cor ) . '"' : ''; ?>><?php echo esc_html( get_the_title( $cdc_sabor ) ); ?></a></li>
 								<?php endforeach; ?>
 							</ul>
 						<?php endif; ?>
@@ -71,10 +76,21 @@ $cdc_right  = cdc_menu_links(
 				<?php endforeach; ?>
 			</ul>
 		</nav>
-		<a class="mobile-nav__cta" href="<?php echo esc_url( cdc_mod( 'cdc_contato_whatsapp' ) ); ?>" target="_blank" rel="noopener">
-			<span class="mobile-nav__cta-icon" aria-hidden="true"></span>
-			<span><?php esc_html_e( 'Fale conosco', 'casadocheesecake' ); ?></span>
-		</a>
+		<div class="mobile-nav__actions">
+			<a class="btn btn--primary mobile-nav__btn" href="<?php echo esc_url( $cdc_pedido ); ?>"<?php echo cdc_target_attr( $cdc_pedido ); // phpcs:ignore WordPress.Security.EscapeOutput ?>><?php esc_html_e( 'Pedir agora', 'casadocheesecake' ); ?></a>
+			<a class="btn btn--secondary mobile-nav__btn" href="<?php echo esc_url( cdc_mod( 'cdc_contato_whatsapp' ) ); ?>" target="_blank" rel="noopener"><span class="mobile-nav__wa" aria-hidden="true"></span><?php esc_html_e( 'Falar no WhatsApp', 'casadocheesecake' ); ?></a>
+		</div>
+		<?php
+		$cdc_tel     = (string) cdc_mod( 'cdc_contato_telefone' );
+		$cdc_tel_num = preg_replace( '/\D+/', '', $cdc_tel );
+		?>
+		<p class="mobile-nav__contact">
+			<?php if ( $cdc_tel_num ) : ?>
+				<a href="<?php echo esc_url( 'tel:+55' . $cdc_tel_num ); ?>"><?php echo esc_html( $cdc_tel ); ?></a>
+			<?php endif; ?>
+			<a href="<?php echo esc_url( cdc_mod( 'cdc_contato_instagram' ) ); ?>" target="_blank" rel="noopener">Instagram</a>
+			<a href="<?php echo esc_url( cdc_mod( 'cdc_contato_facebook' ) ); ?>" target="_blank" rel="noopener">Facebook</a>
+		</p>
 	</div>
 </header>
 <a class="whatsapp-fab" href="<?php echo esc_url( cdc_mod( 'cdc_contato_whatsapp' ) ); ?>" target="_blank" rel="noopener" aria-label="<?php esc_attr_e( 'Falar no WhatsApp', 'casadocheesecake' ); ?>"></a>
