@@ -35,7 +35,7 @@ function cdc_faq_defaults() {
 		),
 		array(
 			'title'    => 'Quanto tempo dura na geladeira? Pode congelar?',
-			'resposta' => 'Na geladeira, bem fechado, o cheesecake dura [X dias]. Ele também pode ser congelado por até [X dias]: leve ao congelador inteiro ou em fatias, e transfira para a geladeira algumas horas antes de servir — nunca descongele em temperatura ambiente nem no micro-ondas, porque a textura se perde. [confirmar os dois prazos e a orientação de descongelamento]',
+			'resposta' => 'Na geladeira, bem fechado, o cheesecake dura até 7 dias. No congelador, inteiro ou em fatias, dura até 180 dias. Para descongelar, deixe cerca de 2 horas em temperatura ambiente antes de servir. Não use o micro-ondas, porque a textura se perde.',
 		),
 		array(
 			'title'    => 'Quais as formas de pagamento?',
@@ -43,7 +43,7 @@ function cdc_faq_defaults() {
 		),
 		array(
 			'title'    => 'A entrega chega em qualquer bairro de São Paulo?',
-			'resposta' => 'Atendemos toda a cidade de São Paulo, dentro da nossa área de cobertura, com taxa a partir de R$15. O cardápio confirma a disponibilidade pelo seu endereço antes de você fechar o pedido, então não tem risco de comprar e descobrir depois que não chega. Também estamos no iFood em Pinheiros, Vila Leopoldina, Bela Vista e Brooklin. [confirmar: se a taxa varia por região]',
+			'resposta' => 'Entregamos em São Paulo, dentro da nossa área de cobertura. O cardápio confirma a disponibilidade pelo seu endereço antes de você fechar o pedido, então não tem risco de comprar e descobrir depois que não chega. Também estamos no iFood em Pinheiros, Vila Leopoldina, Bela Vista e Brooklin.',
 		),
 		array(
 			'title'    => 'Como funciona a fatia por conta da casa?',

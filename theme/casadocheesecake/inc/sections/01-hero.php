@@ -51,7 +51,7 @@ add_filter( 'cdc_customizer_sections', function ( $sections ) {
 			'cdc_hero_info_1'       => array(
 				'label'   => 'Destaque 1 (entrega)',
 				'type'    => 'text',
-				'default' => 'ENTREGA EM TODA SÃO PAULO',
+				'default' => 'ENTREGA EM SÃO PAULO',
 			),
 			'cdc_hero_info_2'       => array(
 				'label'   => 'Destaque 2 (fatias)',

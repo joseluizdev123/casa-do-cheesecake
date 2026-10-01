@@ -35,7 +35,7 @@ function cdc_diferenciais_defaults() {
 			'tag'      => '',
 			'destaque' => '',
 			'featured' => 'images/05-diferenciais-assado.webp',
-			'alt'      => 'Fatia de cheesecake assado coberta de framboesas e mirtilos',
+			'alt'      => 'Fatia de cheesecake assado com calda de morango, ao lado da caixa da Casa do Cheesecake',
 		),
 		array(
 			'title'    => 'Calda até a borda',
@@ -43,7 +43,7 @@ function cdc_diferenciais_defaults() {
 			'tag'      => '',
 			'destaque' => '',
 			'featured' => 'images/05-diferenciais-calda.webp',
-			'alt'      => 'Cheesecake inteiro com calda de frutas vermelhas cobrindo a superfície até a borda',
+			'alt'      => 'Cheesecake inteiro com calda de frutas vermelhas cobrindo a superfície até a borda, com uma fatia cortada',
 		),
 	);
 }

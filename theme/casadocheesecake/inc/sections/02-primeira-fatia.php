@@ -24,7 +24,8 @@ add_filter( 'cdc_customizer_sections', function ( $sections ) {
 			'cdc_fatia_subtitulo'         => array(
 				'label'   => 'Subtítulo',
 				'type'    => 'text',
-				'default' => 'Você paga só os R$15 da entrega.',
+				'default' => '',
+				'help'    => 'Opcional. Em branco, a linha não aparece.',
 			),
 			'cdc_fatia_texto'             => array(
 				'label'   => 'Texto (condições)',
@@ -62,7 +63,7 @@ add_filter( 'cdc_customizer_sections', function ( $sections ) {
 			'cdc_fatia_imagem_fundo_alt'  => array(
 				'label'   => 'Descrição da fatia da frente (acessibilidade)',
 				'type'    => 'text',
-				'default' => 'Fatia de cheesecake com calda de frutas vermelhas e um morango por cima',
+				'default' => 'Fatia de cheesecake com calda de frutas vermelhas escorrendo pela lateral, ao lado de morangos',
 			),
 		),
 	);

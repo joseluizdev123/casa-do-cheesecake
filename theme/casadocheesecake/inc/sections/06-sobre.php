@@ -23,7 +23,7 @@ add_filter( 'cdc_customizer_sections', function ( $sections ) {
 			'cdc_sobre_texto'              => array(
 				'label'   => 'Texto (um parágrafo por linha)',
 				'type'    => 'textarea',
-				'default' => "Somos uma cozinha em São Paulo, com uma equipe que assa, resfria, cobre e embala cada torta que sai daqui — e que faz isso desde 2004, com a mesma receita e o mesmo padrão.\nCada cheesecake é assado por encomenda e sai da cozinha direto para a sua casa. Não trabalhamos com loja física nem com revenda em prateleira.",
+				'default' => "Somos uma fábrica própria em São Paulo, com fornadas todos os dias. Desde 2004, cada torta segue a mesma receita e o mesmo padrão.\nCada cheesecake sai direto da fábrica para a sua casa, sem loja física nem revenda em prateleira.",
 			),
 			'cdc_sobre_imagem'             => array(
 				'label'   => 'Foto principal',

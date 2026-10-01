@@ -27,7 +27,9 @@ $cdc_fatia_externo = cdc_is_external( $cdc_fatia_link );
 			</div>
 
 			<div class="primeira-fatia__content" data-figma-node="7057:167">
-				<p class="primeira-fatia__subtitle" data-figma-node="7057:168"><?php echo esc_html( cdc_mod( 'cdc_fatia_subtitulo' ) ); ?></p>
+				<?php if ( '' !== trim( cdc_mod( 'cdc_fatia_subtitulo' ) ) ) : ?>
+					<p class="primeira-fatia__subtitle" data-figma-node="7057:168"><?php echo esc_html( cdc_mod( 'cdc_fatia_subtitulo' ) ); ?></p>
+				<?php endif; ?>
 				<p class="primeira-fatia__text" data-figma-node="7057:169"><?php echo str_replace( ' · ', '&nbsp;· ', cdc_rich( cdc_mod( 'cdc_fatia_texto' ) ) ); // phpcs:ignore WordPress.Security.EscapeOutput -- escapado em cdc_rich(); o nbsp prende cada " · " à palavra anterior (nenhuma linha começa com o ponto). ?></p>
 				<a class="btn btn--primary" href="<?php echo esc_url( $cdc_fatia_link ); ?>"<?php echo $cdc_fatia_externo ? ' target="_blank" rel="noopener"' : ''; ?> data-figma-node="7073:338"><?php echo esc_html( cdc_mod( 'cdc_fatia_botao' ) ); ?></a>
 			</div>

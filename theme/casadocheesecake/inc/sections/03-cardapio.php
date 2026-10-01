@@ -26,7 +26,7 @@ add_filter( 'cdc_customizer_sections', function ( $sections ) {
 			'cdc_cardapio_texto'       => array(
 				'label'   => 'Texto à direita do título',
 				'type'    => 'textarea',
-				'default' => 'Todos assados na nossa cozinha em São Paulo e entregues gelados, prontos para servir. Escolha o tamanho pela quantidade de pessoas.',
+				'default' => 'Todos assados na nossa cozinha em São Paulo. Os cheesecakes inteiros chegam congelados, para não rachar no trajeto, e precisam de cerca de 2 horas em temperatura ambiente para descongelar. As fatias chegam refrigeradas, prontas para servir. Escolha o tamanho pela quantidade de pessoas.',
 			),
 			'cdc_cardapio_botao_pedir' => array(
 				'label'   => 'Rótulo do botão de cada preço',

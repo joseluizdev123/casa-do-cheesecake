@@ -19,8 +19,8 @@ defined( 'ABSPATH' ) || exit;
 function cdc_entrega_items_defaults() {
 	return array(
 		1 => array(
-			'titulo' => 'Toda São Paulo',
-			'texto'  => 'Qualquer região dentro da nossa área de cobertura. Taxa a partir de R$15.',
+			'titulo' => 'Área de cobertura',
+			'texto'  => 'Qualquer região dentro da nossa área de cobertura.',
 			'icone'  => 'images/08-entrega-icon-local.svg',
 		),
 		2 => array(
@@ -30,8 +30,8 @@ function cdc_entrega_items_defaults() {
 			'icone'  => 'images/08-entrega-icon-calendario.svg',
 		),
 		3 => array(
-			'titulo' => 'Chega gelado e pronto',
-			'texto'  => 'Embalagem própria e temperatura de servir. Não precisa fazer nada além de cortar.',
+			'titulo' => 'Congelado ou refrigerado',
+			'texto'  => 'Embalagem própria. O inteiro descongela em cerca de 2 horas; a fatia já chega pronta para servir.',
 			'icone'  => 'images/08-entrega-icon-cheesecake.svg',
 		),
 		4 => array(
@@ -47,7 +47,7 @@ add_filter( 'cdc_customizer_sections', function ( $sections ) {
 		'cdc_entrega_titulo' => array(
 			'label'   => 'Título',
 			'type'    => 'text',
-			'default' => 'Entrega em toda a cidade de São Paulo',
+			'default' => 'Entrega em São Paulo',
 		),
 	);
 

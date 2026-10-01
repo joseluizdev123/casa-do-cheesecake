@@ -25,7 +25,7 @@ add_filter( 'cdc_customizer_sections', function ( $sections ) {
 			'cdc_rest_texto'       => array(
 				'label'   => 'Texto',
 				'type'    => 'textarea',
-				'default' => 'Cheesecakes inteiros prontos para porcionar, entrega semanal programada e **pedido mínimo de R$500.**',
+				'default' => 'Cheesecakes inteiros já porcionados, entrega semanal programada, 7 dias de prazo para pagamento a partir do 2º pedido e **pedido mínimo de R$500.**',
 				'help'    => 'Use **asteriscos duplos** para deixar um trecho em negrito.',
 			),
 			'cdc_rest_botao'       => array(
