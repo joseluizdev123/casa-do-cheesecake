@@ -31,7 +31,7 @@ function cdc_faq_defaults() {
 		),
 		array(
 			'title'    => 'Consigo receber hoje?',
-			'resposta' => 'Sim, para pedidos feitos dentro do horário de funcionamento e enquanto houver estoque do dia. É só escolher a entrega para hoje no cardápio — o sistema confirma a disponibilidade pelo seu endereço antes de fechar o pedido. Para data específica, como festa ou presente, o ideal é agendar com antecedência. [confirmar: horário de funcionamento e prazo mínimo]',
+			'resposta' => 'Depende da agenda do dia. Pelo nosso cardápio online e pelo WhatsApp, as entregas são de segunda a sexta, das 10h às 17h, programadas em rota — por isso não dá para garantir a entrega no mesmo dia. Para não correr risco, peça com 24 a 48 horas de antecedência; os cheesecakes especiais pedem reserva de 72 horas. Pelo iFood, valem os horários de cada unidade no aplicativo.',
 		),
 		array(
 			'title'    => 'Quanto tempo dura na geladeira? Pode congelar?',
@@ -47,7 +47,7 @@ function cdc_faq_defaults() {
 		),
 		array(
 			'title'    => 'Como funciona a fatia por conta da casa?',
-			'resposta' => 'É para quem ainda não conhece a marca: você preenche o formulário, escolhe o sabor e a data, e recebe uma fatia pagando só os R$15 da entrega. É 1 fatia por pessoa, de segunda a sexta das 10h às 17h, enquanto durar o estoque do dia, dentro da nossa área de entrega em São Paulo.',
+			'resposta' => 'É para quem ainda não conhece a marca: você pede pelo botão “Quero minha fatia”, escolhe o sabor, a data e o horário, e recebe a fatia por nossa conta — paga só a taxa de entrega de R$15, por Pix. É 1 fatia por pessoa, com entregas de segunda a sexta, das 10h às 18h, enquanto durar o estoque do dia, dentro da nossa área de entrega em São Paulo.',
 		),
 		array(
 			'title'    => 'O cheesecake de vocês é assado?',

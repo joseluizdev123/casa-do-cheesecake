@@ -30,7 +30,7 @@ add_filter( 'cdc_customizer_sections', function ( $sections ) {
 			'cdc_fatia_texto'             => array(
 				'label'   => 'Texto (condições)',
 				'type'    => 'textarea',
-				'default' => '1 fatia por pessoa · de segunda a sexta, das 10h às 17h · enquanto durar o estoque do dia · dentro da área de entrega em São Paulo.',
+				'default' => '1 fatia por pessoa · de segunda a sexta, das 10h às 18h · enquanto durar o estoque do dia · dentro da área de entrega em São Paulo.',
 			),
 			'cdc_fatia_botao'             => array(
 				'label'   => 'Texto do botão',
