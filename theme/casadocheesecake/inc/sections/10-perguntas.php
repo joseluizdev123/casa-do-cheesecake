@@ -47,7 +47,7 @@ function cdc_faq_defaults() {
 		),
 		array(
 			'title'    => 'Como funciona a fatia por conta da casa?',
-			'resposta' => 'É para quem ainda não conhece a marca: você pede pelo botão “Quero minha fatia”, escolhe o sabor, a data e o horário, e recebe a fatia por nossa conta — paga só a taxa de entrega de R$15, por Pix. É 1 fatia por pessoa, com entregas de segunda a sexta, das 10h às 18h, enquanto durar o estoque do dia, dentro da nossa área de entrega em São Paulo.',
+			'resposta' => 'É para quem ainda não conhece a marca: você pede pelo botão “Quero minha fatia”, escolhe o sabor, a data e o horário, e recebe a fatia por nossa conta — você paga só a entrega. É 1 fatia por pessoa, com entregas de segunda a sexta, das 10h às 18h, enquanto durar o estoque do dia, dentro da nossa área de entrega em São Paulo.',
 		),
 		array(
 			'title'    => 'O cheesecake de vocês é assado?',
