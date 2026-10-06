@@ -37,7 +37,7 @@ $cdc_right  = cdc_menu_links(
 			</ul>
 		</nav>
 		<a class="site-logo" href="<?php echo esc_url( home_url( '/' ) ); ?>" aria-label="<?php echo esc_attr( get_bloginfo( 'name' ) . ' — página inicial' ); ?>">
-			<img src="<?php echo esc_url( cdc_image( 'cdc_global_logo' ) ); ?>" alt="<?php echo esc_attr( get_bloginfo( 'name' ) ); ?>" width="584" height="590" fetchpriority="high">
+			<img src="<?php echo esc_url( cdc_image( 'cdc_global_logo' ) ); ?>" alt="<?php echo esc_attr( get_bloginfo( 'name' ) ); ?>" width="296" height="299" fetchpriority="high">
 		</a>
 		<nav class="site-header__nav" aria-label="<?php esc_attr_e( 'Institucional', 'casadocheesecake' ); ?>">
 			<ul class="site-header__menu site-header__menu--right" role="list">

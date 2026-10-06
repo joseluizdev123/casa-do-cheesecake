@@ -56,7 +56,7 @@ add_filter( 'cdc_customizer_sections', function ( $sections ) {
 			'cdc_hero_info_2'       => array(
 				'label'   => 'Destaque 2 (fatias)',
 				'type'    => 'text',
-				'default' => '+5 milhões de fatias servidas',
+				'default' => '+5 milhões de fatias entregues',
 			),
 			'cdc_hero_info_3'       => array(
 				'label'   => 'Destaque 3 (avaliações)',
@@ -76,7 +76,7 @@ add_filter( 'cdc_customizer_sections', function ( $sections ) {
 			'cdc_hero_texto'        => array(
 				'label'   => 'Texto de apoio',
 				'type'    => 'textarea',
-				'default' => 'Assado no estilo americano, com cream cheese Philadelphia de verdade, textura densa e calda até a borda. Mais de **5 milhões** de fatias servidas desde 2004.',
+				'default' => 'Assado no estilo americano, com cream cheese Philadelphia de verdade, textura densa e calda na medida certa. Mais de **5 milhões** de fatias entregues desde 2004.',
 				'help'    => 'Use **texto** para negrito.',
 			),
 		),

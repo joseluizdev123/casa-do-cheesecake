@@ -31,7 +31,7 @@ function cdc_faq_defaults() {
 		),
 		array(
 			'title'    => 'Consigo receber hoje?',
-			'resposta' => 'Depende da agenda do dia. Pelo nosso cardápio online e pelo WhatsApp, as entregas são de segunda a sexta, das 10h às 17h, programadas em rota — por isso não dá para garantir a entrega no mesmo dia. Para não correr risco, peça com 24 a 48 horas de antecedência; os cheesecakes especiais pedem reserva de 72 horas. Pelo iFood, valem os horários de cada unidade no aplicativo.',
+			'resposta' => 'Sim. Entregamos no mesmo dia, em até 2 horas, de segunda a domingo, das 10h às 17h — inclusive feriados. Se preferir, também dá para agendar a entrega para outra data.',
 		),
 		array(
 			'title'    => 'Quanto tempo dura na geladeira? Pode congelar?',

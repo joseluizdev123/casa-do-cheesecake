@@ -13,7 +13,7 @@ add_filter( 'cdc_customizer_sections', function ( $sections ) {
 		'title'    => 'Contato e links globais',
 		'priority' => 1,
 		'fields'   => array(
-			'cdc_global_logo'        => array( 'label' => 'Logo (foto do selo)', 'type' => 'image', 'default' => 'images/logo-photo.png' ),
+			'cdc_global_logo'        => array( 'label' => 'Logo (selo redondo)', 'type' => 'image', 'default' => 'images/footer-logo.webp' ),
 			'cdc_contato_whatsapp'   => array(
 				'label'   => 'Link do WhatsApp',
 				'type'    => 'url',

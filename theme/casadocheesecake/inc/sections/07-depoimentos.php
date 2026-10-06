@@ -20,7 +20,7 @@ add_filter( 'cdc_customizer_sections', function ( $sections ) {
 			'cdc_depo_titulo'    => array(
 				'label'   => 'Título',
 				'type'    => 'text',
-				'default' => 'O que dizem quem já pediu',
+				'default' => 'O que diz quem já pediu',
 			),
 			'cdc_depo_nota'      => array(
 				'label'   => 'Nota exibida (estrelas, 1 a 5)',

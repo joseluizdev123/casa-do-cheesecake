@@ -38,12 +38,12 @@ function cdc_diferenciais_defaults() {
 			'alt'      => 'Fatia de cheesecake assado com calda de morango, ao lado da caixa da Casa do Cheesecake',
 		),
 		array(
-			'title'    => 'Calda até a borda',
-			'texto'    => 'A cobertura é generosa por decisão, não por acidente. Fatia com calda escassa não é a sobremesa que a gente aprendeu a fazer.',
+			'title'    => 'Calda na medida certa',
+			'texto'    => 'Não é uma torta doce demais. Quem prova elogia o equilíbrio: a cobertura vem na medida certa, sem enjoar.',
 			'tag'      => '',
 			'destaque' => '',
 			'featured' => 'images/05-diferenciais-calda.webp',
-			'alt'      => 'Cheesecake inteiro com calda de frutas vermelhas cobrindo a superfície até a borda, com uma fatia cortada',
+			'alt'      => 'Cheesecake inteiro com calda de frutas vermelhas por cima, com uma fatia cortada',
 		),
 	);
 }

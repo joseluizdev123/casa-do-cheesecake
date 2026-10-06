@@ -84,10 +84,11 @@
   /* ---- Header ---- */
   --header-h: 124px;
   --header-h-scroll: 70px;
-  --logo-w: 108.103px;
-  --logo-h: 124px;
-  --logo-w-scroll: 88.051px;
-  --logo-h-scroll: 101px;
+  /* selo redondo (mesmo do rodapé), centrado na altura do header */
+  --logo-w: 104px;
+  --logo-h: 104px;
+  --logo-w-scroll: 60px;
+  --logo-h-scroll: 60px;
 
   /* ---- Motion ---- */
   --ease: cubic-bezier(.2, .7, .2, 1);
@@ -105,10 +106,10 @@
     --header-h: 72px;           /* ref: 73px */
     --header-h-scroll: 72px;
     /* como no desktop: logo maior no topo (hero), menor depois de rolar */
-    --logo-w: 72px;
-    --logo-h: 82.59px;          /* proporção 108.103×124 do Figma */
-    --logo-w-scroll: 56px;
-    --logo-h-scroll: 64.23px;
+    --logo-w: 60px;
+    --logo-h: 60px;
+    --logo-w-scroll: 52px;
+    --logo-h-scroll: 52px;
   }
 }
 /* ---- Escala responsiva — padrão mobile do site de referência
