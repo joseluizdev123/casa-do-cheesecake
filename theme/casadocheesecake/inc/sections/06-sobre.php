@@ -1,6 +1,6 @@
 <?php
 /**
- * Seção 06 — Sobre ("Produção própria, não de prateleira"). Figma 7057:349.
+ * Seção 06 — Sobre ("Produção própria"). Figma 7057:349.
  *
  * Tudo editável no Customizer: título, parágrafos, foto principal, selo,
  * foto/nome/descrição da especialista. Defaults = copy exata do Figma.
@@ -12,13 +12,13 @@ defined( 'ABSPATH' ) || exit;
 
 add_filter( 'cdc_customizer_sections', function ( $sections ) {
 	$sections['cdc_sobre'] = array(
-		'title'    => 'Sobre (Produção própria, não de prateleira)',
+		'title'    => 'Sobre (Produção própria)',
 		'priority' => 60,
 		'fields'   => array(
 			'cdc_sobre_titulo'             => array(
 				'label'   => 'Título',
 				'type'    => 'text',
-				'default' => 'Produção própria, não de prateleira',
+				'default' => 'Produção própria',
 			),
 			'cdc_sobre_texto'              => array(
 				'label'   => 'Texto (um parágrafo por linha)',

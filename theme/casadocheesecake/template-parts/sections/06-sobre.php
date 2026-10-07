@@ -2,7 +2,7 @@
 /**
  * Seção 06 — Sobre (Figma 7057:349). Espelha src/sections/06-sobre.html.
  *
- * Conteúdo: Customizer (painel "Sobre (Produção própria, não de prateleira)").
+ * Conteúdo: Customizer (painel "Sobre (Produção própria)").
  *
  * @package casadocheesecake
  */

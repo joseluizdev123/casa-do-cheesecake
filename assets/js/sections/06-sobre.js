@@ -1,4 +1,4 @@
-/* 06 · Sobre ("Produção própria, não de prateleira") — coreografia de entrada
+/* 06 · Sobre ("Produção própria") — coreografia de entrada
    Ver MOTION.md. Só entradas (estado final = layout atual); sem markup novo.
 
    Desktop (>= 1024, foto | texto lado a lado)
