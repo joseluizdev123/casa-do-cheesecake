@@ -30,7 +30,7 @@ add_filter( 'cdc_customizer_sections', function ( $sections ) {
 			'cdc_fatia_texto'             => array(
 				'label'   => 'Texto (acima do botão)',
 				'type'    => 'textarea',
-				'default' => 'Garanta o seu cupom PRIMEPED',
+				'default' => 'Cupom aplicado automaticamente no pedido',
 				'help'    => 'Opcional. Em branco, a linha não aparece.',
 			),
 			'cdc_fatia_botao'             => array(
