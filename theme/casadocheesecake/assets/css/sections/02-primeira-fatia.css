@@ -383,12 +383,18 @@
    O título do desconto é mais longo que o da fatia: um degrau menor em cada
    faixa para não pesar no banner (56 → 44 · 40 → 32 · 28 → 24). */
 #primeira-fatia .primeira-fatia__title { font-size: clamp(32px, calc(4vw - 13.6px), 44px); }
-/* Fatias inteiras DENTRO do banner (sem vazar em cima nem embaixo): o banner
-   tem no mínimo a altura do grupo de fatias (403) e o grupo encosta na borda
-   de baixo do banner, em vez de passar 45px dela. */
+/* Banner na altura original do layout (313, igual ao banner de chocolate) e
+   fatias inteiras DENTRO dele. O grupo (311 × 403) tem 30px transparentes
+   embaixo (as fatias desenhadas vão de 0 a 373): a escala usa só a parte
+   desenhada e o grupo desce esses 30px. Folga de 8px em cima e embaixo para
+   a flutuação (±8px) nunca levar uma fatia para fora: altura útil 297 (313 − 16). */
 @media (min-width: 1200px) {
-  #primeira-fatia .primeira-fatia__box { min-height: calc(403 * var(--fatia-u)); }
-  #primeira-fatia .primeira-fatia__images { bottom: -56px; }   /* só o padding do box */
+  #primeira-fatia .primeira-fatia__box { min-height: calc(313 * var(--fatia-u)); }
+  #primeira-fatia .primeira-fatia__images {
+    bottom: calc(-56px + 8 * var(--fatia-u) - 30 * var(--fatia-u) * 297 / 373);
+    scale: calc(297 / 373);
+    transform-origin: 50% 100%;
+  }
 }
 @media (max-width: 1199.98px) {
   #primeira-fatia .primeira-fatia__title { font-size: 32px; }

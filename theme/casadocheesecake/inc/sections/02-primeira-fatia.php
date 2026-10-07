@@ -22,15 +22,15 @@ add_filter( 'cdc_customizer_sections', function ( $sections ) {
 				'help'    => 'Cada quebra de linha vira uma quebra no título.',
 			),
 			'cdc_fatia_subtitulo'         => array(
-				'label'   => 'Subtítulo (acima do botão)',
+				'label'   => 'Subtítulo',
 				'type'    => 'text',
-				'default' => 'Garanta o seu cupom PRIMEPED',
+				'default' => '',
 				'help'    => 'Opcional. Em branco, a linha não aparece.',
 			),
 			'cdc_fatia_texto'             => array(
-				'label'   => 'Texto (condições)',
+				'label'   => 'Texto (acima do botão)',
 				'type'    => 'textarea',
-				'default' => '',
+				'default' => 'Garanta o seu cupom PRIMEPED',
 				'help'    => 'Opcional. Em branco, a linha não aparece.',
 			),
 			'cdc_fatia_botao'             => array(
