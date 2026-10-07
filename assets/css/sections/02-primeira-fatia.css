@@ -410,3 +410,11 @@
 @media (max-width: 767.98px) {
   #primeira-fatia .primeira-fatia__title { font-size: 24px; }
 }
+
+/* Banner do desconto: a frase do cupom vai para baixo do botão, em 10px
+   (todas as larguras). O HTML/tema mantém a ordem texto → botão; só o CSS inverte. */
+#primeira-fatia .primeira-fatia__content .primeira-fatia__text {
+  order: 1;
+  font-size: 10px;
+  line-height: 1.4;
+}
