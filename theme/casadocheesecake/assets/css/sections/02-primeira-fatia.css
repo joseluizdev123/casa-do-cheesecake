@@ -384,17 +384,25 @@
    faixa para não pesar no banner (56 → 44 · 40 → 32 · 28 → 24). */
 #primeira-fatia .primeira-fatia__title { font-size: clamp(32px, calc(4vw - 13.6px), 44px); }
 /* Banner na altura original do layout (313, igual ao banner de chocolate) e
-   fatias inteiras DENTRO dele. O grupo (311 × 403) tem 30px transparentes
-   embaixo (as fatias desenhadas vão de 0 a 373): a escala usa só a parte
-   desenhada e o grupo desce esses 30px. Folga de 8px em cima e embaixo para
-   a flutuação (±8px) nunca levar uma fatia para fora: altura útil 297 (313 − 16). */
+   fatias inteiras DENTRO dele.
+   - Altura: o grupo (311 × 403) tem 30px transparentes embaixo (as fatias
+     desenhadas vão de 0 a 373). A escala usa só a parte desenhada e deixa 3px
+     em cima e embaixo para a flutuação, que aqui é de 3px (nos outros, 6–8):
+     altura útil 307 → escala 307 / 373.
+   - Largura: o grupo fica centrado entre o fim do título e a coluna do botão
+     (mesmo respiro dos dois lados), 12px à direita da posição do Figma. */
 @media (min-width: 1200px) {
   #primeira-fatia .primeira-fatia__box { min-height: calc(313 * var(--fatia-u)); }
   #primeira-fatia .primeira-fatia__images {
-    bottom: calc(-56px + 8 * var(--fatia-u) - 30 * var(--fatia-u) * 297 / 373);
-    scale: calc(297 / 373);
+    bottom: calc(-56px + 3 * var(--fatia-u) - 30 * var(--fatia-u) * 307 / 373);
+    scale: calc(307 / 373);
     transform-origin: 50% 100%;
+    translate: calc(12 * var(--fatia-u)) 0;
   }
+  #primeira-fatia .primeira-fatia__img { --float-amp: 3px !important; }
+  /* coluna do botão: a frase do cupom e o botão centrados um no outro */
+  #primeira-fatia .primeira-fatia__content { align-items: center; }
+  #primeira-fatia .primeira-fatia__content .primeira-fatia__text { align-self: auto; text-align: center; }
 }
 @media (max-width: 1199.98px) {
   #primeira-fatia .primeira-fatia__title { font-size: 32px; }
