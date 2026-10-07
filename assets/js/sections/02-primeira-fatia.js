@@ -20,9 +20,10 @@
   var M = window.cdcMotion;
   if (!M || M.reduced) return;
 
-  var section = document.querySelector('.primeira-fatia');
-  if (!section) return;
+  // a seção aparece duas vezes (depois do hero e abaixo do cardápio)
+  Array.prototype.forEach.call(document.querySelectorAll('.primeira-fatia'), setup);
 
+  function setup(section) {
   var box = section.querySelector('.primeira-fatia__box');
   var title = section.querySelector('.primeira-fatia__title');
   var group = section.querySelector('.primeira-fatia__images');
@@ -76,4 +77,5 @@
 
   all.forEach(function (el) { void window.getComputedStyle(el).opacity; });   // aplica já o estado inicial
   all.forEach(function (el) { el.style.removeProperty('transition'); });
+  }
 })();

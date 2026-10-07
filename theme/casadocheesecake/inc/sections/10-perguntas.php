@@ -23,7 +23,7 @@ function cdc_faq_defaults() {
 	return array(
 		array(
 			'title'    => 'Vocês têm loja física?',
-			'resposta' => 'Não. Trabalhamos exclusivamente com delivery em São Paulo, pelo nosso cardápio online e pelo iFood. Toda a produção sai da nossa cozinha direto para a entrega.',
+			'resposta' => 'Não. Trabalhamos exclusivamente com delivery em São Paulo, pelo nosso cardápio online e pelo iFood. Toda a produção sai da nossa fábrica direto para a entrega.',
 		),
 		array(
 			'title'    => 'Qual o tamanho certo para o meu número de convidados?',

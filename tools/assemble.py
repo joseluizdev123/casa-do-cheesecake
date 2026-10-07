@@ -6,6 +6,7 @@ src/partials/footer.html   → footer compartilhado (opcional)
 src/sections/NN-slug.html  → seções do <main>, em ordem numérica
 assets/css/sections/NN-slug.css / assets/js/sections/NN-slug.js → injetados se existirem
 """
+import re
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -14,6 +15,31 @@ SRC = ROOT / "src"
 
 def _read(p: Path) -> str:
     return p.read_text(encoding="utf-8") if p.exists() else ""
+
+
+REPEAT = re.compile(r"^\s*<!--\s*@repeat\s+(\S+)(.*?)-->\s*$", re.S)
+
+
+def _section_body(p: Path) -> str:
+    """Corpo da seção. Um arquivo com só `<!-- @repeat NN-slug -->` repete aquela
+    seção (mesmo conteúdo, um lugar só para editar) com ids e aria-labelledby
+    sufixados pelo nome deste arquivo, para não duplicar ids na página.
+    Linhas `antigo => novo` dentro do comentário trocam trechos da cópia
+    (ex.: as fotos)."""
+    body = _read(p)
+    m = REPEAT.match(body)
+    if not m:
+        return body
+    suffix = "-" + p.stem.split("-", 1)[0]          # ex. 03b-... → "-03b"
+    src = _read(SRC / "sections" / f"{m.group(1)}.html")
+    src = re.sub(r'\b(id|aria-labelledby)="([^"]+)"', lambda g: f'{g.group(1)}="{g.group(2)}{suffix}"', src)
+    for line in m.group(2).splitlines():
+        if "=>" in line:
+            old, new = (s.strip() for s in line.split("=>", 1))
+            if old not in src:
+                raise ValueError(f"{p.name}: trecho não encontrado em {m.group(1)}: {old!r}")
+            src = src.replace(old, new)
+    return src
 
 
 def section_files():
@@ -29,7 +55,7 @@ def assemble(only: str | None = None, base: str | None = None) -> str:
 
     css_links, js_tags, bodies = [], [], []
     for p in sections:
-        bodies.append(_read(p))
+        bodies.append(_section_body(p))
         if (ROOT / "assets/css/sections" / f"{p.stem}.css").exists():
             css_links.append(f'  <link rel="stylesheet" href="assets/css/sections/{p.stem}.css">')
         if (ROOT / "assets/js/sections" / f"{p.stem}.js").exists():

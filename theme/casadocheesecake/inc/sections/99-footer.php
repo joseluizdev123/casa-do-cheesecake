@@ -111,14 +111,14 @@ function cdc_rodape_links() {
 			array(
 				array( 'label' => 'Cardápio', 'url' => $pedido, 'target' => $nova_aba( $pedido ) ),
 				array( 'label' => 'Frutas Vermelhas', 'url' => cdc_anchor( '#cardapio' ) ),
-				array( 'label' => 'Provar uma fatia', 'url' => cdc_anchor( '#primeira-fatia' ) ),
+				array( 'label' => 'Provar uma fatia', 'url' => cdc_anchor( '#primeira-fatia-03b' ) ),
 			)
 		),
 		'marca'   => cdc_menu_links(
 			'footer-marca',
 			array(
 				array( 'label' => 'Sobre nós', 'url' => cdc_anchor( '#sobre' ) ),
-				array( 'label' => 'Nossa especialista', 'url' => cdc_anchor( '#sobre' ) ),
+				array( 'label' => 'Nosso especialista', 'url' => cdc_anchor( '#sobre' ) ),
 				array( 'label' => 'Blog', 'url' => $blog, 'target' => $nova_aba( $blog ) ),
 			)
 		),

@@ -2,7 +2,7 @@
 /**
  * Seção 06 — Sobre (Figma 7057:349). Espelha src/sections/06-sobre.html.
  *
- * Conteúdo: Customizer (painel "Sobre (Uma cozinha, não uma embalagem)").
+ * Conteúdo: Customizer (painel "Sobre (Produção própria, não de prateleira)").
  *
  * @package casadocheesecake
  */
@@ -55,7 +55,9 @@ if ( $cdc_sobre_img_id && is_numeric( $cdc_sobre_img_id ) ) {
 				<?php endif; ?>
 				<div class="sobre__especialista-info" data-figma-node="7057:358">
 					<p class="sobre__especialista-nome" data-figma-node="7057:359"><?php echo esc_html( cdc_mod( 'cdc_sobre_especialista_nome' ) ); ?></p>
-					<p class="sobre__especialista-desc" data-figma-node="7057:360"><?php echo wp_kses_post( cdc_rich( cdc_mod( 'cdc_sobre_especialista_texto' ) ) ); ?></p>
+					<?php if ( '' !== trim( cdc_mod( 'cdc_sobre_especialista_texto' ) ) ) : ?>
+						<p class="sobre__especialista-desc" data-figma-node="7057:360"><?php echo wp_kses_post( cdc_rich( cdc_mod( 'cdc_sobre_especialista_texto' ) ) ); ?></p>
+					<?php endif; ?>
 				</div>
 			</div>
 		</div>

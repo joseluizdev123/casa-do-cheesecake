@@ -1,6 +1,6 @@
 <?php
 /**
- * Seção 06 — Sobre ("Uma cozinha, não uma embalagem"). Figma 7057:349.
+ * Seção 06 — Sobre ("Produção própria, não de prateleira"). Figma 7057:349.
  *
  * Tudo editável no Customizer: título, parágrafos, foto principal, selo,
  * foto/nome/descrição da especialista. Defaults = copy exata do Figma.
@@ -12,13 +12,13 @@ defined( 'ABSPATH' ) || exit;
 
 add_filter( 'cdc_customizer_sections', function ( $sections ) {
 	$sections['cdc_sobre'] = array(
-		'title'    => 'Sobre (Uma cozinha, não uma embalagem)',
+		'title'    => 'Sobre (Produção própria, não de prateleira)',
 		'priority' => 60,
 		'fields'   => array(
 			'cdc_sobre_titulo'             => array(
 				'label'   => 'Título',
 				'type'    => 'text',
-				'default' => 'Uma cozinha, não uma embalagem',
+				'default' => 'Produção própria, não de prateleira',
 			),
 			'cdc_sobre_texto'              => array(
 				'label'   => 'Texto (um parágrafo por linha)',
@@ -48,25 +48,24 @@ add_filter( 'cdc_customizer_sections', function ( $sections ) {
 				'default' => '5 milhões de fatias. Yes, we have it.',
 			),
 			'cdc_sobre_especialista_foto'  => array(
-				'label'   => 'Foto da especialista (quadrada, exibida em círculo 100 × 100)',
+				'label'   => 'Foto do especialista (quadrada, exibida em círculo 100 × 100) — opcional',
 				'type'    => 'image',
-				'default' => 'images/06-sobre-especialista.png',
+				'default' => '',
 			),
 			'cdc_sobre_especialista_alt'   => array(
-				'label'   => 'Descrição da foto da especialista (acessibilidade)',
+				'label'   => 'Descrição da foto do especialista (acessibilidade)',
 				'type'    => 'text',
-				'default' => 'Retrato da especialista em cheesecake da Casa do Cheesecake, de dólmã e touca de chef',
+				'default' => 'Retrato de Otavio Paulino, especialista em cheesecake da Casa do Cheesecake',
 			),
 			'cdc_sobre_especialista_nome'  => array(
-				'label'   => 'Nome e cargo da especialista',
+				'label'   => 'Nome e cargo do especialista',
 				'type'    => 'text',
-				'default' => '[Nome], especialista em cheesecake',
+				'default' => 'Otavio Paulino, especialista em cheesecake',
 			),
 			'cdc_sobre_especialista_texto' => array(
-				'label'   => 'Descrição da especialista',
+				'label'   => 'Descrição do especialista (opcional)',
 				'type'    => 'textarea',
-				// "do\u{00A0}Cheesecake": espaço não separável, como no Figma (quebra "Casa / do Cheesecake.").
-				'default' => "Responsável pela receita e pelo padrão de forno da Casa do\u{00A0}Cheesecake.",
+				'default' => '',
 			),
 		),
 	);

@@ -361,3 +361,38 @@
     rotate: 16deg;
   }
 }
+
+
+/* ---------- Repetição abaixo do cardápio (#primeira-fatia-03b) ----------
+   Mesmo respiro que existe ACIMA dos cards (fundo do banner amarelo da
+   seção 02 → primeiro texto do cardápio = pb desta seção + pt do cardápio),
+   repetido nos dois lados desta cópia: fim dos cards → banner e
+   banner → seção de sabores. 1440/1100 = 128 · 900 = 104 · 375 = 80. */
+#primeira-fatia-03b {
+  padding-top: 48px;                  /* + 80 de folga no fim do cardápio = 128 */
+  padding-bottom: 128px;
+}
+@media (max-width: 1023.98px) {
+  #primeira-fatia-03b { padding-top: 32px; padding-bottom: 104px; }
+}
+@media (max-width: 767.98px) {
+  #primeira-fatia-03b { padding-top: 24px; padding-bottom: 80px; }
+}
+
+/* ---------- Banner do desconto (#primeira-fatia) ----------
+   O título do desconto é mais longo que o da fatia: um degrau menor em cada
+   faixa para não pesar no banner (56 → 44 · 40 → 32 · 28 → 24). */
+#primeira-fatia .primeira-fatia__title { font-size: clamp(32px, calc(4vw - 13.6px), 44px); }
+/* Fatias inteiras DENTRO do banner (sem vazar em cima nem embaixo): o banner
+   tem no mínimo a altura do grupo de fatias (403) e o grupo encosta na borda
+   de baixo do banner, em vez de passar 45px dela. */
+@media (min-width: 1200px) {
+  #primeira-fatia .primeira-fatia__box { min-height: calc(403 * var(--fatia-u)); }
+  #primeira-fatia .primeira-fatia__images { bottom: -56px; }   /* só o padding do box */
+}
+@media (max-width: 1199.98px) {
+  #primeira-fatia .primeira-fatia__title { font-size: 32px; }
+}
+@media (max-width: 767.98px) {
+  #primeira-fatia .primeira-fatia__title { font-size: 24px; }
+}

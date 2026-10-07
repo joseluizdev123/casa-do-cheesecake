@@ -27,7 +27,7 @@ add_filter( 'cdc_customizer_sections', function ( $sections ) {
 			'cdc_cta_texto'        => array(
 				'label'   => 'Texto de apoio',
 				'type'    => 'textarea',
-				'default' => 'Assado na nossa cozinha, entregue congelado dentro da nossa área de cobertura em São Paulo.',
+				'default' => 'Assado na nossa fábrica, entregue congelado dentro da nossa área de cobertura em São Paulo.',
 			),
 			'cdc_cta_imagem'       => array(
 				'label'   => 'Fatia sobreposta ao título (PNG/WebP com transparência)',

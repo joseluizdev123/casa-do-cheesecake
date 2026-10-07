@@ -12,36 +12,37 @@ defined( 'ABSPATH' ) || exit;
 
 add_filter( 'cdc_customizer_sections', function ( $sections ) {
 	$sections['cdc_primeira_fatia'] = array(
-		'title'    => 'Primeira fatia (banner amarelo)',
+		'title'    => 'Desconto na primeira compra (banner amarelo)',
 		'priority' => 20,
 		'fields'   => array(
 			'cdc_fatia_titulo'            => array(
 				'label'   => 'Título',
 				'type'    => 'textarea',
-				'default' => "Primeira vez por aqui?\nProve uma fatia por conta da casa",
+				'default' => '20% de desconto na sua primeira compra, sem pedido mínimo',
 				'help'    => 'Cada quebra de linha vira uma quebra no título.',
 			),
 			'cdc_fatia_subtitulo'         => array(
-				'label'   => 'Subtítulo',
+				'label'   => 'Subtítulo (acima do botão)',
 				'type'    => 'text',
-				'default' => '',
+				'default' => 'Garanta o seu cupom PRIMEPED',
 				'help'    => 'Opcional. Em branco, a linha não aparece.',
 			),
 			'cdc_fatia_texto'             => array(
 				'label'   => 'Texto (condições)',
 				'type'    => 'textarea',
-				'default' => '1 fatia por pessoa · de segunda a sexta, das 10h às 18h · enquanto durar o estoque do dia · dentro da área de entrega em São Paulo.',
+				'default' => '',
+				'help'    => 'Opcional. Em branco, a linha não aparece.',
 			),
 			'cdc_fatia_botao'             => array(
 				'label'   => 'Texto do botão',
 				'type'    => 'text',
-				'default' => 'Quero minha fatia',
+				'default' => 'Aproveitar desconto',
 			),
 			'cdc_fatia_botao_link'        => array(
 				'label'   => 'Link do botão',
 				'type'    => 'url',
-				'default' => 'https://wa.me/5511956022366?text=Ol%C3%A1!+Quero+provar+minha+fatia+por+conta+da+casa.',
-				'help'    => 'Padrão: WhatsApp com a mensagem "Quero provar minha fatia por conta da casa". Em branco = WhatsApp de "Contato e links globais".',
+				'default' => 'https://pedido.brendi.com.br/a-casa-do-cheesecake',
+				'help'    => 'Padrão: cardápio online (Brendi). Em branco = WhatsApp de "Contato e links globais".',
 			),
 			'cdc_fatia_imagem_frente'     => array(
 				'label'   => 'Foto da fatia de cima (206 × 191)',
