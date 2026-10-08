@@ -355,11 +355,14 @@
     text-wrap: pretty !important;
   }
 
-  /* chips alinhados à esquerda com o texto; o 1º encosta na margem da coluna */
+  /* chips centralizados na largura do item (do badge à margem direita), não
+     só na coluna do texto: puxa os 40 do badge + 16 do gap para a esquerda */
   .entrega__text > .entrega__item-text--links {
-    justify-content: flex-start;
-    align-self: flex-start;
-    margin-top: 8px;                                    /* título → chips: 4 + 8 */
+    justify-content: center;
+    align-self: auto;
+    width: calc(100% + 40px + var(--gap-m-md) + 8px);
+    max-width: none;
+    margin: 20px -4px 0 calc(-40px - var(--gap-m-md) - 4px);  /* título/ícone → chips: 4 + 20 */
   }
 
   .entrega__item-text--links a { font-size: var(--fs-m-label); }   /* 14 */

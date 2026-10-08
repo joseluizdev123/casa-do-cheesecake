@@ -407,9 +407,7 @@
 @media (max-width: 1199.98px) {
   #primeira-fatia .primeira-fatia__title { font-size: 32px; }
 }
-@media (max-width: 767.98px) {
-  #primeira-fatia .primeira-fatia__title { font-size: 24px; }
-}
+/* no celular o título usa o tamanho padrão dos títulos de seção (28px) */
 
 /* Banner do desconto: a frase do cupom vai para baixo do botão, em 10px
    (todas as larguras). O HTML/tema mantém a ordem texto → botão; só o CSS inverte. */
@@ -417,4 +415,45 @@
   order: 1;
   font-size: 10px;
   line-height: 1.4;
+}
+
+/* Os dois banners amarelos no celular: título, fatias no meio, depois botão/
+   texto. As fatias ficam centralizadas no topo do banner, inteiras dentro do
+   amarelo (sem vazar pela borda de baixo como no layout padrão do mobile). */
+@media (max-width: 767.98px) {
+  :is(#primeira-fatia, #primeira-fatia-03b) .primeira-fatia__box {
+    grid-template-areas:
+      "title"
+      "media"
+      "content";
+    padding: 40px var(--section-px) 48px;
+  }
+  :is(#primeira-fatia, #primeira-fatia-03b) .primeira-fatia__media {
+    justify-self: center;
+    width: min(100%, 300px);
+    margin: 0;
+  }
+  /* tudo no mesmo eixo das fatias: título, botão e cupom centralizados */
+  :is(#primeira-fatia, #primeira-fatia-03b) .primeira-fatia__title {
+    justify-self: center;
+    text-align: center;
+    font-size: var(--fs-m-h2);         /* 28px, como os outros títulos no celular */
+  }
+  :is(#primeira-fatia, #primeira-fatia-03b) .primeira-fatia__content {
+    justify-self: center;
+    align-items: center;
+    text-align: center;
+  }
+  :is(#primeira-fatia, #primeira-fatia-03b) .primeira-fatia__content .btn { margin-top: 8px; }
+}
+
+/* Banner do desconto no celular: título em 2 linhas — sem a medida de 9.5em e
+   num tamanho que cabe ("20% DE DESCONTO NA SUA PRIMEIRA COMPRA, / SEM PEDIDO
+   MÍNIMO"): 22px em 375, proporcional abaixo disso. */
+@media (max-width: 767.98px) {
+  #primeira-fatia .primeira-fatia__title {
+    max-width: none;
+    font-size: clamp(18px, 5.85vw, 22px);
+    text-wrap: balance;
+  }
 }

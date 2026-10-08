@@ -258,29 +258,39 @@
 }
 
 @media (max-width: 575.98px) {
-  /* Bloco amarelo de borda a borda (desde o tablet), uma coluna. */
+  /* Bloco amarelo de borda a borda, uma coluna, no mesmo padrão dos banners
+     amarelos 02/03b no celular: título → moto → texto → botão, tudo
+     centralizado, e a moto inteira dentro do amarelo. */
   .restaurantes__banner {
     grid-template-columns: minmax(0, 1fr);
     grid-template-areas:
       "title"
-      "content"
-      "media";
-    row-gap: var(--gap-m-md);                      /* título → texto 16 */
-    padding: 48px var(--section-px) 0;             /* topo = banner amarelo da 02; sem base: a moto pousa na borda */
+      "media"
+      "content";
+    justify-items: center;
+    row-gap: var(--gap-m-md);                      /* 16 */
+    padding: 40px var(--section-px) 48px;
+    text-align: center;
   }
 
-  /* Em fluxo depois do botão, pousada na base do banner e alinhada à direita
-     (diagonal texto ↖ moto ↘, como no desktop; em 390 fica praticamente
-     centrada). */
+  .restaurantes__title { text-align: center; }
+
   .restaurantes__media {
     position: relative;
     grid-area: media;
     right: auto;
     bottom: auto;
-    justify-self: end;
-    width: min(100%, 320px);
-    margin-top: var(--gap-m-md);                   /* botão → moto: 16 + 16 do row-gap */
+    justify-self: center;
+    width: min(100%, 300px);
+    /* a arte da moto vem cortada na base das rodas: no celular ela fica no
+       meio do banner, então a base some num degradê para o amarelo em vez de
+       mostrar o corte reto */
+    -webkit-mask-image: linear-gradient(to bottom, #000 80%, transparent 100%);
+            mask-image: linear-gradient(to bottom, #000 80%, transparent 100%);
   }
+
+  .restaurantes__content { align-items: center; }
+  .restaurantes__text { text-align: center; }
 }
 
 
