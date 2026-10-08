@@ -69,7 +69,7 @@ function cdc_cardapio_defaults() {
 			'menu_order'  => 1,
 			'featured'    => 'images/03-cardapio-frutas-vermelhas.webp',
 			'meta'        => array(
-				'descricao' => 'Base assada de cream cheese com calda de frutas vermelhas inteiras.',
+				'descricao' => 'Base assada de cream cheese com calda de frutas vermelhas naturais cozidas.',
 				'tag'       => 'Mais pedido',
 				'cor_fundo' => '#b0282e',
 				'precos'    => $precos( 'cheesecake-de-frutas-vermelhas-fatia', 'cheesecake-de-frutas-vermelhas-600g-rende-6-mini-fatias', 'cheesecake-de-frutas-vermelhas-12-kg-rende-8-fatias', 'cheesecake-de-frutas-vermelhas-18-kg-rende-de-10-a-12-fatias' ),
