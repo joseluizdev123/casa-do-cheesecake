@@ -1,4 +1,4 @@
-"""Build: gera index.html estático e espelha assets/ no tema WordPress.
+"""Build: gera as páginas estáticas (index.html, cardapio.html…) e espelha assets/ no tema WordPress.
 
 Uso: python tools/build.py
 """
@@ -14,8 +14,9 @@ THEME = ROOT / "theme" / "casadocheesecake"
 
 
 def main():
-    (ROOT / "index.html").write_text(assemble.assemble(), encoding="utf-8")
-    print("index.html ok")
+    for name, cfg in assemble.PAGES.items():
+        (ROOT / cfg["out"]).write_text(assemble.assemble(page=name), encoding="utf-8")
+        print(f"{cfg['out']} ok")
 
     dst = THEME / "assets"
     if dst.exists():

@@ -1,0 +1,18 @@
+/* ==========================================================================
+   Página Cardápio (cardapio.html) — só o que muda sobre a seção 03 da home,
+   cujo CSS a página reaproveita inteiro. Nada aqui vale para a home: tudo
+   fica sob .cardapio--pagina, classe que só as seções desta página têm.
+
+   Pedido do cliente: sem o vão em branco nos cards com menos preços. Na home
+   as linhas de preço descem para alinhar entre os cards (margin-top: auto);
+   aqui o preço e o botão vêm logo abaixo do texto e o card fica do tamanho
+   do próprio conteúdo.
+   ========================================================================== */
+
+.cardapio--pagina .cardapio__grid {
+  align-items: start;
+}
+
+.cardapio--pagina .cardapio__prices {
+  margin-top: 0;
+}

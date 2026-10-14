@@ -1,6 +1,7 @@
 """Servidor de desenvolvimento sem cache.
 
 GET /                → página completa montada on-the-fly a partir de src/
+GET /cardapio.html   → páginas internas (assemble.PAGES), também montadas on-the-fly
 GET /s/<slug>        → preview isolado de uma seção (ex. /s/01-hero), sem header/footer
 GET /s/footer        → preview isolado do footer
 qualquer outro path  → arquivo estático
@@ -8,6 +9,7 @@ qualquer outro path  → arquivo estático
 Todas as respostas saem com Cache-Control: no-store (evita screenshot stale).
 Uso: python tools/server.py [porta]   (ou variável de ambiente PORT)
 """
+import importlib
 import os
 import sys
 from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
@@ -43,8 +45,13 @@ class Handler(SimpleHTTPRequestHandler):
 
     def do_GET(self):
         path = urlparse(self.path).path
+        if path == "/" or path.endswith(".html") or path.startswith("/s/") or "." not in path.rsplit("/", 1)[-1]:
+            importlib.reload(assemble)   # PAGES e o montador mudam sem reiniciar o servidor
         if path in ("/", "/index.html"):
             return self._html(assemble.assemble())
+        for name, cfg in assemble.PAGES.items():
+            if name != "index" and path in (f"/{cfg['out']}", f"/{name}"):
+                return self._html(assemble.assemble(page=name))
         if path.startswith("/s/"):
             slug = path[3:].strip("/")
             if slug == "footer":

@@ -1,0 +1,1217 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cardápio — A Casa do Cheesecake</title>
+  <meta name="description" content="Cardápio completo d'A Casa do Cheesecake: cheesecakes inteiros e em fatia, especiais, bolos, brownie, velas e cartão, com entrega em São Paulo.">
+  <script>document.documentElement.classList.add('js-motion','motion-pending');window.__cdcMotionSafety=setTimeout(function(){document.documentElement.classList.remove('js-motion','motion-pending')},4000);</script>
+  <link rel="icon" href="assets/images/favicon.png">
+  <link rel="preload" href="assets/fonts/anton-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/archivo-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="assets/css/tokens.css">
+  <link rel="stylesheet" href="assets/css/base.css">
+  <link rel="stylesheet" href="assets/css/components.css">
+  <link rel="stylesheet" href="assets/css/sections/02-primeira-fatia.css">
+  <link rel="stylesheet" href="assets/css/sections/03-cardapio.css">
+  <link rel="stylesheet" href="assets/css/paginas/cardapio.css">
+  <link rel="stylesheet" href="assets/css/sections/footer.css">
+  <link rel="stylesheet" href="assets/css/interactions.css">
+  <link rel="stylesheet" href="assets/css/motion.css">
+</head>
+<body id="topo">
+  <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
+<header class="site-header" data-site-header>
+  <div class="site-header__bar" data-figma-node="7073:253">
+  <div class="site-header__inner">
+    <nav class="site-header__nav" aria-label="Principal">
+      <ul class="site-header__menu site-header__menu--left" role="list" data-figma-node="7073:230">
+        <li><a class="btn-link" href="index.html#cardapio" data-figma-node="7073:231">Nosso cheesecake</a></li>
+        <li><a class="btn-link is-active" aria-current="page" href="cardapio.html" data-figma-node="7073:232">Produtos</a></li>
+        <li><a class="btn-link" href="https://pedido.brendi.com.br/a-casa-do-cheesecake" target="_blank" rel="noopener" data-figma-node="7073:233">Pedir agora</a></li>
+      </ul>
+    </nav>
+    <a class="site-logo" data-figma-node="7073:234" href="index.html" aria-label="A Casa do Cheesecake — página inicial">
+      <img data-figma-node="7073:236" src="assets/images/footer-logo.webp" alt="A Casa do Cheesecake" width="296" height="299" fetchpriority="high">
+    </a>
+    <nav class="site-header__nav" aria-label="Institucional">
+      <ul class="site-header__menu site-header__menu--right" role="list" data-figma-node="7073:237">
+        <li><a class="btn-link" href="index.html#sobre" data-figma-node="7073:238">Sobre nós</a></li>
+        <li><a class="btn-link" href="https://acasadocheesecake.com.br/blog/" data-figma-node="7073:239">Blog</a></li>
+        <li><a class="btn-link" href="#contato" data-figma-node="7073:240">Contato</a></li>
+      </ul>
+    </nav>
+    <button class="site-header__toggle" type="button" aria-expanded="false" aria-controls="menu-mobile" data-menu-toggle>
+      <span class="site-header__toggle-bars" aria-hidden="true"></span>
+      <span class="sr-only">Abrir menu</span>
+    </button>
+  </div>
+  </div>
+  <div class="site-header__drawer" id="menu-mobile" hidden data-menu-drawer>
+    <nav class="mobile-nav" aria-label="Menu principal">
+      <ul class="mobile-nav__list" role="list">
+        <li class="mobile-nav__item"><a class="mobile-nav__link" href="index.html#cardapio">Nosso cheesecake</a></li>
+        <li class="mobile-nav__item mobile-nav__item--sabores">
+          <a class="mobile-nav__link is-active" aria-current="page" href="cardapio.html">Produtos</a>
+          <ul class="mobile-nav__chips" role="list" aria-label="Sabores">
+            <li><a class="mobile-nav__chip" href="index.html#sabores" data-sabor="frutas-vermelhas" style="--chip: var(--color-red-700)">Frutas vermelhas</a></li>
+            <li><a class="mobile-nav__chip" href="index.html#sabores" data-sabor="doce-de-leite" style="--chip: var(--color-yellow-400)">Doce de leite</a></li>
+            <li><a class="mobile-nav__chip" href="index.html#sabores" data-sabor="morangos" style="--chip: var(--color-pink-200)">Morangos</a></li>
+            <li><a class="mobile-nav__chip" href="index.html#sabores" data-sabor="blue-berry" style="--chip: var(--color-blue-200)">Blue berry</a></li>
+          </ul>
+        </li>
+        <li class="mobile-nav__item"><a class="mobile-nav__link" href="index.html#sobre">Sobre nós</a></li>
+        <li class="mobile-nav__item"><a class="mobile-nav__link" href="https://acasadocheesecake.com.br/blog/">Blog</a></li>
+        <li class="mobile-nav__item"><a class="mobile-nav__link" href="#contato">Contato</a></li>
+      </ul>
+    </nav>
+    <div class="mobile-nav__actions">
+      <a class="btn btn--primary mobile-nav__btn" href="https://pedido.brendi.com.br/a-casa-do-cheesecake" target="_blank" rel="noopener">Pedir agora</a>
+      <a class="btn btn--secondary mobile-nav__btn" href="https://wa.me/5511956022366?text=Ol%C3%A1!+Passei+pelo+site+e+gostaria+de+mais+informa%C3%A7%C3%B5es." target="_blank" rel="noopener"><span class="mobile-nav__wa" aria-hidden="true"></span>Falar no WhatsApp</a>
+    </div>
+    <p class="mobile-nav__contact">
+      <a href="tel:+5511956022366">(11) 95602-2366</a>
+      <a href="https://www.instagram.com/acasadocheesecakeoficial/" target="_blank" rel="noopener">Instagram</a>
+      <a href="https://www.facebook.com/acasadocheesecakeoficial" target="_blank" rel="noopener">Facebook</a>
+    </p>
+  </div>
+</header>
+<a class="whatsapp-fab" href="https://wa.me/5511956022366?text=Ol%C3%A1!+Passei+pelo+site+e+gostaria+de+mais+informa%C3%A7%C3%B5es." target="_blank" rel="noopener" aria-label="Falar no WhatsApp"></a>
+
+  <main id="conteudo">
+    <section class="primeira-fatia" id="primeira-fatia" data-figma-node="7057:164" aria-labelledby="primeira-fatia-titulo">
+      <div class="container">
+        <div class="primeira-fatia__box" data-figma-node="7057:165">
+          <h2 class="primeira-fatia__title u-display" id="primeira-fatia-titulo" data-figma-node="7057:166">15% de desconto na sua primeira compra, sem pedido mínimo</h2>
+
+          <div class="primeira-fatia__media">
+            <div class="primeira-fatia__images" data-figma-node="7057:172">
+              <img class="primeira-fatia__img primeira-fatia__img--foreground" data-figma-node="7057:173" src="assets/images/03b-fatia-chocolate-topo.webp" width="206" height="191" decoding="async" alt="Fatia de cheesecake de chocolate, sem cobertura">
+              <img class="primeira-fatia__img primeira-fatia__img--background" data-figma-node="7057:174" src="assets/images/cardapio-banner-goiaba-fatia.webp" width="305" height="305" decoding="async" alt="Fatia de cheesecake de goiaba com calda de goiaba">
+            </div>
+          </div>
+
+          <div class="primeira-fatia__content" data-figma-node="7057:167">
+            <p class="primeira-fatia__text" data-figma-node="7057:169">Cupom aplicado automaticamente no pedido</p>
+            <a class="btn btn--primary" href="https://pedido.brendi.com.br/a-casa-do-cheesecake" target="_blank" rel="noopener" data-figma-node="7073:338">Aproveitar desconto</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="cardapio cardapio--pagina" id="cheesecakes" aria-labelledby="cheesecakes-titulo">
+      <div class="container cardapio__inner">
+        <header class="cardapio__head">
+          <h1 class="cardapio__title" id="cheesecakes-titulo">Nossos sabores de cheesecake</h1>
+          <p class="cardapio__lead">Todos assados na nossa fábrica em São Paulo. Os cheesecakes inteiros chegam congelados, para não rachar no trajeto, e precisam de cerca de 2 horas em temperatura ambiente para descongelar. As fatias chegam refrigeradas, prontas para servir. Escolha o tamanho pela quantidade de pessoas.</p>
+        </header>
+
+        <div class="cardapio__body" data-cardapio-carousel>
+          <ul class="cardapio__grid" id="cheesecakes-lista" role="list" data-cardapio-track>
+            <li class="cardapio__card">
+              <div class="cardapio__media" style="--cardapio-bg: var(--color-red-700)">
+                <div class="cardapio__photo">
+                  <img class="cardapio__img cardapio__img--recorte" src="assets/images/03-cardapio-frutas-vermelhas.webp" alt="Cheesecake inteiro sabor Frutas Vermelhas" width="650" height="392" loading="lazy" decoding="async">
+                </div>
+                <p class="cardapio__tag">
+                  <img class="cardapio__tag-icon" src="assets/images/03-cardapio-icon-mais-pedido.svg" alt="" width="16" height="16">
+                  <span class="cardapio__tag-text">Mais pedido</span>
+                </p>
+              </div>
+              <div class="cardapio__content">
+                <div class="cardapio__info">
+                  <h3 class="cardapio__name">Frutas Vermelhas</h3>
+                  <p class="cardapio__desc">Base assada de cream cheese com calda de frutas vermelhas naturais cozidas.</p>
+                </div>
+                <ul class="cardapio__prices" role="list">
+                  <li class="cardapio__row">
+                    <p class="cardapio__option">
+                      <span class="cardapio__price">R$ 99</span>
+                      <span class="cardapio__size">600 g&nbsp;· 6 mini fatias</span>
+                    </p>
+                    <a class="btn btn--primary cardapio__btn" href="https://pedido.brendi.com.br/a-casa-do-cheesecake/produto/cheesecake-de-frutas-vermelhas-600g-rende-6-mini-fatias" target="_blank" rel="noopener" aria-label="Pedir Frutas Vermelhas — 600 g · 6 mini fatias">Pedir</a>
+                  </li>
+                  <li class="cardapio__row">
+                    <p class="cardapio__option">
+                      <span class="cardapio__price">R$ 185</span>
+                      <span class="cardapio__size">1,2 kg&nbsp;· serve 8</span>
+                    </p>
+                    <a class="btn btn--secondary cardapio__btn" href="https://pedido.brendi.com.br/a-casa-do-cheesecake/produto/cheesecake-de-frutas-vermelhas-12-kg-rende-8-fatias" target="_blank" rel="noopener" aria-label="Pedir Frutas Vermelhas — 1,2 kg · serve 8">Pedir</a>
+                  </li>
+                  <li class="cardapio__row">
+                    <p class="cardapio__option">
+                      <span class="cardapio__price">R$ 252</span>
+                      <span class="cardapio__size">1,8 kg&nbsp;· serve 10 a 12</span>
+                    </p>
+                    <a class="btn btn--secondary cardapio__btn" href="https://pedido.brendi.com.br/a-casa-do-cheesecake/produto/cheesecake-de-frutas-vermelhas-18-kg-rende-de-10-a-12-fatias" target="_blank" rel="noopener" aria-label="Pedir Frutas Vermelhas — 1,8 kg · serve 10 a 12">Pedir</a>
+                  </li>
+                </ul>
+              </div>
+            </li>
+
+            <li class="cardapio__card">
+              <div class="cardapio__media" style="--cardapio-bg: var(--color-yellow-400)">
+                <div class="cardapio__photo">
+                  <img class="cardapio__img cardapio__img--recorte" src="assets/images/03-cardapio-doce-de-leite.webp" alt="Cheesecake inteiro sabor Doce de Leite" width="663" height="391" loading="lazy" decoding="async">
+                </div>
+              </div>
+              <div class="cardapio__content">
+                <div class="cardapio__info">
+                  <h3 class="cardapio__name">Doce de Leite</h3>
+                  <p class="cardapio__desc">A mesma base assada, coberta com doce de leite.</p>
+                </div>
+                <ul class="cardapio__prices" role="list">
+                  <li class="cardapio__row">
+                    <p class="cardapio__option">
+                      <span class="cardapio__price">R$ 99</span>
+                      <span class="cardapio__size">600 g&nbsp;· 6 mini fatias</span>
+                    </p>
+                    <a class="btn btn--primary cardapio__btn" href="https://pedido.brendi.com.br/a-casa-do-cheesecake/produto/cheesecake-de-doce-de-leite-600gr-rende-6-mini-fatias" target="_blank" rel="noopener" aria-label="Pedir Doce de Leite — 600 g · 6 mini fatias">Pedir</a>
+                  </li>
+                  <li class="cardapio__row">
+                    <p class="cardapio__option">
+                      <span class="cardapio__price">R$ 185</span>
+                      <span class="cardapio__size">1,2 kg&nbsp;· serve 8</span>
+                    </p>
+                    <a class="btn btn--secondary cardapio__btn" href="https://pedido.brendi.com.br/a-casa-do-cheesecake/produto/cheesecake-de-doce-de-leite-12-kg-rende-8-fatias" target="_blank" rel="noopener" aria-label="Pedir Doce de Leite — 1,2 kg · serve 8">Pedir</a>
+                  </li>
+                  <li class="cardapio__row">
+                    <p class="cardapio__option">
+                      <span class="cardapio__price">R$ 252</span>
+                      <span class="cardapio__size">1,8 kg&nbsp;· serve 10 a 12</span>
+                    </p>
+                    <a class="btn btn--secondary cardapio__btn" href="https://pedido.brendi.com.br/a-casa-do-cheesecake/produto/cheesecake-de-doce-de-leite-18-kg-rende-de-10-a-12-fatias" target="_blank" rel="noopener" aria-label="Pedir Doce de Leite — 1,8 kg · serve 10 a 12">Pedir</a>
+                  </li>
+                </ul>
+              </div>
+            </li>
+
+            <li class="cardapio__card">
+              <div class="cardapio__media" style="--cardapio-bg: var(--color-pink-200)">
+                <div class="cardapio__photo">
+                  <img class="cardapio__img cardapio__img--recorte" src="assets/images/03-cardapio-morangos.webp" alt="Cheesecake inteiro sabor Morangos" width="638" height="387" loading="lazy" decoding="async">
+                </div>
+              </div>
+              <div class="cardapio__content">
+                <div class="cardapio__info">
+                  <h3 class="cardapio__name">Morangos</h3>
+                  <p class="cardapio__desc">Calda de morangos frescos sobre a base assada.</p>
+                </div>
+                <ul class="cardapio__prices" role="list">
+                  <li class="cardapio__row">
+                    <p class="cardapio__option">
+                      <span class="cardapio__price">R$ 99</span>
+                      <span class="cardapio__size">600 g&nbsp;· 6 mini fatias</span>
+                    </p>
+                    <a class="btn btn--primary cardapio__btn" href="https://pedido.brendi.com.br/a-casa-do-cheesecake/produto/cheesecake-de-morango-600gr-rende-6-mini-fatias" target="_blank" rel="noopener" aria-label="Pedir Morangos — 600 g · 6 mini fatias">Pedir</a>
+                  </li>
+                  <li class="cardapio__row">
+                    <p class="cardapio__option">
+                      <span class="cardapio__price">R$ 185</span>
+                      <span class="cardapio__size">1,2 kg&nbsp;· serve 8</span>
+                    </p>
+                    <a class="btn btn--secondary cardapio__btn" href="https://pedido.brendi.com.br/a-casa-do-cheesecake/produto/cheesecake-de-morangos-12-kg-rende-8-fatias" target="_blank" rel="noopener" aria-label="Pedir Morangos — 1,2 kg · serve 8">Pedir</a>
+                  </li>
+                  <li class="cardapio__row">
+                    <p class="cardapio__option">
+                      <span class="cardapio__price">R$ 252</span>
+                      <span class="cardapio__size">1,8 kg&nbsp;· serve 10 a 12</span>
+                    </p>
+                    <a class="btn btn--secondary cardapio__btn" href="https://pedido.brendi.com.br/a-casa-do-cheesecake/produto/cheesecake-de-morango-18-kg-rende-de-10-a-12-fatias" target="_blank" rel="noopener" aria-label="Pedir Morangos — 1,8 kg · serve 10 a 12">Pedir</a>
+                  </li>
+                </ul>
+              </div>
+            </li>
+
+            <li class="cardapio__card">
+              <div class="cardapio__media" style="--cardapio-bg: var(--color-blue-200)">
+                <div class="cardapio__photo">
+                  <img class="cardapio__img cardapio__img--recorte" src="assets/images/03-cardapio-blue-berry.webp" alt="Cheesecake inteiro sabor Blue Berry" width="657" height="396" loading="lazy" decoding="async">
+                </div>
+              </div>
+              <div class="cardapio__content">
+                <div class="cardapio__info">
+                  <h3 class="cardapio__name">Blue Berry</h3>
+                  <p class="cardapio__desc">Calda de blueberry, ácida na medida para cortar o creme.</p>
+                </div>
+                <ul class="cardapio__prices" role="list">
+                  <li class="cardapio__row">
+                    <p class="cardapio__option">
+                      <span class="cardapio__price">R$ 99</span>
+                      <span class="cardapio__size">600 g&nbsp;· 6 mini fatias</span>
+                    </p>
+                    <a class="btn btn--primary cardapio__btn" href="https://pedido.brendi.com.br/a-casa-do-cheesecake/produto/cheesecake-de-blue-berry-600gr-rende-6-mini-fatias" target="_blank" rel="noopener" aria-label="Pedir Blue Berry — 600 g · 6 mini fatias">Pedir</a>
+                  </li>
+                  <li class="cardapio__row">
+                    <p class="cardapio__option">
+                      <span class="cardapio__price">R$ 185</span>
+                      <span class="cardapio__size">1,2 kg&nbsp;· serve 8</span>
+                    </p>
+                    <a class="btn btn--secondary cardapio__btn" href="https://pedido.brendi.com.br/a-casa-do-cheesecake/produto/cheesecake-de-blue-berry-12-kg-rende-8-fatias" target="_blank" rel="noopener" aria-label="Pedir Blue Berry — 1,2 kg · serve 8">Pedir</a>
+                  </li>
+                  <li class="cardapio__row">
+                    <p class="cardapio__option">
+                      <span class="cardapio__price">R$ 252</span>
+                      <span class="cardapio__size">1,8 kg&nbsp;· serve 10 a 12</span>
+                    </p>
+                    <a class="btn btn--secondary cardapio__btn" href="https://pedido.brendi.com.br/a-casa-do-cheesecake/produto/cheesecake-de-blue-berry-18-kg-rende-de-10-a-12-fatias" target="_blank" rel="noopener" aria-label="Pedir Blue Berry — 1,8 kg · serve 10 a 12">Pedir</a>
+                  </li>
+                </ul>
+              </div>
+            </li>
+
+            <li class="cardapio__card">
+              <div class="cardapio__media" style="--cardapio-bg: var(--color-red-950)">
+                <div class="cardapio__photo">
+                  <img class="cardapio__img cardapio__img--recorte" src="assets/images/cardapio-chocolate.webp" alt="Cheesecake inteiro sabor Chocolate" width="800" height="483" loading="lazy" decoding="async">
+                </div>
+              </div>
+              <div class="cardapio__content">
+                <div class="cardapio__info">
+                  <h3 class="cardapio__name">Chocolate</h3>
+                  <p class="cardapio__desc">A mesma base assada, coberta com calda de chocolate.</p>
+                </div>
+                <ul class="cardapio__prices" role="list">
+                  <li class="cardapio__row">
+                    <p class="cardapio__option">
+                      <span class="cardapio__price">R$ 99</span>
+                      <span class="cardapio__size">600 g&nbsp;· 6 mini fatias</span>
+                    </p>
+                    <a class="btn btn--primary cardapio__btn" href="https://pedido.brendi.com.br/a-casa-do-cheesecake/produto/cheesecake-de-chocolate-600gr-rende-6-mini-fatias" target="_blank" rel="noopener" aria-label="Pedir Chocolate — 600 g · 6 mini fatias">Pedir</a>
+                  </li>
+                  <li class="cardapio__row">
+                    <p class="cardapio__option">
+                      <span class="cardapio__price">R$ 252</span>
+                      <span class="cardapio__size">1,8 kg&nbsp;· serve 10 a 12</span>
+                    </p>
+                    <a class="btn btn--secondary cardapio__btn" href="https://pedido.brendi.com.br/a-casa-do-cheesecake/produto/cheesecake-de-chocolate-18-kg-rende-de-10-a-12-fatias" target="_blank" rel="noopener" aria-label="Pedir Chocolate — 1,8 kg · serve 10 a 12">Pedir</a>
+                  </li>
+                </ul>
+              </div>
+            </li>
+
+            <li class="cardapio__card">
+              <div class="cardapio__media" style="--cardapio-bg: var(--color-pink-200)">
+                <div class="cardapio__photo">
+                  <img class="cardapio__img cardapio__img--recorte" src="assets/images/cardapio-goiaba.webp" alt="Cheesecake inteiro sabor Goiaba" width="800" height="517" loading="lazy" decoding="async">
+                </div>
+              </div>
+              <div class="cardapio__content">
+                <div class="cardapio__info">
+                  <h3 class="cardapio__name">Goiaba</h3>
+                  <p class="cardapio__desc">A mesma base assada, coberta com calda de goiaba.</p>
+                </div>
+                <ul class="cardapio__prices" role="list">
+                  <li class="cardapio__row">
+                    <p class="cardapio__option">
+                      <span class="cardapio__price">R$ 99</span>
+                      <span class="cardapio__size">600 g&nbsp;· 6 mini fatias</span>
+                    </p>
+                    <a class="btn btn--primary cardapio__btn" href="https://pedido.brendi.com.br/a-casa-do-cheesecake/produto/cheesecake-de-goiaba-600gr-rende-6-mini-fatias" target="_blank" rel="noopener" aria-label="Pedir Goiaba — 600 g · 6 mini fatias">Pedir</a>
+                  </li>
+                  <li class="cardapio__row">
+                    <p class="cardapio__option">
+                      <span class="cardapio__price">R$ 252</span>
+                      <span class="cardapio__size">1,8 kg&nbsp;· serve 10 a 12</span>
+                    </p>
+                    <a class="btn btn--secondary cardapio__btn" href="https://pedido.brendi.com.br/a-casa-do-cheesecake/produto/cheesecake-de-goiaba-18-kg-rende-de-10-a-12-fatias" target="_blank" rel="noopener" aria-label="Pedir Goiaba — 1,8 kg · serve 10 a 12">Pedir</a>
+                  </li>
+                </ul>
+              </div>
+            </li>
+
+            <li class="cardapio__card">
+              <div class="cardapio__media" style="--cardapio-bg: var(--color-red-700)">
+                <div class="cardapio__photo">
+                  <img class="cardapio__img cardapio__img--recorte" src="assets/images/cardapio-amora.webp" alt="Cheesecake inteiro sabor Amora" width="800" height="488" loading="lazy" decoding="async">
+                </div>
+              </div>
+              <div class="cardapio__content">
+                <div class="cardapio__info">
+                  <h3 class="cardapio__name">Amora</h3>
+                  <p class="cardapio__desc">Calda de amoras sobre a base assada.</p>
+                </div>
+                <ul class="cardapio__prices" role="list">
+                  <li class="cardapio__row">
+                    <p class="cardapio__option">
+                      <span class="cardapio__price">R$ 99</span>
+                      <span class="cardapio__size">600 g&nbsp;· 6 mini fatias</span>
+                    </p>
+                    <a class="btn btn--primary cardapio__btn" href="https://pedido.brendi.com.br/a-casa-do-cheesecake/produto/cheesecake-de-amora-600gr-rende-6-mini-fatias" target="_blank" rel="noopener" aria-label="Pedir Amora — 600 g · 6 mini fatias">Pedir</a>
+                  </li>
+                  <li class="cardapio__row">
+                    <p class="cardapio__option">
+                      <span class="cardapio__price">R$ 252</span>
+                      <span class="cardapio__size">1,8 kg&nbsp;· serve 10 a 12</span>
+                    </p>
+                    <a class="btn btn--secondary cardapio__btn" href="https://pedido.brendi.com.br/a-casa-do-cheesecake/produto/cheesecake-de-amora-18-kg-rende-de-10-a-12-fatias" target="_blank" rel="noopener" aria-label="Pedir Amora — 1,8 kg · serve 10 a 12">Pedir</a>
+                  </li>
+                </ul>
+              </div>
+            </li>
+
+            <li class="cardapio__card">
+              <div class="cardapio__media" style="--cardapio-bg: var(--color-yellow-400)">
+                <div class="cardapio__photo">
+                  <img class="cardapio__img cardapio__img--recorte" src="assets/images/cardapio-maracuja.webp" alt="Cheesecake inteiro sabor Maracujá" width="800" height="566" loading="lazy" decoding="async">
+                </div>
+              </div>
+              <div class="cardapio__content">
+                <div class="cardapio__info">
+                  <h3 class="cardapio__name">Maracujá</h3>
+                  <p class="cardapio__desc">Calda de maracujá sobre a base assada.</p>
+                </div>
+                <ul class="cardapio__prices" role="list">
+                  <li class="cardapio__row">
+                    <p class="cardapio__option">
+                      <span class="cardapio__price">R$ 99</span>
+                      <span class="cardapio__size">600 g&nbsp;· 6 mini fatias</span>
+                    </p>
+                    <a class="btn btn--primary cardapio__btn" href="https://pedido.brendi.com.br/a-casa-do-cheesecake/produto/cheesecake-de-frutas-vermelhas-600g-rende-6-mini-fatias-copia" target="_blank" rel="noopener" aria-label="Pedir Maracujá — 600 g · 6 mini fatias">Pedir</a>
+                  </li>
+                  <li class="cardapio__row">
+                    <p class="cardapio__option">
+                      <span class="cardapio__price">R$ 252</span>
+                      <span class="cardapio__size">1,8 kg&nbsp;· serve 10 a 12</span>
+                    </p>
+                    <a class="btn btn--secondary cardapio__btn" href="https://pedido.brendi.com.br/a-casa-do-cheesecake/produto/cheesecake-de-damasco-18-kg-rende-de-10-a-12-fatias" target="_blank" rel="noopener" aria-label="Pedir Maracujá — 1,8 kg · serve 10 a 12">Pedir</a>
+                  </li>
+                </ul>
+              </div>
+            </li>
+
+            <li class="cardapio__card">
+              <div class="cardapio__media" style="--cardapio-bg: var(--color-cream-100)">
+                <div class="cardapio__photo">
+                  <img class="cardapio__img cardapio__img--recorte" src="assets/images/cardapio-plain.webp" alt="Cheesecake inteiro sabor Plain" width="800" height="538" loading="lazy" decoding="async">
+                </div>
+              </div>
+              <div class="cardapio__content">
+                <div class="cardapio__info">
+                  <h3 class="cardapio__name">Plain</h3>
+                  <p class="cardapio__desc">A receita original, sem cobertura, para comer pura ou com a sua calda.</p>
+                </div>
+                <ul class="cardapio__prices" role="list">
+                  <li class="cardapio__row">
+                    <p class="cardapio__option">
+                      <span class="cardapio__price">R$ 89</span>
+                      <span class="cardapio__size">500 g&nbsp;· 6 mini fatias</span>
+                    </p>
+                    <a class="btn btn--primary cardapio__btn" href="https://pedido.brendi.com.br/a-casa-do-cheesecake/produto/cheesecake-plain-500gr-sem-cobertura-rende-6-mini-fatias" target="_blank" rel="noopener" aria-label="Pedir Plain — 500 g · 6 mini fatias">Pedir</a>
+                  </li>
+                  <li class="cardapio__row">
+                    <p class="cardapio__option">
+                      <span class="cardapio__price">R$ 215</span>
+                      <span class="cardapio__size">1,5 kg&nbsp;· serve 10 a 12</span>
+                    </p>
+                    <a class="btn btn--secondary cardapio__btn" href="https://pedido.brendi.com.br/a-casa-do-cheesecake/produto/cheesecake-15-kg-sem-cobertura-rende-10-a-12-fatias" target="_blank" rel="noopener" aria-label="Pedir Plain — 1,5 kg · serve 10 a 12">Pedir</a>
+                  </li>
+                </ul>
+              </div>
+            </li>
+          </ul>
+
+          <div class="cardapio__controls" role="group" aria-label="Navegar pelos produtos" data-cardapio-controls hidden>
+            <div class="cardapio__dots" data-cardapio-dots>
+              <button class="cardapio__dot" type="button" aria-controls="cheesecakes-lista" aria-label="Frutas Vermelhas, 1 de 9" aria-current="true" data-cardapio-dot></button>
+              <button class="cardapio__dot" type="button" aria-controls="cheesecakes-lista" aria-label="Doce de Leite, 2 de 9" data-cardapio-dot></button>
+              <button class="cardapio__dot" type="button" aria-controls="cheesecakes-lista" aria-label="Morangos, 3 de 9" data-cardapio-dot></button>
+              <button class="cardapio__dot" type="button" aria-controls="cheesecakes-lista" aria-label="Blue Berry, 4 de 9" data-cardapio-dot></button>
+              <button class="cardapio__dot" type="button" aria-controls="cheesecakes-lista" aria-label="Chocolate, 5 de 9" data-cardapio-dot></button>
+              <button class="cardapio__dot" type="button" aria-controls="cheesecakes-lista" aria-label="Goiaba, 6 de 9" data-cardapio-dot></button>
+              <button class="cardapio__dot" type="button" aria-controls="cheesecakes-lista" aria-label="Amora, 7 de 9" data-cardapio-dot></button>
+              <button class="cardapio__dot" type="button" aria-controls="cheesecakes-lista" aria-label="Maracujá, 8 de 9" data-cardapio-dot></button>
+              <button class="cardapio__dot" type="button" aria-controls="cheesecakes-lista" aria-label="Plain, 9 de 9" data-cardapio-dot></button>
+            </div>
+            <div class="cardapio__arrows">
+              <button class="cardapio__nav cardapio__nav--prev" type="button" aria-controls="cheesecakes-lista" aria-label="Produto anterior" aria-disabled="true" data-cardapio-prev>
+                <svg viewBox="0 0 20 20" width="20" height="20" fill="none" aria-hidden="true" focusable="false"><path d="M12.5 15 7.5 10l5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </button>
+              <button class="cardapio__nav cardapio__nav--next" type="button" aria-controls="cheesecakes-lista" aria-label="Próximo produto" aria-disabled="false" data-cardapio-next>
+                <svg viewBox="0 0 20 20" width="20" height="20" fill="none" aria-hidden="true" focusable="false"><path d="m7.5 15 5-5-5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </button>
+            </div>
+            <p class="sr-only" aria-live="polite" aria-atomic="true" data-cardapio-status></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="cardapio cardapio--pagina" id="especiais" aria-labelledby="especiais-titulo">
+      <div class="container cardapio__inner">
+        <header class="cardapio__head">
+          <h2 class="cardapio__title" id="especiais-titulo">Cheesecakes especiais</h2>
+          <p class="cardapio__lead">Receitas da casa que vão além da calda: chocolate, Oreo ou frutas na massa, e o creme de limão siciliano do Limone. O cheesecake inteiro de 1,2 kg serve 8 pessoas e precisa ser reservado com 72 horas de antecedência.</p>
+        </header>
+
+        <div class="cardapio__body" data-cardapio-carousel>
+          <ul class="cardapio__grid" id="especiais-lista" role="list" data-cardapio-track>
+            <li class="cardapio__card">
+              <div class="cardapio__media" style="--cardapio-bg: var(--color-yellow-400)">
+                <div class="cardapio__photo">
+                  <img class="cardapio__img cardapio__img--recorte" src="assets/images/cardapio-limone.webp" alt="Cheesecake inteiro sabor Limone" width="800" height="551" loading="lazy" decoding="async">
+                </div>
+              </div>
+              <div class="cardapio__content">
+                <div class="cardapio__info">
+                  <h3 class="cardapio__name">Limone</h3>
+                  <p class="cardapio__desc">Creme de limão siciliano, prosecco e cream cheese, com calda de morango.</p>
+                </div>
+                <ul class="cardapio__prices" role="list">
+                  <li class="cardapio__row">
+                    <p class="cardapio__option">
+                      <span class="cardapio__price">R$ 205</span>
+                      <span class="cardapio__size">1,2 kg&nbsp;· serve 8</span>
+                    </p>
+                    <a class="btn btn--primary cardapio__btn" href="https://pedido.brendi.com.br/a-casa-do-cheesecake/produto/cheesecake-limone-12-kg-acompanha-calda-de-morango-rende-8-fatias" target="_blank" rel="noopener" aria-label="Pedir Limone — 1,2 kg · serve 8">Pedir</a>
+                  </li>
+                </ul>
+              </div>
+            </li>
+
+            <li class="cardapio__card">
+              <div class="cardapio__media" style="--cardapio-bg: var(--color-red-950)">
+                <div class="cardapio__photo">
+                  <img class="cardapio__img cardapio__img--recorte" src="assets/images/cardapio-duplo-chocolate.webp" alt="Cheesecake inteiro sabor Duplo Chocolate" width="800" height="489" loading="lazy" decoding="async">
+                </div>
+              </div>
+              <div class="cardapio__content">
+                <div class="cardapio__info">
+                  <h3 class="cardapio__name">Duplo Chocolate</h3>
+                  <p class="cardapio__desc">Base de biscoito de chocolate, chocolate na massa e calda de chocolate.</p>
+                </div>
+                <ul class="cardapio__prices" role="list">
+                  <li class="cardapio__row">
+                    <p class="cardapio__option">
+                      <span class="cardapio__price">R$ 205</span>
+                      <span class="cardapio__size">1,2 kg&nbsp;· serve 8</span>
+                    </p>
+                    <a class="btn btn--primary cardapio__btn" href="https://pedido.brendi.com.br/a-casa-do-cheesecake/produto/cheesecake-duplo-chocolate-12kg-acompanha-calda-de-chocolate-rende-8-fatias" target="_blank" rel="noopener" aria-label="Pedir Duplo Chocolate — 1,2 kg · serve 8">Pedir</a>
+                  </li>
+                </ul>
+              </div>
+            </li>
+
+            <li class="cardapio__card">
+              <div class="cardapio__media" style="--cardapio-bg: var(--color-red-950)">
+                <div class="cardapio__photo">
+                  <img class="cardapio__img cardapio__img--recorte" src="assets/images/cardapio-oreo.webp" alt="Cheesecake inteiro sabor Oreo" width="800" height="515" loading="lazy" decoding="async">
+                </div>
+              </div>
+              <div class="cardapio__content">
+                <div class="cardapio__info">
+                  <h3 class="cardapio__name">Oreo</h3>
+                  <p class="cardapio__desc">Oreo triturado na massa e um biscoito inteiro em cada fatia.</p>
+                </div>
+                <ul class="cardapio__prices" role="list">
+                  <li class="cardapio__row">
+                    <p class="cardapio__option">
+                      <span class="cardapio__price">R$ 205</span>
+                      <span class="cardapio__size">1,2 kg&nbsp;· serve 8</span>
+                    </p>
+                    <a class="btn btn--primary cardapio__btn" href="https://pedido.brendi.com.br/a-casa-do-cheesecake/produto/cheesecake-de-oreo-12kg-acompanha-calda-de-doce-de-leite-rende-8-fatias" target="_blank" rel="noopener" aria-label="Pedir Oreo — 1,2 kg · serve 8">Pedir</a>
+                  </li>
+                </ul>
+              </div>
+            </li>
+
+            <li class="cardapio__card">
+              <div class="cardapio__media" style="--cardapio-bg: var(--color-red-700)">
+                <div class="cardapio__photo">
+                  <img class="cardapio__img cardapio__img--recorte" src="assets/images/cardapio-duplo-frutas-vermelhas.webp" alt="Cheesecake inteiro sabor Duplo Frutas Vermelhas" width="800" height="520" loading="lazy" decoding="async">
+                </div>
+              </div>
+              <div class="cardapio__content">
+                <div class="cardapio__info">
+                  <h3 class="cardapio__name">Duplo Frutas Vermelhas</h3>
+                  <p class="cardapio__desc">Morangos, amoras e framboesas na massa e calda de frutas vermelhas.</p>
+                </div>
+                <ul class="cardapio__prices" role="list">
+                  <li class="cardapio__row">
+                    <p class="cardapio__option">
+                      <span class="cardapio__price">R$ 205</span>
+                      <span class="cardapio__size">1,2 kg&nbsp;· serve 8</span>
+                    </p>
+                    <a class="btn btn--primary cardapio__btn" href="https://pedido.brendi.com.br/a-casa-do-cheesecake/produto/cheesecake-duplo-frutas-vermelhas-12-kg-acompanha-calda-de-frutas-vermelhas" target="_blank" rel="noopener" aria-label="Pedir Duplo Frutas Vermelhas — 1,2 kg · serve 8">Pedir</a>
+                  </li>
+                </ul>
+              </div>
+            </li>
+          </ul>
+
+          <div class="cardapio__controls" role="group" aria-label="Navegar pelos produtos" data-cardapio-controls hidden>
+            <div class="cardapio__dots" data-cardapio-dots>
+              <button class="cardapio__dot" type="button" aria-controls="especiais-lista" aria-label="Limone, 1 de 4" aria-current="true" data-cardapio-dot></button>
+              <button class="cardapio__dot" type="button" aria-controls="especiais-lista" aria-label="Duplo Chocolate, 2 de 4" data-cardapio-dot></button>
+              <button class="cardapio__dot" type="button" aria-controls="especiais-lista" aria-label="Oreo, 3 de 4" data-cardapio-dot></button>
+              <button class="cardapio__dot" type="button" aria-controls="especiais-lista" aria-label="Duplo Frutas Vermelhas, 4 de 4" data-cardapio-dot></button>
+            </div>
+            <div class="cardapio__arrows">
+              <button class="cardapio__nav cardapio__nav--prev" type="button" aria-controls="especiais-lista" aria-label="Produto anterior" aria-disabled="true" data-cardapio-prev>
+                <svg viewBox="0 0 20 20" width="20" height="20" fill="none" aria-hidden="true" focusable="false"><path d="M12.5 15 7.5 10l5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </button>
+              <button class="cardapio__nav cardapio__nav--next" type="button" aria-controls="especiais-lista" aria-label="Próximo produto" aria-disabled="false" data-cardapio-next>
+                <svg viewBox="0 0 20 20" width="20" height="20" fill="none" aria-hidden="true" focusable="false"><path d="m7.5 15 5-5-5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </button>
+            </div>
+            <p class="sr-only" aria-live="polite" aria-atomic="true" data-cardapio-status></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="cardapio cardapio--pagina" id="fatias" aria-labelledby="fatias-titulo">
+      <div class="container cardapio__inner">
+        <header class="cardapio__head">
+          <h2 class="cardapio__title" id="fatias-titulo">Fatias</h2>
+          <p class="cardapio__lead">Fatias de 150 g, para uma pessoa. Chegam refrigeradas, prontas para servir, numa caixinha com a calda à parte para colocar na hora.</p>
+        </header>
+
+        <div class="cardapio__body" data-cardapio-carousel>
+          <ul class="cardapio__grid" id="fatias-lista" role="list" data-cardapio-track>
+            <li class="cardapio__card">
+              <div class="cardapio__media" style="--cardapio-bg: var(--color-red-700)">
+                <div class="cardapio__photo">
+                  <img class="cardapio__img cardapio__img--recorte" src="assets/images/sabor-frutas-vermelhas.png" alt="Fatia de cheesecake sabor Frutas Vermelhas" width="546" height="516" loading="lazy" decoding="async">
+                </div>
+              </div>
+              <div class="cardapio__content">
+                <div class="cardapio__info">
+                  <h3 class="cardapio__name">Frutas Vermelhas</h3>
+                  <p class="cardapio__desc">Base assada de cream cheese com calda de frutas vermelhas naturais cozidas.</p>
+                </div>
+                <ul class="cardapio__prices" role="list">
+                  <li class="cardapio__row">
+                    <p class="cardapio__option">
+                      <span class="cardapio__price">R$ 28,90</span>
+                      <span class="cardapio__size">Fatia 150 g</span>
+                    </p>
+                    <a class="btn btn--primary cardapio__btn" href="https://pedido.brendi.com.br/a-casa-do-cheesecake/produto/cheesecake-de-frutas-vermelhas-fatia" target="_blank" rel="noopener" aria-label="Pedir Frutas Vermelhas — Fatia 150 g">Pedir</a>
+                  </li>
+                </ul>
+              </div>
+            </li>
+
+            <li class="cardapio__card">
+              <div class="cardapio__media" style="--cardapio-bg: var(--color-yellow-400)">
+                <div class="cardapio__photo">
+                  <img class="cardapio__img cardapio__img--recorte" src="assets/images/sabor-doce-de-leite.png" alt="Fatia de cheesecake sabor Doce de Leite" width="546" height="516" loading="lazy" decoding="async">
+                </div>
+              </div>
+              <div class="cardapio__content">
+                <div class="cardapio__info">
+                  <h3 class="cardapio__name">Doce de Leite</h3>
+                  <p class="cardapio__desc">A mesma base assada, coberta com doce de leite.</p>
+                </div>
+                <ul class="cardapio__prices" role="list">
+                  <li class="cardapio__row">
+                    <p class="cardapio__option">
+                      <span class="cardapio__price">R$ 28,90</span>
+                      <span class="cardapio__size">Fatia 150 g</span>
+                    </p>
+                    <a class="btn btn--primary cardapio__btn" href="https://pedido.brendi.com.br/a-casa-do-cheesecake/produto/cheesecake-de-doce-de-leite-fatia" target="_blank" rel="noopener" aria-label="Pedir Doce de Leite — Fatia 150 g">Pedir</a>
+                  </li>
+                </ul>
+              </div>
+            </li>
+
+            <li class="cardapio__card">
+              <div class="cardapio__media" style="--cardapio-bg: var(--color-pink-200)">
+                <div class="cardapio__photo">
+                  <img class="cardapio__img cardapio__img--recorte" src="assets/images/sabor-morangos.png" alt="Fatia de cheesecake sabor Morangos" width="546" height="516" loading="lazy" decoding="async">
+                </div>
+              </div>
+              <div class="cardapio__content">
+                <div class="cardapio__info">
+                  <h3 class="cardapio__name">Morangos</h3>
+                  <p class="cardapio__desc">Calda de morangos frescos sobre a base assada.</p>
+                </div>
+                <ul class="cardapio__prices" role="list">
+                  <li class="cardapio__row">
+                    <p class="cardapio__option">
+                      <span class="cardapio__price">R$ 28,90</span>
+                      <span class="cardapio__size">Fatia 150 g</span>
+                    </p>
+                    <a class="btn btn--primary cardapio__btn" href="https://pedido.brendi.com.br/a-casa-do-cheesecake/produto/cheesecake-de-morango-fatia" target="_blank" rel="noopener" aria-label="Pedir Morangos — Fatia 150 g">Pedir</a>
+                  </li>
+                </ul>
+              </div>
+            </li>
+
+            <li class="cardapio__card">
+              <div class="cardapio__media" style="--cardapio-bg: var(--color-blue-200)">
+                <div class="cardapio__photo">
+                  <img class="cardapio__img cardapio__img--recorte" src="assets/images/sabor-blue-berry.png" alt="Fatia de cheesecake sabor Blue Berry" width="546" height="516" loading="lazy" decoding="async">
+                </div>
+              </div>
+              <div class="cardapio__content">
+                <div class="cardapio__info">
+                  <h3 class="cardapio__name">Blue Berry</h3>
+                  <p class="cardapio__desc">Calda de blueberry, ácida na medida para cortar o creme.</p>
+                </div>
+                <ul class="cardapio__prices" role="list">
+                  <li class="cardapio__row">
+                    <p class="cardapio__option">
+                      <span class="cardapio__price">R$ 28,90</span>
+                      <span class="cardapio__size">Fatia 150 g</span>
+                    </p>
+                    <a class="btn btn--primary cardapio__btn" href="https://pedido.brendi.com.br/a-casa-do-cheesecake/produto/cheesecake-de-blueberry-fatia" target="_blank" rel="noopener" aria-label="Pedir Blue Berry — Fatia 150 g">Pedir</a>
+                  </li>
+                </ul>
+              </div>
+            </li>
+
+            <li class="cardapio__card">
+              <div class="cardapio__media" style="--cardapio-bg: var(--color-red-950)">
+                <div class="cardapio__photo">
+                  <img class="cardapio__img cardapio__img--recorte" src="assets/images/cardapio-chocolate-fatia.webp" alt="Fatia de cheesecake sabor Chocolate" width="800" height="576" loading="lazy" decoding="async">
+                </div>
+              </div>
+              <div class="cardapio__content">
+                <div class="cardapio__info">
+                  <h3 class="cardapio__name">Chocolate</h3>
+                  <p class="cardapio__desc">A mesma base assada, coberta com calda de chocolate.</p>
+                </div>
+                <ul class="cardapio__prices" role="list">
+                  <li class="cardapio__row">
+                    <p class="cardapio__option">
+                      <span class="cardapio__price">R$ 28,90</span>
+                      <span class="cardapio__size">Fatia 150 g</span>
+                    </p>
+                    <a class="btn btn--primary cardapio__btn" href="https://pedido.brendi.com.br/a-casa-do-cheesecake/produto/cheesecake-de-chocolate-fatia" target="_blank" rel="noopener" aria-label="Pedir Chocolate — Fatia 150 g">Pedir</a>
+                  </li>
+                </ul>
+              </div>
+            </li>
+
+            <li class="cardapio__card">
+              <div class="cardapio__media" style="--cardapio-bg: var(--color-pink-200)">
+                <div class="cardapio__photo">
+                  <img class="cardapio__img cardapio__img--recorte" src="assets/images/cardapio-goiaba-fatia.webp" alt="Fatia de cheesecake sabor Goiaba" width="800" height="579" loading="lazy" decoding="async">
+                </div>
+              </div>
+              <div class="cardapio__content">
+                <div class="cardapio__info">
+                  <h3 class="cardapio__name">Goiaba</h3>
+                  <p class="cardapio__desc">A mesma base assada, coberta com calda de goiaba.</p>
+                </div>
+                <ul class="cardapio__prices" role="list">
+                  <li class="cardapio__row">
+                    <p class="cardapio__option">
+                      <span class="cardapio__price">R$ 28,90</span>
+                      <span class="cardapio__size">Fatia 150 g</span>
+                    </p>
+                    <a class="btn btn--primary cardapio__btn" href="https://pedido.brendi.com.br/a-casa-do-cheesecake/produto/cheesecake-de-goiaba-fatia" target="_blank" rel="noopener" aria-label="Pedir Goiaba — Fatia 150 g">Pedir</a>
+                  </li>
+                </ul>
+              </div>
+            </li>
+
+            <li class="cardapio__card">
+              <div class="cardapio__media" style="--cardapio-bg: var(--color-red-700)">
+                <div class="cardapio__photo">
+                  <img class="cardapio__img cardapio__img--recorte" src="assets/images/cardapio-amora-fatia.webp" alt="Fatia de cheesecake sabor Amora" width="800" height="569" loading="lazy" decoding="async">
+                </div>
+              </div>
+              <div class="cardapio__content">
+                <div class="cardapio__info">
+                  <h3 class="cardapio__name">Amora</h3>
+                  <p class="cardapio__desc">Calda de amoras sobre a base assada.</p>
+                </div>
+                <ul class="cardapio__prices" role="list">
+                  <li class="cardapio__row">
+                    <p class="cardapio__option">
+                      <span class="cardapio__price">R$ 28,90</span>
+                      <span class="cardapio__size">Fatia 150 g</span>
+                    </p>
+                    <a class="btn btn--primary cardapio__btn" href="https://pedido.brendi.com.br/a-casa-do-cheesecake/produto/cheesecake-de-amoras" target="_blank" rel="noopener" aria-label="Pedir Amora — Fatia 150 g">Pedir</a>
+                  </li>
+                </ul>
+              </div>
+            </li>
+
+            <li class="cardapio__card">
+              <div class="cardapio__media" style="--cardapio-bg: var(--color-cream-100)">
+                <div class="cardapio__photo">
+                  <img class="cardapio__img cardapio__img--recorte" src="assets/images/cardapio-plain-fatia.webp" alt="Fatia de cheesecake sabor Plain" width="800" height="531" loading="lazy" decoding="async">
+                </div>
+              </div>
+              <div class="cardapio__content">
+                <div class="cardapio__info">
+                  <h3 class="cardapio__name">Plain</h3>
+                  <p class="cardapio__desc">A receita original, sem cobertura, para comer pura ou com a sua calda.</p>
+                </div>
+                <ul class="cardapio__prices" role="list">
+                  <li class="cardapio__row">
+                    <p class="cardapio__option">
+                      <span class="cardapio__price">R$ 25,90</span>
+                      <span class="cardapio__size">Fatia 150 g</span>
+                    </p>
+                    <a class="btn btn--primary cardapio__btn" href="https://pedido.brendi.com.br/a-casa-do-cheesecake/produto/cheesecake-de-plain-fatia-sem-cobertura" target="_blank" rel="noopener" aria-label="Pedir Plain — Fatia 150 g">Pedir</a>
+                  </li>
+                </ul>
+              </div>
+            </li>
+
+            <li class="cardapio__card">
+              <div class="cardapio__media" style="--cardapio-bg: var(--color-pink-200)">
+                <div class="cardapio__photo">
+                  <img class="cardapio__img cardapio__img--recorte" src="assets/images/cardapio-morangos-ao-porto-fatia.webp" alt="Fatia de cheesecake sabor Morangos ao Porto" width="800" height="578" loading="lazy" decoding="async">
+                </div>
+              </div>
+              <div class="cardapio__content">
+                <div class="cardapio__info">
+                  <h3 class="cardapio__name">Morangos ao Porto</h3>
+                  <p class="cardapio__desc">Morangos cozidos por 24 horas no vinho do Porto, até sair todo o álcool.</p>
+                </div>
+                <ul class="cardapio__prices" role="list">
+                  <li class="cardapio__row">
+                    <p class="cardapio__option">
+                      <span class="cardapio__price">R$ 28,90</span>
+                      <span class="cardapio__size">Fatia 150 g</span>
+                    </p>
+                    <a class="btn btn--primary cardapio__btn" href="https://pedido.brendi.com.br/a-casa-do-cheesecake/produto/cheesecake-de-morangos-ao-porto-fatia" target="_blank" rel="noopener" aria-label="Pedir Morangos ao Porto — Fatia 150 g">Pedir</a>
+                  </li>
+                </ul>
+              </div>
+            </li>
+
+            <li class="cardapio__card">
+              <div class="cardapio__media" style="--cardapio-bg: var(--color-yellow-400)">
+                <div class="cardapio__photo">
+                  <img class="cardapio__img cardapio__img--recorte" src="assets/images/cardapio-limone-fatia.webp" alt="Fatia de cheesecake sabor Limone" width="800" height="565" loading="lazy" decoding="async">
+                </div>
+              </div>
+              <div class="cardapio__content">
+                <div class="cardapio__info">
+                  <h3 class="cardapio__name">Limone</h3>
+                  <p class="cardapio__desc">Creme de limão siciliano, prosecco e cream cheese, com calda de morango.</p>
+                </div>
+                <ul class="cardapio__prices" role="list">
+                  <li class="cardapio__row">
+                    <p class="cardapio__option">
+                      <span class="cardapio__price">R$ 31,90</span>
+                      <span class="cardapio__size">Fatia 150 g</span>
+                    </p>
+                    <a class="btn btn--primary cardapio__btn" href="https://pedido.brendi.com.br/a-casa-do-cheesecake/produto/cheesecake-limone-com-calda-de-morango-fatia" target="_blank" rel="noopener" aria-label="Pedir Limone — Fatia 150 g">Pedir</a>
+                  </li>
+                </ul>
+              </div>
+            </li>
+
+            <li class="cardapio__card">
+              <div class="cardapio__media" style="--cardapio-bg: var(--color-red-950)">
+                <div class="cardapio__photo">
+                  <img class="cardapio__img cardapio__img--recorte" src="assets/images/cardapio-duplo-chocolate-fatia.webp" alt="Fatia de cheesecake sabor Duplo Chocolate" width="800" height="577" loading="lazy" decoding="async">
+                </div>
+              </div>
+              <div class="cardapio__content">
+                <div class="cardapio__info">
+                  <h3 class="cardapio__name">Duplo Chocolate</h3>
+                  <p class="cardapio__desc">Base de biscoito de chocolate, chocolate na massa e calda de chocolate.</p>
+                </div>
+                <ul class="cardapio__prices" role="list">
+                  <li class="cardapio__row">
+                    <p class="cardapio__option">
+                      <span class="cardapio__price">R$ 31,90</span>
+                      <span class="cardapio__size">Fatia 150 g</span>
+                    </p>
+                    <a class="btn btn--primary cardapio__btn" href="https://pedido.brendi.com.br/a-casa-do-cheesecake/produto/cheesecake-duplo-chocolate-fatia" target="_blank" rel="noopener" aria-label="Pedir Duplo Chocolate — Fatia 150 g">Pedir</a>
+                  </li>
+                </ul>
+              </div>
+            </li>
+
+            <li class="cardapio__card">
+              <div class="cardapio__media" style="--cardapio-bg: var(--color-red-950)">
+                <div class="cardapio__photo">
+                  <img class="cardapio__img cardapio__img--recorte" src="assets/images/cardapio-oreo-fatia.webp" alt="Fatia de cheesecake sabor Oreo" width="800" height="616" loading="lazy" decoding="async">
+                </div>
+              </div>
+              <div class="cardapio__content">
+                <div class="cardapio__info">
+                  <h3 class="cardapio__name">Oreo</h3>
+                  <p class="cardapio__desc">Oreo triturado na massa e um biscoito inteiro em cada fatia.</p>
+                </div>
+                <ul class="cardapio__prices" role="list">
+                  <li class="cardapio__row">
+                    <p class="cardapio__option">
+                      <span class="cardapio__price">R$ 31,90</span>
+                      <span class="cardapio__size">Fatia 150 g</span>
+                    </p>
+                    <a class="btn btn--primary cardapio__btn" href="https://pedido.brendi.com.br/a-casa-do-cheesecake/produto/cheesecake-de-oreo-fatia" target="_blank" rel="noopener" aria-label="Pedir Oreo — Fatia 150 g">Pedir</a>
+                  </li>
+                </ul>
+              </div>
+            </li>
+
+            <li class="cardapio__card">
+              <div class="cardapio__media" style="--cardapio-bg: var(--color-red-700)">
+                <div class="cardapio__photo">
+                  <img class="cardapio__img cardapio__img--recorte" src="assets/images/cardapio-duplo-frutas-vermelhas-fatia.webp" alt="Fatia de cheesecake sabor Duplo Frutas Vermelhas" width="800" height="599" loading="lazy" decoding="async">
+                </div>
+              </div>
+              <div class="cardapio__content">
+                <div class="cardapio__info">
+                  <h3 class="cardapio__name">Duplo Frutas Vermelhas</h3>
+                  <p class="cardapio__desc">Morangos, amoras e framboesas na massa e calda de frutas vermelhas.</p>
+                </div>
+                <ul class="cardapio__prices" role="list">
+                  <li class="cardapio__row">
+                    <p class="cardapio__option">
+                      <span class="cardapio__price">R$ 31,90</span>
+                      <span class="cardapio__size">Fatia 150 g</span>
+                    </p>
+                    <a class="btn btn--primary cardapio__btn" href="https://pedido.brendi.com.br/a-casa-do-cheesecake/produto/cheesecake-duplo-frutas-vermelhas-fatia" target="_blank" rel="noopener" aria-label="Pedir Duplo Frutas Vermelhas — Fatia 150 g">Pedir</a>
+                  </li>
+                </ul>
+              </div>
+            </li>
+
+            <li class="cardapio__card">
+              <div class="cardapio__media" style="--cardapio-bg: var(--color-red-950)">
+                <div class="cardapio__photo">
+                  <img class="cardapio__img cardapio__img--recorte" src="assets/images/cardapio-duplo-chocolate-com-doce-de-leite-fatia.webp" alt="Fatia de cheesecake sabor Duplo Chocolate com Doce de Leite" width="800" height="584" loading="lazy" decoding="async">
+                </div>
+              </div>
+              <div class="cardapio__content">
+                <div class="cardapio__info">
+                  <h3 class="cardapio__name">Duplo Chocolate com Doce de Leite</h3>
+                  <p class="cardapio__desc">O Duplo Chocolate com calda de doce de leite no lugar da de chocolate.</p>
+                </div>
+                <ul class="cardapio__prices" role="list">
+                  <li class="cardapio__row">
+                    <p class="cardapio__option">
+                      <span class="cardapio__price">R$ 31,90</span>
+                      <span class="cardapio__size">Fatia 150 g</span>
+                    </p>
+                    <a class="btn btn--primary cardapio__btn" href="https://pedido.brendi.com.br/a-casa-do-cheesecake/produto/cheesecake-duplo-chocolate-com-doce-de-leite-fatia" target="_blank" rel="noopener" aria-label="Pedir Duplo Chocolate com Doce de Leite — Fatia 150 g">Pedir</a>
+                  </li>
+                </ul>
+              </div>
+            </li>
+          </ul>
+
+          <div class="cardapio__controls" role="group" aria-label="Navegar pelos produtos" data-cardapio-controls hidden>
+            <div class="cardapio__dots" data-cardapio-dots>
+              <button class="cardapio__dot" type="button" aria-controls="fatias-lista" aria-label="Frutas Vermelhas, 1 de 14" aria-current="true" data-cardapio-dot></button>
+              <button class="cardapio__dot" type="button" aria-controls="fatias-lista" aria-label="Doce de Leite, 2 de 14" data-cardapio-dot></button>
+              <button class="cardapio__dot" type="button" aria-controls="fatias-lista" aria-label="Morangos, 3 de 14" data-cardapio-dot></button>
+              <button class="cardapio__dot" type="button" aria-controls="fatias-lista" aria-label="Blue Berry, 4 de 14" data-cardapio-dot></button>
+              <button class="cardapio__dot" type="button" aria-controls="fatias-lista" aria-label="Chocolate, 5 de 14" data-cardapio-dot></button>
+              <button class="cardapio__dot" type="button" aria-controls="fatias-lista" aria-label="Goiaba, 6 de 14" data-cardapio-dot></button>
+              <button class="cardapio__dot" type="button" aria-controls="fatias-lista" aria-label="Amora, 7 de 14" data-cardapio-dot></button>
+              <button class="cardapio__dot" type="button" aria-controls="fatias-lista" aria-label="Plain, 8 de 14" data-cardapio-dot></button>
+              <button class="cardapio__dot" type="button" aria-controls="fatias-lista" aria-label="Morangos ao Porto, 9 de 14" data-cardapio-dot></button>
+              <button class="cardapio__dot" type="button" aria-controls="fatias-lista" aria-label="Limone, 10 de 14" data-cardapio-dot></button>
+              <button class="cardapio__dot" type="button" aria-controls="fatias-lista" aria-label="Duplo Chocolate, 11 de 14" data-cardapio-dot></button>
+              <button class="cardapio__dot" type="button" aria-controls="fatias-lista" aria-label="Oreo, 12 de 14" data-cardapio-dot></button>
+              <button class="cardapio__dot" type="button" aria-controls="fatias-lista" aria-label="Duplo Frutas Vermelhas, 13 de 14" data-cardapio-dot></button>
+              <button class="cardapio__dot" type="button" aria-controls="fatias-lista" aria-label="Duplo Chocolate com Doce de Leite, 14 de 14" data-cardapio-dot></button>
+            </div>
+            <div class="cardapio__arrows">
+              <button class="cardapio__nav cardapio__nav--prev" type="button" aria-controls="fatias-lista" aria-label="Produto anterior" aria-disabled="true" data-cardapio-prev>
+                <svg viewBox="0 0 20 20" width="20" height="20" fill="none" aria-hidden="true" focusable="false"><path d="M12.5 15 7.5 10l5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </button>
+              <button class="cardapio__nav cardapio__nav--next" type="button" aria-controls="fatias-lista" aria-label="Próximo produto" aria-disabled="false" data-cardapio-next>
+                <svg viewBox="0 0 20 20" width="20" height="20" fill="none" aria-hidden="true" focusable="false"><path d="m7.5 15 5-5-5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </button>
+            </div>
+            <p class="sr-only" aria-live="polite" aria-atomic="true" data-cardapio-status></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="cardapio cardapio--pagina" id="bolos" aria-labelledby="bolos-titulo">
+      <div class="container cardapio__inner">
+        <header class="cardapio__head">
+          <h2 class="cardapio__title" id="bolos-titulo">Bolos especiais</h2>
+          <p class="cardapio__lead">Bolos de 1,5 kg que servem 10 pessoas, feitos sob encomenda. Precisam ser reservados com 72 horas de antecedência.</p>
+        </header>
+
+        <div class="cardapio__body" data-cardapio-carousel>
+          <ul class="cardapio__grid" id="bolos-lista" role="list" data-cardapio-track>
+            <li class="cardapio__card">
+              <div class="cardapio__media" style="--cardapio-bg: var(--color-cream-100)">
+              </div>
+              <div class="cardapio__content">
+                <div class="cardapio__info">
+                  <h3 class="cardapio__name">Ninho com Morango</h3>
+                  <p class="cardapio__desc">Bolo de leite Ninho com creme de morangos frescos e morangos por cima.</p>
+                </div>
+                <ul class="cardapio__prices" role="list">
+                  <li class="cardapio__row">
+                    <p class="cardapio__option">
+                      <span class="cardapio__price">R$ 198</span>
+                      <span class="cardapio__size">1,5 kg&nbsp;· serve 10</span>
+                    </p>
+                    <a class="btn btn--primary cardapio__btn" href="https://pedido.brendi.com.br/a-casa-do-cheesecake/produto/bolo-de-ninho-com-morango" target="_blank" rel="noopener" aria-label="Pedir Ninho com Morango — 1,5 kg · serve 10">Pedir</a>
+                  </li>
+                </ul>
+              </div>
+            </li>
+
+            <li class="cardapio__card">
+              <div class="cardapio__media" style="--cardapio-bg: var(--color-cream-100)">
+              </div>
+              <div class="cardapio__content">
+                <div class="cardapio__info">
+                  <h3 class="cardapio__name">Brigadeiro</h3>
+                  <p class="cardapio__desc">Camadas de bolo envoltas em brigadeiro cremoso.</p>
+                </div>
+                <ul class="cardapio__prices" role="list">
+                  <li class="cardapio__row">
+                    <p class="cardapio__option">
+                      <span class="cardapio__price">R$ 198</span>
+                      <span class="cardapio__size">1,5 kg&nbsp;· serve 10</span>
+                    </p>
+                    <a class="btn btn--primary cardapio__btn" href="https://pedido.brendi.com.br/a-casa-do-cheesecake/produto/bolo-de-chcolate-trufado" target="_blank" rel="noopener" aria-label="Pedir Brigadeiro — 1,5 kg · serve 10">Pedir</a>
+                  </li>
+                </ul>
+              </div>
+            </li>
+
+            <li class="cardapio__card">
+              <div class="cardapio__media" style="--cardapio-bg: var(--color-cream-100)">
+              </div>
+              <div class="cardapio__content">
+                <div class="cardapio__info">
+                  <h3 class="cardapio__name">Abacaxi com Coco</h3>
+                  <p class="cardapio__desc">Recheado com pedaços de abacaxi e coberto com coco ralado.</p>
+                </div>
+                <ul class="cardapio__prices" role="list">
+                  <li class="cardapio__row">
+                    <p class="cardapio__option">
+                      <span class="cardapio__price">R$ 198</span>
+                      <span class="cardapio__size">1,5 kg&nbsp;· serve 10</span>
+                    </p>
+                    <a class="btn btn--primary cardapio__btn" href="https://pedido.brendi.com.br/a-casa-do-cheesecake/produto/bolo-ded-abacaxi-com-coco-15-kg" target="_blank" rel="noopener" aria-label="Pedir Abacaxi com Coco — 1,5 kg · serve 10">Pedir</a>
+                  </li>
+                </ul>
+              </div>
+            </li>
+
+            <li class="cardapio__card">
+              <div class="cardapio__media" style="--cardapio-bg: var(--color-cream-100)">
+              </div>
+              <div class="cardapio__content">
+                <div class="cardapio__info">
+                  <h3 class="cardapio__name">Do seu jeito</h3>
+                  <p class="cardapio__desc">Conte na observação do pedido como quer o bolo e a gente prepara.</p>
+                </div>
+                <ul class="cardapio__prices" role="list">
+                  <li class="cardapio__row">
+                    <p class="cardapio__option">
+                      <span class="cardapio__price">R$ 250</span>
+                      <span class="cardapio__size">1,5 kg&nbsp;· serve 10</span>
+                    </p>
+                    <a class="btn btn--primary cardapio__btn" href="https://pedido.brendi.com.br/a-casa-do-cheesecake/produto/bolo-de-abacaxi-com-coco" target="_blank" rel="noopener" aria-label="Pedir Do seu jeito — 1,5 kg · serve 10">Pedir</a>
+                  </li>
+                </ul>
+              </div>
+            </li>
+          </ul>
+
+          <div class="cardapio__controls" role="group" aria-label="Navegar pelos produtos" data-cardapio-controls hidden>
+            <div class="cardapio__dots" data-cardapio-dots>
+              <button class="cardapio__dot" type="button" aria-controls="bolos-lista" aria-label="Ninho com Morango, 1 de 4" aria-current="true" data-cardapio-dot></button>
+              <button class="cardapio__dot" type="button" aria-controls="bolos-lista" aria-label="Brigadeiro, 2 de 4" data-cardapio-dot></button>
+              <button class="cardapio__dot" type="button" aria-controls="bolos-lista" aria-label="Abacaxi com Coco, 3 de 4" data-cardapio-dot></button>
+              <button class="cardapio__dot" type="button" aria-controls="bolos-lista" aria-label="Do seu jeito, 4 de 4" data-cardapio-dot></button>
+            </div>
+            <div class="cardapio__arrows">
+              <button class="cardapio__nav cardapio__nav--prev" type="button" aria-controls="bolos-lista" aria-label="Produto anterior" aria-disabled="true" data-cardapio-prev>
+                <svg viewBox="0 0 20 20" width="20" height="20" fill="none" aria-hidden="true" focusable="false"><path d="M12.5 15 7.5 10l5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </button>
+              <button class="cardapio__nav cardapio__nav--next" type="button" aria-controls="bolos-lista" aria-label="Próximo produto" aria-disabled="false" data-cardapio-next>
+                <svg viewBox="0 0 20 20" width="20" height="20" fill="none" aria-hidden="true" focusable="false"><path d="m7.5 15 5-5-5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </button>
+            </div>
+            <p class="sr-only" aria-live="polite" aria-atomic="true" data-cardapio-status></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="cardapio cardapio--pagina" id="brownie-velas-cartao" aria-labelledby="brownie-velas-cartao-titulo">
+      <div class="container cardapio__inner">
+        <header class="cardapio__head">
+          <h2 class="cardapio__title" id="brownie-velas-cartao-titulo">Brownie, velas e cartão</h2>
+          <p class="cardapio__lead">Brownie de chocolate com calda para dividir, e velas e cartão com mensagem para completar o presente.</p>
+        </header>
+
+        <div class="cardapio__body" data-cardapio-carousel>
+          <ul class="cardapio__grid" id="brownie-velas-cartao-lista" role="list" data-cardapio-track>
+            <li class="cardapio__card">
+              <div class="cardapio__media" style="--cardapio-bg: var(--color-cream-100)">
+                <div class="cardapio__photo">
+                  <img class="cardapio__img cardapio__img--recorte" src="assets/images/cardapio-brownie.webp" alt="Brownie de chocolate" width="800" height="483" loading="lazy" decoding="async">
+                </div>
+              </div>
+              <div class="cardapio__content">
+                <div class="cardapio__info">
+                  <h3 class="cardapio__name">Brownie</h3>
+                  <p class="cardapio__desc">Chocolate premium com cacau em alta concentração e calda de chocolate.</p>
+                </div>
+                <ul class="cardapio__prices" role="list">
+                  <li class="cardapio__row">
+                    <p class="cardapio__option">
+                      <span class="cardapio__price">R$ 140</span>
+                      <span class="cardapio__size">Com calda&nbsp;· 1 kg&nbsp;· serve 10</span>
+                    </p>
+                    <a class="btn btn--primary cardapio__btn" href="https://pedido.brendi.com.br/a-casa-do-cheesecake/produto/brownie-tradicional-de-chocolate-com-calda-de-chocolate-1kg" target="_blank" rel="noopener" aria-label="Pedir Brownie — Com calda · 1 kg · serve 10">Pedir</a>
+                  </li>
+                  <li class="cardapio__row">
+                    <p class="cardapio__option">
+                      <span class="cardapio__price">R$ 120</span>
+                      <span class="cardapio__size">Sem calda</span>
+                    </p>
+                    <a class="btn btn--secondary cardapio__btn" href="https://pedido.brendi.com.br/a-casa-do-cheesecake/produto/brownie-tradicional-de-chocolate" target="_blank" rel="noopener" aria-label="Pedir Brownie — Sem calda">Pedir</a>
+                  </li>
+                </ul>
+              </div>
+            </li>
+
+            <li class="cardapio__card">
+              <div class="cardapio__media" style="--cardapio-bg: var(--color-cream-100)">
+                <div class="cardapio__photo">
+                  <img class="cardapio__img cardapio__img--recorte" src="assets/images/cardapio-velas.webp" alt="Velinhas azul e rosa" width="376" height="1155" loading="lazy" decoding="async">
+                </div>
+              </div>
+              <div class="cardapio__content">
+                <div class="cardapio__info">
+                  <h3 class="cardapio__name">Velas</h3>
+                  <p class="cardapio__desc">Velinha de aniversário para o cheesecake ou o bolo.</p>
+                </div>
+                <ul class="cardapio__prices" role="list">
+                  <li class="cardapio__row">
+                    <p class="cardapio__option">
+                      <span class="cardapio__price">R$ 4,50</span>
+                      <span class="cardapio__size">Azul&nbsp;· unidade</span>
+                    </p>
+                    <a class="btn btn--primary cardapio__btn" href="https://pedido.brendi.com.br/a-casa-do-cheesecake/produto/velinha-azul-unidade" target="_blank" rel="noopener" aria-label="Pedir Velas — Azul · unidade">Pedir</a>
+                  </li>
+                  <li class="cardapio__row">
+                    <p class="cardapio__option">
+                      <span class="cardapio__price">R$ 4,50</span>
+                      <span class="cardapio__size">Rosa&nbsp;· unidade</span>
+                    </p>
+                    <a class="btn btn--secondary cardapio__btn" href="https://pedido.brendi.com.br/a-casa-do-cheesecake/produto/velinha-rosa-unidade" target="_blank" rel="noopener" aria-label="Pedir Velas — Rosa · unidade">Pedir</a>
+                  </li>
+                </ul>
+              </div>
+            </li>
+
+            <li class="cardapio__card">
+              <div class="cardapio__media" style="--cardapio-bg: var(--color-cream-100)">
+                <div class="cardapio__photo">
+                  <img class="cardapio__img cardapio__img--recorte" src="assets/images/cardapio-cartao.webp" alt="Cartão com mensagem" width="800" height="443" loading="lazy" decoding="async">
+                </div>
+              </div>
+              <div class="cardapio__content">
+                <div class="cardapio__info">
+                  <h3 class="cardapio__name">Cartão</h3>
+                  <p class="cardapio__desc">Escreva na observação do pedido: de, para e a mensagem.</p>
+                </div>
+                <ul class="cardapio__prices" role="list">
+                  <li class="cardapio__row">
+                    <p class="cardapio__option">
+                      <span class="cardapio__price">R$ 5</span>
+                      <span class="cardapio__size">Cartão com mensagem</span>
+                    </p>
+                    <a class="btn btn--primary cardapio__btn" href="https://pedido.brendi.com.br/a-casa-do-cheesecake/produto/cartao" target="_blank" rel="noopener" aria-label="Pedir Cartão — Cartão com mensagem">Pedir</a>
+                  </li>
+                </ul>
+              </div>
+            </li>
+          </ul>
+
+          <div class="cardapio__controls" role="group" aria-label="Navegar pelos produtos" data-cardapio-controls hidden>
+            <div class="cardapio__dots" data-cardapio-dots>
+              <button class="cardapio__dot" type="button" aria-controls="brownie-velas-cartao-lista" aria-label="Brownie, 1 de 3" aria-current="true" data-cardapio-dot></button>
+              <button class="cardapio__dot" type="button" aria-controls="brownie-velas-cartao-lista" aria-label="Velas, 2 de 3" data-cardapio-dot></button>
+              <button class="cardapio__dot" type="button" aria-controls="brownie-velas-cartao-lista" aria-label="Cartão, 3 de 3" data-cardapio-dot></button>
+            </div>
+            <div class="cardapio__arrows">
+              <button class="cardapio__nav cardapio__nav--prev" type="button" aria-controls="brownie-velas-cartao-lista" aria-label="Produto anterior" aria-disabled="true" data-cardapio-prev>
+                <svg viewBox="0 0 20 20" width="20" height="20" fill="none" aria-hidden="true" focusable="false"><path d="M12.5 15 7.5 10l5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </button>
+              <button class="cardapio__nav cardapio__nav--next" type="button" aria-controls="brownie-velas-cartao-lista" aria-label="Próximo produto" aria-disabled="false" data-cardapio-next>
+                <svg viewBox="0 0 20 20" width="20" height="20" fill="none" aria-hidden="true" focusable="false"><path d="m7.5 15 5-5-5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </button>
+            </div>
+            <p class="sr-only" aria-live="polite" aria-atomic="true" data-cardapio-status></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+<footer class="site-footer" id="contato" data-figma-node="7073:66">
+  <div class="site-footer__main container" data-figma-node="7073:149">
+    <div class="site-footer__row" data-figma-node="7073:67">
+      <div class="site-footer__group site-footer__group--start" data-figma-node="7073:73">
+        <nav class="site-footer__col" data-figma-node="7073:74" aria-labelledby="site-footer-comprar">
+          <h2 class="site-footer__heading" id="site-footer-comprar" data-figma-node="7073:75">Comprar</h2>
+          <ul class="site-footer__list" role="list">
+            <li><a class="site-footer__link" data-figma-node="7073:76" href="https://pedido.brendi.com.br/a-casa-do-cheesecake" target="_blank" rel="noopener">Cardápio</a></li>
+            <li><a class="site-footer__link" data-figma-node="7073:77" href="index.html#cardapio">Frutas Vermelhas</a></li>
+            <li><a class="site-footer__link" data-figma-node="7073:78" href="index.html#primeira-fatia-03b">Provar uma fatia</a></li>
+          </ul>
+        </nav>
+        <nav class="site-footer__col" data-figma-node="7073:79" aria-labelledby="site-footer-marca">
+          <h2 class="site-footer__heading" id="site-footer-marca" data-figma-node="7073:80">A marca</h2>
+          <ul class="site-footer__list" role="list">
+            <li><a class="site-footer__link" data-figma-node="7073:81" href="index.html#sobre">Sobre nós</a></li>
+            <li><a class="site-footer__link" data-figma-node="7073:82" href="index.html#sobre">Nosso especialista</a></li>
+            <li><a class="site-footer__link" data-figma-node="7073:83" href="https://acasadocheesecake.com.br/blog/">Blog</a></li>
+          </ul>
+        </nav>
+      </div>
+
+      <div class="site-footer__brand" data-figma-node="7073:68">
+        <a class="site-footer__logo" data-figma-node="7073:69" href="#topo" aria-label="A Casa do Cheesecake — voltar ao topo">
+          <img src="assets/images/footer-logo.webp" width="148" height="150" alt="Selo dourado A Casa do Cheesecake" loading="lazy" decoding="async">
+        </a>
+        <p class="site-footer__tagline" data-figma-node="7073:71">O autêntico New York Cheesecake, assado em São Paulo desde 2004. Só delivery.</p>
+      </div>
+
+      <div class="site-footer__group site-footer__group--end" data-figma-node="7073:97">
+        <nav class="site-footer__col" data-figma-node="7073:84" aria-labelledby="site-footer-contato">
+          <h2 class="site-footer__heading" id="site-footer-contato" data-figma-node="7073:85">Contato</h2>
+          <ul class="site-footer__list" role="list">
+            <li><a class="site-footer__link" data-figma-node="7073:86" href="https://wa.me/5511956022366?text=Ol%C3%A1!+Passei+pelo+site+e+gostaria+de+mais+informa%C3%A7%C3%B5es." target="_blank" rel="noopener">Fale com a gente</a></li>
+            <li><a class="site-footer__link" data-figma-node="7073:98" href="tel:+5511956022366">(11) 95602-2366</a></li>
+            <li><a class="site-footer__link" href="mailto:atendimento@acasadocheesecake.com.br">Mande um e-mail</a></li>
+          </ul>
+        </nav>
+        <nav class="site-footer__col" data-figma-node="7073:87" aria-labelledby="site-footer-social">
+          <h2 class="site-footer__heading" id="site-footer-social" data-figma-node="7073:88">Social</h2>
+          <ul class="site-footer__list" role="list">
+            <li><a class="site-footer__link" data-figma-node="7073:89" href="https://www.instagram.com/acasadocheesecakeoficial/" target="_blank" rel="noopener">Instagram</a></li>
+            <li><a class="site-footer__link" data-figma-node="7073:90" href="https://www.facebook.com/acasadocheesecakeoficial" target="_blank" rel="noopener">Facebook</a></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+
+    <div class="site-footer__bottom" data-figma-node="7073:91">
+      <p class="site-footer__copy" data-figma-node="7073:92">A Casa do Cheesecake ®<span class="site-footer__sep"> · </span>todos os direitos reservados</p>
+      <p class="site-footer__credits" data-figma-node="7073:93">
+        <span data-figma-node="7073:94">Criado por</span>
+        <img class="site-footer__credits-logo" data-figma-node="7073:95" src="assets/images/footer-criado-por.svg" width="20" height="16" alt="" loading="lazy" decoding="async">
+      </p>
+    </div>
+  </div>
+
+  <div class="site-footer__pattern" data-figma-node="7073:111" aria-hidden="true"></div>
+</footer>
+
+  <script src="assets/js/main.js" defer></script>
+  <script src="assets/js/motion.js" defer></script>
+  <script src="assets/js/sections/02-primeira-fatia.js" defer></script>
+  <script src="assets/js/sections/03-cardapio.js" defer></script>
+  <script src="assets/js/sections/footer.js" defer></script>
+</body>
+</html>
