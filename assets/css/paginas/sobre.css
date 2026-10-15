@@ -1,0 +1,19 @@
+/* ==========================================================================
+   Página Sobre nós (sobre.html) — só ajustes desta página sobre o bloco
+   "Produção própria" (06) da home. Nada aqui vale para a home.
+
+   Pedido do cliente: foto menor e alinhada com o texto. Com 2 colunas
+   (≥ 600px) a foto deixa de ser um quadrado de 568px e acompanha a altura
+   da coluna de texto: topo na linha do título, base no último parágrafo.
+   ========================================================================== */
+@media (min-width: 600px) {
+  .sobre--pagina .sobre__inner {
+    align-items: stretch;
+  }
+
+  .sobre--pagina .sobre__media {
+    align-self: stretch;
+    aspect-ratio: auto;
+    height: 100%;
+  }
+}

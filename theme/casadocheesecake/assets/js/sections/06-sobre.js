@@ -22,8 +22,10 @@
   var M = window.cdcMotion;
   if (!M || M.reduced) return;
 
-  var section = document.querySelector('.sobre');
-  if (!section) return;
+  // a página Sobre nós tem dois blocos iguais a este: cada um com a sua coreografia
+  Array.prototype.forEach.call(document.querySelectorAll('.sobre'), setup);
+
+  function setup(section) {
   var q = function (sel) { return section.querySelector(sel); };
   var qa = function (sel) { return Array.prototype.slice.call(section.querySelectorAll(sel)); };
 
@@ -103,5 +105,6 @@
     photo(0, 'left');
     copy(120);
     expert(520);
+  }
   }
 })();

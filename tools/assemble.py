@@ -59,6 +59,30 @@ PAGES = {
         "css": ["sections/02-primeira-fatia", "sections/03-cardapio", "paginas/cardapio"],
         "js": ["sections/02-primeira-fatia", "sections/03-cardapio"],
     },
+    "sobre": {
+        "dir": SRC / "paginas" / "sobre",
+        "out": "sobre.html",
+        "title": "Sobre nós — A Casa do Cheesecake",
+        "description": "Desde 2001 fazendo cheesecake e desde 2004 em São Paulo: a história d'A Casa do Cheesecake, pioneira no autêntico NY Cheesecake no Brasil.",
+        "css": ["sections/06-sobre", "sections/08-entrega", "sections/09-restaurantes", "paginas/sobre"],
+        "js": ["sections/06-sobre", "sections/08-entrega", "sections/09-restaurantes"],
+    },
+    "contato": {
+        "dir": SRC / "paginas" / "contato",
+        "out": "contato.html",
+        "title": "Contato — A Casa do Cheesecake",
+        "description": "Fale com A Casa do Cheesecake: WhatsApp, pedidos delivery, pedidos para restaurantes e e-mail do financeiro e do atendimento.",
+        "css": ["sections/06-sobre", "sections/03-cardapio", "sections/10-perguntas", "paginas/contato"],
+        "js": ["sections/06-sobre", "sections/10-perguntas", "paginas/contato"],
+    },
+    "blog": {
+        "dir": SRC / "paginas" / "blog",
+        "out": "blog.html",
+        "title": "Blog — A Casa do Cheesecake",
+        "description": "Dicas para escolher, pedir, presentear e conservar o seu cheesecake, além de receitas e curiosidades sobre o autêntico NY Cheesecake.",
+        "css": ["sections/05-diferenciais", "sections/06-sobre", "paginas/blog"],
+        "js": ["sections/05-diferenciais", "sections/06-sobre"],
+    },
 }
 
 

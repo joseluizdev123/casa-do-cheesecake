@@ -28,8 +28,10 @@
   var M = window.cdcMotion;
   if (!M || M.reduced) return;
 
-  var section = document.querySelector('.diferenciais');
-  if (!section) return;
+  // a página do Blog repete este bloco (uma seção por categoria): cada um com a sua coreografia
+  Array.prototype.forEach.call(document.querySelectorAll('.diferenciais'), setup);
+
+  function setup(section) {
 
   var head = section.querySelector('.diferenciais__head');
   var title = section.querySelector('.diferenciais__title');
@@ -149,4 +151,5 @@
   registered.forEach(function (el) { el.style.setProperty('transition', 'none', 'important'); });
   void section.offsetHeight;   // aplica o estado escondido já, sem transição
   registered.forEach(function (el) { el.style.removeProperty('transition'); });
+  }
 })();

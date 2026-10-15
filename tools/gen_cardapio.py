@@ -79,7 +79,12 @@ def outro(nome, desc, foto, linhas, alt):
     return dict(nome=nome, desc=desc, cor=CREME, fotos=[foto], linhas=linhas, alt=alt)
 
 
+INTRO_TITULO = "Nossos sabores de cheesecake"
+INTRO_LEAD = "Todos assados na nossa fábrica em São Paulo. Os cheesecakes inteiros chegam congelados, para não rachar no trajeto, e precisam de cerca de 2 horas em temperatura ambiente para descongelar. As fatias chegam refrigeradas, prontas para servir. Escolha o tamanho pela quantidade de pessoas."
+
 SECOES = [
+    # pedido do cliente: título e texto no topo da página, banner amarelo logo abaixo
+    dict(id="produtos", h="h1", titulo=INTRO_TITULO, lead=INTRO_LEAD, so_cabecalho=True, cards=[]),
     # banner dos 15% da home (02-primeira-fatia), repetido daqui — editar lá.
     # Pedido do cliente: nesta página a fatia da frente é a de goiaba.
     dict(id="desconto", repeat="02-primeira-fatia", trocas=[
@@ -89,8 +94,8 @@ SECOES = [
          'alt="Fatia de cheesecake de goiaba com calda de goiaba"'),
     ]),
     dict(
-        id="cheesecakes", h="h1", titulo="Nossos sabores de cheesecake",
-        lead="Todos assados na nossa fábrica em São Paulo. Os cheesecakes inteiros chegam congelados, para não rachar no trajeto, e precisam de cerca de 2 horas em temperatura ambiente para descongelar. As fatias chegam refrigeradas, prontas para servir. Escolha o tamanho pela quantidade de pessoas.",
+        # o cabeçalho fica na seção "produtos", acima do banner
+        id="cheesecakes", titulo=INTRO_TITULO, lead=INTRO_LEAD, sem_cabecalho=True, rotulo="produtos-titulo",
         cards=[
             inteiro("Frutas Vermelhas", [
                 ("R$ 99", P600, "cheesecake-de-frutas-vermelhas-600g-rende-6-mini-fatias"),
@@ -263,13 +268,22 @@ def _secao(s):
         f'aria-label="{escape(c["nome"])}, {i + 1} de {n}"{" aria-current=\"true\"" if i == 0 else ""} data-cardapio-dot></button>'
         for i, c in enumerate(s["cards"]))
     cards = "\n\n".join(_card(c) for c in s["cards"])
-    return f'''    <section class="cardapio cardapio--pagina" id="{sid}" aria-labelledby="{sid}-titulo">
-      <div class="container cardapio__inner">
+    cabecalho = f'''
         <header class="cardapio__head">
           <{h} class="cardapio__title" id="{sid}-titulo">{escape(s["titulo"])}</{h}>
           <p class="cardapio__lead">{escape(s["lead"])}</p>
         </header>
-
+'''
+    if s.get("so_cabecalho"):
+        return f'''    <section class="cardapio cardapio--pagina cardapio--intro" id="{sid}" aria-labelledby="{sid}-titulo">
+      <div class="container cardapio__inner">{cabecalho}      </div>
+    </section>
+'''
+    if s.get("sem_cabecalho"):
+        cabecalho = ""
+    extra = " cardapio--sem-cabecalho" if s.get("sem_cabecalho") else ""
+    return f'''    <section class="cardapio cardapio--pagina{extra}" id="{sid}" aria-labelledby="{s.get("rotulo", sid + "-titulo")}">
+      <div class="container cardapio__inner">{cabecalho}
         <div class="cardapio__body" data-cardapio-carousel>
           <ul class="cardapio__grid" id="{sid}-lista" role="list" data-cardapio-track>
 {cards}

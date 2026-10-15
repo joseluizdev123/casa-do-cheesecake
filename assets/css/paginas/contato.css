@@ -1,0 +1,88 @@
+/* ==========================================================================
+   Página Contato (contato.html) — só o encaixe dos componentes da home:
+   o bloco "Produção própria" (06) com a lista de canais nas linhas de preço
+   do cardápio (03). Nada aqui vale para a home (tudo sob .contato).
+   ========================================================================== */
+
+/* lista de canais: ocupa a coluna inteira; sem o margin-top: auto do card */
+.contato .contato__canais {
+  align-self: stretch;
+  margin: 0;
+}
+
+/* o botão "Pedir" do cardápio usa o respiro lateral definido em .cardapio */
+.contato {
+  --cardapio-fluid-px: 20px;
+}
+
+/* ---------- Carrossel de fotos (lado esquerdo) ----------
+   As fotos ocupam a moldura do bloco 06 (.sobre__foto) e se alternam com
+   fade; o selo fica por cima. Setas com o visual das dos depoimentos (07). */
+.contato__slide {
+  opacity: 0;
+  transition: opacity 700ms var(--ease), scale 600ms var(--motion-ease, cubic-bezier(.16, 1, .3, 1));
+}
+
+.contato__slide.is-active {
+  opacity: 1;
+}
+
+.contato__setas {
+  position: absolute;
+  right: 24px;
+  bottom: 24px;
+  z-index: 2;
+  display: flex;
+  gap: 8px;
+}
+
+.contato__seta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 24px;
+  background: var(--color-white);
+  box-shadow: 0 4px 6px color-mix(in srgb, var(--color-ink-900) 6%, transparent);
+  transition: background-color var(--dur) var(--ease);
+}
+
+@media (hover: hover) {
+  .contato__seta:hover { background: var(--color-cream-50); }
+}
+
+.contato__seta img {
+  width: 20px;
+  height: 20px;
+}
+
+.contato__fotos .sobre__selo {
+  z-index: 1;
+}
+
+@media (max-width: 767.98px) {
+  .contato__setas { right: 16px; bottom: 16px; }
+  .contato__seta { width: 44px; height: 44px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .contato__slide { transition: none; }
+}
+
+/* ---------- Colunas: texto à esquerda, fotos à direita (pedido do cliente) ----------
+   Com 2 colunas (≥ 600px) a foto vai para a direita e acompanha a altura da
+   coluna de texto: topo alinhado ao título, base alinhada à última linha da
+   lista. Abaixo de 600 o bloco 06 já empilha texto → foto, quadrada. */
+@media (min-width: 600px) {
+  .contato .sobre__inner {
+    align-items: stretch;
+  }
+
+  .contato .sobre__media {
+    order: 2;
+    align-self: stretch;
+    aspect-ratio: auto;
+    height: 100%;
+  }
+}

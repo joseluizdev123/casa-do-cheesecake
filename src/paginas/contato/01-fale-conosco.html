@@ -1,0 +1,90 @@
+<!-- Página Contato: bloco "Produção própria" da home (06) com a lista de canais
+     nas linhas de preço do cardápio (03). Nada de componente novo. -->
+<section class="sobre contato" id="fale-conosco" aria-labelledby="fale-conosco-titulo">
+  <div class="sobre__inner container">
+    <figure class="sobre__media contato__fotos" aria-roledescription="carrossel" aria-label="Fotos dos nossos cheesecakes" data-contato-fotos>
+      <img class="sobre__foto contato__slide is-active" src="assets/images/contato-foto.webp" width="1136" height="1136" decoding="async" alt="Fatia de New York Cheesecake com calda de frutas vermelhas em frente à caixa da Casa do Cheesecake" data-contato-slide>
+      <img class="sobre__foto contato__slide" src="assets/images/contato-combo.webp" width="1000" height="1000" loading="lazy" decoding="async" alt="Fatias de cheesecake de frutas vermelhas e de chocolate em frente às caixas da Casa do Cheesecake" aria-hidden="true" data-contato-slide>
+      <img class="sobre__foto contato__slide" src="assets/images/contato-duplo-chocolate.webp" width="1000" height="1000" loading="lazy" decoding="async" alt="Fatia de cheesecake Duplo Chocolate com calda de chocolate, ao lado da caixa" aria-hidden="true" data-contato-slide>
+      <img class="sobre__foto contato__slide" src="assets/images/contato-goiaba.webp" width="1000" height="1000" loading="lazy" decoding="async" alt="Cheesecake inteiro de goiaba com uma fatia cortada, em frente à caixa" aria-hidden="true" data-contato-slide>
+      <img class="sobre__foto contato__slide" src="assets/images/contato-oreo.webp" width="1000" height="1000" loading="lazy" decoding="async" alt="Fatia de cheesecake de Oreo com calda de chocolate, ao lado da caixa" aria-hidden="true" data-contato-slide>
+      <img class="sobre__foto contato__slide" src="assets/images/contato-frutas-vermelhas.webp" width="1000" height="1000" loading="lazy" decoding="async" alt="Cheesecake inteiro de frutas vermelhas com uma fatia cortada, cercado de frutas vermelhas" aria-hidden="true" data-contato-slide>
+      <img class="sobre__foto contato__slide" src="assets/images/contato-limone.webp" width="1000" height="1000" loading="lazy" decoding="async" alt="Fatia de cheesecake Limone com raspas de limão, ao lado da calda de morango e da caixa" aria-hidden="true" data-contato-slide>
+      <img class="sobre__foto contato__slide" src="assets/images/contato-morango.webp" width="1000" height="1000" loading="lazy" decoding="async" alt="Cheesecake inteiro de morango com uma fatia cortada, cercado de morangos" aria-hidden="true" data-contato-slide>
+      <div class="sobre__selo">
+        <img src="assets/images/06-sobre-selo.svg" width="142" height="142" loading="lazy" decoding="async" alt="5 milhões de fatias. Yes, we have it.">
+      </div>
+      <!-- setas: mesmo visual das dos depoimentos (07) -->
+      <div class="contato__setas">
+        <button class="contato__seta" type="button" aria-label="Foto anterior" data-contato-prev>
+          <img src="assets/images/07-depoimentos-chevron-left.svg" alt="" width="20" height="20">
+        </button>
+        <button class="contato__seta" type="button" aria-label="Próxima foto" data-contato-next>
+          <img src="assets/images/07-depoimentos-chevron-right.svg" alt="" width="20" height="20">
+        </button>
+      </div>
+      <p class="sr-only" aria-live="polite" aria-atomic="true" data-contato-status></p>
+    </figure>
+
+    <div class="sobre__content">
+      <div class="sobre__text">
+        <h1 class="sobre__title" id="fale-conosco-titulo">Fale conosco</h1>
+        <div class="sobre__body">
+          <p>Que bom que você veio conversar com a gente. Escolha sobre o que quer falar.</p>
+        </div>
+      </div>
+
+      <ul class="cardapio__prices contato__canais" role="list">
+          <li class="cardapio__row">
+            <p class="cardapio__option">
+              <span class="cardapio__price">WhatsApp</span>
+              <span class="cardapio__size">(11) 95602-2366</span>
+            </p>
+            <a class="btn btn--primary cardapio__btn" href="https://wa.me/5511956022366?text=Ol%C3%A1!+Passei+pelo+site+e+gostaria+de+mais+informa%C3%A7%C3%B5es." target="_blank" rel="noopener" aria-label="Conversar — WhatsApp">Conversar</a>
+          </li>
+          <li class="cardapio__row">
+            <p class="cardapio__option">
+              <span class="cardapio__price">Pedidos delivery</span>
+              <span class="cardapio__size">Cardápio online, entrega em São Paulo</span>
+            </p>
+            <a class="btn btn--secondary cardapio__btn" href="https://pedido.brendi.com.br/a-casa-do-cheesecake" target="_blank" rel="noopener" aria-label="Pedir — Pedidos delivery">Pedir</a>
+          </li>
+          <li class="cardapio__row">
+            <p class="cardapio__option">
+              <span class="cardapio__price">Pedidos para restaurantes</span>
+              <span class="cardapio__size">(11) 99328-0819</span>
+            </p>
+            <a class="btn btn--secondary cardapio__btn" href="https://wa.me/5511993280819" target="_blank" rel="noopener" aria-label="Conversar — Pedidos para restaurantes">Conversar</a>
+          </li>
+          <li class="cardapio__row">
+            <p class="cardapio__option">
+              <span class="cardapio__price">Financeiro</span>
+              <span class="cardapio__size">financeiro@<wbr>acasadocheesecake.com.br</span>
+            </p>
+            <a class="btn btn--secondary cardapio__btn" href="mailto:financeiro@acasadocheesecake.com.br" aria-label="Enviar — Financeiro">Enviar</a>
+          </li>
+          <li class="cardapio__row">
+            <p class="cardapio__option">
+              <span class="cardapio__price">Outros assuntos</span>
+              <span class="cardapio__size">atendimento@<wbr>acasadocheesecake.com.br</span>
+            </p>
+            <a class="btn btn--secondary cardapio__btn" href="mailto:atendimento@acasadocheesecake.com.br" aria-label="Enviar — Outros assuntos">Enviar</a>
+          </li>
+          <li class="cardapio__row">
+            <p class="cardapio__option">
+              <span class="cardapio__price">Instagram</span>
+              <span class="cardapio__size">@acasadocheesecakeoficial</span>
+            </p>
+            <a class="btn btn--secondary cardapio__btn" href="https://www.instagram.com/acasadocheesecakeoficial/" target="_blank" rel="noopener" aria-label="Seguir — Instagram">Seguir</a>
+          </li>
+          <li class="cardapio__row">
+            <p class="cardapio__option">
+              <span class="cardapio__price">Facebook</span>
+              <span class="cardapio__size">acasadocheesecakeoficial</span>
+            </p>
+            <a class="btn btn--secondary cardapio__btn" href="https://www.facebook.com/acasadocheesecakeoficial" target="_blank" rel="noopener" aria-label="Curtir — Facebook">Curtir</a>
+          </li>
+      </ul>
+    </div>
+  </div>
+</section>

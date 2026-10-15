@@ -1,0 +1,113 @@
+/* ==========================================================================
+   Página Blog (blog.html) — só o encaixe dos componentes da home na estrutura
+   do blog: cabeçalho e cards da seção 05, bloco "Produção própria" (06) no
+   destaque, botões da home. Nada aqui vale para a home (tudo sob .blog-*).
+   ========================================================================== */
+
+/* topo: botões das categorias logo abaixo do cabeçalho */
+.blog-topo {
+  padding-bottom: 0;
+}
+
+.blog-topo .diferenciais__inner {
+  gap: 40px;
+}
+
+/* categorias: faixa de abas com os links do menu da home (.btn-link) entre
+   divisórias finas (as mesmas do FAQ) — uma linha só, como no Figma */
+/* [role="list"]: vence o ul[role="list"] { padding: 0 } do base.css */
+.blog-topo__categorias[role="list"] {
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+  margin: 0;
+  padding: 24px 0;
+  border-block: 1px solid var(--color-red-700-a15);
+  list-style: none;
+}
+
+.blog-topo__categorias li {
+  flex: none;
+}
+
+/* menos espaço: a faixa rola de lado em vez de quebrar em duas linhas */
+@media (max-width: 1023.98px) {
+  .blog-topo__categorias[role="list"] {
+    justify-content: flex-start;
+    gap: 32px;
+    margin-inline: calc(-1 * var(--section-px));
+    padding-inline: var(--section-px);
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .blog-topo__categorias::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* destaque: categoria · data acima do título */
+.blog-meta {
+  font-family: var(--font-display);
+  font-size: 16px;
+  line-height: 22px;
+  text-transform: uppercase;
+}
+
+.blog-destaque .sobre__content > .btn {
+  align-self: flex-start;
+}
+
+/* pílula do card da home (05) sem o ícone: data / "Em destaque" */
+.blog-tag {
+  z-index: 1;
+  padding-left: 12px;
+}
+
+.blog-destaque .blog-tag {
+  top: 24px;
+  left: 24px;
+}
+
+/* card inteiro clicável (o link é o título) */
+.blog-card__link {
+  color: inherit;
+  text-decoration: none;
+}
+
+.blog-card__link::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  border-radius: 24px;
+}
+
+@media (hover: hover) {
+  .blog-card:hover .blog-card__link {
+    text-decoration: underline;
+    text-decoration-thickness: from-font;
+  }
+}
+
+.blog-card__link:focus-visible {
+  outline: none;
+}
+
+.blog-card:has(.blog-card__link:focus-visible) {
+  outline: 2px solid var(--color-red-700);
+  outline-offset: 4px;
+}
+
+/* "Ver todos os artigos": 48px abaixo dos cards, centrado (como o
+   "Ver cardápio completo" da home) */
+.blog-categoria__mais {
+  display: flex;
+  justify-content: center;
+  margin-top: calc(48px - var(--content-gap));
+}
+
+@media (max-width: 767.98px) {
+  .blog-topo .diferenciais__inner { gap: 24px; }
+  .blog-categoria__mais { margin-top: 0; }
+}
