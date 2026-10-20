@@ -16,3 +16,10 @@
 .cardapio--pagina .cardapio__prices {
   margin-top: 0;
 }
+
+/* Brownie, velas e cartão (pedido do cliente): os 3 cards com a mesma altura —
+   o do meio e o da ponta acompanham o mais alto; preço e botão continuam logo
+   abaixo do texto (o espaço que sobra fica no pé do card). */
+#brownie-velas-cartao .cardapio__grid {
+  align-items: stretch;
+}
