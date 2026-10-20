@@ -91,8 +91,8 @@ function cdc_rodape_links() {
 	$digitos  = preg_replace( '/\D+/', '', $telefone );
 	$tel_url  = $digitos ? 'tel:+55' . $digitos : '';
 	$email    = sanitize_email( (string) cdc_mod( 'cdc_contato_email' ) );
-	$pedido   = cdc_anchor_or_url( (string) cdc_mod( 'cdc_contato_cardapio' ) );
-	$blog     = cdc_anchor_or_url( (string) cdc_mod( 'cdc_contato_blog' ) );
+	$blog     = trim( (string) cdc_mod( 'cdc_contato_blog' ) );
+	$blog     = '' !== $blog ? cdc_anchor_or_url( $blog ) : cdc_page_url( 'blog' );
 	$nova_aba = static function ( $url ) {
 		return cdc_is_external( $url ) ? '_blank' : '';
 	};
@@ -109,7 +109,7 @@ function cdc_rodape_links() {
 		'comprar' => cdc_menu_links(
 			'footer-comprar',
 			array(
-				array( 'label' => 'Cardápio', 'url' => $pedido, 'target' => $nova_aba( $pedido ) ),
+				array( 'label' => 'Cardápio', 'url' => cdc_page_url( 'produtos' ) ),
 				array( 'label' => 'Frutas Vermelhas', 'url' => cdc_anchor( '#cardapio' ) ),
 				array( 'label' => 'Provar uma fatia', 'url' => cdc_anchor( '#primeira-fatia-03b' ) ),
 			)
@@ -117,8 +117,8 @@ function cdc_rodape_links() {
 		'marca'   => cdc_menu_links(
 			'footer-marca',
 			array(
-				array( 'label' => 'Sobre nós', 'url' => cdc_anchor( '#sobre' ) ),
-				array( 'label' => 'Nosso especialista', 'url' => cdc_anchor( '#sobre' ) ),
+				array( 'label' => 'Sobre nós', 'url' => cdc_page_url( 'sobre' ) ),
+				array( 'label' => 'Nosso especialista', 'url' => cdc_page_url( 'sobre' ) . '#pioneiros' ),
 				array( 'label' => 'Blog', 'url' => $blog, 'target' => $nova_aba( $blog ) ),
 			)
 		),

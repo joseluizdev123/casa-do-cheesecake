@@ -10,8 +10,13 @@ Fotos: tools/fotos_cardapio.py converte fotos_recortadas/sem_fundo em
 assets/images/cardapio-<produto>[-fatia].webp; aqui vale a primeira da lista
 de cada card que existir.
 
+Tema WordPress: grava também theme/casadocheesecake/inc/data/produtos.json
+(categorias, produtos, banner e textos da seção Fatias), que o importador do
+tema (inc/pages/10-produtos.php) usa para criar o conteúdo inicial.
+
 Uso: python tools/gen_cardapio.py   (depois de editar SABORES/SECOES abaixo)
 """
+import json
 from html import escape
 from pathlib import Path
 
@@ -21,10 +26,14 @@ ROOT = Path(__file__).resolve().parent.parent
 OUT = ROOT / "src" / "paginas" / "cardapio"
 IMG = ROOT / "assets" / "images"
 BRENDI = "https://pedido.brendi.com.br/a-casa-do-cheesecake/produto/"
+JSON_TEMA = ROOT / "theme" / "casadocheesecake" / "inc" / "data" / "produtos.json"
 
 # cores: só as da paleta da home (aprovado pelo cliente)
 VERMELHO, AMARELO, ROSA, AZUL = "red-700", "yellow-400", "pink-200", "blue-200"
 ESCURO, CREME = "red-950", "cream-100"
+# o tema guarda a cor do card em hex (assets/css/tokens.css)
+HEX = {VERMELHO: "#b0282e", AMARELO: "#ffb82e", ROSA: "#ffc0c5", AZUL: "#b5d9fb",
+       ESCURO: "#150506", CREME: "#f6e7c6"}
 
 FATIA, P600, P12, P18 = "Fatia 150 g", "600 g · 6 mini fatias", "1,2 kg · serve 8", "1,8 kg · serve 10 a 12"
 
@@ -56,7 +65,7 @@ SABORES = {
                         ["cardapio-duplo-chocolate.webp"], ["cardapio-duplo-chocolate-fatia.webp"]),
     "Oreo": ("Oreo triturado na massa e um biscoito inteiro em cada fatia.", ESCURO,
              ["cardapio-oreo.webp"], ["cardapio-oreo-fatia.webp"]),
-    "Duplo Frutas Vermelhas": ("Morangos, amoras e framboesas na massa e calda de frutas vermelhas.", VERMELHO,
+    "Duplo Frutas Vermelhas": ("Morangos, amoras, framboesas e blueberry na massa e calda de frutas vermelhas.", VERMELHO,
                                ["cardapio-duplo-frutas-vermelhas.webp"], ["cardapio-duplo-frutas-vermelhas-fatia.webp"]),
     "Duplo Chocolate com Doce de Leite": ("O Duplo Chocolate com calda de doce de leite no lugar da de chocolate.", ESCURO,
                                           ["cardapio-duplo-chocolate-com-doce-de-leite.webp"],
@@ -161,7 +170,7 @@ SECOES = [
             fatia("Goiaba", "R$ 28,90", "cheesecake-de-goiaba-fatia"),
             fatia("Amora", "R$ 28,90", "cheesecake-de-amoras"),
             fatia("Plain", "R$ 25,90", "cheesecake-de-plain-fatia-sem-cobertura"),
-            fatia("Morangos ao Porto", "R$ 28,90", "cheesecake-de-morangos-ao-porto-fatia"),
+            fatia("Morangos ao Porto", "R$ 31,90", "cheesecake-de-morangos-ao-porto-fatia"),
             fatia("Limone", "R$ 31,90", "cheesecake-limone-com-calda-de-morango-fatia"),
             fatia("Duplo Chocolate", "R$ 31,90", "cheesecake-duplo-chocolate-fatia"),
             fatia("Oreo", "R$ 31,90", "cheesecake-de-oreo-fatia"),
@@ -171,19 +180,19 @@ SECOES = [
     ),
     dict(
         id="bolos", titulo="Bolos especiais",
-        lead="Bolos de 1,5 kg que servem 10 pessoas, feitos sob encomenda. Precisam ser reservados com 72 horas de antecedência.",
+        lead="Bolos de 1,5 kg que servem de 10 a 12 pessoas, feitos sob encomenda. Precisam ser reservados com 72 horas de antecedência.",
         cards=[
             outro("Ninho com Morango", "Bolo de leite Ninho com creme de morangos frescos e morangos por cima.",
-                  "cardapio-bolo-ninho-com-morango.webp", [("R$ 198", "1,5 kg · serve 10", "bolo-de-ninho-com-morango")],
+                  "cardapio-bolo-ninho-com-morango.webp", [("R$ 198", "1,5 kg · serve 10 a 12", "bolo-de-ninho-com-morango")],
                   "Bolo de Ninho com Morango"),
             outro("Brigadeiro", "Camadas de bolo envoltas em brigadeiro cremoso.",
-                  "cardapio-bolo-brigadeiro.webp", [("R$ 198", "1,5 kg · serve 10", "bolo-de-chcolate-trufado")],
+                  "cardapio-bolo-brigadeiro.webp", [("R$ 198", "1,5 kg · serve 10 a 12", "bolo-de-chcolate-trufado")],
                   "Bolo de Brigadeiro"),
             outro("Abacaxi com Coco", "Recheado com pedaços de abacaxi e coberto com coco ralado.",
-                  "cardapio-bolo-abacaxi-com-coco.webp", [("R$ 198", "1,5 kg · serve 10", "bolo-ded-abacaxi-com-coco-15-kg")],
+                  "cardapio-bolo-abacaxi-com-coco.webp", [("R$ 198", "1,5 kg · serve 10 a 12", "bolo-ded-abacaxi-com-coco-15-kg")],
                   "Bolo de Abacaxi com Coco"),
             outro("Do seu jeito", "Conte na observação do pedido como quer o bolo e a gente prepara.",
-                  "cardapio-bolo-do-seu-jeito.webp", [("R$ 250", "1,5 kg · serve 10", "bolo-de-abacaxi-com-coco")],
+                  "cardapio-bolo-do-seu-jeito.webp", [("R$ 250", "1,5 kg · serve 10 a 12", "bolo-de-abacaxi-com-coco")],
                   "Bolo do seu jeito"),
         ],
     ),
@@ -326,6 +335,67 @@ def main():
         print(f"{f.name}: {len(s['cards'])} produtos"
               + (f" | sem foto: {', '.join(sem_foto)}" if sem_foto else "")
               + (f" | fatia com foto do inteiro: {', '.join(provisoria)}" if provisoria else ""))
+    gravar_json_tema()
+
+
+# Tema WordPress: cada seção com cards (menos "fatias") vira uma categoria, com
+# esta ordem; cada produto vira um post com todas as linhas de preço (fatia +
+# inteiros). Quem só tem fatia entra na categoria indicada aqui.
+ORDEM_CATEGORIA = {"cheesecakes": 10, "especiais": 20, "bolos": 40, "brownie-velas-cartao": 50}
+CATEGORIA_SO_FATIA = {"Morangos ao Porto": "cheesecakes", "Duplo Chocolate com Doce de Leite": "especiais"}
+
+
+def _foto_rel(fotos):
+    f = next((f for f in fotos if (IMG / f).exists()), None)
+    return f"images/{f}" if f else ""
+
+
+def gravar_json_tema():
+    """Grava inc/data/produtos.json do tema (lido pelo importador do WordPress)."""
+    secoes = {s["id"]: s for s in SECOES}
+    intro = next(s for s in SECOES if s.get("so_cabecalho"))
+    banner = next(s for s in SECOES if s.get("repeat") == "02-primeira-fatia")
+    categorias, produtos = [], {}
+
+    def produto(c, categoria):
+        return dict(titulo=c["nome"], categoria=categoria, descricao=c["desc"], cor=HEX[c["cor"]],
+                    tag=c.get("tag") or "", foto="", foto_alt=c.get("alt") or "", foto_fatia="", precos=[])
+
+    for s in SECOES:
+        if s["id"] not in ORDEM_CATEGORIA:
+            continue
+        # a 1ª categoria leva o título e o texto do topo da página
+        titulo, lead = (intro["titulo"], intro["lead"]) if s.get("sem_cabecalho") else (s["titulo"], s["lead"])
+        categorias.append(dict(slug=s["id"], nome=titulo, descricao=lead, ordem=ORDEM_CATEGORIA[s["id"]]))
+        for c in s["cards"]:
+            p = produtos.setdefault(c["nome"], produto(c, s["id"]))
+            p["foto"] = _foto_rel(c["fotos"])
+            p["precos"] += [[preco, tamanho, BRENDI + slug] for preco, tamanho, slug in c["linhas"]]
+    for c in secoes["fatias"]["cards"]:
+        if c["nome"] not in produtos:
+            produtos[c["nome"]] = produto(c, CATEGORIA_SO_FATIA[c["nome"]])
+        p = produtos[c["nome"]]
+        # foto do inteiro para quem só tem fatia; a da fatia só se existir (senão o tema usa a destacada)
+        p["foto"] = p["foto"] or _foto_rel(SABORES[c["nome"]][2])
+        p["foto_fatia"] = _foto_rel(SABORES[c["nome"]][3])
+        p["precos"] = [[preco, tamanho, BRENDI + slug] for preco, tamanho, slug in c["linhas"]] + p["precos"]
+
+    ordem = [c["slug"] for c in categorias]
+    lista = sorted(produtos.values(), key=lambda p: ordem.index(p["categoria"]))
+    for i, p in enumerate(lista, 1):
+        p["ordem"] = i
+    img = next(b for _, b in banner["trocas"] if b.startswith("assets/images/"))
+    alt = next(b for _, b in banner["trocas"] if b.startswith('alt="'))
+    dados = {
+        "_origem": "Gerado por tools/gen_cardapio.py a partir do cardápio do HTML estático. Não edite à mão.",
+        "categorias": categorias,
+        "fatias": {"titulo": secoes["fatias"]["titulo"], "texto": secoes["fatias"]["lead"]},
+        "banner": {"imagem": img.removeprefix("assets/"), "alt": alt[len('alt="'):-1]},
+        "produtos": lista,
+    }
+    JSON_TEMA.parent.mkdir(parents=True, exist_ok=True)
+    JSON_TEMA.write_text(json.dumps(dados, ensure_ascii=False, indent="\t") + "\n", encoding="utf-8")
+    print(f"{JSON_TEMA.relative_to(ROOT).as_posix()}: {len(categorias)} categorias, {len(lista)} produtos")
 
 
 if __name__ == "__main__":

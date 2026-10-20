@@ -7,12 +7,13 @@
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'CDC_VERSION', '1.0.0' );
+define( 'CDC_VERSION', '1.1.0' );
 define( 'CDC_DIR', get_template_directory() );
 define( 'CDC_URI', get_template_directory_uri() );
 
 require_once CDC_DIR . '/inc/helpers.php';
 require_once CDC_DIR . '/inc/fields.php';
+require_once CDC_DIR . '/inc/options.php';
 require_once CDC_DIR . '/inc/cpt.php';
 require_once CDC_DIR . '/inc/customizer.php';
 require_once CDC_DIR . '/inc/menus.php';
@@ -22,6 +23,21 @@ require_once CDC_DIR . '/inc/seeder.php';
 foreach ( cdc_sorted_glob( CDC_DIR . '/inc/sections/*.php' ) as $cdc_section_file ) {
 	require_once $cdc_section_file;
 }
+
+// Um arquivo por página interna (Produtos, Sobre nós, Contato, Blog): option page,
+// seed de posts/termos/página e funções usadas pelos templates.
+foreach ( cdc_sorted_glob( CDC_DIR . '/inc/pages/*.php' ) as $cdc_page_file ) {
+	require_once $cdc_page_file;
+}
+
+// Versão nova do tema: roda o importador de novo (idempotente — só cria o que falta
+// e completa o que nunca foi preenchido), para sites que já tinham o tema ativo.
+add_action( 'admin_init', function () {
+	if ( get_option( 'cdc_seeded' ) && CDC_VERSION !== get_option( 'cdc_seeded_version' ) && current_user_can( 'manage_options' ) ) {
+		cdc_run_seeder();
+		update_option( 'cdc_seeded_version', CDC_VERSION );
+	}
+} );
 
 add_action( 'after_setup_theme', function () {
 	load_theme_textdomain( 'casadocheesecake', CDC_DIR . '/languages' );
@@ -41,6 +57,12 @@ add_action( 'wp_enqueue_scripts', function () {
 		wp_enqueue_style( "cdc-section-$slug", CDC_URI . "/assets/css/sections/$slug.css", array( 'cdc-components' ), cdc_asset_version( "css/sections/$slug.css" ) );
 	}
 
+	// Páginas internas: cada CSS só vale sob a classe da própria página (.cardapio--pagina, .contato…).
+	foreach ( cdc_sorted_glob( CDC_DIR . '/assets/css/paginas/*.css' ) as $file ) {
+		$slug = basename( $file, '.css' );
+		wp_enqueue_style( "cdc-pagina-$slug", CDC_URI . "/assets/css/paginas/$slug.css", array( 'cdc-components' ), cdc_asset_version( "css/paginas/$slug.css" ) );
+	}
+
 	// Hover/toque unificados (desktop = tablet = mobile), sempre depois das seções.
 	wp_enqueue_style( 'cdc-interactions', CDC_URI . '/assets/css/interactions.css', array( 'cdc-components' ), cdc_asset_version( 'css/interactions.css' ) );
 
@@ -52,6 +74,10 @@ add_action( 'wp_enqueue_scripts', function () {
 	foreach ( cdc_sorted_glob( CDC_DIR . '/assets/js/sections/*.js' ) as $file ) {
 		$slug = basename( $file, '.js' );
 		wp_enqueue_script( "cdc-section-$slug", CDC_URI . "/assets/js/sections/$slug.js", array( 'cdc-motion' ), cdc_asset_version( "js/sections/$slug.js" ), array( 'strategy' => 'defer', 'in_footer' => true ) );
+	}
+	foreach ( cdc_sorted_glob( CDC_DIR . '/assets/js/paginas/*.js' ) as $file ) {
+		$slug = basename( $file, '.js' );
+		wp_enqueue_script( "cdc-pagina-$slug", CDC_URI . "/assets/js/paginas/$slug.js", array( 'cdc-motion' ), cdc_asset_version( "js/paginas/$slug.js" ), array( 'strategy' => 'defer', 'in_footer' => true ) );
 	}
 } );
 

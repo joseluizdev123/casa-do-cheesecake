@@ -20,7 +20,7 @@ function cdc_entrega_items_defaults() {
 	return array(
 		1 => array(
 			'titulo' => 'Área de cobertura',
-			'texto'  => 'Qualquer região dentro da nossa área de cobertura.',
+			'texto'  => 'Entregamos em vários bairros de São Paulo. Na dúvida, entre em contato.',
 			'icone'  => 'images/08-entrega-icon-local.svg',
 		),
 		2 => array(

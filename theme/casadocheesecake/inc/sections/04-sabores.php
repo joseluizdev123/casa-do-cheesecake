@@ -90,7 +90,7 @@ function cdc_sabores_items() {
 	$defaults = cdc_sabores_defaults();
 	$items    = array();
 
-	foreach ( cdc_posts( 'cdc_cheesecake' ) as $post ) {
+	foreach ( cdc_home_products( 4 ) as $post ) {
 		$slug  = sanitize_title( $post->post_title );
 		$image = cdc_meta_image( $post->ID, 'imagem_fatia' );
 		if ( ! $image && file_exists( CDC_DIR . '/assets/images/sabor-' . $slug . '.png' ) ) {

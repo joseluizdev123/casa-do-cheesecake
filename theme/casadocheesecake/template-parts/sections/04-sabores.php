@@ -20,7 +20,7 @@ $cdc_sabores_escuro   = 'escuro' === $cdc_sabores_primeiro['tema'];
 $cdc_sabores_btn      = 'btn-link' . ( $cdc_sabores_escuro ? ' btn-link--dark' : '' ) . ' sabores__aba';
 $cdc_sabores_url      = trim( (string) cdc_mod( 'cdc_sabores_link_url' ) );
 if ( '' === $cdc_sabores_url ) {
-	$cdc_sabores_url = (string) cdc_mod( 'cdc_contato_cardapio' ); // cardápio online completo
+	$cdc_sabores_url = cdc_page_url( 'produtos' ); // página com todos os produtos
 }
 $cdc_sabores_url      = cdc_anchor_or_url( $cdc_sabores_url ); // âncora funciona também fora da home
 $cdc_sabores_alt      = static function ( $titulo ) {

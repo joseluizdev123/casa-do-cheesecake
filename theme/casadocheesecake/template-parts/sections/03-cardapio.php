@@ -13,7 +13,7 @@ $cdc_total    = count( $cdc_items );
 $cdc_nodes    = cdc_cardapio_figma_nodes();
 $cdc_pedir    = cdc_mod( 'cdc_cardapio_botao_pedir' );
 $cdc_cta_link = cdc_mod( 'cdc_cardapio_botao_link' );
-$cdc_cta_link = cdc_cardapio_href( '' !== $cdc_cta_link ? $cdc_cta_link : cdc_mod( 'cdc_contato_cardapio' ) );
+$cdc_cta_link = '' !== $cdc_cta_link ? cdc_cardapio_href( $cdc_cta_link ) : cdc_page_url( 'produtos' );
 ?>
 <section class="cardapio" id="cardapio" data-figma-node="7057:175" aria-labelledby="cardapio-titulo">
 	<div class="container cardapio__inner">

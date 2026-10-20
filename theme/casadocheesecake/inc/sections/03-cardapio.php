@@ -42,7 +42,7 @@ add_filter( 'cdc_customizer_sections', function ( $sections ) {
 				'label'   => 'Link do botão central',
 				'type'    => 'url',
 				'default' => '',
-				'help'    => 'Vazio = link do cardápio definido em "Contato e links globais".',
+				'help'    => 'Vazio = página Produtos deste site.',
 			),
 		),
 	);
@@ -117,8 +117,10 @@ function cdc_cardapio_defaults() {
 
 add_filter( 'cdc_seed_posts', function ( $posts ) {
 	foreach ( cdc_cardapio_defaults() as $item ) {
-		$item['post_type'] = 'cdc_cheesecake';
-		$posts[]           = $item;
+		$item['post_type']    = 'cdc_cheesecake';
+		$item['meta']['home'] = '1';                                        // cards e abas da home
+		$item['terms']        = array( 'cdc_categoria' => array( 'cheesecakes' ) ); // página Produtos
+		$posts[]              = $item;
 	}
 	return $posts;
 } );
@@ -166,7 +168,7 @@ function cdc_cardapio_items() {
 	// enquanto ela for usada, o alt descreve o que a imagem mostra.
 	$fallback_alt = 'Cheesecake inteiro com calda de frutas vermelhas (foto ilustrativa)';
 
-	foreach ( cdc_posts( 'cdc_cheesecake', 4 ) as $post ) {
+	foreach ( cdc_home_products( 4 ) as $post ) {
 		$title = get_the_title( $post );
 		$image = cdc_asset( 'images/03-cardapio-cheesecake.png' );
 		$img_w = 801;

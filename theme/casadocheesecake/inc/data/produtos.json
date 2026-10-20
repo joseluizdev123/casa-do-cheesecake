@@ -1,0 +1,570 @@
+{
+	"_origem": "Gerado por tools/gen_cardapio.py a partir do cardápio do HTML estático. Não edite à mão.",
+	"categorias": [
+		{
+			"slug": "cheesecakes",
+			"nome": "Nossos sabores de cheesecake",
+			"descricao": "Todos assados na nossa fábrica em São Paulo. Os cheesecakes inteiros chegam congelados, para não rachar no trajeto, e precisam de cerca de 2 horas em temperatura ambiente para descongelar. As fatias chegam refrigeradas, prontas para servir. Escolha o tamanho pela quantidade de pessoas.",
+			"ordem": 10
+		},
+		{
+			"slug": "especiais",
+			"nome": "Cheesecakes especiais",
+			"descricao": "Receitas da casa que vão além da calda: chocolate, Oreo ou frutas na massa, e o creme de limão siciliano do Limone. O cheesecake inteiro de 1,2 kg serve 8 pessoas e precisa ser reservado com 72 horas de antecedência.",
+			"ordem": 20
+		},
+		{
+			"slug": "bolos",
+			"nome": "Bolos especiais",
+			"descricao": "Bolos de 1,5 kg que servem de 10 a 12 pessoas, feitos sob encomenda. Precisam ser reservados com 72 horas de antecedência.",
+			"ordem": 40
+		},
+		{
+			"slug": "brownie-velas-cartao",
+			"nome": "Brownie, velas e cartão",
+			"descricao": "Brownie de chocolate com calda para dividir, e velas e cartão com mensagem para completar o presente.",
+			"ordem": 50
+		}
+	],
+	"fatias": {
+		"titulo": "Fatias",
+		"texto": "Fatias de 150 g, para uma pessoa. Chegam refrigeradas, prontas para servir, numa caixinha com a calda à parte para colocar na hora."
+	},
+	"banner": {
+		"imagem": "images/cardapio-banner-goiaba-fatia.webp",
+		"alt": "Fatia de cheesecake de goiaba com calda de goiaba"
+	},
+	"produtos": [
+		{
+			"titulo": "Frutas Vermelhas",
+			"categoria": "cheesecakes",
+			"descricao": "Base assada de cream cheese com calda de frutas vermelhas naturais cozidas.",
+			"cor": "#b0282e",
+			"tag": "Mais pedido",
+			"foto": "images/03-cardapio-frutas-vermelhas.webp",
+			"foto_alt": "",
+			"foto_fatia": "images/sabor-frutas-vermelhas.png",
+			"precos": [
+				[
+					"R$ 28,90",
+					"Fatia 150 g",
+					"https://pedido.brendi.com.br/a-casa-do-cheesecake/produto/cheesecake-de-frutas-vermelhas-fatia"
+				],
+				[
+					"R$ 99",
+					"600 g · 6 mini fatias",
+					"https://pedido.brendi.com.br/a-casa-do-cheesecake/produto/cheesecake-de-frutas-vermelhas-600g-rende-6-mini-fatias"
+				],
+				[
+					"R$ 185",
+					"1,2 kg · serve 8",
+					"https://pedido.brendi.com.br/a-casa-do-cheesecake/produto/cheesecake-de-frutas-vermelhas-12-kg-rende-8-fatias"
+				],
+				[
+					"R$ 252",
+					"1,8 kg · serve 10 a 12",
+					"https://pedido.brendi.com.br/a-casa-do-cheesecake/produto/cheesecake-de-frutas-vermelhas-18-kg-rende-de-10-a-12-fatias"
+				]
+			],
+			"ordem": 1
+		},
+		{
+			"titulo": "Doce de Leite",
+			"categoria": "cheesecakes",
+			"descricao": "A mesma base assada, coberta com doce de leite.",
+			"cor": "#ffb82e",
+			"tag": "",
+			"foto": "images/03-cardapio-doce-de-leite.webp",
+			"foto_alt": "",
+			"foto_fatia": "images/sabor-doce-de-leite.png",
+			"precos": [
+				[
+					"R$ 28,90",
+					"Fatia 150 g",
+					"https://pedido.brendi.com.br/a-casa-do-cheesecake/produto/cheesecake-de-doce-de-leite-fatia"
+				],
+				[
+					"R$ 99",
+					"600 g · 6 mini fatias",
+					"https://pedido.brendi.com.br/a-casa-do-cheesecake/produto/cheesecake-de-doce-de-leite-600gr-rende-6-mini-fatias"
+				],
+				[
+					"R$ 185",
+					"1,2 kg · serve 8",
+					"https://pedido.brendi.com.br/a-casa-do-cheesecake/produto/cheesecake-de-doce-de-leite-12-kg-rende-8-fatias"
+				],
+				[
+					"R$ 252",
+					"1,8 kg · serve 10 a 12",
+					"https://pedido.brendi.com.br/a-casa-do-cheesecake/produto/cheesecake-de-doce-de-leite-18-kg-rende-de-10-a-12-fatias"
+				]
+			],
+			"ordem": 2
+		},
+		{
+			"titulo": "Morangos",
+			"categoria": "cheesecakes",
+			"descricao": "Calda de morangos frescos sobre a base assada.",
+			"cor": "#ffc0c5",
+			"tag": "",
+			"foto": "images/03-cardapio-morangos.webp",
+			"foto_alt": "",
+			"foto_fatia": "images/sabor-morangos.png",
+			"precos": [
+				[
+					"R$ 28,90",
+					"Fatia 150 g",
+					"https://pedido.brendi.com.br/a-casa-do-cheesecake/produto/cheesecake-de-morango-fatia"
+				],
+				[
+					"R$ 99",
+					"600 g · 6 mini fatias",
+					"https://pedido.brendi.com.br/a-casa-do-cheesecake/produto/cheesecake-de-morango-600gr-rende-6-mini-fatias"
+				],
+				[
+					"R$ 185",
+					"1,2 kg · serve 8",
+					"https://pedido.brendi.com.br/a-casa-do-cheesecake/produto/cheesecake-de-morangos-12-kg-rende-8-fatias"
+				],
+				[
+					"R$ 252",
+					"1,8 kg · serve 10 a 12",
+					"https://pedido.brendi.com.br/a-casa-do-cheesecake/produto/cheesecake-de-morango-18-kg-rende-de-10-a-12-fatias"
+				]
+			],
+			"ordem": 3
+		},
+		{
+			"titulo": "Blue Berry",
+			"categoria": "cheesecakes",
+			"descricao": "Calda de blueberry, ácida na medida para cortar o creme.",
+			"cor": "#b5d9fb",
+			"tag": "",
+			"foto": "images/03-cardapio-blue-berry.webp",
+			"foto_alt": "",
+			"foto_fatia": "images/sabor-blue-berry.png",
+			"precos": [
+				[
+					"R$ 28,90",
+					"Fatia 150 g",
+					"https://pedido.brendi.com.br/a-casa-do-cheesecake/produto/cheesecake-de-blueberry-fatia"
+				],
+				[
+					"R$ 99",
+					"600 g · 6 mini fatias",
+					"https://pedido.brendi.com.br/a-casa-do-cheesecake/produto/cheesecake-de-blue-berry-600gr-rende-6-mini-fatias"
+				],
+				[
+					"R$ 185",
+					"1,2 kg · serve 8",
+					"https://pedido.brendi.com.br/a-casa-do-cheesecake/produto/cheesecake-de-blue-berry-12-kg-rende-8-fatias"
+				],
+				[
+					"R$ 252",
+					"1,8 kg · serve 10 a 12",
+					"https://pedido.brendi.com.br/a-casa-do-cheesecake/produto/cheesecake-de-blue-berry-18-kg-rende-de-10-a-12-fatias"
+				]
+			],
+			"ordem": 4
+		},
+		{
+			"titulo": "Chocolate",
+			"categoria": "cheesecakes",
+			"descricao": "A mesma base assada, coberta com calda de chocolate.",
+			"cor": "#150506",
+			"tag": "",
+			"foto": "images/cardapio-chocolate.webp",
+			"foto_alt": "",
+			"foto_fatia": "images/cardapio-chocolate-fatia.webp",
+			"precos": [
+				[
+					"R$ 28,90",
+					"Fatia 150 g",
+					"https://pedido.brendi.com.br/a-casa-do-cheesecake/produto/cheesecake-de-chocolate-fatia"
+				],
+				[
+					"R$ 99",
+					"600 g · 6 mini fatias",
+					"https://pedido.brendi.com.br/a-casa-do-cheesecake/produto/cheesecake-de-chocolate-600gr-rende-6-mini-fatias"
+				],
+				[
+					"R$ 252",
+					"1,8 kg · serve 10 a 12",
+					"https://pedido.brendi.com.br/a-casa-do-cheesecake/produto/cheesecake-de-chocolate-18-kg-rende-de-10-a-12-fatias"
+				]
+			],
+			"ordem": 5
+		},
+		{
+			"titulo": "Goiaba",
+			"categoria": "cheesecakes",
+			"descricao": "A mesma base assada, coberta com calda de goiaba.",
+			"cor": "#ffc0c5",
+			"tag": "",
+			"foto": "images/cardapio-goiaba.webp",
+			"foto_alt": "",
+			"foto_fatia": "images/cardapio-goiaba-fatia.webp",
+			"precos": [
+				[
+					"R$ 28,90",
+					"Fatia 150 g",
+					"https://pedido.brendi.com.br/a-casa-do-cheesecake/produto/cheesecake-de-goiaba-fatia"
+				],
+				[
+					"R$ 99",
+					"600 g · 6 mini fatias",
+					"https://pedido.brendi.com.br/a-casa-do-cheesecake/produto/cheesecake-de-goiaba-600gr-rende-6-mini-fatias"
+				],
+				[
+					"R$ 252",
+					"1,8 kg · serve 10 a 12",
+					"https://pedido.brendi.com.br/a-casa-do-cheesecake/produto/cheesecake-de-goiaba-18-kg-rende-de-10-a-12-fatias"
+				]
+			],
+			"ordem": 6
+		},
+		{
+			"titulo": "Amora",
+			"categoria": "cheesecakes",
+			"descricao": "Calda de amoras sobre a base assada.",
+			"cor": "#b0282e",
+			"tag": "",
+			"foto": "images/cardapio-amora.webp",
+			"foto_alt": "",
+			"foto_fatia": "images/cardapio-amora-fatia.webp",
+			"precos": [
+				[
+					"R$ 28,90",
+					"Fatia 150 g",
+					"https://pedido.brendi.com.br/a-casa-do-cheesecake/produto/cheesecake-de-amoras"
+				],
+				[
+					"R$ 99",
+					"600 g · 6 mini fatias",
+					"https://pedido.brendi.com.br/a-casa-do-cheesecake/produto/cheesecake-de-amora-600gr-rende-6-mini-fatias"
+				],
+				[
+					"R$ 252",
+					"1,8 kg · serve 10 a 12",
+					"https://pedido.brendi.com.br/a-casa-do-cheesecake/produto/cheesecake-de-amora-18-kg-rende-de-10-a-12-fatias"
+				]
+			],
+			"ordem": 7
+		},
+		{
+			"titulo": "Maracujá",
+			"categoria": "cheesecakes",
+			"descricao": "Calda de maracujá sobre a base assada.",
+			"cor": "#ffb82e",
+			"tag": "",
+			"foto": "images/cardapio-maracuja.webp",
+			"foto_alt": "",
+			"foto_fatia": "",
+			"precos": [
+				[
+					"R$ 99",
+					"600 g · 6 mini fatias",
+					"https://pedido.brendi.com.br/a-casa-do-cheesecake/produto/cheesecake-de-frutas-vermelhas-600g-rende-6-mini-fatias-copia"
+				],
+				[
+					"R$ 252",
+					"1,8 kg · serve 10 a 12",
+					"https://pedido.brendi.com.br/a-casa-do-cheesecake/produto/cheesecake-de-damasco-18-kg-rende-de-10-a-12-fatias"
+				]
+			],
+			"ordem": 8
+		},
+		{
+			"titulo": "Plain",
+			"categoria": "cheesecakes",
+			"descricao": "A receita original, sem cobertura, para comer pura ou com a sua calda.",
+			"cor": "#f6e7c6",
+			"tag": "",
+			"foto": "images/cardapio-plain.webp",
+			"foto_alt": "",
+			"foto_fatia": "images/cardapio-plain-fatia.webp",
+			"precos": [
+				[
+					"R$ 25,90",
+					"Fatia 150 g",
+					"https://pedido.brendi.com.br/a-casa-do-cheesecake/produto/cheesecake-de-plain-fatia-sem-cobertura"
+				],
+				[
+					"R$ 89",
+					"500 g · 6 mini fatias",
+					"https://pedido.brendi.com.br/a-casa-do-cheesecake/produto/cheesecake-plain-500gr-sem-cobertura-rende-6-mini-fatias"
+				],
+				[
+					"R$ 215",
+					"1,5 kg · serve 10 a 12",
+					"https://pedido.brendi.com.br/a-casa-do-cheesecake/produto/cheesecake-15-kg-sem-cobertura-rende-10-a-12-fatias"
+				]
+			],
+			"ordem": 9
+		},
+		{
+			"titulo": "Morangos ao Porto",
+			"categoria": "cheesecakes",
+			"descricao": "Morangos cozidos por 24 horas no vinho do Porto, até sair todo o álcool.",
+			"cor": "#ffc0c5",
+			"tag": "",
+			"foto": "images/cardapio-morangos-ao-porto.webp",
+			"foto_alt": "",
+			"foto_fatia": "images/cardapio-morangos-ao-porto-fatia.webp",
+			"precos": [
+				[
+					"R$ 31,90",
+					"Fatia 150 g",
+					"https://pedido.brendi.com.br/a-casa-do-cheesecake/produto/cheesecake-de-morangos-ao-porto-fatia"
+				]
+			],
+			"ordem": 10
+		},
+		{
+			"titulo": "Limone",
+			"categoria": "especiais",
+			"descricao": "Creme de limão siciliano, prosecco e cream cheese, com calda de morango.",
+			"cor": "#ffb82e",
+			"tag": "",
+			"foto": "images/cardapio-limone.webp",
+			"foto_alt": "",
+			"foto_fatia": "images/cardapio-limone-fatia.webp",
+			"precos": [
+				[
+					"R$ 31,90",
+					"Fatia 150 g",
+					"https://pedido.brendi.com.br/a-casa-do-cheesecake/produto/cheesecake-limone-com-calda-de-morango-fatia"
+				],
+				[
+					"R$ 205",
+					"1,2 kg · serve 8",
+					"https://pedido.brendi.com.br/a-casa-do-cheesecake/produto/cheesecake-limone-12-kg-acompanha-calda-de-morango-rende-8-fatias"
+				]
+			],
+			"ordem": 11
+		},
+		{
+			"titulo": "Duplo Chocolate",
+			"categoria": "especiais",
+			"descricao": "Base de biscoito de chocolate, chocolate na massa e calda de chocolate.",
+			"cor": "#150506",
+			"tag": "",
+			"foto": "images/cardapio-duplo-chocolate.webp",
+			"foto_alt": "",
+			"foto_fatia": "images/cardapio-duplo-chocolate-fatia.webp",
+			"precos": [
+				[
+					"R$ 31,90",
+					"Fatia 150 g",
+					"https://pedido.brendi.com.br/a-casa-do-cheesecake/produto/cheesecake-duplo-chocolate-fatia"
+				],
+				[
+					"R$ 205",
+					"1,2 kg · serve 8",
+					"https://pedido.brendi.com.br/a-casa-do-cheesecake/produto/cheesecake-duplo-chocolate-12kg-acompanha-calda-de-chocolate-rende-8-fatias"
+				]
+			],
+			"ordem": 12
+		},
+		{
+			"titulo": "Oreo",
+			"categoria": "especiais",
+			"descricao": "Oreo triturado na massa e um biscoito inteiro em cada fatia.",
+			"cor": "#150506",
+			"tag": "",
+			"foto": "images/cardapio-oreo.webp",
+			"foto_alt": "",
+			"foto_fatia": "images/cardapio-oreo-fatia.webp",
+			"precos": [
+				[
+					"R$ 31,90",
+					"Fatia 150 g",
+					"https://pedido.brendi.com.br/a-casa-do-cheesecake/produto/cheesecake-de-oreo-fatia"
+				],
+				[
+					"R$ 205",
+					"1,2 kg · serve 8",
+					"https://pedido.brendi.com.br/a-casa-do-cheesecake/produto/cheesecake-de-oreo-12kg-acompanha-calda-de-doce-de-leite-rende-8-fatias"
+				]
+			],
+			"ordem": 13
+		},
+		{
+			"titulo": "Duplo Frutas Vermelhas",
+			"categoria": "especiais",
+			"descricao": "Morangos, amoras, framboesas e blueberry na massa e calda de frutas vermelhas.",
+			"cor": "#b0282e",
+			"tag": "",
+			"foto": "images/cardapio-duplo-frutas-vermelhas.webp",
+			"foto_alt": "",
+			"foto_fatia": "images/cardapio-duplo-frutas-vermelhas-fatia.webp",
+			"precos": [
+				[
+					"R$ 31,90",
+					"Fatia 150 g",
+					"https://pedido.brendi.com.br/a-casa-do-cheesecake/produto/cheesecake-duplo-frutas-vermelhas-fatia"
+				],
+				[
+					"R$ 205",
+					"1,2 kg · serve 8",
+					"https://pedido.brendi.com.br/a-casa-do-cheesecake/produto/cheesecake-duplo-frutas-vermelhas-12-kg-acompanha-calda-de-frutas-vermelhas"
+				]
+			],
+			"ordem": 14
+		},
+		{
+			"titulo": "Duplo Chocolate com Doce de Leite",
+			"categoria": "especiais",
+			"descricao": "O Duplo Chocolate com calda de doce de leite no lugar da de chocolate.",
+			"cor": "#150506",
+			"tag": "",
+			"foto": "images/cardapio-duplo-chocolate-com-doce-de-leite.webp",
+			"foto_alt": "",
+			"foto_fatia": "images/cardapio-duplo-chocolate-com-doce-de-leite-fatia.webp",
+			"precos": [
+				[
+					"R$ 31,90",
+					"Fatia 150 g",
+					"https://pedido.brendi.com.br/a-casa-do-cheesecake/produto/cheesecake-duplo-chocolate-com-doce-de-leite-fatia"
+				]
+			],
+			"ordem": 15
+		},
+		{
+			"titulo": "Ninho com Morango",
+			"categoria": "bolos",
+			"descricao": "Bolo de leite Ninho com creme de morangos frescos e morangos por cima.",
+			"cor": "#f6e7c6",
+			"tag": "",
+			"foto": "",
+			"foto_alt": "Bolo de Ninho com Morango",
+			"foto_fatia": "",
+			"precos": [
+				[
+					"R$ 198",
+					"1,5 kg · serve 10 a 12",
+					"https://pedido.brendi.com.br/a-casa-do-cheesecake/produto/bolo-de-ninho-com-morango"
+				]
+			],
+			"ordem": 16
+		},
+		{
+			"titulo": "Brigadeiro",
+			"categoria": "bolos",
+			"descricao": "Camadas de bolo envoltas em brigadeiro cremoso.",
+			"cor": "#f6e7c6",
+			"tag": "",
+			"foto": "",
+			"foto_alt": "Bolo de Brigadeiro",
+			"foto_fatia": "",
+			"precos": [
+				[
+					"R$ 198",
+					"1,5 kg · serve 10 a 12",
+					"https://pedido.brendi.com.br/a-casa-do-cheesecake/produto/bolo-de-chcolate-trufado"
+				]
+			],
+			"ordem": 17
+		},
+		{
+			"titulo": "Abacaxi com Coco",
+			"categoria": "bolos",
+			"descricao": "Recheado com pedaços de abacaxi e coberto com coco ralado.",
+			"cor": "#f6e7c6",
+			"tag": "",
+			"foto": "",
+			"foto_alt": "Bolo de Abacaxi com Coco",
+			"foto_fatia": "",
+			"precos": [
+				[
+					"R$ 198",
+					"1,5 kg · serve 10 a 12",
+					"https://pedido.brendi.com.br/a-casa-do-cheesecake/produto/bolo-ded-abacaxi-com-coco-15-kg"
+				]
+			],
+			"ordem": 18
+		},
+		{
+			"titulo": "Do seu jeito",
+			"categoria": "bolos",
+			"descricao": "Conte na observação do pedido como quer o bolo e a gente prepara.",
+			"cor": "#f6e7c6",
+			"tag": "",
+			"foto": "",
+			"foto_alt": "Bolo do seu jeito",
+			"foto_fatia": "",
+			"precos": [
+				[
+					"R$ 250",
+					"1,5 kg · serve 10 a 12",
+					"https://pedido.brendi.com.br/a-casa-do-cheesecake/produto/bolo-de-abacaxi-com-coco"
+				]
+			],
+			"ordem": 19
+		},
+		{
+			"titulo": "Brownie",
+			"categoria": "brownie-velas-cartao",
+			"descricao": "Chocolate premium com cacau em alta concentração e calda de chocolate.",
+			"cor": "#f6e7c6",
+			"tag": "",
+			"foto": "images/cardapio-brownie.webp",
+			"foto_alt": "Brownie de chocolate",
+			"foto_fatia": "",
+			"precos": [
+				[
+					"R$ 140",
+					"Com calda · 1 kg · serve 10",
+					"https://pedido.brendi.com.br/a-casa-do-cheesecake/produto/brownie-tradicional-de-chocolate-com-calda-de-chocolate-1kg"
+				],
+				[
+					"R$ 120",
+					"Sem calda",
+					"https://pedido.brendi.com.br/a-casa-do-cheesecake/produto/brownie-tradicional-de-chocolate"
+				]
+			],
+			"ordem": 20
+		},
+		{
+			"titulo": "Velas",
+			"categoria": "brownie-velas-cartao",
+			"descricao": "Velinha de aniversário para o cheesecake ou o bolo.",
+			"cor": "#f6e7c6",
+			"tag": "",
+			"foto": "images/cardapio-velas.webp",
+			"foto_alt": "Velinhas azul e rosa",
+			"foto_fatia": "",
+			"precos": [
+				[
+					"R$ 4,50",
+					"Azul · unidade",
+					"https://pedido.brendi.com.br/a-casa-do-cheesecake/produto/velinha-azul-unidade"
+				],
+				[
+					"R$ 4,50",
+					"Rosa · unidade",
+					"https://pedido.brendi.com.br/a-casa-do-cheesecake/produto/velinha-rosa-unidade"
+				]
+			],
+			"ordem": 21
+		},
+		{
+			"titulo": "Cartão",
+			"categoria": "brownie-velas-cartao",
+			"descricao": "Escreva na observação do pedido: de, para e a mensagem.",
+			"cor": "#f6e7c6",
+			"tag": "",
+			"foto": "images/cardapio-cartao.webp",
+			"foto_alt": "Cartão com mensagem",
+			"foto_fatia": "",
+			"precos": [
+				[
+					"R$ 5",
+					"Cartão com mensagem",
+					"https://pedido.brendi.com.br/a-casa-do-cheesecake/produto/cartao"
+				]
+			],
+			"ordem": 22
+		}
+	]
+}

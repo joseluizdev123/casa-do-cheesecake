@@ -7,22 +7,24 @@
 
 defined( 'ABSPATH' ) || exit;
 
-$cdc_pedido = cdc_anchor_or_url( (string) cdc_mod( 'cdc_contato_cardapio' ) );
-$cdc_blog   = cdc_anchor_or_url( (string) cdc_mod( 'cdc_contato_blog' ) );
-$cdc_left   = cdc_menu_links(
+$cdc_pedido   = cdc_anchor_or_url( (string) cdc_mod( 'cdc_contato_cardapio' ) );
+$cdc_blog     = trim( (string) cdc_mod( 'cdc_contato_blog' ) );
+$cdc_blog     = '' !== $cdc_blog ? cdc_anchor_or_url( $cdc_blog ) : cdc_page_url( 'blog' );
+$cdc_produtos = cdc_page_url( 'produtos' );
+$cdc_left     = cdc_menu_links(
 	'header-left',
 	array(
 		array( 'label' => 'Nosso cheesecake', 'url' => cdc_anchor( '#cardapio' ) ),
-		array( 'label' => 'Sabores', 'url' => cdc_anchor( '#sabores' ) ),
+		array( 'label' => 'Produtos', 'url' => $cdc_produtos ),
 		array( 'label' => 'Pedir agora', 'url' => $cdc_pedido, 'target' => cdc_is_external( $cdc_pedido ) ? '_blank' : '' ),
 	)
 );
 $cdc_right  = cdc_menu_links(
 	'header-right',
 	array(
-		array( 'label' => 'Sobre nós', 'url' => cdc_anchor( '#sobre' ) ),
+		array( 'label' => 'Sobre nós', 'url' => cdc_page_url( 'sobre' ) ),
 		array( 'label' => 'Blog', 'url' => $cdc_blog, 'target' => cdc_is_external( $cdc_blog ) ? '_blank' : '' ),
-		array( 'label' => 'Contato', 'url' => cdc_anchor( '#contato' ) ),
+		array( 'label' => 'Contato', 'url' => cdc_page_url( 'contato' ) ),
 	)
 );
 ?>
@@ -32,7 +34,7 @@ $cdc_right  = cdc_menu_links(
 		<nav class="site-header__nav" aria-label="<?php esc_attr_e( 'Principal', 'casadocheesecake' ); ?>">
 			<ul class="site-header__menu site-header__menu--left" role="list">
 				<?php foreach ( $cdc_left as $cdc_link ) : ?>
-					<li><a class="btn-link" href="<?php echo esc_url( $cdc_link['url'] ); ?>"<?php echo $cdc_link['target'] ? ' target="' . esc_attr( $cdc_link['target'] ) . '" rel="noopener"' : ''; ?>><?php echo esc_html( $cdc_link['label'] ); ?></a></li>
+					<li><a class="btn-link<?php echo cdc_is_current_url( $cdc_link['url'] ) ? ' is-active" aria-current="page' : ''; ?>" href="<?php echo esc_url( $cdc_link['url'] ); ?>"<?php echo $cdc_link['target'] ? ' target="' . esc_attr( $cdc_link['target'] ) . '" rel="noopener"' : ''; ?>><?php echo esc_html( $cdc_link['label'] ); ?></a></li>
 				<?php endforeach; ?>
 			</ul>
 		</nav>
@@ -42,7 +44,7 @@ $cdc_right  = cdc_menu_links(
 		<nav class="site-header__nav" aria-label="<?php esc_attr_e( 'Institucional', 'casadocheesecake' ); ?>">
 			<ul class="site-header__menu site-header__menu--right" role="list">
 				<?php foreach ( $cdc_right as $cdc_link ) : ?>
-					<li><a class="btn-link" href="<?php echo esc_url( $cdc_link['url'] ); ?>"<?php echo $cdc_link['target'] ? ' target="' . esc_attr( $cdc_link['target'] ) . '" rel="noopener"' : ''; ?>><?php echo esc_html( $cdc_link['label'] ); ?></a></li>
+					<li><a class="btn-link<?php echo cdc_is_current_url( $cdc_link['url'] ) ? ' is-active" aria-current="page' : ''; ?>" href="<?php echo esc_url( $cdc_link['url'] ); ?>"<?php echo $cdc_link['target'] ? ' target="' . esc_attr( $cdc_link['target'] ) . '" rel="noopener"' : ''; ?>><?php echo esc_html( $cdc_link['label'] ); ?></a></li>
 				<?php endforeach; ?>
 			</ul>
 		</nav>
@@ -60,15 +62,16 @@ $cdc_right  = cdc_menu_links(
 					if ( $cdc_link['url'] === $cdc_pedido ) {
 						continue; // "Pedir agora" vira o botão principal no pé do menu.
 					}
-					$cdc_sabores = false !== strpos( $cdc_link['url'], '#sabores' ) ? cdc_posts( 'cdc_cheesecake' ) : array();
+					// Atalhos de sabor (abas da seção Sabores da home) no item Produtos — ou num item que aponte para #sabores.
+					$cdc_sabores = ( $cdc_link['url'] === $cdc_produtos || false !== strpos( $cdc_link['url'], '#sabores' ) ) ? cdc_home_products() : array();
 					?>
 					<li class="mobile-nav__item<?php echo $cdc_sabores ? ' mobile-nav__item--sabores' : ''; ?>">
-						<a class="mobile-nav__link" href="<?php echo esc_url( $cdc_link['url'] ); ?>"<?php echo $cdc_link['target'] ? ' target="' . esc_attr( $cdc_link['target'] ) . '" rel="noopener"' : ''; ?>><?php echo esc_html( $cdc_link['label'] ); ?></a>
+						<a class="mobile-nav__link<?php echo cdc_is_current_url( $cdc_link['url'] ) ? ' is-active" aria-current="page' : ''; ?>" href="<?php echo esc_url( $cdc_link['url'] ); ?>"<?php echo $cdc_link['target'] ? ' target="' . esc_attr( $cdc_link['target'] ) . '" rel="noopener"' : ''; ?>><?php echo esc_html( $cdc_link['label'] ); ?></a>
 						<?php if ( $cdc_sabores ) : ?>
 							<ul class="mobile-nav__chips" role="list" aria-label="<?php esc_attr_e( 'Sabores', 'casadocheesecake' ); ?>">
 								<?php foreach ( $cdc_sabores as $cdc_sabor ) : ?>
 									<?php $cdc_cor = sanitize_hex_color( (string) cdc_meta( $cdc_sabor->ID, 'cor_fundo' ) ); ?>
-									<li><a class="mobile-nav__chip" href="<?php echo esc_url( $cdc_link['url'] ); ?>" data-sabor="<?php echo esc_attr( sanitize_title( $cdc_sabor->post_title ) ); ?>"<?php echo $cdc_cor ? ' style="--chip: ' . esc_attr( $cdc_cor ) . '"' : ''; ?>><?php echo esc_html( get_the_title( $cdc_sabor ) ); ?></a></li>
+									<li><a class="mobile-nav__chip" href="<?php echo esc_url( cdc_anchor( '#sabores' ) ); ?>" data-sabor="<?php echo esc_attr( sanitize_title( $cdc_sabor->post_title ) ); ?>"<?php echo $cdc_cor ? ' style="--chip: ' . esc_attr( $cdc_cor ) . '"' : ''; ?>><?php echo esc_html( get_the_title( $cdc_sabor ) ); ?></a></li>
 								<?php endforeach; ?>
 							</ul>
 						<?php endif; ?>

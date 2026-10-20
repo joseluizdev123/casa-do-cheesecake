@@ -38,7 +38,7 @@ $cdc_entrega_slots = array(
 
 $cdc_entrega_link = cdc_mod( 'cdc_entrega_botao_link' );
 if ( '' === $cdc_entrega_link ) {
-	$cdc_entrega_link = cdc_mod( 'cdc_contato_cardapio' );
+	$cdc_entrega_link = cdc_page_url( 'produtos' );
 }
 $cdc_entrega_link = cdc_anchor_or_url( (string) $cdc_entrega_link );
 ?>

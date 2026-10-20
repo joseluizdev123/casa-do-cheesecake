@@ -23,6 +23,11 @@ if ( ! $cdc_fatia_link && 'cdc_fatia' === $cdc_fatia_key ) {
 	$cdc_fatia_link = cdc_mod( 'cdc_contato_whatsapp' );
 }
 $cdc_fatia_externo = cdc_is_external( $cdc_fatia_link );
+
+// Outra página pode trocar a fatia com calda (a da frente) sem mexer no Customizer da home:
+// defina $cdc_fatia_fundo = array( 'url' => …, 'alt' => … ) antes de incluir este template.
+$cdc_fatia_fundo_url = isset( $cdc_fatia_fundo['url'] ) && $cdc_fatia_fundo['url'] ? $cdc_fatia_fundo['url'] : cdc_image( $cdc_fatia_img . '_fundo' );
+$cdc_fatia_fundo_alt = isset( $cdc_fatia_fundo['alt'] ) ? $cdc_fatia_fundo['alt'] : cdc_mod( $cdc_fatia_img . '_fundo_alt' );
 ?>
 <section class="primeira-fatia" id="<?php echo esc_attr( $cdc_fatia_id ); ?>" data-figma-node="7057:164" aria-labelledby="<?php echo esc_attr( $cdc_fatia_id ); ?>-titulo">
 	<div class="container">
@@ -32,7 +37,7 @@ $cdc_fatia_externo = cdc_is_external( $cdc_fatia_link );
 			<div class="primeira-fatia__media">
 				<div class="primeira-fatia__images" data-figma-node="7057:172">
 					<img class="primeira-fatia__img primeira-fatia__img--foreground" data-figma-node="7057:173" src="<?php echo esc_url( cdc_image( $cdc_fatia_img . '_frente' ) ); ?>" width="206" height="191" decoding="async" alt="<?php echo esc_attr( cdc_mod( $cdc_fatia_img . '_frente_alt' ) ); ?>">
-					<img class="primeira-fatia__img primeira-fatia__img--background" data-figma-node="7057:174" src="<?php echo esc_url( cdc_image( $cdc_fatia_img . '_fundo' ) ); ?>" width="305" height="305" decoding="async" alt="<?php echo esc_attr( cdc_mod( $cdc_fatia_img . '_fundo_alt' ) ); ?>">
+					<img class="primeira-fatia__img primeira-fatia__img--background" data-figma-node="7057:174" src="<?php echo esc_url( $cdc_fatia_fundo_url ); ?>" width="305" height="305" decoding="async" alt="<?php echo esc_attr( $cdc_fatia_fundo_alt ); ?>">
 				</div>
 			</div>
 

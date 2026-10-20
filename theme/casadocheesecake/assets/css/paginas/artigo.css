@@ -1,0 +1,297 @@
+/* ==========================================================================
+   Página do artigo (WordPress: single.php) — só o design system da home:
+   tokens (cores, Anton/Archivo, raio 24), .container e o respiro das seções
+   (--section-py). Categoria · data como no destaque do blog (.blog-meta, em
+   blog.css); título no tamanho dos títulos de seção; texto no corpo do bloco
+   "Produção própria" (Archivo 18), com entrelinha de leitura (1.5).
+   O "Leia também" no fim é a seção de categoria do blog (blog.css + 05).
+   Tudo sob .artigo.
+   ========================================================================== */
+
+.artigo {
+  padding-block: var(--section-py);
+  color: var(--color-red-700);
+}
+
+/* coluna de leitura (~75 caracteres por linha no texto de 18px) */
+.artigo__inner {
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+}
+
+.artigo__head,
+.artigo__media,
+.artigo__content {
+  width: 100%;
+  max-width: 800px;
+  margin-inline: auto;
+}
+
+.artigo__head {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  overflow-wrap: break-word;
+}
+
+.artigo__meta a {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-thickness: from-font;
+  text-underline-offset: 3px;
+  transition: color var(--dur) var(--ease);
+}
+
+.artigo__meta a:hover,
+.artigo__meta a:focus-visible {
+  color: var(--color-red-600);
+}
+
+/* mesmo tamanho dos títulos de seção da home (05) */
+.artigo__title {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(40px, 3.8889vw, 56px);
+  line-height: var(--lh-display);
+  text-transform: uppercase;
+  text-wrap: balance;
+}
+
+/* imagem destacada: foto com o raio dos cards da home */
+.artigo__media {
+  margin-block: 0;
+  border-radius: 24px;
+  overflow: hidden;
+}
+
+.artigo__img {
+  width: 100%;
+  height: auto;
+}
+
+/* ---- Conteúdo (the_content) ---- */
+.artigo__content {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 18px;
+  line-height: var(--lh-m-body);              /* 1.5 */
+  overflow-wrap: break-word;
+}
+
+.artigo__content > * + * {
+  margin-top: 24px;
+}
+
+/* títulos internos em Anton, como os da home */
+.artigo__content :is(h2, h3, h4, h5, h6) {
+  font-family: var(--font-display);
+  font-weight: 400;
+  line-height: var(--lh-display);
+  text-transform: uppercase;
+  text-wrap: balance;
+}
+
+.artigo__content h2 { font-size: 32px; }
+.artigo__content h3 { font-size: 24px; }
+.artigo__content :is(h4, h5, h6) { font-size: 20px; }
+
+.artigo__content > :is(h2, h3, h4, h5, h6):not(:first-child) {
+  margin-top: 48px;
+}
+
+.artigo__content > :is(h2, h3, h4, h5, h6) + * {
+  margin-top: 16px;
+}
+
+.artigo__content a {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-thickness: from-font;
+  text-underline-offset: 3px;
+  transition: color var(--dur) var(--ease);
+}
+
+.artigo__content a:hover,
+.artigo__content a:focus-visible {
+  color: var(--color-red-600);
+}
+
+.artigo__content :is(strong, b) {
+  font-weight: 700;
+}
+
+.artigo__content :is(ul, ol) {
+  padding-left: 1.5em;
+}
+
+.artigo__content li + li {
+  margin-top: 8px;
+}
+
+.artigo__content :is(ul, ol) :is(ul, ol) {
+  margin-top: 8px;
+}
+
+/* citação: fundo dos cards claros da home, raio 24 */
+.artigo__content blockquote {
+  padding: 32px;
+  border-radius: 24px;
+  background: var(--color-cream-25);
+  font-family: var(--font-display);
+  font-size: 24px;
+  line-height: var(--lh-button);              /* 1.4 */
+  text-transform: uppercase;
+}
+
+.artigo__content blockquote > * + * {
+  margin-top: 16px;
+}
+
+.artigo__content blockquote cite {
+  display: block;
+  font-family: var(--font-body);
+  font-size: 16px;
+  font-style: normal;
+  text-transform: none;
+}
+
+/* imagens e mídia do editor */
+.artigo__content img {
+  border-radius: 24px;
+}
+
+.artigo__content :is(figure, .wp-block-image) {
+  margin-inline: 0;
+}
+
+.artigo__content figcaption,
+.artigo__content .wp-caption-text {
+  margin-top: 8px;
+  font-size: 14px;
+  line-height: var(--lh-body);
+  text-align: center;
+}
+
+.artigo__content :is(.aligncenter, .wp-block-image.aligncenter) {
+  margin-inline: auto;
+}
+
+.artigo__content :is(iframe, video, embed, object) {
+  max-width: 100%;
+}
+
+.artigo__content .wp-caption {
+  max-width: 100%;
+}
+
+/* tabelas: divisórias finas (as mesmas do FAQ da home); largas rolam de lado */
+.artigo__content .wp-block-table {
+  overflow-x: auto;
+}
+
+.artigo__content table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 16px;
+}
+
+.artigo__content :is(th, td) {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--color-red-700-a15);
+  text-align: left;
+  vertical-align: top;
+}
+
+.artigo__content th {
+  font-family: var(--font-display);
+  font-weight: 400;
+  text-transform: uppercase;
+}
+
+.artigo__content hr {
+  height: 0;
+  border: 0;
+  border-top: 1px solid var(--color-red-700-a15);
+}
+
+.artigo__paginas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  font-family: var(--font-display);
+  text-transform: uppercase;
+}
+
+/* Tablet */
+@media (max-width: 1023.98px) {
+  .artigo__inner {
+    gap: 40px;
+  }
+
+  .artigo__head {
+    gap: 16px;
+  }
+
+  .artigo__title {
+    font-size: var(--fs-t-h2);                /* 40px */
+  }
+
+  .artigo__media,
+  .artigo__content img,
+  .artigo__content blockquote {
+    border-radius: 20px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 767.98px) {
+  .artigo__inner {
+    gap: var(--gap-m-lg);                     /* 32px */
+  }
+
+  .artigo__head {
+    gap: var(--gap-m-sm);                     /* 12px */
+  }
+
+  .artigo__title {
+    font-size: var(--fs-m-h1);                /* 32px */
+  }
+
+  .artigo__content {
+    font-size: var(--fs-m-lead);              /* 16px */
+  }
+
+  .artigo__content > * + * {
+    margin-top: var(--gap-m-md);              /* 16px */
+  }
+
+  .artigo__content > :is(h2, h3, h4, h5, h6):not(:first-child) {
+    margin-top: var(--gap-m-lg);              /* 32px */
+  }
+
+  .artigo__content > :is(h2, h3, h4, h5, h6) + * {
+    margin-top: var(--gap-m-sm);              /* 12px */
+  }
+
+  .artigo__content h2 { font-size: var(--fs-m-h2); }   /* 28px */
+  .artigo__content h3 { font-size: var(--fs-m-h3); }   /* 20px */
+  .artigo__content :is(h4, h5, h6) { font-size: 18px; }
+
+  .artigo__content blockquote {
+    padding: var(--pad-m-card);               /* 24px */
+    font-size: var(--fs-m-h3);                /* 20px */
+  }
+
+  .artigo__content table {
+    display: block;
+    overflow-x: auto;
+    font-size: var(--fs-m-small);             /* 14px */
+  }
+
+  .artigo__media,
+  .artigo__content img,
+  .artigo__content blockquote {
+    border-radius: var(--radius-m-card);      /* 16px */
+  }
+}

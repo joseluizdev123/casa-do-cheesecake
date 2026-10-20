@@ -111,3 +111,21 @@
   .blog-topo .diferenciais__inner { gap: 24px; }
   .blog-categoria__mais { margin-top: 0; }
 }
+
+/* WordPress — arquivo da categoria (category.php): todos os artigos, 3 cards
+   por linha (no tablet/mobile a grade da 05 já quebra sozinha) e a paginação
+   com os botões secundários da home lado a lado */
+@media (min-width: 1024px) {
+  .blog-arquivo .diferenciais__list {
+    flex-wrap: wrap;
+  }
+
+  .blog-arquivo .diferenciais__card {
+    flex: 0 0 calc((100% - 48px) / 3);
+  }
+}
+
+.blog-paginacao {
+  flex-wrap: wrap;
+  gap: 16px;
+}

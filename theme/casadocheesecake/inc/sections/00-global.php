@@ -38,7 +38,12 @@ add_filter( 'cdc_customizer_sections', function ( $sections ) {
 				'type'    => 'url',
 				'default' => 'https://acasadocheesecake.com.br/b2b/',
 			),
-			'cdc_contato_blog'       => array( 'label' => 'Blog', 'type' => 'url', 'default' => 'https://acasadocheesecake.com.br/blog/' ),
+			'cdc_contato_blog'       => array(
+				'label'   => 'Blog (link externo, opcional)',
+				'type'    => 'url',
+				'default' => '',
+				'help'    => 'Vazio = página Blog deste site (Configurações → Leitura → Página de posts).',
+			),
 			'cdc_contato_instagram'  => array( 'label' => 'Instagram', 'type' => 'url', 'default' => 'https://www.instagram.com/acasadocheesecakeoficial/' ),
 			'cdc_contato_facebook'   => array( 'label' => 'Facebook', 'type' => 'url', 'default' => 'https://www.facebook.com/acasadocheesecakeoficial' ),
 		),
