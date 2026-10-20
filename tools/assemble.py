@@ -71,7 +71,7 @@ PAGES = {
         "dir": SRC / "paginas" / "contato",
         "out": "contato.html",
         "title": "Contato — A Casa do Cheesecake",
-        "description": "Fale com A Casa do Cheesecake: WhatsApp, pedidos delivery, pedidos para restaurantes e e-mail do financeiro e do atendimento.",
+        "description": "Fale com A Casa do Cheesecake: WhatsApp, pedidos delivery, pedidos para restaurantes, e-mail, Instagram e Facebook.",
         "css": ["sections/06-sobre", "sections/03-cardapio", "sections/10-perguntas", "paginas/contato"],
         "js": ["sections/06-sobre", "sections/10-perguntas", "paginas/contato"],
     },
